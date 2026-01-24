@@ -422,6 +422,7 @@ section {
     font-size: clamp(2.5rem, 5vw, 4rem);
     line-height: 1.1;
     margin-bottom: var(--spacing-md);
+    color: var(--white);
 }
 
 .hero-subtitle {

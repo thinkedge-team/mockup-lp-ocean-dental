@@ -36,7 +36,7 @@
     --black: #000000;
 
     /* Gradients */
-    --gradient-primary: linear-gradient(135deg, #01215E 0%, #4a6fa5 100%);
+    --gradient-primary: #01215E;
     --gradient-secondary: linear-gradient(135deg, #FCF3E9 0%, #f5e6d3 100%);
     --gradient-overlay: linear-gradient(135deg, rgba(1, 33, 94, 0.9) 0%, rgba(74, 111, 165, 0.85) 100%);
 

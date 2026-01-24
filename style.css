@@ -153,10 +153,8 @@ p {
 }
 
 .gradient-text {
-    background: var(--gradient-primary);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+.gradient-text {
+    color: inherit;
 }
 
 /* ===================================
@@ -428,7 +426,7 @@ section {
 
 .hero-subtitle {
     font-size: 1.25rem;
-    color: var(--gray-600);
+    color: var(--gray-100);
     margin-bottom: var(--spacing-lg);
 }
 
@@ -564,6 +562,11 @@ section {
     display: flex;
     flex-direction: column;
     align-items: center;
+.testimonials .section-title,
+.testimonials h2,
+.testimonials .section-description {
+    color: var(--white);
+}
     justify-content: center;
     width: 120px;
     height: 120px;

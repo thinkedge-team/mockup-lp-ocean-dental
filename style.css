@@ -863,9 +863,6 @@ section {
    Testimonials Section
    =================================== */
 
-.testimonials {
-    background: var(--white);
-}
 
 .testimonials-grid {
     display: grid;

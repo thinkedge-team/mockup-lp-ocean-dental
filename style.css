@@ -150,7 +150,7 @@ p {
 .container {
     max-width: var(--container-max);
     margin: 0 auto;
-    padding: 0 var(--spacing-md);
+    padding: 0 var(--container-padding);
 }
 
 section {
@@ -349,7 +349,7 @@ section {
     display: flex;
     align-items: center;
     padding-top: var(--header-height);
-    background: var(--white);
+    background: var(--primary-color);
     overflow: hidden;
 }
 
@@ -409,7 +409,8 @@ section {
         transform: translateY(0);
     }
 }
-    color: var(--white);
+
+color: var(--white);
 
 .hero-title {
     font-size: clamp(2.5rem, 5vw, 4rem);

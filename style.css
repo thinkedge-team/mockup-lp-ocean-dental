@@ -1011,6 +1011,21 @@ color: var(--white);
     margin: 0 auto;
 }
 
+.section-title {
+    font-size: clamp(2rem, 4vw, 3rem);
+    margin-bottom: var(--spacing-md);
+    color: var(--gray-900);
+}
+
+/* White section titles for blue backgrounds */
+.hero .section-title,
+.testimonials .section-title,
+.hero h1,
+.hero h2,
+.testimonials h2 {
+    color: var(--white);
+}
+
 .cta-content h2 {
     color: var(--white);
     font-size: clamp(2rem, 4vw, 3rem);

@@ -4,30 +4,38 @@
 
 /* CSS Variables - Design Tokens */
 :root {
-    /* Primary Colors - Blue & White Dominant */
+    /* Color Palette - Blue & White Primary, Cream Accent */
     --primary-color: #01215E;
-    /* Blue Ocean - Main brand color */
-    --primary-dark: #010f2e;
-    /* Darker blue for depth */
-    --primary-light: #4a6fa5;
-    /* Lighter blue for hover states */
+    /* Navy Blue - Main brand color */
+    --primary-dark: #000d2e;
+    /* Darker navy for depth */
+    --primary-light: #2a4a8f;
+    /* Lighter navy for hover states */
 
-    /* Secondary Color - Cream Accent (minimal use) */
-    --secondary-color: #D4C4B0;
-    /* Warm Beige - Accent only */
+    /* Accent Colors */
+    --accent-color: #D4C4B0;
+    /* Warm Beige/Cream - Used sparingly */
+    --accent-dark: #c4b4a0;
+    /* Darker beige for hover */
 
     /* Neutral Colors */
     --white: #ffffff;
-    /* Pure white */
+    /* Pure white background */
+    --off-white: #f8f9fa;
+    /* Subtle off-white for alternating sections */
     --cream: #FCF3E9;
-    /* Light cream for subtle accents */
-    --gray-50: #f9fafb;
-    --gray-100: #f3f4f6;
-    --gray-200: #e5e7eb;
-    --gray-300: #d1d5db;
-    --gray-600: #4b5563;
-    --gray-700: #374151;
-    --gray-900: #111827;
+    /* Light cream - minimal use */
+    --gray-50: #fafafa;
+    --gray-100: #f5f5f5;
+    --gray-200: #eeeeee;
+    --gray-300: #e0e0e0;
+    --gray-400: #bdbdbd;
+    --gray-500: #9e9e9e;
+    --gray-600: #757575;
+    --gray-700: #616161;
+    --gray-800: #424242;
+    --gray-900: #212121;
+    --black: #000000;
 
     /* Typography */
     --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -40,15 +48,17 @@
     --spacing-lg: 2rem;
     --spacing-xl: 3rem;
     --spacing-2xl: 4rem;
+    --spacing-3xl: 6rem;
 
-    /* Shadows - No color gradients */
-    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-    --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
-    --shadow-glow: 0 0 20px rgba(1, 33, 94, 0.15);
+    /* Shadows */
+    --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+    --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
+    --shadow-xl: 0 16px 48px rgba(0, 0, 0, 0.15);
+    --shadow-glow: 0 0 30px rgba(1, 33, 94, 0.3);
 
     /* Border Radius */
+    --radius-sm: 8px;
     --radius-md: 12px;
     --radius-lg: 16px;
     --radius-xl: 24px;
@@ -116,7 +126,7 @@ h6 {
     font-family: var(--font-display);
     font-weight: 700;
     line-height: 1.2;
-    color: var(--gray-900);
+    color: var(--primary-color);
 }
 
 h1 {
@@ -140,7 +150,7 @@ p {
 }
 
 .gradient-text {
-    color: inherit;
+    color: var(--primary-color);
 }
 
 /* ===================================
@@ -150,7 +160,7 @@ p {
 .container {
     max-width: var(--container-max);
     margin: 0 auto;
-    padding: 0 var(--container-padding);
+    padding: 0 var(--spacing-md);
 }
 
 section {
@@ -165,7 +175,7 @@ section {
 .section-tag {
     display: inline-block;
     padding: var(--spacing-xs) var(--spacing-md);
-    background: var(--white);
+    background: var(--accent-color);
     color: var(--primary-color);
     font-size: 0.875rem;
     font-weight: 600;
@@ -207,20 +217,14 @@ section {
 }
 
 .btn-primary {
-    background: var(--secondary-color);
-    color: var(--primary-color);
+    background: var(--primary-color);
+    color: var(--white);
     box-shadow: var(--shadow-md);
 }
 
 .btn-primary:hover {
     transform: translateY(-2px);
-    background: var(--white);
     box-shadow: var(--shadow-lg), var(--shadow-glow);
-}
-
-.btn-s.testimonials {
-    background: var(--primary-color);
-    color: var(--white);
 }
 
 .btn-secondary {
@@ -363,14 +367,8 @@ section {
 }
 
 .hero-background::before {
-    content: '';
-    position: absolute;
-    top: -50%;
-    right: -20%;
-    width: 80%;
-    height: 150%;
-    background: radial-gradient(circle, rgba(1, 33, 94, 0.08) 0%, transparent 70%);
-    animation: float 20s ease-in-out infinite;
+    /* Removed gradient glow effect */
+    display: none;
 }
 
 @keyframes float {
@@ -409,8 +407,6 @@ section {
         transform: translateY(0);
     }
 }
-
-color: var(--white);
 
 .hero-title {
     font-size: clamp(2.5rem, 5vw, 4rem);
@@ -605,7 +601,7 @@ color: var(--white);
 .stat-card {
     text-align: center;
     padding: var(--spacing-lg);
-    background: var(--white);
+    background: var(--accent-color);
     border-radius: var(--radius-lg);
     transition: transform var(--transition-base);
 }
@@ -671,7 +667,7 @@ color: var(--white);
    =================================== */
 
 .services {
-    background: var(--white);
+    background: var(--off-white);
 }
 
 .services-grid {
@@ -718,7 +714,7 @@ color: var(--white);
     display: flex;
     align-items: center;
     justify-content: center;
-    background: var(--white);
+    background: var(--accent-color);
     border-radius: var(--radius-md);
     margin-bottom: var(--spacing-md);
     transition: all var(--transition-base);
@@ -797,7 +793,7 @@ color: var(--white);
     display: flex;
     align-items: center;
     justify-content: center;
-    background: var(--primary-color);
+    background: var(--gradient-primary);
     color: var(--white);
     border-radius: 50%;
     margin-bottom: var(--spacing-md);
@@ -845,7 +841,7 @@ color: var(--white);
 .branches-cta {
     text-align: center;
     padding: var(--spacing-xl);
-    background: var(--white);
+    background: var(--accent-color);
     border-radius: var(--radius-lg);
 }
 
@@ -855,15 +851,13 @@ color: var(--white);
     margin-bottom: var(--spacing-md);
 }
 
-.testimonials {
-    background: var(--primary-color);
-    color: var(--white);
-}
-
 /* ===================================
    Testimonials Section
    =================================== */
 
+.testimonials {
+    background: var(--white);
+}
 
 .testimonials-grid {
     display: grid;
@@ -915,7 +909,7 @@ color: var(--white);
     display: flex;
     align-items: center;
     justify-content: center;
-    background: var(--primary-color);
+    background: var(--gradient-primary);
     color: var(--white);
     border-radius: 50%;
     font-size: 1.5rem;
@@ -965,7 +959,7 @@ color: var(--white);
 .gallery-overlay {
     position: absolute;
     inset: 0;
-    background: var(--gradient-overlay);
+    background: rgba(1, 33, 94, 0.9);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -1009,21 +1003,6 @@ color: var(--white);
     text-align: center;
     max-width: 800px;
     margin: 0 auto;
-}
-
-.section-title {
-    font-size: clamp(2rem, 4vw, 3rem);
-    margin-bottom: var(--spacing-md);
-    color: var(--gray-900);
-}
-
-/* White section titles for blue backgrounds */
-.hero .section-title,
-.testimonials .section-title,
-.hero h1,
-.hero h2,
-.testimonials h2 {
-    color: var(--white);
 }
 
 .cta-content h2 {

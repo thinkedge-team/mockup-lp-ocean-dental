@@ -409,6 +409,7 @@ section {
         transform: translateY(0);
     }
 }
+    color: var(--white);
 
 .hero-title {
     font-size: clamp(2.5rem, 5vw, 4rem);
@@ -851,6 +852,11 @@ section {
     font-size: 1.125rem;
     color: var(--gray-700);
     margin-bottom: var(--spacing-md);
+}
+
+.testimonials {
+    background: var(--primary-color);
+    color: var(--white);
 }
 
 /* ===================================

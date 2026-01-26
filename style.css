@@ -4,41 +4,30 @@
 
 /* CSS Variables - Design Tokens */
 :root {
-    /* Color Palette - Blue Ocean & Cream Theme */
+    /* Primary Colors - Blue & White Dominant */
     --primary-color: #01215E;
     /* Blue Ocean - Main brand color */
     --primary-dark: #010f2e;
     /* Darker blue for depth */
-    --primary-light: #D4C4B0;
-    /* Lighter blue for accents */
-    --secondary-color: #FCF3E9;
-    /* Cream - Warm secondary */
-    --accent-color: #01215E;
-    /* Blue Ocean accent */
+    --primary-light: #4a6fa5;
+    /* Lighter blue for hover states */
+
+    /* Secondary Color - Cream Accent (minimal use) */
+    --secondary-color: #D4C4B0;
+    /* Warm Beige - Accent only */
 
     /* Neutral Colors */
-    --white: #F8F8F8;
-    /* Off-white background */
+    --white: #ffffff;
+    /* Pure white */
     --cream: #FCF3E9;
-    /* Cream color */
-    --cream-dark: #f5e6d3;
-    /* Darker cream */
-    --gray-50: #fafafa;
-    --gray-100: #f5f5f5;
-    --gray-200: #eeeeee;
-    --gray-300: #e0e0e0;
-    --gray-400: #bdbdbd;
-    --gray-500: #9e9e9e;
-    --gray-600: #757575;
-    --gray-700: #616161;
-    --gray-800: #424242;
-    --gray-900: #212121;
-    --black: #000000;
-
-    /* Gradients */
-    --gradient-primary: #01215E;
-    --gradient-secondary: linear-gradient(135deg, #FCF3E9 0%, #f5e6d3 100%);
-    --gradient-overlay: linear-gradient(135deg, rgba(1, 33, 94, 0.9) 0%, rgba(74, 111, 165, 0.85) 100%);
+    /* Light cream for subtle accents */
+    --gray-50: #f9fafb;
+    --gray-100: #f3f4f6;
+    --gray-200: #e5e7eb;
+    --gray-300: #d1d5db;
+    --gray-600: #4b5563;
+    --gray-700: #374151;
+    --gray-900: #111827;
 
     /* Typography */
     --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -51,17 +40,15 @@
     --spacing-lg: 2rem;
     --spacing-xl: 3rem;
     --spacing-2xl: 4rem;
-    --spacing-3xl: 6rem;
 
-    /* Shadows */
-    --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.05);
-    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
-    --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
-    --shadow-xl: 0 16px 48px rgba(0, 0, 0, 0.15);
-    --shadow-glow: 0 0 30px rgba(1, 33, 94, 0.3);
+    /* Shadows - No color gradients */
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+    --shadow-glow: 0 0 20px rgba(1, 33, 94, 0.15);
 
     /* Border Radius */
-    --radius-sm: 8px;
     --radius-md: 12px;
     --radius-lg: 16px;
     --radius-xl: 24px;
@@ -178,7 +165,7 @@ section {
 .section-tag {
     display: inline-block;
     padding: var(--spacing-xs) var(--spacing-md);
-    background: var(--gradient-secondary);
+    background: var(--white);
     color: var(--primary-color);
     font-size: 0.875rem;
     font-weight: 600;
@@ -220,14 +207,20 @@ section {
 }
 
 .btn-primary {
-    background: var(--gradient-primary);
-    color: var(--white);
+    background: var(--secondary-color);
+    color: var(--primary-color);
     box-shadow: var(--shadow-md);
 }
 
 .btn-primary:hover {
     transform: translateY(-2px);
+    background: var(--white);
     box-shadow: var(--shadow-lg), var(--shadow-glow);
+}
+
+.btn-s.testimonials {
+    background: var(--primary-color);
+    color: var(--white);
 }
 
 .btn-secondary {
@@ -315,7 +308,7 @@ section {
     left: 0;
     width: 0;
     height: 2px;
-    background: var(--gradient-primary);
+    background: var(--primary-color);
     transition: width var(--transition-base);
 }
 
@@ -356,7 +349,7 @@ section {
     display: flex;
     align-items: center;
     padding-top: var(--header-height);
-    background: linear-gradient(135deg, var(--white) 0%, var(--cream) 100%);
+    background: var(--white);
     overflow: hidden;
 }
 
@@ -572,7 +565,7 @@ section {
     justify-content: center;
     width: 120px;
     height: 120px;
-    background: var(--gradient-primary);
+    background: var(--primary-color);
     color: var(--white);
     border-radius: 50%;
     box-shadow: var(--shadow-xl);
@@ -610,7 +603,7 @@ section {
 .stat-card {
     text-align: center;
     padding: var(--spacing-lg);
-    background: var(--gradient-secondary);
+    background: var(--white);
     border-radius: var(--radius-lg);
     transition: transform var(--transition-base);
 }
@@ -676,7 +669,7 @@ section {
    =================================== */
 
 .services {
-    background: linear-gradient(135deg, var(--white) 0%, var(--cream) 100%);
+    background: var(--white);
 }
 
 .services-grid {
@@ -702,7 +695,7 @@ section {
     left: 0;
     width: 100%;
     height: 4px;
-    background: var(--gradient-primary);
+    background: var(--primary-color);
     transform: scaleX(0);
     transform-origin: left;
     transition: transform var(--transition-base);
@@ -723,7 +716,7 @@ section {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: var(--gradient-secondary);
+    background: var(--white);
     border-radius: var(--radius-md);
     margin-bottom: var(--spacing-md);
     transition: all var(--transition-base);
@@ -731,7 +724,7 @@ section {
 
 .service-card:hover .service-icon {
     transform: scale(1.1) rotate(5deg);
-    background: var(--gradient-primary);
+    background: var(--primary-color);
 }
 
 .service-icon i {
@@ -802,7 +795,7 @@ section {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: var(--gradient-primary);
+    background: var(--primary-color);
     color: var(--white);
     border-radius: 50%;
     margin-bottom: var(--spacing-md);
@@ -850,7 +843,7 @@ section {
 .branches-cta {
     text-align: center;
     padding: var(--spacing-xl);
-    background: var(--gradient-secondary);
+    background: var(--white);
     border-radius: var(--radius-lg);
 }
 
@@ -865,7 +858,7 @@ section {
    =================================== */
 
 .testimonials {
-    background: linear-gradient(135deg, var(--white) 0%, var(--cream) 100%);
+    background: var(--white);
 }
 
 .testimonials-grid {
@@ -918,7 +911,7 @@ section {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: var(--gradient-primary);
+    background: var(--primary-color);
     color: var(--white);
     border-radius: 50%;
     font-size: 1.5rem;
@@ -1004,7 +997,7 @@ section {
    =================================== */
 
 .cta {
-    background: var(--gradient-primary);
+    background: var(--primary-color);
     color: var(--white);
 }
 

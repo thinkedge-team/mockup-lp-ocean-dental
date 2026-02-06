@@ -4,27 +4,31 @@
 
 /* CSS Variables - Design Tokens */
 :root {
-    /* Color Palette - Blue & White Primary, Cream Accent */
+    /* Color Palette - Ocean Dental Brand Colors */
     --primary-color: #01215E;
-    /* Navy Blue - Main brand color */
+    /* Blue Ocean - Main brand color */
     --primary-dark: #000d2e;
-    /* Darker navy for depth */
+    /* Darker blue for depth */
     --primary-light: #2a4a8f;
-    /* Lighter navy for hover states */
+    /* Lighter blue for hover states */
 
-    /* Accent Colors */
-    --accent-color: #D4C4B0;
-    /* Warm Beige/Cream - Used sparingly */
-    --accent-dark: #c4b4a0;
-    /* Darker beige for hover */
+    /* Accent Colors - Cream */
+    --accent-color: #FCF3E9;
+    /* Cream - Warm accent from Ocean Dental palette */
+    --accent-dark: #e8d5c0;
+    /* Darker cream for hover */
+    --accent-light: #fef9f4;
+    /* Lighter cream for backgrounds */
 
     /* Neutral Colors */
-    --white: #ffffff;
-    /* Pure white background */
-    --off-white: #f8f9fa;
-    /* Subtle off-white for alternating sections */
+    --white: #F8F8F8;
+    /* White from Ocean Dental palette */
+    --pure-white: #ffffff;
+    /* Pure white for critical elements */
+    --off-white: #F8F8F8;
+    /* White for alternating sections */
     --cream: #FCF3E9;
-    /* Light cream - minimal use */
+    /* Cream from Ocean Dental palette */
     --gray-50: #fafafa;
     --gray-100: #f5f5f5;
     --gray-200: #eeeeee;
@@ -93,7 +97,7 @@ body {
     font-family: var(--font-primary);
     color: var(--gray-800);
     line-height: 1.6;
-    background-color: var(--white);
+    background-color: var(--pure-white);
     overflow-x: hidden;
 }
 
@@ -150,7 +154,20 @@ p {
 }
 
 .gradient-text {
-    color: var(--primary-color);
+    background: linear-gradient(135deg, #FCF3E9 0%, #ffffff 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: 700;
+}
+
+/* Gradient text for light backgrounds (sections with white/cream bg) */
+.gradient-text-dark {
+    background: linear-gradient(135deg, #01215E 0%, #2a4a8f 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: 700;
 }
 
 /* ===================================
@@ -218,24 +235,25 @@ section {
 
 .btn-primary {
     background: var(--primary-color);
-    color: var(--white);
+    color: var(--pure-white);
     box-shadow: var(--shadow-md);
 }
 
 .btn-primary:hover {
+    background: var(--primary-light);
     transform: translateY(-2px);
     box-shadow: var(--shadow-lg), var(--shadow-glow);
 }
 
 .btn-secondary {
-    background: var(--white);
+    background: var(--pure-white);
     color: var(--primary-color);
     border-color: var(--primary-color);
 }
 
 .btn-secondary:hover {
     background: var(--primary-color);
-    color: var(--white);
+    color: var(--pure-white);
     transform: translateY(-2px);
     box-shadow: var(--shadow-md);
 }
@@ -260,7 +278,7 @@ section {
     left: 0;
     right: 0;
     height: var(--header-height);
-    background: rgba(255, 255, 255, 0.95);
+    background: rgba(248, 248, 248, 0.95);
     backdrop-filter: blur(10px);
     box-shadow: var(--shadow-sm);
     z-index: 1000;
@@ -269,7 +287,7 @@ section {
 
 .navbar.scrolled {
     box-shadow: var(--shadow-md);
-    background: rgba(255, 255, 255, 0.98);
+    background: rgba(248, 248, 248, 0.98);
 }
 
 .nav-content {
@@ -371,6 +389,87 @@ section {
     display: none;
 }
 
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(ellipse at 75% 40%, rgba(252, 243, 233, 0.12) 0%, transparent 55%),
+                radial-gradient(ellipse at 25% 70%, rgba(252, 243, 233, 0.08) 0%, transparent 45%);
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* Decorative Elements Container */
+.hero-decoration {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    z-index: 1;
+    pointer-events: none;
+}
+
+/* Decorative Circle Borders - Ocean Dental Style */
+.decoration-circle {
+    position: absolute;
+    border-radius: 50%;
+    border: 2px solid rgba(252, 243, 233, 0.25);
+}
+
+/* Large circle - top right corner */
+.circle-1 {
+    width: 550px;
+    height: 550px;
+    top: -180px;
+    right: -80px;
+    border-width: 2px;
+    border-color: rgba(252, 243, 233, 0.25);
+    animation: rotateSmooth 35s linear infinite;
+}
+
+/* Medium circle - bottom left */
+.circle-2 {
+    width: 450px;
+    height: 450px;
+    bottom: -120px;
+    left: -80px;
+    border-width: 2px;
+    border-color: rgba(252, 243, 233, 0.18);
+    animation: rotateSmooth 28s linear infinite reverse;
+}
+
+/* Small accent circle - right side middle */
+.circle-3 {
+    width: 280px;
+    height: 280px;
+    top: 35%;
+    right: -50px;
+    border-width: 1.5px;
+    border-color: rgba(248, 248, 248, 0.2);
+    animation: pulseGentle 5s ease-in-out infinite;
+}
+
+/* Smooth rotation animation */
+@keyframes rotateSmooth {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* Gentle pulse animation for accent circle */
+@keyframes pulseGentle {
+    0%, 100% { 
+        transform: scale(1); 
+        opacity: 0.6;
+        border-color: rgba(248, 248, 248, 0.2);
+    }
+    50% { 
+        transform: scale(1.08); 
+        opacity: 0.3;
+        border-color: rgba(252, 243, 233, 0.25);
+    }
+}
+
 @keyframes float {
 
     0%,
@@ -385,7 +484,7 @@ section {
 
 .hero-content {
     position: relative;
-    z-index: 1;
+    z-index: 2;
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: var(--spacing-2xl);
@@ -412,7 +511,7 @@ section {
     font-size: clamp(2.5rem, 5vw, 4rem);
     line-height: 1.1;
     margin-bottom: var(--spacing-md);
-    color: var(--white);
+    color: var(--pure-white);
 }
 
 .hero-subtitle {
@@ -433,7 +532,7 @@ section {
     align-items: center;
     gap: var(--spacing-xs);
     padding: var(--spacing-xs) var(--spacing-md);
-    background: var(--white);
+    background: var(--pure-white);
     border-radius: var(--radius-full);
     box-shadow: var(--shadow-sm);
     font-size: 0.875rem;
@@ -485,7 +584,7 @@ section {
     align-items: center;
     gap: var(--spacing-sm);
     padding: var(--spacing-md);
-    background: rgba(255, 255, 255, 0.95);
+    background: rgba(248, 248, 248, 0.95);
     backdrop-filter: blur(10px);
     border-radius: var(--radius-lg);
     box-shadow: var(--shadow-lg);
@@ -526,7 +625,7 @@ section {
    =================================== */
 
 .about {
-    background: var(--white);
+    background: var(--pure-white);
 }
 
 .about-content {
@@ -601,9 +700,10 @@ section {
 .stat-card {
     text-align: center;
     padding: var(--spacing-lg);
-    background: var(--accent-color);
+    background: var(--accent-light);
     border-radius: var(--radius-lg);
     transition: transform var(--transition-base);
+    border: 1px solid rgba(252, 243, 233, 0.5);
 }
 
 .stat-card:hover {
@@ -667,7 +767,7 @@ section {
    =================================== */
 
 .services {
-    background: var(--off-white);
+    background: var(--accent-light);
 }
 
 .services-grid {
@@ -678,12 +778,13 @@ section {
 
 .service-card {
     padding: var(--spacing-xl);
-    background: var(--white);
+    background: var(--pure-white);
     border-radius: var(--radius-lg);
     box-shadow: var(--shadow-md);
     transition: all var(--transition-base);
     position: relative;
     overflow: hidden;
+    border: 1px solid rgba(252, 243, 233, 0.3);
 }
 
 .service-card::before {
@@ -714,15 +815,17 @@ section {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: var(--accent-color);
+    background: var(--accent-light);
     border-radius: var(--radius-md);
     margin-bottom: var(--spacing-md);
     transition: all var(--transition-base);
+    border: 2px solid rgba(252, 243, 233, 0.5);
 }
 
 .service-card:hover .service-icon {
     transform: scale(1.1) rotate(5deg);
     background: var(--primary-color);
+    border-color: var(--primary-color);
 }
 
 .service-icon i {
@@ -732,7 +835,7 @@ section {
 }
 
 .service-card:hover .service-icon i {
-    color: var(--white);
+    color: var(--pure-white);
 }
 
 .service-card h3 {
@@ -763,7 +866,7 @@ section {
    =================================== */
 
 .branches {
-    background: var(--white);
+    background: var(--pure-white);
 }
 
 .branches-grid {
@@ -775,14 +878,15 @@ section {
 
 .branch-card {
     padding: var(--spacing-xl);
-    background: var(--gray-50);
+    background: var(--primary-color);
     border-radius: var(--radius-lg);
-    border: 2px solid var(--gray-200);
+    border: 2px solid rgba(255, 255, 255, 0.1);
     transition: all var(--transition-base);
+    color: var(--pure-white);
 }
 
 .branch-card:hover {
-    border-color: var(--primary-color);
+    border-color: var(--accent-color);
     box-shadow: var(--shadow-lg);
     transform: translateY(-4px);
 }
@@ -793,20 +897,20 @@ section {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: var(--gradient-primary);
-    color: var(--white);
+    background: var(--pure-white);
+    color: var(--primary-color);
     border-radius: 50%;
     margin-bottom: var(--spacing-md);
     font-size: 1.5rem;
 }
 
 .branch-card h3 {
-    color: var(--gray-900);
+    color: var(--pure-white);
     margin-bottom: var(--spacing-xs);
 }
 
 .branch-address {
-    color: var(--gray-600);
+    color: rgba(255, 255, 255, 0.8);
     font-size: 0.9375rem;
     margin-bottom: var(--spacing-md);
 }
@@ -817,8 +921,9 @@ section {
     gap: var(--spacing-xs);
     margin-bottom: var(--spacing-md);
     padding: var(--spacing-md);
-    background: var(--white);
+    background: var(--pure-white);
     border-radius: var(--radius-md);
+    border: 1px solid rgba(252, 243, 233, 0.5);
 }
 
 .branch-detail {
@@ -838,17 +943,131 @@ section {
     gap: var(--spacing-sm);
 }
 
+/* Branch card buttons - inverted colors for blue background */
+.branch-card .btn {
+    background: rgba(255, 255, 255, 0.15);
+    color: var(--pure-white);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.branch-card .btn:hover {
+    background: rgba(255, 255, 255, 0.25);
+    border-color: rgba(255, 255, 255, 0.5);
+}
+
+.branch-card .btn-primary {
+    background: var(--pure-white);
+    color: var(--primary-color);
+    border: 1px solid var(--pure-white);
+}
+
+.branch-card .btn-primary:hover {
+    background: var(--accent-color);
+    color: var(--primary-color);
+    border-color: var(--accent-color);
+}
+
 .branches-cta {
     text-align: center;
-    padding: var(--spacing-xl);
-    background: var(--accent-color);
-    border-radius: var(--radius-lg);
+    padding: var(--spacing-2xl);
+    background: linear-gradient(135deg, var(--primary-color) 0%, #023a8a 100%);
+    border-radius: var(--radius-xl);
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    box-shadow: var(--shadow-xl);
+    position: relative;
+    overflow: hidden;
+}
+
+.branches-cta::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(252, 243, 233, 0.1) 0%, transparent 70%);
+    animation: ctaGlow 8s ease-in-out infinite;
+}
+
+@keyframes ctaGlow {
+    0%, 100% { transform: translate(0, 0); }
+    50% { transform: translate(-10%, -10%); }
+}
+
+.branches-cta > * {
+    position: relative;
+    z-index: 1;
+}
+
+.cta-icon {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto var(--spacing-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--pure-white);
+    color: var(--primary-color);
+    border-radius: 50%;
+    font-size: 2rem;
+    box-shadow: 0 8px 24px rgba(252, 243, 233, 0.3);
+}
+
+.branches-cta h3 {
+    font-size: 1.75rem;
+    color: var(--pure-white);
+    margin-bottom: var(--spacing-sm);
+    font-weight: 700;
 }
 
 .branches-cta p {
     font-size: 1.125rem;
-    color: var(--gray-700);
-    margin-bottom: var(--spacing-md);
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: var(--spacing-lg);
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.6;
+}
+
+.cta-features {
+    display: flex;
+    justify-content: center;
+    gap: var(--spacing-xl);
+    margin-bottom: var(--spacing-xl);
+    flex-wrap: wrap;
+}
+
+.cta-feature {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-xs);
+    color: var(--pure-white);
+}
+
+.cta-feature i {
+    font-size: 1.5rem;
+    color: var(--accent-color);
+}
+
+.cta-feature span {
+    font-size: 0.875rem;
+    font-weight: 600;
+}
+
+.branches-cta .btn-primary {
+    background: var(--pure-white);
+    color: var(--primary-color);
+    font-size: 1.125rem;
+    padding: var(--spacing-md) var(--spacing-xl);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+}
+
+.branches-cta .btn-primary:hover {
+    background: var(--accent-color);
+    transform: translateY(-2px);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.3);
 }
 
 /* ===================================
@@ -856,7 +1075,7 @@ section {
    =================================== */
 
 .testimonials {
-    background: var(--white);
+    background: var(--pure-white);
 }
 
 .testimonials-grid {
@@ -867,10 +1086,11 @@ section {
 
 .testimonial-card {
     padding: var(--spacing-xl);
-    background: var(--white);
+    background: var(--pure-white);
     border-radius: var(--radius-lg);
     box-shadow: var(--shadow-md);
     transition: all var(--transition-base);
+    border: 1px solid rgba(252, 243, 233, 0.5);
 }
 
 .testimonial-card:hover {
@@ -932,7 +1152,7 @@ section {
    =================================== */
 
 .gallery {
-    background: var(--white);
+    background: var(--accent-light);
 }
 
 .gallery-grid {
@@ -996,7 +1216,7 @@ section {
 
 .cta {
     background: var(--primary-color);
-    color: var(--white);
+    color: var(--pure-white);
 }
 
 .cta-content {
@@ -1006,13 +1226,13 @@ section {
 }
 
 .cta-content h2 {
-    color: var(--white);
+    color: var(--pure-white);
     font-size: clamp(2rem, 4vw, 3rem);
     margin-bottom: var(--spacing-md);
 }
 
 .cta-content p {
-    color: rgba(255, 255, 255, 0.95);
+    color: rgba(248, 248, 248, 0.95);
     font-size: 1.25rem;
     margin-bottom: var(--spacing-xl);
 }
@@ -1025,22 +1245,22 @@ section {
 }
 
 .cta .btn-primary {
-    background: var(--white);
+    background: var(--pure-white);
     color: var(--primary-color);
 }
 
 .cta .btn-primary:hover {
-    background: var(--gray-100);
+    background: var(--accent-light);
 }
 
 .cta .btn-secondary {
     background: transparent;
-    color: var(--white);
-    border-color: var(--white);
+    color: var(--pure-white);
+    border-color: var(--pure-white);
 }
 
 .cta .btn-secondary:hover {
-    background: var(--white);
+    background: var(--pure-white);
     color: var(--primary-color);
 }
 
@@ -1074,7 +1294,7 @@ section {
     font-family: var(--font-display);
     font-size: 1.5rem;
     font-weight: 700;
-    color: var(--cream);
+    color: var(--accent-color);
     margin-bottom: var(--spacing-md);
 }
 
@@ -1124,7 +1344,7 @@ section {
 }
 
 .footer-col ul a:hover {
-    color: var(--cream);
+    color: var(--accent-color);
     padding-left: var(--spacing-xs);
 }
 
@@ -1143,7 +1363,7 @@ section {
 
 .footer-hours strong,
 .footer-contact strong {
-    color: var(--white);
+    color: var(--accent-light);
 }
 
 .footer-bottom {
@@ -1159,7 +1379,7 @@ section {
 }
 
 .footer-bottom strong {
-    color: var(--cream);
+    color: var(--accent-color);
 }
 
 /* ===================================
@@ -1290,6 +1510,25 @@ section {
         height: 50px;
         bottom: 20px;
         right: 20px;
+        font-size: 1.5rem;
+    }
+
+    /* Branches CTA responsive */
+    .branches-cta {
+        padding: var(--spacing-xl);
+    }
+
+    .branches-cta h3 {
+        font-size: 1.5rem;
+    }
+
+    .cta-features {
+        gap: var(--spacing-md);
+    }
+
+    .cta-icon {
+        width: 60px;
+        height: 60px;
         font-size: 1.5rem;
     }
 }

@@ -116,6 +116,7 @@ html {
     scroll-behavior: smooth;
     font-size: 16px;
     scroll-padding-top: var(--header-height);
+    overflow-x: hidden;
 }
 
 body {
@@ -953,6 +954,7 @@ section {
 .about {
     background: linear-gradient(180deg, var(--pure-white) 0%, var(--off-white) 50%, var(--pure-white) 100%);
     position: relative;
+    overflow: hidden;
 }
 
 .about::before {
@@ -1270,6 +1272,7 @@ section {
 .services {
     background: linear-gradient(180deg, var(--off-white) 0%, var(--pure-white) 100%);
     position: relative;
+    overflow: hidden;
 }
 
 /* Service Filter Tabs */
@@ -1718,6 +1721,7 @@ section {
 .branches {
     background: var(--pure-white);
     position: relative;
+    overflow: hidden;
 }
 
 .branches-wrapper {
@@ -3181,6 +3185,7 @@ section {
 .gallery {
     background: linear-gradient(180deg, var(--off-white) 0%, var(--pure-white) 100%);
     position: relative;
+    overflow: hidden;
 }
 
 /* Gallery Filters */
@@ -3720,6 +3725,7 @@ section {
     color: var(--gray-300);
     padding: var(--spacing-4xl) 0 var(--spacing-lg);
     position: relative;
+    overflow: hidden;
 }
 
 .footer::before {

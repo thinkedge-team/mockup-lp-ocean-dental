@@ -1,716 +1,2529 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="id">
+    <head>
+        <meta charset="UTF-8" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+        />
+        <meta
+            name="description"
+            content="Ocean Dental - Klinik Gigi Profesional & Terjangkau. 10+ tahun pengalaman, 25+ cabang di Jakarta & Jabodetabek. Senyum Sehat, Percaya Diri Meningkat."
+        />
+        <meta
+            name="keywords"
+            content="klinik gigi, ocean dental, dokter gigi jakarta, tambal gigi, behel, veneer, implant gigi, scaling, bleaching"
+        />
+        <meta
+            name="theme-color"
+            content="#01215E"
+        />
+        <meta
+            name="apple-mobile-web-app-status-bar-style"
+            content="black-translucent"
+        />
+        <title>
+            Ocean Dental - Senyum Sehat Bersama Kami | Klinik Gigi Profesional
+        </title>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description"
-        content="Ocean Dental - Klinik Gigi Profesional & Terjangkau. 10+ tahun pengalaman, 25+ cabang di Jakarta & Jabodetabek. Senyum Sehat, Percaya Diri Meningkat.">
-    <meta name="keywords"
-        content="klinik gigi, ocean dental, dokter gigi jakarta, tambal gigi, behel, veneer, implant gigi, scaling, bleaching">
-    <title>Ocean Dental - Senyum Sehat Bersama Kami | Klinik Gigi Profesional</title>
+        <!-- Google Fonts -->
+        <link
+            rel="preconnect"
+            href="https://fonts.googleapis.com"
+        />
+        <link
+            rel="preconnect"
+            href="https://fonts.gstatic.com"
+            crossorigin
+        />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap"
+            rel="stylesheet"
+        />
 
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap"
-        rel="stylesheet">
+        <!-- Font Awesome -->
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+            integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"
+        />
 
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-        integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <!-- Leaflet CSS for Interactive Map -->
+        <link
+            rel="stylesheet"
+            href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+            integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+            crossorigin=""
+        />
 
-    <link rel="stylesheet" href="style.css">
-</head>
+        <link
+            rel="stylesheet"
+            href="style.css"
+        />
+    </head>
 
-<body>
-    <!-- Navigation -->
-    <nav class="navbar" id="navbar">
-        <div class="container">
-            <div class="nav-content">
-                <div class="nav-brand">
-                    <i class="fas fa-tooth"></i>
-                    <span>Ocean Dental</span>
+    <body>
+        <!-- Scroll Progress Indicator -->
+        <div class="scroll-progress"></div>
+
+        <!-- Navigation -->
+        <nav
+            class="navbar"
+            id="navbar"
+        >
+            <div class="container">
+                <div class="nav-content">
+                    <div class="nav-brand">
+                        <i class="fas fa-tooth"></i>
+                        <span>Ocean Dental</span>
+                    </div>
+                    <ul
+                        class="nav-menu"
+                        id="nav-menu"
+                    >
+                        <li>
+                            <a
+                                href="#home"
+                                class="nav-link"
+                                >Home</a
+                            >
+                        </li>
+                        <li>
+                            <a
+                                href="#about"
+                                class="nav-link"
+                                >Tentang Kami</a
+                            >
+                        </li>
+                        <li>
+                            <a
+                                href="#services"
+                                class="nav-link"
+                                >Layanan</a
+                            >
+                        </li>
+                        <li>
+                            <a
+                                href="#doctors"
+                                class="nav-link"
+                                >Dokter</a
+                            >
+                        </li>
+                        <li>
+                            <a
+                                href="#branches"
+                                class="nav-link"
+                                >Cabang</a
+                            >
+                        </li>
+                        <li>
+                            <a
+                                href="#faq"
+                                class="nav-link"
+                                >FAQ</a
+                            >
+                        </li>
+                    </ul>
+                    <a
+                        href="https://wa.me/6281234567890"
+                        class="btn btn-primary"
+                        id="nav-cta"
+                    >
+                        <i class="fab fa-whatsapp"></i> Konsultasi Gratis
+                    </a>
+                    <button
+                        class="nav-toggle"
+                        id="nav-toggle"
+                    >
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
                 </div>
-                <ul class="nav-menu" id="nav-menu">
-                    <li><a href="#home" class="nav-link">Home</a></li>
-                    <li><a href="#about" class="nav-link">Tentang Kami</a></li>
-                    <li><a href="#services" class="nav-link">Layanan</a></li>
-                    <li><a href="#branches" class="nav-link">Cabang</a></li>
-                    <li><a href="#gallery" class="nav-link">Galeri</a></li>
-                    <li><a href="#testimonials" class="nav-link">Testimoni</a></li>
-                </ul>
-                <a href="https://wa.me/6281234567890" class="btn btn-primary" id="nav-cta">
-                    <i class="fab fa-whatsapp"></i> Konsultasi Gratis
-                </a>
-                <button class="nav-toggle" id="nav-toggle">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </button>
             </div>
-        </div>
-    </nav>
+        </nav>
 
-    <!-- Hero Section -->
-    <section class="hero" id="home">
-        <div class="hero-background">
-            <div class="hero-overlay"></div>
-            <!-- Decorative Elements - Circle Borders -->
-            <div class="hero-decoration">
-                <!-- Decorative circle borders like AROMAS design -->
-                <div class="decoration-circle circle-1"></div>
-                <div class="decoration-circle circle-2"></div>
-                <div class="decoration-circle circle-3"></div>
+        <!-- Hero Section -->
+        <section
+            class="hero"
+            id="home"
+        >
+            <div class="hero-background">
+                <div class="hero-overlay"></div>
+                <!-- Decorative Elements - Circle Borders -->
+                <div class="hero-decoration">
+                    <!-- Decorative circle borders with parallax effect -->
+                    <div
+                        class="decoration-circle circle-1"
+                        data-parallax="0.05"
+                    ></div>
+                    <div
+                        class="decoration-circle circle-2"
+                        data-parallax="0.08"
+                    ></div>
+                    <div
+                        class="decoration-circle circle-3"
+                        data-parallax="0.03"
+                    ></div>
+                    <div
+                        class="decoration-circle circle-4"
+                        data-parallax="0.06"
+                    ></div>
+                </div>
+                <!-- Floating Elements - Sparkles & Shapes -->
+                <div class="floating-elements">
+                    <div class="floating-element sparkle" style="top: 15%; left: 10%;"></div>
+                    <div class="floating-element plus">+</div>
+                    <div class="floating-element tooth"><i class="fas fa-tooth"></i></div>
+                    <div class="floating-element sparkle" style="top: 70%; right: 10%;"></div>
+                    <div class="floating-element plus">+</div>
+                    <div class="floating-element sparkle" style="top: 80%; left: 20%;"></div>
+                    <div class="floating-element tooth"><i class="fas fa-tooth"></i></div>
+                    <div class="floating-element sparkle" style="top: 50%; right: 20%;"></div>
+                </div>
             </div>
-        </div>
-        <div class="container">
-            <div class="hero-content">
-                <div class="hero-text" data-aos="fade-right">
-                    <h1 class="hero-title">
-                        <span class="gradient-text">Senyum Sehat</span><br>
-                        Bersama Ocean Dental
-                    </h1>
-                    <p class="hero-subtitle">
-                        Perawatan Gigi Profesional & Terjangkau<br>
-                        <strong>10+ Tahun Pengalaman</strong> | <strong>25+ Cabang</strong> di Jabodetabek
-                    </p>
-                    <div class="hero-features">
-                        <div class="feature-badge">
-                            <i class="fas fa-clock"></i>
-                            <span>Daily 09:00-21:00</span>
+            <div class="container">
+                <div class="hero-content">
+                    <div
+                        class="hero-text"
+                        data-aos="fade-right"
+                    >
+                        <h1 class="hero-title">
+                            <span class="typing-container">
+                                <span class="gradient-text typing-text" id="typing-text">Senyum Sehat</span>
+                            </span><br />
+                            Bersama Ocean Dental
+                        </h1>
+                        <p class="hero-subtitle">
+                            Perawatan Gigi Profesional & Terjangkau<br />
+                            <strong>10+ Tahun Pengalaman</strong> |
+                            <strong>25+ Cabang</strong> di Jabodetabek
+                        </p>
+                        <div class="hero-features">
+                            <div class="feature-badge">
+                                <i class="fas fa-clock"></i>
+                                <span>Daily 09:00-21:00</span>
+                            </div>
+                            <div class="feature-badge">
+                                <i class="fas fa-award"></i>
+                                <span>Dokter Berpengalaman</span>
+                            </div>
+                            <div class="feature-badge">
+                                <i class="fas fa-shield-alt"></i>
+                                <span>Alat Modern & Steril</span>
+                            </div>
                         </div>
-                        <div class="feature-badge">
-                            <i class="fas fa-award"></i>
-                            <span>Dokter Berpengalaman</span>
-                        </div>
-                        <div class="feature-badge">
-                            <i class="fas fa-shield-alt"></i>
-                            <span>Alat Modern & Steril</span>
+                        <div class="hero-cta">
+                            <a
+                                href="https://wa.me/6281234567890"
+                                class="btn btn-primary btn-lg"
+                                id="hero-cta-primary"
+                            >
+                                <i class="fab fa-whatsapp"></i> Book Appointment
+                                Now
+                            </a>
+                            <a
+                                href="#services"
+                                class="btn btn-secondary btn-lg"
+                                id="hero-cta-secondary"
+                            >
+                                <i class="fas fa-tooth"></i> Lihat Layanan
+                            </a>
                         </div>
                     </div>
-                    <div class="hero-cta">
-                        <a href="https://wa.me/6281234567890" class="btn btn-primary btn-lg" id="hero-cta-primary">
-                            <i class="fab fa-whatsapp"></i> Book Appointment Now
-                        </a>
-                        <a href="#services" class="btn btn-secondary btn-lg" id="hero-cta-secondary">
-                            <i class="fas fa-tooth"></i> Lihat Layanan
-                        </a>
-                    </div>
-                </div>
-                <div class="hero-image" data-aos="fade-left">
-                    <div class="hero-image-wrapper">
-                        <img src="images/hero-dentist-patient.png" alt="Ocean Dental - Dokter Gigi Profesional">
-                        <div class="floating-card">
-                            <i class="fas fa-star"></i>
-                            <div>
-                                <strong>4.8/5.0</strong>
-                                <p>Rating Pasien</p>
+                    <div
+                        class="hero-image"
+                        data-aos="fade-left"
+                    >
+                        <div class="hero-image-wrapper">
+                            <img
+                                src="images/hero-dentist-patient.png"
+                                alt="Ocean Dental - Dokter Gigi Profesional"
+                            />
+                            <div class="floating-card">
+                                <i class="fas fa-star"></i>
+                                <div>
+                                    <strong>4.8/5.0</strong>
+                                    <p>Rating Pasien</p>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- About Section -->
-    <section class="about" id="about">
-        <div class="container">
-            <div class="section-header" data-aos="fade-up">
-                <span class="section-tag">Tentang Kami</span>
-                <h2 class="section-title">Mengapa Memilih <span class="gradient-text-dark">Ocean Dental</span>?</h2>
-                <p class="section-description">Lebih dari sekedar klinik gigi, kami adalah mitra kesehatan oral Anda</p>
-            </div>
+        <!-- About Section -->
+        <section
+            class="about"
+            id="about"
+        >
+            <div class="container">
+                <!-- Section Header -->
+                <div class="section-header" data-aos="fade-up">
+                    <span class="section-tag"><i class="fas fa-info-circle"></i> Tentang Kami</span>
+                    <h2 class="section-title">
+                        Mengapa Memilih
+                        <span class="gradient-text-dark">Ocean Dental</span>?
+                    </h2>
+                    <p class="section-description">
+                        Lebih dari sekedar klinik gigi, kami adalah mitra kesehatan oral Anda
+                    </p>
+                </div>
 
-            <div class="about-content">
-                <div class="about-image" data-aos="fade-right">
-                    <img src="images/founder-portrait.png" alt="drg. Aersy Henny Paramitha - Founder Ocean Dental">
-                    <div class="about-badge">
-                        <i class="fas fa-award"></i>
-                        <span>10+ Tahun</span>
+                <!-- About Main Content -->
+                <div class="about-main" data-aos="fade-up">
+                    <!-- Left: Founder Image -->
+                    <div class="about-visual">
+                        <div class="about-image-container">
+                            <img src="images/founder-portrait.png" alt="drg. Aersy Henny Paramitha - Founder Ocean Dental">
+                            <div class="about-image-badge">
+                                <i class="fas fa-crown"></i>
+                                <span>Founder</span>
+                            </div>
+                        </div>
+                        <!-- Floating Stats Card -->
+                        <div class="about-floating-stat">
+                            <div class="floating-stat-number">10+</div>
+                            <div class="floating-stat-text">Tahun<br>Pengalaman</div>
+                        </div>
+                    </div>
+
+                    <!-- Right: Content -->
+                    <div class="about-info">
+                        <div class="about-quote">
+                            <i class="fas fa-quote-left"></i>
+                            <blockquote>
+                                "Senyum yang sehat adalah cerminan dari tubuh yang sehat. 
+                                Di Ocean Dental, kami tidak hanya merawat gigi, 
+                                tetapi juga membangun kepercayaan diri setiap pasien."
+                            </blockquote>
+                        </div>
+                        
+                        <div class="about-founder-info">
+                            <h3>drg. Aersy Henny Paramitha</h3>
+                            <span class="founder-role">Founder & Lead Dentist</span>
+                            <p>
+                                Mendirikan Ocean Dental pada tahun <strong>2013</strong> dengan visi 
+                                menyediakan layanan kesehatan gigi berkualitas yang dapat diakses oleh semua kalangan. 
+                                Kini telah berkembang menjadi jaringan <strong>29 cabang</strong> di Jabodetabek.
+                            </p>
+                            <div class="founder-tags">
+                                <span><i class="fas fa-graduation-cap"></i> Universitas Trisakti</span>
+                                <span><i class="fas fa-certificate"></i> PDGI Certified</span>
+                            </div>
+                        </div>
+
+                        <!-- CTA Button -->
+                        <a href="https://wa.me/6281234567890?text=Halo,%20saya%20ingin%20konsultasi" class="btn btn-primary">
+                            <i class="fab fa-whatsapp"></i> Konsultasi Sekarang
+                        </a>
                     </div>
                 </div>
 
-                <div class="about-text" data-aos="fade-left">
-                    <h3>Visi Kami: <em>Senyum Sehat untuk Semua</em></h3>
-                    <p>Didirikan pada tahun <strong>2013</strong> oleh <strong>drg. Aersy Henny Paramitha</strong>,
-                        Ocean Dental telah tumbuh menjadi jaringan klinik gigi terpercaya dengan lebih dari <strong>25
-                            cabang</strong> di Jakarta, Bekasi, Tangerang, dan Jabodetabek.</p>
-
-                    <p>Kami percaya bahwa kesehatan gigi yang baik dimulai dari <strong>edukasi</strong> dan
-                        <strong>perawatan berkualitas</strong> yang dapat diakses oleh semua orang.</p>
-
-                    <div class="about-stats">
-                        <div class="stat-card">
-                            <i class="fas fa-hospital"></i>
-                            <h4>25+</h4>
-                            <p>Cabang Klinik</p>
+                <!-- Stats Bar -->
+                <div class="about-stats-bar" data-aos="fade-up">
+                    <div class="stat-item">
+                        <div class="stat-number">
+                            <span class="counter" data-target="29">0</span>
                         </div>
-                        <div class="stat-card">
-                            <i class="fas fa-user-md"></i>
-                            <h4>50+</h4>
-                            <p>Dokter Gigi</p>
+                        <div class="stat-label">Cabang Klinik</div>
+                    </div>
+                    <div class="stat-divider"></div>
+                    <div class="stat-item">
+                        <div class="stat-number">
+                            <span class="counter" data-target="50">0</span>+
                         </div>
-                        <div class="stat-card">
-                            <i class="fas fa-smile"></i>
-                            <h4>50K+</h4>
-                            <p>Pasien Puas</p>
+                        <div class="stat-label">Dokter Gigi</div>
+                    </div>
+                    <div class="stat-divider"></div>
+                    <div class="stat-item">
+                        <div class="stat-number">
+                            <span class="counter" data-target="50">0</span>K+
+                        </div>
+                        <div class="stat-label">Pasien Puas</div>
+                    </div>
+                    <div class="stat-divider"></div>
+                    <div class="stat-item">
+                        <div class="stat-number">
+                            <span class="counter-decimal" data-target="4.9">0</span>
+                        </div>
+                        <div class="stat-label">Rating Google</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services Section -->
+        <section
+            class="services"
+            id="services"
+        >
+            <div class="container">
+                <div
+                    class="section-header"
+                    data-aos="fade-up"
+                >
+                    <span class="section-tag"><i class="fas fa-tooth"></i> Layanan Kami</span>
+                    <h2 class="section-title">
+                        Solusi Lengkap
+                        <span class="gradient-text-dark">Perawatan Gigi</span>
+                    </h2>
+                    <p class="section-description">
+                        Dari perawatan rutin hingga estetika, kami siap membantu Anda
+                    </p>
+                </div>
+
+                <!-- Service Filter Tabs -->
+                <div class="service-filters" data-aos="fade-up">
+                    <button class="filter-btn active" data-filter="all">
+                        <i class="fas fa-th-large"></i> Semua
+                    </button>
+                    <button class="filter-btn" data-filter="estetika">
+                        <i class="fas fa-gem"></i> Estetika
+                    </button>
+                    <button class="filter-btn" data-filter="perawatan">
+                        <i class="fas fa-briefcase-medical"></i> Perawatan
+                    </button>
+                    <button class="filter-btn" data-filter="ortodonti">
+                        <i class="fas fa-teeth"></i> Ortodonti
+                    </button>
+                </div>
+
+                <div class="services-grid">
+                    <!-- Veneer -->
+                    <div class="service-card" data-category="estetika" data-aos="fade-up" data-aos-delay="0">
+                        <div class="service-card-image">
+                            <img src="https://images.unsplash.com/photo-1606811841689-23dfddce3e95?w=400&h=250&fit=crop" alt="Veneer Gigi">
+                            <div class="service-badge popular">Populer</div>
+                        </div>
+                        <div class="service-card-content">
+                            <div class="service-icon-small">
+                                <i class="fas fa-layer-group"></i>
+                            </div>
+                            <h3>Veneer Gigi</h3>
+                            <p>Transformasi senyum dengan lapisan tipis yang mempercantik gigi dengan hasil natural dan tahan lama.</p>
+                            <div class="service-meta">
+                                <span class="service-price"><i class="fas fa-tag"></i> Mulai Rp 1.5jt</span>
+                                <span class="service-duration"><i class="fas fa-clock"></i> 1-2 Kunjungan</span>
+                            </div>
+                            <a href="https://wa.me/6281234567890?text=Saya%20ingin%20konsultasi%20tentang%20Veneer" class="service-cta">
+                                <span>Konsultasi Gratis</span>
+                                <i class="fas fa-arrow-right"></i>
+                            </a>
                         </div>
                     </div>
 
-                    <div class="about-values">
-                        <h4><i class="fas fa-heart"></i> Nilai-Nilai Kami</h4>
+                    <!-- Bleaching -->
+                    <div class="service-card" data-category="estetika" data-aos="fade-up" data-aos-delay="100">
+                        <div class="service-card-image">
+                            <img src="https://images.unsplash.com/photo-1598256989800-fe5f95da9787?w=400&h=250&fit=crop" alt="Bleaching Gigi">
+                        </div>
+                        <div class="service-card-content">
+                            <div class="service-icon-small">
+                                <i class="fas fa-sun"></i>
+                            </div>
+                            <h3>Bleaching Gigi</h3>
+                            <p>Pemutihan gigi profesional untuk senyum lebih cerah hingga 8 tingkat dalam satu sesi.</p>
+                            <div class="service-meta">
+                                <span class="service-price"><i class="fas fa-tag"></i> Mulai Rp 800rb</span>
+                                <span class="service-duration"><i class="fas fa-clock"></i> 1 Jam</span>
+                            </div>
+                            <a href="https://wa.me/6281234567890?text=Saya%20ingin%20konsultasi%20tentang%20Bleaching" class="service-cta">
+                                <span>Konsultasi Gratis</span>
+                                <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Scaling -->
+                    <div class="service-card" data-category="perawatan" data-aos="fade-up" data-aos-delay="200">
+                        <div class="service-card-image">
+                            <img src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=400&h=250&fit=crop" alt="Scaling Gigi">
+                            <div class="service-badge recommended">Direkomendasikan</div>
+                        </div>
+                        <div class="service-card-content">
+                            <div class="service-icon-small">
+                                <i class="fas fa-sparkles"></i>
+                            </div>
+                            <h3>Scaling & Polishing</h3>
+                            <p>Pembersihan karang gigi dan plak untuk menjaga kesehatan gusi dan mulut yang optimal.</p>
+                            <div class="service-meta">
+                                <span class="service-price"><i class="fas fa-tag"></i> Mulai Rp 250rb</span>
+                                <span class="service-duration"><i class="fas fa-clock"></i> 30-45 Menit</span>
+                            </div>
+                            <a href="https://wa.me/6281234567890?text=Saya%20ingin%20konsultasi%20tentang%20Scaling" class="service-cta">
+                                <span>Konsultasi Gratis</span>
+                                <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Behel -->
+                    <div class="service-card" data-category="ortodonti" data-aos="fade-up" data-aos-delay="0">
+                        <div class="service-card-image">
+                            <img src="https://images.unsplash.com/photo-1606265752439-1f18756aa5fc?w=400&h=250&fit=crop" alt="Behel Gigi">
+                            <div class="service-badge popular">Populer</div>
+                        </div>
+                        <div class="service-card-content">
+                            <div class="service-icon-small">
+                                <i class="fas fa-grip-lines"></i>
+                            </div>
+                            <h3>Behel / Kawat Gigi</h3>
+                            <p>Perawatan ortodonti untuk merapikan gigi. Tersedia metal, ceramic, dan clear aligner.</p>
+                            <div class="service-meta">
+                                <span class="service-price"><i class="fas fa-tag"></i> Mulai Rp 8jt</span>
+                                <span class="service-duration"><i class="fas fa-clock"></i> 1-2 Tahun</span>
+                            </div>
+                            <a href="https://wa.me/6281234567890?text=Saya%20ingin%20konsultasi%20tentang%20Behel" class="service-cta">
+                                <span>Konsultasi Gratis</span>
+                                <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Tambal Gigi -->
+                    <div class="service-card" data-category="perawatan" data-aos="fade-up" data-aos-delay="100">
+                        <div class="service-card-image">
+                            <img src="https://images.unsplash.com/photo-1609840114035-3c981b782dfe?w=400&h=250&fit=crop" alt="Tambal Gigi">
+                        </div>
+                        <div class="service-card-content">
+                            <div class="service-icon-small">
+                                <i class="fas fa-tooth"></i>
+                            </div>
+                            <h3>Tambal Gigi</h3>
+                            <p>Perbaikan gigi berlubang dengan bahan berkualitas tinggi. Prosedur cepat dan minim sakit.</p>
+                            <div class="service-meta">
+                                <span class="service-price"><i class="fas fa-tag"></i> Mulai Rp 150rb</span>
+                                <span class="service-duration"><i class="fas fa-clock"></i> 30 Menit</span>
+                            </div>
+                            <a href="https://wa.me/6281234567890?text=Saya%20ingin%20konsultasi%20tentang%20Tambal%20Gigi" class="service-cta">
+                                <span>Konsultasi Gratis</span>
+                                <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Crown & Bridge -->
+                    <div class="service-card" data-category="estetika" data-aos="fade-up" data-aos-delay="200">
+                        <div class="service-card-image">
+                            <img src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?w=400&h=250&fit=crop" alt="Crown Bridge">
+                        </div>
+                        <div class="service-card-content">
+                            <div class="service-icon-small">
+                                <i class="fas fa-crown"></i>
+                            </div>
+                            <h3>Crown & Bridge</h3>
+                            <p>Mahkota dan jembatan gigi untuk mengganti gigi rusak atau hilang dengan hasil natural.</p>
+                            <div class="service-meta">
+                                <span class="service-price"><i class="fas fa-tag"></i> Mulai Rp 2jt</span>
+                                <span class="service-duration"><i class="fas fa-clock"></i> 2-3 Kunjungan</span>
+                            </div>
+                            <a href="https://wa.me/6281234567890?text=Saya%20ingin%20konsultasi%20tentang%20Crown%20Bridge" class="service-cta">
+                                <span>Konsultasi Gratis</span>
+                                <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Implan -->
+                    <div class="service-card" data-category="perawatan" data-aos="fade-up" data-aos-delay="0">
+                        <div class="service-card-image">
+                            <img src="https://images.unsplash.com/photo-1629909613654-28e377c37b09?w=400&h=250&fit=crop" alt="Implan Gigi">
+                        </div>
+                        <div class="service-card-content">
+                            <div class="service-icon-small">
+                                <i class="fas fa-plus-circle"></i>
+                            </div>
+                            <h3>Implan Gigi</h3>
+                            <p>Solusi permanen untuk gigi yang hilang dengan teknologi modern dan hasil tahan lama.</p>
+                            <div class="service-meta">
+                                <span class="service-price"><i class="fas fa-tag"></i> Mulai Rp 15jt</span>
+                                <span class="service-duration"><i class="fas fa-clock"></i> 3-6 Bulan</span>
+                            </div>
+                            <a href="https://wa.me/6281234567890?text=Saya%20ingin%20konsultasi%20tentang%20Implan" class="service-cta">
+                                <span>Konsultasi Gratis</span>
+                                <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Cabut Gigi -->
+                    <div class="service-card" data-category="perawatan" data-aos="fade-up" data-aos-delay="100">
+                        <div class="service-card-image">
+                            <img src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=400&h=250&fit=crop" alt="Cabut Gigi">
+                        </div>
+                        <div class="service-card-content">
+                            <div class="service-icon-small">
+                                <i class="fas fa-hand-holding-medical"></i>
+                            </div>
+                            <h3>Cabut Gigi</h3>
+                            <p>Pencabutan gigi dengan teknik modern dan minim rasa sakit. Termasuk gigi bungsu.</p>
+                            <div class="service-meta">
+                                <span class="service-price"><i class="fas fa-tag"></i> Mulai Rp 200rb</span>
+                                <span class="service-duration"><i class="fas fa-clock"></i> 15-30 Menit</span>
+                            </div>
+                            <a href="https://wa.me/6281234567890?text=Saya%20ingin%20konsultasi%20tentang%20Cabut%20Gigi" class="service-cta">
+                                <span>Konsultasi Gratis</span>
+                                <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Retainer -->
+                    <div class="service-card" data-category="ortodonti" data-aos="fade-up" data-aos-delay="200">
+                        <div class="service-card-image">
+                            <img src="https://images.unsplash.com/photo-1606265752439-1f18756aa5fc?w=400&h=250&fit=crop" alt="Retainer">
+                        </div>
+                        <div class="service-card-content">
+                            <div class="service-icon-small">
+                                <i class="fas fa-teeth"></i>
+                            </div>
+                            <h3>Retainer</h3>
+                            <p>Mempertahankan hasil perawatan behel agar gigi tetap rapi. Tersedia fixed dan removable.</p>
+                            <div class="service-meta">
+                                <span class="service-price"><i class="fas fa-tag"></i> Mulai Rp 500rb</span>
+                                <span class="service-duration"><i class="fas fa-clock"></i> 1 Kunjungan</span>
+                            </div>
+                            <a href="https://wa.me/6281234567890?text=Saya%20ingin%20konsultasi%20tentang%20Retainer" class="service-cta">
+                                <span>Konsultasi Gratis</span>
+                                <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Services CTA -->
+                <div class="services-cta" data-aos="fade-up">
+                    <p>Tidak yakin layanan mana yang tepat untuk Anda?</p>
+                    <a href="https://wa.me/6281234567890?text=Saya%20ingin%20konsultasi%20gratis" class="btn btn-primary btn-lg">
+                        <i class="fab fa-whatsapp"></i> Konsultasi Gratis
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Before/After Section -->
+        <section class="before-after" id="results">
+            <div class="container">
+                <div class="section-header" data-aos="fade-up">
+                    <span class="section-tag"><i class="fas fa-magic"></i> Transformasi</span>
+                    <h2 class="section-title">
+                        Hasil <span class="gradient-text">Perawatan Kami</span>
+                    </h2>
+                    <p class="section-description">
+                        Lihat transformasi nyata dari pasien kami. Geser untuk melihat perbandingan sebelum dan sesudah perawatan.
+                    </p>
+                </div>
+
+                <div class="before-after-grid">
+                    <!-- Before/After Slider 1 - Veneer -->
+                    <div class="ba-item" data-aos="fade-up" data-aos-delay="0">
+                        <div class="ba-slider-container" data-ba-slider>
+                            <img src="https://images.unsplash.com/photo-1606811841689-23dfddce3e95?w=800&h=600&fit=crop" alt="Before Treatment" class="before-image">
+                            <img src="https://images.unsplash.com/photo-1598256989800-fe5f95da9787?w=800&h=600&fit=crop" alt="After Treatment" class="after-image">
+                            <div class="ba-slider">
+                                <div class="ba-handle"></div>
+                            </div>
+                            <div class="ba-labels">
+                                <span class="ba-label before">Sebelum</span>
+                                <span class="ba-label after">Sesudah</span>
+                            </div>
+                        </div>
+                        <div class="ba-info">
+                            <h4>Pemasangan Veneer</h4>
+                            <p>Transformasi senyum dengan veneer porcelain premium</p>
+                        </div>
+                    </div>
+
+                    <!-- Before/After Slider 2 - Bleaching -->
+                    <div class="ba-item" data-aos="fade-up" data-aos-delay="100">
+                        <div class="ba-slider-container" data-ba-slider>
+                            <img src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=800&h=600&fit=crop" alt="Before Bleaching" class="before-image">
+                            <img src="https://images.unsplash.com/photo-1606265752439-1f18756aa5fc?w=800&h=600&fit=crop" alt="After Bleaching" class="after-image">
+                            <div class="ba-slider">
+                                <div class="ba-handle"></div>
+                            </div>
+                            <div class="ba-labels">
+                                <span class="ba-label before">Sebelum</span>
+                                <span class="ba-label after">Sesudah</span>
+                            </div>
+                        </div>
+                        <div class="ba-info">
+                            <h4>Bleaching & Scaling</h4>
+                            <p>Pemutihan gigi profesional hingga 8 tingkat lebih cerah</p>
+                        </div>
+                    </div>
+
+                    <!-- Before/After Slider 3 - Braces -->
+                    <div class="ba-item" data-aos="fade-up" data-aos-delay="200">
+                        <div class="ba-slider-container" data-ba-slider>
+                            <img src="https://images.unsplash.com/photo-1598256989800-fe5f95da9787?w=800&h=600&fit=crop" alt="Before Braces" class="before-image">
+                            <img src="https://images.unsplash.com/photo-1606811841689-23dfddce3e95?w=800&h=600&fit=crop" alt="After Braces" class="after-image">
+                            <div class="ba-slider">
+                                <div class="ba-handle"></div>
+                            </div>
+                            <div class="ba-labels">
+                                <span class="ba-label before">Sebelum</span>
+                                <span class="ba-label after">Sesudah</span>
+                            </div>
+                        </div>
+                        <div class="ba-info">
+                            <h4>Perawatan Behel</h4>
+                            <p>Hasil perawatan ortodonti selama 18 bulan</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="before-after-cta" data-aos="fade-up">
+                    <a href="https://wa.me/6281234567890?text=Saya%20ingin%20konsultasi%20untuk%20transformasi%20senyum" class="btn btn-primary btn-lg">
+                        <i class="fab fa-whatsapp"></i> Konsultasi Transformasi Senyum Anda
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Doctors Section -->
+        <section class="doctors" id="doctors">
+            <div class="container">
+                <div class="section-header" data-aos="fade-up">
+                    <span class="section-tag"><i class="fas fa-user-md"></i> Tim Dokter</span>
+                    <h2 class="section-title">
+                        Dokter <span class="gradient-text-dark">Profesional</span> Kami
+                    </h2>
+                    <p class="section-description">
+                        Tim dokter gigi berpengalaman dan tersertifikasi siap memberikan perawatan terbaik untuk Anda
+                    </p>
+                </div>
+
+                <div class="doctors-carousel-container">
+                    <div class="doctors-carousel" id="doctors-carousel">
+                        <!-- Doctor Card 1 - Founder -->
+                        <div class="doctor-card" data-aos="fade-up" data-aos-delay="0">
+                            <div class="doctor-card-inner">
+                                <div class="doctor-header">
+                                    <div class="doctor-image-wrapper">
+                                        <div class="doctor-image">
+                                            <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=400&h=400&fit=crop&crop=face" alt="drg. Aersy Henny Paramitha">
+                                        </div>
+                                        <span class="doctor-badge founder"><i class="fas fa-crown"></i></span>
+                                        <span class="doctor-status online"></span>
+                                    </div>
+                                    <div class="doctor-rating">
+                                        <div class="stars">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                        </div>
+                                        <span class="rating-score">5.0</span>
+                                        <span class="rating-count">(2.5k+ ulasan)</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="doctor-body">
+                                    <h3>drg. Aersy Henny Paramitha</h3>
+                                    <p class="doctor-specialty"><i class="fas fa-tooth"></i> Founder & General Dentist</p>
+                                    
+                                    <div class="doctor-stats">
+                                        <div class="stat-item">
+                                            <span class="stat-value">15+</span>
+                                            <span class="stat-label">Tahun</span>
+                                        </div>
+                                        <div class="stat-divider"></div>
+                                        <div class="stat-item">
+                                            <span class="stat-value">10K+</span>
+                                            <span class="stat-label">Pasien</span>
+                                        </div>
+                                        <div class="stat-divider"></div>
+                                        <div class="stat-item">
+                                            <span class="stat-value">29</span>
+                                            <span class="stat-label">Cabang</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="doctor-expertise">
+                                        <span class="expertise-tag">Estetika Gigi</span>
+                                        <span class="expertise-tag">Veneer</span>
+                                        <span class="expertise-tag">Smile Design</span>
+                                    </div>
+                                    
+                                    <div class="doctor-education">
+                                        <i class="fas fa-graduation-cap"></i>
+                                        <span>Universitas Indonesia</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="doctor-footer">
+                                    <a href="https://wa.me/6281234567890?text=Halo,%20saya%20ingin%20reservasi%20dengan%20drg.%20Aersy" class="btn btn-primary btn-doctor">
+                                        <i class="fab fa-whatsapp"></i> Reservasi
+                                    </a>
+                                    <a href="#" class="btn btn-outline btn-doctor">
+                                        <i class="fas fa-user"></i> Profil
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Doctor Card 2 - Ortodonti -->
+                        <div class="doctor-card" data-aos="fade-up" data-aos-delay="100">
+                            <div class="doctor-card-inner">
+                                <div class="doctor-header">
+                                    <div class="doctor-image-wrapper">
+                                        <div class="doctor-image">
+                                            <img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=400&h=400&fit=crop&crop=face" alt="drg. Michael Santoso, Sp.Ort">
+                                        </div>
+                                        <span class="doctor-badge specialist"><i class="fas fa-award"></i></span>
+                                        <span class="doctor-status online"></span>
+                                    </div>
+                                    <div class="doctor-rating">
+                                        <div class="stars">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                        </div>
+                                        <span class="rating-score">4.9</span>
+                                        <span class="rating-count">(1.8k+ ulasan)</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="doctor-body">
+                                    <h3>drg. Michael Santoso, Sp.Ort</h3>
+                                    <p class="doctor-specialty"><i class="fas fa-teeth"></i> Spesialis Ortodonti</p>
+                                    
+                                    <div class="doctor-stats">
+                                        <div class="stat-item">
+                                            <span class="stat-value">12+</span>
+                                            <span class="stat-label">Tahun</span>
+                                        </div>
+                                        <div class="stat-divider"></div>
+                                        <div class="stat-item">
+                                            <span class="stat-value">5K+</span>
+                                            <span class="stat-label">Pasien</span>
+                                        </div>
+                                        <div class="stat-divider"></div>
+                                        <div class="stat-item">
+                                            <span class="stat-value">3K+</span>
+                                            <span class="stat-label">Behel</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="doctor-expertise">
+                                        <span class="expertise-tag">Behel</span>
+                                        <span class="expertise-tag">Invisalign</span>
+                                        <span class="expertise-tag">Clear Aligner</span>
+                                    </div>
+                                    
+                                    <div class="doctor-education">
+                                        <i class="fas fa-graduation-cap"></i>
+                                        <span>UI - Invisalign Certified</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="doctor-footer">
+                                    <a href="https://wa.me/6281234567890?text=Halo,%20saya%20ingin%20reservasi%20dengan%20drg.%20Michael%20Sp.Ort" class="btn btn-primary btn-doctor">
+                                        <i class="fab fa-whatsapp"></i> Reservasi
+                                    </a>
+                                    <a href="#" class="btn btn-outline btn-doctor">
+                                        <i class="fas fa-user"></i> Profil
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Doctor Card 3 - Prostodonti -->
+                        <div class="doctor-card" data-aos="fade-up" data-aos-delay="200">
+                            <div class="doctor-card-inner">
+                                <div class="doctor-header">
+                                    <div class="doctor-image-wrapper">
+                                        <div class="doctor-image">
+                                            <img src="https://images.unsplash.com/photo-1594824476967-48c8b964273f?w=400&h=400&fit=crop&crop=face" alt="drg. Sarah Wijaya, Sp.Pros">
+                                        </div>
+                                        <span class="doctor-badge specialist"><i class="fas fa-award"></i></span>
+                                        <span class="doctor-status online"></span>
+                                    </div>
+                                    <div class="doctor-rating">
+                                        <div class="stars">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star-half-alt"></i>
+                                        </div>
+                                        <span class="rating-score">4.8</span>
+                                        <span class="rating-count">(1.2k+ ulasan)</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="doctor-body">
+                                    <h3>drg. Sarah Wijaya, Sp.Pros</h3>
+                                    <p class="doctor-specialty"><i class="fas fa-gem"></i> Spesialis Prostodonti</p>
+                                    
+                                    <div class="doctor-stats">
+                                        <div class="stat-item">
+                                            <span class="stat-value">10+</span>
+                                            <span class="stat-label">Tahun</span>
+                                        </div>
+                                        <div class="stat-divider"></div>
+                                        <div class="stat-item">
+                                            <span class="stat-value">4K+</span>
+                                            <span class="stat-label">Pasien</span>
+                                        </div>
+                                        <div class="stat-divider"></div>
+                                        <div class="stat-item">
+                                            <span class="stat-value">2K+</span>
+                                            <span class="stat-label">Veneer</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="doctor-expertise">
+                                        <span class="expertise-tag">Veneer</span>
+                                        <span class="expertise-tag">Crown</span>
+                                        <span class="expertise-tag">Smile Makeover</span>
+                                    </div>
+                                    
+                                    <div class="doctor-education">
+                                        <i class="fas fa-graduation-cap"></i>
+                                        <span>Universitas Trisakti</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="doctor-footer">
+                                    <a href="https://wa.me/6281234567890?text=Halo,%20saya%20ingin%20reservasi%20dengan%20drg.%20Sarah%20Sp.Pros" class="btn btn-primary btn-doctor">
+                                        <i class="fab fa-whatsapp"></i> Reservasi
+                                    </a>
+                                    <a href="#" class="btn btn-outline btn-doctor">
+                                        <i class="fas fa-user"></i> Profil
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Doctor Card 4 - Bedah Mulut -->
+                        <div class="doctor-card" data-aos="fade-up" data-aos-delay="300">
+                            <div class="doctor-card-inner">
+                                <div class="doctor-header">
+                                    <div class="doctor-image-wrapper">
+                                        <div class="doctor-image">
+                                            <img src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=400&h=400&fit=crop&crop=face" alt="drg. David Pratama, Sp.BM">
+                                        </div>
+                                        <span class="doctor-badge specialist"><i class="fas fa-award"></i></span>
+                                        <span class="doctor-status busy"></span>
+                                    </div>
+                                    <div class="doctor-rating">
+                                        <div class="stars">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                        </div>
+                                        <span class="rating-score">5.0</span>
+                                        <span class="rating-count">(980+ ulasan)</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="doctor-body">
+                                    <h3>drg. David Pratama, Sp.BM</h3>
+                                    <p class="doctor-specialty"><i class="fas fa-syringe"></i> Spesialis Bedah Mulut</p>
+                                    
+                                    <div class="doctor-stats">
+                                        <div class="stat-item">
+                                            <span class="stat-value">8+</span>
+                                            <span class="stat-label">Tahun</span>
+                                        </div>
+                                        <div class="stat-divider"></div>
+                                        <div class="stat-item">
+                                            <span class="stat-value">3K+</span>
+                                            <span class="stat-label">Pasien</span>
+                                        </div>
+                                        <div class="stat-divider"></div>
+                                        <div class="stat-item">
+                                            <span class="stat-value">1K+</span>
+                                            <span class="stat-label">Implant</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="doctor-expertise">
+                                        <span class="expertise-tag">Implant</span>
+                                        <span class="expertise-tag">Cabut Gigi</span>
+                                        <span class="expertise-tag">Bedah Minor</span>
+                                    </div>
+                                    
+                                    <div class="doctor-education">
+                                        <i class="fas fa-graduation-cap"></i>
+                                        <span>Universitas Padjadjaran</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="doctor-footer">
+                                    <a href="https://wa.me/6281234567890?text=Halo,%20saya%20ingin%20reservasi%20dengan%20drg.%20David%20Sp.BM" class="btn btn-primary btn-doctor">
+                                        <i class="fab fa-whatsapp"></i> Reservasi
+                                    </a>
+                                    <a href="#" class="btn btn-outline btn-doctor">
+                                        <i class="fas fa-user"></i> Profil
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Doctor Card 5 - Gigi Anak -->
+                        <div class="doctor-card" data-aos="fade-up" data-aos-delay="400">
+                            <div class="doctor-card-inner">
+                                <div class="doctor-header">
+                                    <div class="doctor-image-wrapper">
+                                        <div class="doctor-image">
+                                            <img src="https://images.unsplash.com/photo-1651008376811-b90baee60c1f?w=400&h=400&fit=crop&crop=face" alt="drg. Amanda Putri, Sp.KGA">
+                                        </div>
+                                        <span class="doctor-badge specialist"><i class="fas fa-award"></i></span>
+                                        <span class="doctor-status online"></span>
+                                    </div>
+                                    <div class="doctor-rating">
+                                        <div class="stars">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                        </div>
+                                        <span class="rating-score">5.0</span>
+                                        <span class="rating-count">(1.5k+ ulasan)</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="doctor-body">
+                                    <h3>drg. Amanda Putri, Sp.KGA</h3>
+                                    <p class="doctor-specialty"><i class="fas fa-child"></i> Spesialis Gigi Anak</p>
+                                    
+                                    <div class="doctor-stats">
+                                        <div class="stat-item">
+                                            <span class="stat-value">7+</span>
+                                            <span class="stat-label">Tahun</span>
+                                        </div>
+                                        <div class="stat-divider"></div>
+                                        <div class="stat-item">
+                                            <span class="stat-value">6K+</span>
+                                            <span class="stat-label">Pasien</span>
+                                        </div>
+                                        <div class="stat-divider"></div>
+                                        <div class="stat-item">
+                                            <span class="stat-value">100%</span>
+                                            <span class="stat-label">Happy</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="doctor-expertise">
+                                        <span class="expertise-tag">Gigi Anak</span>
+                                        <span class="expertise-tag">Fissure Sealant</span>
+                                        <span class="expertise-tag">Edukasi</span>
+                                    </div>
+                                    
+                                    <div class="doctor-education">
+                                        <i class="fas fa-graduation-cap"></i>
+                                        <span>Universitas Airlangga</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="doctor-footer">
+                                    <a href="https://wa.me/6281234567890?text=Halo,%20saya%20ingin%20reservasi%20dengan%20drg.%20Amanda%20Sp.KGA" class="btn btn-primary btn-doctor">
+                                        <i class="fab fa-whatsapp"></i> Reservasi
+                                    </a>
+                                    <a href="#" class="btn btn-outline btn-doctor">
+                                        <i class="fas fa-user"></i> Profil
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Doctor Card 6 - Konservasi -->
+                        <div class="doctor-card" data-aos="fade-up" data-aos-delay="500">
+                            <div class="doctor-card-inner">
+                                <div class="doctor-header">
+                                    <div class="doctor-image-wrapper">
+                                        <div class="doctor-image">
+                                            <img src="https://images.unsplash.com/photo-1537368910025-700350fe46c7?w=400&h=400&fit=crop&crop=face" alt="drg. Reza Firmansyah, Sp.KG">
+                                        </div>
+                                        <span class="doctor-badge specialist"><i class="fas fa-award"></i></span>
+                                        <span class="doctor-status online"></span>
+                                    </div>
+                                    <div class="doctor-rating">
+                                        <div class="stars">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star-half-alt"></i>
+                                        </div>
+                                        <span class="rating-score">4.7</span>
+                                        <span class="rating-count">(850+ ulasan)</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="doctor-body">
+                                    <h3>drg. Reza Firmansyah, Sp.KG</h3>
+                                    <p class="doctor-specialty"><i class="fas fa-fill-drip"></i> Spesialis Konservasi</p>
+                                    
+                                    <div class="doctor-stats">
+                                        <div class="stat-item">
+                                            <span class="stat-value">9+</span>
+                                            <span class="stat-label">Tahun</span>
+                                        </div>
+                                        <div class="stat-divider"></div>
+                                        <div class="stat-item">
+                                            <span class="stat-value">4K+</span>
+                                            <span class="stat-label">Pasien</span>
+                                        </div>
+                                        <div class="stat-divider"></div>
+                                        <div class="stat-item">
+                                            <span class="stat-value">2K+</span>
+                                            <span class="stat-label">Root Canal</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="doctor-expertise">
+                                        <span class="expertise-tag">Root Canal</span>
+                                        <span class="expertise-tag">Tambal Gigi</span>
+                                        <span class="expertise-tag">Bleaching</span>
+                                    </div>
+                                    
+                                    <div class="doctor-education">
+                                        <i class="fas fa-graduation-cap"></i>
+                                        <span>Universitas Gadjah Mada</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="doctor-footer">
+                                    <a href="https://wa.me/6281234567890?text=Halo,%20saya%20ingin%20reservasi%20dengan%20drg.%20Reza%20Sp.KG" class="btn btn-primary btn-doctor">
+                                        <i class="fab fa-whatsapp"></i> Reservasi
+                                    </a>
+                                    <a href="#" class="btn btn-outline btn-doctor">
+                                        <i class="fas fa-user"></i> Profil
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Carousel Navigation -->
+                <div class="carousel-nav">
+                    <button class="carousel-btn prev" id="doctors-prev" aria-label="Previous">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <div class="carousel-dots" id="doctors-dots">
+                        <span class="carousel-dot active"></span>
+                        <span class="carousel-dot"></span>
+                        <span class="carousel-dot"></span>
+                        <span class="carousel-dot"></span>
+                    </div>
+                    <button class="carousel-btn next" id="doctors-next" aria-label="Next">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Branches Section -->
+        <section class="branches" id="branches">
+            <div class="container">
+                <div class="section-header" data-aos="fade-up">
+                    <span class="section-tag"><i class="fas fa-map-marker-alt"></i> Lokasi Cabang</span>
+                    <h2 class="section-title">
+                        Temukan <span class="gradient-text-dark">Ocean Dental</span> Terdekat
+                    </h2>
+                    <p class="section-description">
+                        29 cabang tersebar di Jakarta & Bekasi, selalu dekat dengan Anda
+                    </p>
+                </div>
+
+                <!-- Search Box -->
+                <div class="branches-search" data-aos="fade-up">
+                    <div class="search-input-wrapper">
+                        <i class="fas fa-search"></i>
+                        <input 
+                            type="text" 
+                            id="branch-search" 
+                            placeholder="Cari cabang atau area..." 
+                            autocomplete="off"
+                        />
+                        <button class="search-clear" id="search-clear" aria-label="Clear search">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                    <div class="search-results-count" id="search-results-count"></div>
+                </div>
+
+                <div class="branches-wrapper">
+                    <!-- Branches List with Accordion -->
+                    <div class="branches-list-container" data-aos="fade-right">
+                        <div class="branches-accordion" id="branches-accordion">
+                            
+                            <!-- Jakarta Utara -->
+                            <div class="region-group" data-region="jakarta-utara">
+                                <button class="region-header active">
+                                    <div class="region-info">
+                                        <i class="fas fa-building"></i>
+                                        <span class="region-name">Jakarta Utara</span>
+                                        <span class="region-count">4 Cabang</span>
+                                    </div>
+                                    <i class="fas fa-chevron-down region-toggle"></i>
+                                </button>
+                                <div class="region-branches active">
+                                    <div class="branch-card" data-branch="kelapa-gading" data-lat="-6.1584" data-lng="106.9049">
+                                        <div class="branch-card-header">
+                                            <div class="branch-icon"><i class="fas fa-map-marker-alt"></i></div>
+                                            <div>
+                                                <h4>Ocean Dental Kelapa Gading</h4>
+                                                <p class="branch-address">Mall Kelapa Gading 3, Lt. 2</p>
+                                            </div>
+                                        </div>
+                                        <div class="branch-info">
+                                            <span><i class="fas fa-clock"></i> 09:00 - 21:00</span>
+                                            <span><i class="fas fa-phone"></i> (021) 4587-1234</span>
+                                        </div>
+                                        <div class="branch-actions">
+                                            <a href="https://maps.google.com/?q=-6.1584,106.9049" target="_blank" class="btn btn-sm"><i class="fas fa-directions"></i> Maps</a>
+                                            <a href="https://wa.me/6281234567890" class="btn btn-sm btn-primary"><i class="fab fa-whatsapp"></i> Reservasi</a>
+                                        </div>
+                                    </div>
+                                    <div class="branch-card" data-branch="sunter" data-lat="-6.1397" data-lng="106.8689">
+                                        <div class="branch-card-header">
+                                            <div class="branch-icon"><i class="fas fa-map-marker-alt"></i></div>
+                                            <div>
+                                                <h4>Ocean Dental Sunter</h4>
+                                                <p class="branch-address">Ruko Sunter Permai, Blok A No. 15</p>
+                                            </div>
+                                        </div>
+                                        <div class="branch-info">
+                                            <span><i class="fas fa-clock"></i> 09:00 - 21:00</span>
+                                            <span><i class="fas fa-phone"></i> (021) 6530-5678</span>
+                                        </div>
+                                        <div class="branch-actions">
+                                            <a href="https://maps.google.com/?q=-6.1397,106.8689" target="_blank" class="btn btn-sm"><i class="fas fa-directions"></i> Maps</a>
+                                            <a href="https://wa.me/6281234567890" class="btn btn-sm btn-primary"><i class="fab fa-whatsapp"></i> Reservasi</a>
+                                        </div>
+                                    </div>
+                                    <div class="branch-card" data-branch="pluit" data-lat="-6.1269" data-lng="106.7942">
+                                        <div class="branch-card-header">
+                                            <div class="branch-icon"><i class="fas fa-map-marker-alt"></i></div>
+                                            <div>
+                                                <h4>Ocean Dental Pluit</h4>
+                                                <p class="branch-address">Pluit Village Mall, Lt. 1</p>
+                                            </div>
+                                        </div>
+                                        <div class="branch-info">
+                                            <span><i class="fas fa-clock"></i> 09:00 - 21:00</span>
+                                            <span><i class="fas fa-phone"></i> (021) 6695-9012</span>
+                                        </div>
+                                        <div class="branch-actions">
+                                            <a href="https://maps.google.com/?q=-6.1269,106.7942" target="_blank" class="btn btn-sm"><i class="fas fa-directions"></i> Maps</a>
+                                            <a href="https://wa.me/6281234567890" class="btn btn-sm btn-primary"><i class="fab fa-whatsapp"></i> Reservasi</a>
+                                        </div>
+                                    </div>
+                                    <div class="branch-card" data-branch="tanjung-priok" data-lat="-6.1089" data-lng="106.8819">
+                                        <div class="branch-card-header">
+                                            <div class="branch-icon"><i class="fas fa-map-marker-alt"></i></div>
+                                            <div>
+                                                <h4>Ocean Dental Tanjung Priok</h4>
+                                                <p class="branch-address">Jl. Enggano Raya No. 88</p>
+                                            </div>
+                                        </div>
+                                        <div class="branch-info">
+                                            <span><i class="fas fa-clock"></i> 09:00 - 21:00</span>
+                                            <span><i class="fas fa-phone"></i> (021) 4393-3456</span>
+                                        </div>
+                                        <div class="branch-actions">
+                                            <a href="https://maps.google.com/?q=-6.1089,106.8819" target="_blank" class="btn btn-sm"><i class="fas fa-directions"></i> Maps</a>
+                                            <a href="https://wa.me/6281234567890" class="btn btn-sm btn-primary"><i class="fab fa-whatsapp"></i> Reservasi</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Jakarta Timur -->
+                            <div class="region-group" data-region="jakarta-timur">
+                                <button class="region-header">
+                                    <div class="region-info">
+                                        <i class="fas fa-building"></i>
+                                        <span class="region-name">Jakarta Timur</span>
+                                        <span class="region-count">5 Cabang</span>
+                                    </div>
+                                    <i class="fas fa-chevron-down region-toggle"></i>
+                                </button>
+                                <div class="region-branches">
+                                    <div class="branch-card" data-branch="cakung" data-lat="-6.1856" data-lng="106.9545">
+                                        <div class="branch-card-header">
+                                            <div class="branch-icon"><i class="fas fa-map-marker-alt"></i></div>
+                                            <div>
+                                                <h4>Ocean Dental Cakung</h4>
+                                                <p class="branch-address">Ruko Cakung Square No. 12</p>
+                                            </div>
+                                        </div>
+                                        <div class="branch-info">
+                                            <span><i class="fas fa-clock"></i> 09:00 - 21:00</span>
+                                            <span><i class="fas fa-phone"></i> (021) 4609-1111</span>
+                                        </div>
+                                        <div class="branch-actions">
+                                            <a href="https://maps.google.com/?q=-6.1856,106.9545" target="_blank" class="btn btn-sm"><i class="fas fa-directions"></i> Maps</a>
+                                            <a href="https://wa.me/6281234567890" class="btn btn-sm btn-primary"><i class="fab fa-whatsapp"></i> Reservasi</a>
+                                        </div>
+                                    </div>
+                                    <div class="branch-card" data-branch="jatinegara" data-lat="-6.2150" data-lng="106.8704">
+                                        <div class="branch-card-header">
+                                            <div class="branch-icon"><i class="fas fa-map-marker-alt"></i></div>
+                                            <div>
+                                                <h4>Ocean Dental Jatinegara</h4>
+                                                <p class="branch-address">Jl. Matraman Raya No. 45</p>
+                                            </div>
+                                        </div>
+                                        <div class="branch-info">
+                                            <span><i class="fas fa-clock"></i> 09:00 - 21:00</span>
+                                            <span><i class="fas fa-phone"></i> (021) 8564-2222</span>
+                                        </div>
+                                        <div class="branch-actions">
+                                            <a href="https://maps.google.com/?q=-6.2150,106.8704" target="_blank" class="btn btn-sm"><i class="fas fa-directions"></i> Maps</a>
+                                            <a href="https://wa.me/6281234567890" class="btn btn-sm btn-primary"><i class="fab fa-whatsapp"></i> Reservasi</a>
+                                        </div>
+                                    </div>
+                                    <div class="branch-card" data-branch="rawamangun" data-lat="-6.1891" data-lng="106.8877">
+                                        <div class="branch-card-header">
+                                            <div class="branch-icon"><i class="fas fa-map-marker-alt"></i></div>
+                                            <div>
+                                                <h4>Ocean Dental Rawamangun</h4>
+                                                <p class="branch-address">Jl. Pemuda Raya No. 22</p>
+                                            </div>
+                                        </div>
+                                        <div class="branch-info">
+                                            <span><i class="fas fa-clock"></i> 09:00 - 21:00</span>
+                                            <span><i class="fas fa-phone"></i> (021) 4788-3333</span>
+                                        </div>
+                                        <div class="branch-actions">
+                                            <a href="https://maps.google.com/?q=-6.1891,106.8877" target="_blank" class="btn btn-sm"><i class="fas fa-directions"></i> Maps</a>
+                                            <a href="https://wa.me/6281234567890" class="btn btn-sm btn-primary"><i class="fab fa-whatsapp"></i> Reservasi</a>
+                                        </div>
+                                    </div>
+                                    <div class="branch-card" data-branch="cipinang" data-lat="-6.2234" data-lng="106.8822">
+                                        <div class="branch-card-header">
+                                            <div class="branch-icon"><i class="fas fa-map-marker-alt"></i></div>
+                                            <div>
+                                                <h4>Ocean Dental Cipinang</h4>
+                                                <p class="branch-address">Jl. Cipinang Muara Raya No. 10</p>
+                                            </div>
+                                        </div>
+                                        <div class="branch-info">
+                                            <span><i class="fas fa-clock"></i> 09:00 - 21:00</span>
+                                            <span><i class="fas fa-phone"></i> (021) 8191-4444</span>
+                                        </div>
+                                        <div class="branch-actions">
+                                            <a href="https://maps.google.com/?q=-6.2234,106.8822" target="_blank" class="btn btn-sm"><i class="fas fa-directions"></i> Maps</a>
+                                            <a href="https://wa.me/6281234567890" class="btn btn-sm btn-primary"><i class="fab fa-whatsapp"></i> Reservasi</a>
+                                        </div>
+                                    </div>
+                                    <div class="branch-card" data-branch="duren-sawit" data-lat="-6.2355" data-lng="106.9178">
+                                        <div class="branch-card-header">
+                                            <div class="branch-icon"><i class="fas fa-map-marker-alt"></i></div>
+                                            <div>
+                                                <h4>Ocean Dental Duren Sawit</h4>
+                                                <p class="branch-address">Ruko Duren Sawit Indah No. 8</p>
+                                            </div>
+                                        </div>
+                                        <div class="branch-info">
+                                            <span><i class="fas fa-clock"></i> 09:00 - 21:00</span>
+                                            <span><i class="fas fa-phone"></i> (021) 8660-5555</span>
+                                        </div>
+                                        <div class="branch-actions">
+                                            <a href="https://maps.google.com/?q=-6.2355,106.9178" target="_blank" class="btn btn-sm"><i class="fas fa-directions"></i> Maps</a>
+                                            <a href="https://wa.me/6281234567890" class="btn btn-sm btn-primary"><i class="fab fa-whatsapp"></i> Reservasi</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Jakarta Barat -->
+                            <div class="region-group" data-region="jakarta-barat">
+                                <button class="region-header">
+                                    <div class="region-info">
+                                        <i class="fas fa-building"></i>
+                                        <span class="region-name">Jakarta Barat</span>
+                                        <span class="region-count">4 Cabang</span>
+                                    </div>
+                                    <i class="fas fa-chevron-down region-toggle"></i>
+                                </button>
+                                <div class="region-branches">
+                                    <div class="branch-card" data-branch="grogol" data-lat="-6.1669" data-lng="106.7862">
+                                        <div class="branch-card-header">
+                                            <div class="branch-icon"><i class="fas fa-map-marker-alt"></i></div>
+                                            <div>
+                                                <h4>Ocean Dental Grogol</h4>
+                                                <p class="branch-address">Mall Ciputra, Lt. 3</p>
+                                            </div>
+                                        </div>
+                                        <div class="branch-info">
+                                            <span><i class="fas fa-clock"></i> 09:00 - 21:00</span>
+                                            <span><i class="fas fa-phone"></i> (021) 5606-1111</span>
+                                        </div>
+                                        <div class="branch-actions">
+                                            <a href="https://maps.google.com/?q=-6.1669,106.7862" target="_blank" class="btn btn-sm"><i class="fas fa-directions"></i> Maps</a>
+                                            <a href="https://wa.me/6281234567890" class="btn btn-sm btn-primary"><i class="fab fa-whatsapp"></i> Reservasi</a>
+                                        </div>
+                                    </div>
+                                    <div class="branch-card" data-branch="cengkareng" data-lat="-6.1374" data-lng="106.7309">
+                                        <div class="branch-card-header">
+                                            <div class="branch-icon"><i class="fas fa-map-marker-alt"></i></div>
+                                            <div>
+                                                <h4>Ocean Dental Cengkareng</h4>
+                                                <p class="branch-address">Ruko Taman Palem Lestari, Blok B No. 5</p>
+                                            </div>
+                                        </div>
+                                        <div class="branch-info">
+                                            <span><i class="fas fa-clock"></i> 09:00 - 21:00</span>
+                                            <span><i class="fas fa-phone"></i> (021) 5435-2222</span>
+                                        </div>
+                                        <div class="branch-actions">
+                                            <a href="https://maps.google.com/?q=-6.1374,106.7309" target="_blank" class="btn btn-sm"><i class="fas fa-directions"></i> Maps</a>
+                                            <a href="https://wa.me/6281234567890" class="btn btn-sm btn-primary"><i class="fab fa-whatsapp"></i> Reservasi</a>
+                                        </div>
+                                    </div>
+                                    <div class="branch-card" data-branch="kebon-jeruk" data-lat="-6.1868" data-lng="106.7635">
+                                        <div class="branch-card-header">
+                                            <div class="branch-icon"><i class="fas fa-map-marker-alt"></i></div>
+                                            <div>
+                                                <h4>Ocean Dental Kebon Jeruk</h4>
+                                                <p class="branch-address">Jl. Panjang No. 150</p>
+                                            </div>
+                                        </div>
+                                        <div class="branch-info">
+                                            <span><i class="fas fa-clock"></i> 09:00 - 21:00</span>
+                                            <span><i class="fas fa-phone"></i> (021) 5366-3333</span>
+                                        </div>
+                                        <div class="branch-actions">
+                                            <a href="https://maps.google.com/?q=-6.1868,106.7635" target="_blank" class="btn btn-sm"><i class="fas fa-directions"></i> Maps</a>
+                                            <a href="https://wa.me/6281234567890" class="btn btn-sm btn-primary"><i class="fab fa-whatsapp"></i> Reservasi</a>
+                                        </div>
+                                    </div>
+                                    <div class="branch-card" data-branch="taman-sari" data-lat="-6.1492" data-lng="106.8149">
+                                        <div class="branch-card-header">
+                                            <div class="branch-icon"><i class="fas fa-map-marker-alt"></i></div>
+                                            <div>
+                                                <h4>Ocean Dental Taman Sari</h4>
+                                                <p class="branch-address">Jl. Mangga Besar Raya No. 88</p>
+                                            </div>
+                                        </div>
+                                        <div class="branch-info">
+                                            <span><i class="fas fa-clock"></i> 09:00 - 21:00</span>
+                                            <span><i class="fas fa-phone"></i> (021) 6289-4444</span>
+                                        </div>
+                                        <div class="branch-actions">
+                                            <a href="https://maps.google.com/?q=-6.1492,106.8149" target="_blank" class="btn btn-sm"><i class="fas fa-directions"></i> Maps</a>
+                                            <a href="https://wa.me/6281234567890" class="btn btn-sm btn-primary"><i class="fab fa-whatsapp"></i> Reservasi</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Jakarta Selatan -->
+                            <div class="region-group" data-region="jakarta-selatan">
+                                <button class="region-header">
+                                    <div class="region-info">
+                                        <i class="fas fa-building"></i>
+                                        <span class="region-name">Jakarta Selatan</span>
+                                        <span class="region-count">5 Cabang</span>
+                                    </div>
+                                    <i class="fas fa-chevron-down region-toggle"></i>
+                                </button>
+                                <div class="region-branches">
+                                    <div class="branch-card" data-branch="tebet" data-lat="-6.2297" data-lng="106.8537">
+                                        <div class="branch-card-header">
+                                            <div class="branch-icon"><i class="fas fa-map-marker-alt"></i></div>
+                                            <div>
+                                                <h4>Ocean Dental Tebet</h4>
+                                                <p class="branch-address">Jl. Tebet Barat Dalam No. 25</p>
+                                            </div>
+                                        </div>
+                                        <div class="branch-info">
+                                            <span><i class="fas fa-clock"></i> 09:00 - 21:00</span>
+                                            <span><i class="fas fa-phone"></i> (021) 8370-1111</span>
+                                        </div>
+                                        <div class="branch-actions">
+                                            <a href="https://maps.google.com/?q=-6.2297,106.8537" target="_blank" class="btn btn-sm"><i class="fas fa-directions"></i> Maps</a>
+                                            <a href="https://wa.me/6281234567890" class="btn btn-sm btn-primary"><i class="fab fa-whatsapp"></i> Reservasi</a>
+                                        </div>
+                                    </div>
+                                    <div class="branch-card" data-branch="kemang" data-lat="-6.2595" data-lng="106.8168">
+                                        <div class="branch-card-header">
+                                            <div class="branch-icon"><i class="fas fa-map-marker-alt"></i></div>
+                                            <div>
+                                                <h4>Ocean Dental Kemang</h4>
+                                                <p class="branch-address">Jl. Kemang Raya No. 72</p>
+                                            </div>
+                                        </div>
+                                        <div class="branch-info">
+                                            <span><i class="fas fa-clock"></i> 09:00 - 21:00</span>
+                                            <span><i class="fas fa-phone"></i> (021) 7179-2222</span>
+                                        </div>
+                                        <div class="branch-actions">
+                                            <a href="https://maps.google.com/?q=-6.2595,106.8168" target="_blank" class="btn btn-sm"><i class="fas fa-directions"></i> Maps</a>
+                                            <a href="https://wa.me/6281234567890" class="btn btn-sm btn-primary"><i class="fab fa-whatsapp"></i> Reservasi</a>
+                                        </div>
+                                    </div>
+                                    <div class="branch-card" data-branch="pondok-indah" data-lat="-6.2835" data-lng="106.7854">
+                                        <div class="branch-card-header">
+                                            <div class="branch-icon"><i class="fas fa-map-marker-alt"></i></div>
+                                            <div>
+                                                <h4>Ocean Dental Pondok Indah</h4>
+                                                <p class="branch-address">Pondok Indah Mall 2, Lt. 2</p>
+                                            </div>
+                                        </div>
+                                        <div class="branch-info">
+                                            <span><i class="fas fa-clock"></i> 09:00 - 21:00</span>
+                                            <span><i class="fas fa-phone"></i> (021) 7590-3333</span>
+                                        </div>
+                                        <div class="branch-actions">
+                                            <a href="https://maps.google.com/?q=-6.2835,106.7854" target="_blank" class="btn btn-sm"><i class="fas fa-directions"></i> Maps</a>
+                                            <a href="https://wa.me/6281234567890" class="btn btn-sm btn-primary"><i class="fab fa-whatsapp"></i> Reservasi</a>
+                                        </div>
+                                    </div>
+                                    <div class="branch-card" data-branch="cilandak" data-lat="-6.2894" data-lng="106.8012">
+                                        <div class="branch-card-header">
+                                            <div class="branch-icon"><i class="fas fa-map-marker-alt"></i></div>
+                                            <div>
+                                                <h4>Ocean Dental Cilandak</h4>
+                                                <p class="branch-address">Cilandak Town Square, Lt. 1</p>
+                                            </div>
+                                        </div>
+                                        <div class="branch-info">
+                                            <span><i class="fas fa-clock"></i> 09:00 - 21:00</span>
+                                            <span><i class="fas fa-phone"></i> (021) 7884-4444</span>
+                                        </div>
+                                        <div class="branch-actions">
+                                            <a href="https://maps.google.com/?q=-6.2894,106.8012" target="_blank" class="btn btn-sm"><i class="fas fa-directions"></i> Maps</a>
+                                            <a href="https://wa.me/6281234567890" class="btn btn-sm btn-primary"><i class="fab fa-whatsapp"></i> Reservasi</a>
+                                        </div>
+                                    </div>
+                                    <div class="branch-card" data-branch="pasar-minggu" data-lat="-6.2841" data-lng="106.8456">
+                                        <div class="branch-card-header">
+                                            <div class="branch-icon"><i class="fas fa-map-marker-alt"></i></div>
+                                            <div>
+                                                <h4>Ocean Dental Pasar Minggu</h4>
+                                                <p class="branch-address">Jl. Raya Pasar Minggu No. 99</p>
+                                            </div>
+                                        </div>
+                                        <div class="branch-info">
+                                            <span><i class="fas fa-clock"></i> 09:00 - 21:00</span>
+                                            <span><i class="fas fa-phone"></i> (021) 7884-5555</span>
+                                        </div>
+                                        <div class="branch-actions">
+                                            <a href="https://maps.google.com/?q=-6.2841,106.8456" target="_blank" class="btn btn-sm"><i class="fas fa-directions"></i> Maps</a>
+                                            <a href="https://wa.me/6281234567890" class="btn btn-sm btn-primary"><i class="fab fa-whatsapp"></i> Reservasi</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Bekasi Barat -->
+                            <div class="region-group" data-region="bekasi-barat">
+                                <button class="region-header">
+                                    <div class="region-info">
+                                        <i class="fas fa-building"></i>
+                                        <span class="region-name">Bekasi Barat</span>
+                                        <span class="region-count">4 Cabang</span>
+                                    </div>
+                                    <i class="fas fa-chevron-down region-toggle"></i>
+                                </button>
+                                <div class="region-branches">
+                                    <div class="branch-card" data-branch="harapan-indah" data-lat="-6.1684" data-lng="107.0078">
+                                        <div class="branch-card-header">
+                                            <div class="branch-icon"><i class="fas fa-map-marker-alt"></i></div>
+                                            <div>
+                                                <h4>Ocean Dental Harapan Indah</h4>
+                                                <p class="branch-address">Ruko Harapan Indah Boulevard, Blok C No. 10</p>
+                                            </div>
+                                        </div>
+                                        <div class="branch-info">
+                                            <span><i class="fas fa-clock"></i> 09:00 - 21:00</span>
+                                            <span><i class="fas fa-phone"></i> (021) 8893-1111</span>
+                                        </div>
+                                        <div class="branch-actions">
+                                            <a href="https://maps.google.com/?q=-6.1684,107.0078" target="_blank" class="btn btn-sm"><i class="fas fa-directions"></i> Maps</a>
+                                            <a href="https://wa.me/6281234567890" class="btn btn-sm btn-primary"><i class="fab fa-whatsapp"></i> Reservasi</a>
+                                        </div>
+                                    </div>
+                                    <div class="branch-card" data-branch="medan-satria" data-lat="-6.1891" data-lng="107.0012">
+                                        <div class="branch-card-header">
+                                            <div class="branch-icon"><i class="fas fa-map-marker-alt"></i></div>
+                                            <div>
+                                                <h4>Ocean Dental Medan Satria</h4>
+                                                <p class="branch-address">Jl. Perjuangan Raya No. 55</p>
+                                            </div>
+                                        </div>
+                                        <div class="branch-info">
+                                            <span><i class="fas fa-clock"></i> 09:00 - 21:00</span>
+                                            <span><i class="fas fa-phone"></i> (021) 8893-2222</span>
+                                        </div>
+                                        <div class="branch-actions">
+                                            <a href="https://maps.google.com/?q=-6.1891,107.0012" target="_blank" class="btn btn-sm"><i class="fas fa-directions"></i> Maps</a>
+                                            <a href="https://wa.me/6281234567890" class="btn btn-sm btn-primary"><i class="fab fa-whatsapp"></i> Reservasi</a>
+                                        </div>
+                                    </div>
+                                    <div class="branch-card" data-branch="kota-bekasi" data-lat="-6.2416" data-lng="107.0053">
+                                        <div class="branch-card-header">
+                                            <div class="branch-icon"><i class="fas fa-map-marker-alt"></i></div>
+                                            <div>
+                                                <h4>Ocean Dental Kota Bekasi</h4>
+                                                <p class="branch-address">Bekasi Cyber Park, Lt. 2</p>
+                                            </div>
+                                        </div>
+                                        <div class="branch-info">
+                                            <span><i class="fas fa-clock"></i> 09:00 - 21:00</span>
+                                            <span><i class="fas fa-phone"></i> (021) 8893-3333</span>
+                                        </div>
+                                        <div class="branch-actions">
+                                            <a href="https://maps.google.com/?q=-6.2416,107.0053" target="_blank" class="btn btn-sm"><i class="fas fa-directions"></i> Maps</a>
+                                            <a href="https://wa.me/6281234567890" class="btn btn-sm btn-primary"><i class="fab fa-whatsapp"></i> Reservasi</a>
+                                        </div>
+                                    </div>
+                                    <div class="branch-card" data-branch="teluk-pucung" data-lat="-6.2102" data-lng="106.9891">
+                                        <div class="branch-card-header">
+                                            <div class="branch-icon"><i class="fas fa-map-marker-alt"></i></div>
+                                            <div>
+                                                <h4>Ocean Dental Teluk Pucung</h4>
+                                                <p class="branch-address">Ruko Teluk Pucung Indah No. 7</p>
+                                            </div>
+                                        </div>
+                                        <div class="branch-info">
+                                            <span><i class="fas fa-clock"></i> 09:00 - 21:00</span>
+                                            <span><i class="fas fa-phone"></i> (021) 8893-4444</span>
+                                        </div>
+                                        <div class="branch-actions">
+                                            <a href="https://maps.google.com/?q=-6.2102,106.9891" target="_blank" class="btn btn-sm"><i class="fas fa-directions"></i> Maps</a>
+                                            <a href="https://wa.me/6281234567890" class="btn btn-sm btn-primary"><i class="fab fa-whatsapp"></i> Reservasi</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Bekasi Utara -->
+                            <div class="region-group" data-region="bekasi-utara">
+                                <button class="region-header">
+                                    <div class="region-info">
+                                        <i class="fas fa-building"></i>
+                                        <span class="region-name">Bekasi Utara</span>
+                                        <span class="region-count">4 Cabang</span>
+                                    </div>
+                                    <i class="fas fa-chevron-down region-toggle"></i>
+                                </button>
+                                <div class="region-branches">
+                                    <div class="branch-card" data-branch="kaliabang" data-lat="-6.1545" data-lng="107.0156">
+                                        <div class="branch-card-header">
+                                            <div class="branch-icon"><i class="fas fa-map-marker-alt"></i></div>
+                                            <div>
+                                                <h4>Ocean Dental Kaliabang</h4>
+                                                <p class="branch-address">Jl. Kaliabang Tengah No. 33</p>
+                                            </div>
+                                        </div>
+                                        <div class="branch-info">
+                                            <span><i class="fas fa-clock"></i> 09:00 - 21:00</span>
+                                            <span><i class="fas fa-phone"></i> (021) 8894-1111</span>
+                                        </div>
+                                        <div class="branch-actions">
+                                            <a href="https://maps.google.com/?q=-6.1545,107.0156" target="_blank" class="btn btn-sm"><i class="fas fa-directions"></i> Maps</a>
+                                            <a href="https://wa.me/6281234567890" class="btn btn-sm btn-primary"><i class="fab fa-whatsapp"></i> Reservasi</a>
+                                        </div>
+                                    </div>
+                                    <div class="branch-card" data-branch="perwira" data-lat="-6.1423" data-lng="107.0234">
+                                        <div class="branch-card-header">
+                                            <div class="branch-icon"><i class="fas fa-map-marker-alt"></i></div>
+                                            <div>
+                                                <h4>Ocean Dental Perwira</h4>
+                                                <p class="branch-address">Ruko Perwira Square No. 15</p>
+                                            </div>
+                                        </div>
+                                        <div class="branch-info">
+                                            <span><i class="fas fa-clock"></i> 09:00 - 21:00</span>
+                                            <span><i class="fas fa-phone"></i> (021) 8894-2222</span>
+                                        </div>
+                                        <div class="branch-actions">
+                                            <a href="https://maps.google.com/?q=-6.1423,107.0234" target="_blank" class="btn btn-sm"><i class="fas fa-directions"></i> Maps</a>
+                                            <a href="https://wa.me/6281234567890" class="btn btn-sm btn-primary"><i class="fab fa-whatsapp"></i> Reservasi</a>
+                                        </div>
+                                    </div>
+                                    <div class="branch-card" data-branch="harapan-jaya" data-lat="-6.1612" data-lng="107.0345">
+                                        <div class="branch-card-header">
+                                            <div class="branch-icon"><i class="fas fa-map-marker-alt"></i></div>
+                                            <div>
+                                                <h4>Ocean Dental Harapan Jaya</h4>
+                                                <p class="branch-address">Jl. Harapan Jaya Raya No. 20</p>
+                                            </div>
+                                        </div>
+                                        <div class="branch-info">
+                                            <span><i class="fas fa-clock"></i> 09:00 - 21:00</span>
+                                            <span><i class="fas fa-phone"></i> (021) 8894-3333</span>
+                                        </div>
+                                        <div class="branch-actions">
+                                            <a href="https://maps.google.com/?q=-6.1612,107.0345" target="_blank" class="btn btn-sm"><i class="fas fa-directions"></i> Maps</a>
+                                            <a href="https://wa.me/6281234567890" class="btn btn-sm btn-primary"><i class="fab fa-whatsapp"></i> Reservasi</a>
+                                        </div>
+                                    </div>
+                                    <div class="branch-card" data-branch="marga-mulya" data-lat="-6.1734" data-lng="107.0423">
+                                        <div class="branch-card-header">
+                                            <div class="branch-icon"><i class="fas fa-map-marker-alt"></i></div>
+                                            <div>
+                                                <h4>Ocean Dental Marga Mulya</h4>
+                                                <p class="branch-address">Ruko Marga Mulya Permai No. 12</p>
+                                            </div>
+                                        </div>
+                                        <div class="branch-info">
+                                            <span><i class="fas fa-clock"></i> 09:00 - 21:00</span>
+                                            <span><i class="fas fa-phone"></i> (021) 8894-4444</span>
+                                        </div>
+                                        <div class="branch-actions">
+                                            <a href="https://maps.google.com/?q=-6.1734,107.0423" target="_blank" class="btn btn-sm"><i class="fas fa-directions"></i> Maps</a>
+                                            <a href="https://wa.me/6281234567890" class="btn btn-sm btn-primary"><i class="fab fa-whatsapp"></i> Reservasi</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Bekasi Timur -->
+                            <div class="region-group" data-region="bekasi-timur">
+                                <button class="region-header">
+                                    <div class="region-info">
+                                        <i class="fas fa-building"></i>
+                                        <span class="region-name">Bekasi Timur</span>
+                                        <span class="region-count">3 Cabang</span>
+                                    </div>
+                                    <i class="fas fa-chevron-down region-toggle"></i>
+                                </button>
+                                <div class="region-branches">
+                                    <div class="branch-card" data-branch="galaxy" data-lat="-6.2589" data-lng="107.0345">
+                                        <div class="branch-card-header">
+                                            <div class="branch-icon"><i class="fas fa-map-marker-alt"></i></div>
+                                            <div>
+                                                <h4>Ocean Dental Galaxy</h4>
+                                                <p class="branch-address">Ruko Galaxy City, Blok A No. 8</p>
+                                            </div>
+                                        </div>
+                                        <div class="branch-info">
+                                            <span><i class="fas fa-clock"></i> 09:00 - 21:00</span>
+                                            <span><i class="fas fa-phone"></i> (021) 8245-1111</span>
+                                        </div>
+                                        <div class="branch-actions">
+                                            <a href="https://maps.google.com/?q=-6.2589,107.0345" target="_blank" class="btn btn-sm"><i class="fas fa-directions"></i> Maps</a>
+                                            <a href="https://wa.me/6281234567890" class="btn btn-sm btn-primary"><i class="fab fa-whatsapp"></i> Reservasi</a>
+                                        </div>
+                                    </div>
+                                    <div class="branch-card" data-branch="jatisari" data-lat="-6.2756" data-lng="107.0512">
+                                        <div class="branch-card-header">
+                                            <div class="branch-icon"><i class="fas fa-map-marker-alt"></i></div>
+                                            <div>
+                                                <h4>Ocean Dental Jatisari</h4>
+                                                <p class="branch-address">Jl. Raya Jatisari No. 45</p>
+                                            </div>
+                                        </div>
+                                        <div class="branch-info">
+                                            <span><i class="fas fa-clock"></i> 09:00 - 21:00</span>
+                                            <span><i class="fas fa-phone"></i> (021) 8245-2222</span>
+                                        </div>
+                                        <div class="branch-actions">
+                                            <a href="https://maps.google.com/?q=-6.2756,107.0512" target="_blank" class="btn btn-sm"><i class="fas fa-directions"></i> Maps</a>
+                                            <a href="https://wa.me/6281234567890" class="btn btn-sm btn-primary"><i class="fab fa-whatsapp"></i> Reservasi</a>
+                                        </div>
+                                    </div>
+                                    <div class="branch-card" data-branch="jatimekar" data-lat="-6.2912" data-lng="107.0678">
+                                        <div class="branch-card-header">
+                                            <div class="branch-icon"><i class="fas fa-map-marker-alt"></i></div>
+                                            <div>
+                                                <h4>Ocean Dental Jatimekar</h4>
+                                                <p class="branch-address">Ruko Jatimekar Indah No. 3</p>
+                                            </div>
+                                        </div>
+                                        <div class="branch-info">
+                                            <span><i class="fas fa-clock"></i> 09:00 - 21:00</span>
+                                            <span><i class="fas fa-phone"></i> (021) 8245-3333</span>
+                                        </div>
+                                        <div class="branch-actions">
+                                            <a href="https://maps.google.com/?q=-6.2912,107.0678" target="_blank" class="btn btn-sm"><i class="fas fa-directions"></i> Maps</a>
+                                            <a href="https://wa.me/6281234567890" class="btn btn-sm btn-primary"><i class="fab fa-whatsapp"></i> Reservasi</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- Interactive Map Container -->
+                    <div class="map-container" data-aos="fade-left">
+                        <div id="branches-map"></div>
+                        <div class="map-legend">
+                            <div class="legend-item">
+                                <span class="legend-marker"></span>
+                                <span>Cabang Ocean Dental</span>
+                            </div>
+                            <p class="legend-hint">Klik cabang untuk melihat lokasi di peta</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Branches CTA -->
+                <div class="branches-cta" data-aos="fade-up">
+                    <div class="cta-icon">
+                        <i class="fas fa-headset"></i>
+                    </div>
+                    <h3>Butuh Bantuan Menemukan Cabang?</h3>
+                    <p>Tim customer service kami siap membantu Anda 24/7</p>
+                    <div class="cta-features">
+                        <div class="cta-feature"><i class="fas fa-check-circle"></i><span>Respon Cepat</span></div>
+                        <div class="cta-feature"><i class="fas fa-check-circle"></i><span>Gratis Konsultasi</span></div>
+                        <div class="cta-feature"><i class="fas fa-check-circle"></i><span>Booking Online</span></div>
+                    </div>
+                    <a href="https://wa.me/6281234567890" class="btn btn-primary btn-lg">
+                        <i class="fab fa-whatsapp"></i> Hubungi Kami
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials Section -->
+        <section
+            class="testimonials"
+            id="testimonials"
+        >
+            <div class="container">
+                <div
+                    class="section-header"
+                    data-aos="fade-up"
+                >
+                    <span class="section-tag"><i class="fas fa-quote-left"></i> Testimoni Pasien</span>
+                    <h2 class="section-title">
+                        Apa Kata
+                        <span class="gradient-text-dark">Pasien Kami</span>?
+                    </h2>
+                    <p class="section-description">
+                        Kepuasan dan kepercayaan Anda adalah prioritas kami
+                    </p>
+                </div>
+
+                <!-- Testimonial Stats -->
+                <div class="testimonial-stats" data-aos="fade-up">
+                    <div class="testi-stat">
+                        <div class="testi-stat-icon"><i class="fas fa-users"></i></div>
+                        <div class="testi-stat-info">
+                            <span class="testi-stat-value" data-count="50000">50,000+</span>
+                            <span class="testi-stat-label">Pasien Puas</span>
+                        </div>
+                    </div>
+                    <div class="testi-stat">
+                        <div class="testi-stat-icon"><i class="fas fa-star"></i></div>
+                        <div class="testi-stat-info">
+                            <span class="testi-stat-value">4.9</span>
+                            <span class="testi-stat-label">Rating Google</span>
+                        </div>
+                    </div>
+                    <div class="testi-stat">
+                        <div class="testi-stat-icon"><i class="fas fa-comments"></i></div>
+                        <div class="testi-stat-info">
+                            <span class="testi-stat-value" data-count="12500">12,500+</span>
+                            <span class="testi-stat-label">Ulasan Positif</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial Slider -->
+                <div class="testimonial-slider-wrapper" data-aos="fade-up">
+                    <div class="testimonial-slider" id="testimonial-slider">
+                        
+                        <!-- Testimonial 1 -->
+                        <div class="testi-slide">
+                            <div class="testi-card">
+                                <div class="testi-card-header">
+                                    <div class="testi-avatar">
+                                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face" alt="Budi Santoso">
+                                        <span class="verified-badge"><i class="fas fa-check"></i></span>
+                                    </div>
+                                    <div class="testi-author-info">
+                                        <h4>Budi Santoso</h4>
+                                        <p class="testi-location"><i class="fas fa-map-marker-alt"></i> Jakarta Selatan</p>
+                                        <div class="testi-rating">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                        </div>
+                                    </div>
+                                    <div class="testi-platform">
+                                        <i class="fab fa-google"></i>
+                                    </div>
+                                </div>
+                                <div class="testi-card-body">
+                                    <p class="testi-text">"Secara teknik dokter dan peralatan ok. Pelayanan ramah, tempat nyaman dan bersih. Harga terjangkau untuk kualitas yang didapat. Sudah 3 tahun jadi pasien tetap disini!"</p>
+                                </div>
+                                <div class="testi-card-footer">
+                                    <span class="testi-service"><i class="fas fa-tooth"></i> Scaling & Polishing</span>
+                                    <span class="testi-date">2 minggu lalu</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Testimonial 2 -->
+                        <div class="testi-slide">
+                            <div class="testi-card">
+                                <div class="testi-card-header">
+                                    <div class="testi-avatar">
+                                        <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&h=150&fit=crop&crop=face" alt="Siti Nurhaliza">
+                                        <span class="verified-badge"><i class="fas fa-check"></i></span>
+                                    </div>
+                                    <div class="testi-author-info">
+                                        <h4>Siti Nurhaliza</h4>
+                                        <p class="testi-location"><i class="fas fa-map-marker-alt"></i> Bekasi</p>
+                                        <div class="testi-rating">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                        </div>
+                                    </div>
+                                    <div class="testi-platform">
+                                        <i class="fab fa-google"></i>
+                                    </div>
+                                </div>
+                                <div class="testi-card-body">
+                                    <p class="testi-text">"Dokternya sabar banget, perawat juga ramah. Pas cabut gigi sama sekali gak sakit! Recommended banget untuk yang takut ke dokter gigi. Anak saya sekarang gak takut lagi."</p>
+                                </div>
+                                <div class="testi-card-footer">
+                                    <span class="testi-service"><i class="fas fa-tooth"></i> Cabut Gigi</span>
+                                    <span class="testi-date">1 bulan lalu</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Testimonial 3 -->
+                        <div class="testi-slide">
+                            <div class="testi-card">
+                                <div class="testi-card-header">
+                                    <div class="testi-avatar">
+                                        <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop&crop=face" alt="Diana Putri">
+                                        <span class="verified-badge"><i class="fas fa-check"></i></span>
+                                    </div>
+                                    <div class="testi-author-info">
+                                        <h4>Diana Putri</h4>
+                                        <p class="testi-location"><i class="fas fa-map-marker-alt"></i> Tangerang</p>
+                                        <div class="testi-rating">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                        </div>
+                                    </div>
+                                    <div class="testi-platform">
+                                        <i class="fab fa-instagram"></i>
+                                    </div>
+                                </div>
+                                <div class="testi-card-body">
+                                    <p class="testi-text">"Hasil veneer saya memuaskan! Giginya kelihatan natural dan senyum jadi lebih percaya diri. Proses konsultasi detil banget, dokternya jelasin semua opsi dengan sabar."</p>
+                                </div>
+                                <div class="testi-card-footer">
+                                    <span class="testi-service"><i class="fas fa-gem"></i> Veneer</span>
+                                    <span class="testi-date">3 minggu lalu</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Testimonial 4 -->
+                        <div class="testi-slide">
+                            <div class="testi-card">
+                                <div class="testi-card-header">
+                                    <div class="testi-avatar">
+                                        <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face" alt="Ahmad Wijaya">
+                                        <span class="verified-badge"><i class="fas fa-check"></i></span>
+                                    </div>
+                                    <div class="testi-author-info">
+                                        <h4>Ahmad Wijaya</h4>
+                                        <p class="testi-location"><i class="fas fa-map-marker-alt"></i> Jakarta Pusat</p>
+                                        <div class="testi-rating">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                        </div>
+                                    </div>
+                                    <div class="testi-platform">
+                                        <i class="fab fa-google"></i>
+                                    </div>
+                                </div>
+                                <div class="testi-card-body">
+                                    <p class="testi-text">"Sudah langganan dari tahun 2015. Service konsisten bagus, dokternya profesional. Seluruh keluarga perawatan gigi disini. Cabang dimana-mana jadi gampang aksesnya."</p>
+                                </div>
+                                <div class="testi-card-footer">
+                                    <span class="testi-service"><i class="fas fa-users"></i> Perawatan Keluarga</span>
+                                    <span class="testi-date">1 minggu lalu</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Testimonial 5 -->
+                        <div class="testi-slide">
+                            <div class="testi-card">
+                                <div class="testi-card-header">
+                                    <div class="testi-avatar">
+                                        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&h=150&fit=crop&crop=face" alt="Rina Anggraini">
+                                        <span class="verified-badge"><i class="fas fa-check"></i></span>
+                                    </div>
+                                    <div class="testi-author-info">
+                                        <h4>Rina Anggraini</h4>
+                                        <p class="testi-location"><i class="fas fa-map-marker-alt"></i> Kelapa Gading</p>
+                                        <div class="testi-rating">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                        </div>
+                                    </div>
+                                    <div class="testi-platform">
+                                        <i class="fab fa-google"></i>
+                                    </div>
+                                </div>
+                                <div class="testi-card-body">
+                                    <p class="testi-text">"Behel saya sudah selesai setelah 2 tahun perawatan. Hasilnya luar biasa! Gigi rata sempurna. Dokter Michael sangat teliti dan profesional. Worth every penny!"</p>
+                                </div>
+                                <div class="testi-card-footer">
+                                    <span class="testi-service"><i class="fas fa-teeth"></i> Ortodonti / Behel</span>
+                                    <span class="testi-date">2 hari lalu</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Testimonial 6 -->
+                        <div class="testi-slide">
+                            <div class="testi-card">
+                                <div class="testi-card-header">
+                                    <div class="testi-avatar">
+                                        <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&h=150&fit=crop&crop=face" alt="Hendro Kusuma">
+                                        <span class="verified-badge"><i class="fas fa-check"></i></span>
+                                    </div>
+                                    <div class="testi-author-info">
+                                        <h4>Hendro Kusuma</h4>
+                                        <p class="testi-location"><i class="fas fa-map-marker-alt"></i> PIK</p>
+                                        <div class="testi-rating">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star-half-alt"></i>
+                                        </div>
+                                    </div>
+                                    <div class="testi-platform">
+                                        <i class="fab fa-facebook"></i>
+                                    </div>
+                                </div>
+                                <div class="testi-card-body">
+                                    <p class="testi-text">"Implant gigi saya sukses tanpa komplikasi. Dokter David sangat ahli dan menjelaskan prosedur dengan detail. Recovery cepat dan sekarang bisa makan normal lagi."</p>
+                                </div>
+                                <div class="testi-card-footer">
+                                    <span class="testi-service"><i class="fas fa-syringe"></i> Implant Gigi</span>
+                                    <span class="testi-date">1 bulan lalu</span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Slider Navigation -->
+                    <button class="testi-nav testi-prev" id="testi-prev" aria-label="Previous">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <button class="testi-nav testi-next" id="testi-next" aria-label="Next">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+
+                    <!-- Slider Dots -->
+                    <div class="testi-dots" id="testi-dots"></div>
+                </div>
+
+                <!-- CTA -->
+                <div class="testimonial-cta" data-aos="fade-up">
+                    <p>Bergabunglah dengan <strong>50,000+ pasien</strong> yang sudah merasakan pelayanan terbaik kami</p>
+                    <a href="https://wa.me/6281234567890" class="btn btn-primary btn-lg">
+                        <i class="fab fa-whatsapp"></i> Reservasi Sekarang
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Gallery Section -->
+        <section
+            class="gallery"
+            id="gallery"
+        >
+            <div class="container">
+                <div
+                    class="section-header"
+                    data-aos="fade-up"
+                >
+                    <span class="section-tag"><i class="fas fa-images"></i> Galeri</span>
+                    <h2 class="section-title">
+                        Fasilitas
+                        <span class="gradient-text-dark">Klinik Kami</span>
+                    </h2>
+                    <p class="section-description">
+                        Lihat kenyamanan dan kebersihan fasilitas Ocean Dental
+                    </p>
+                </div>
+
+                <!-- Gallery Filter -->
+                <div class="gallery-filters" data-aos="fade-up">
+                    <button class="gallery-filter-btn active" data-filter="all">
+                        <i class="fas fa-th"></i> Semua
+                    </button>
+                    <button class="gallery-filter-btn" data-filter="klinik">
+                        <i class="fas fa-hospital"></i> Klinik
+                    </button>
+                    <button class="gallery-filter-btn" data-filter="peralatan">
+                        <i class="fas fa-tools"></i> Peralatan
+                    </button>
+                    <button class="gallery-filter-btn" data-filter="tim">
+                        <i class="fas fa-user-md"></i> Tim & Pasien
+                    </button>
+                </div>
+
+                <div class="gallery-masonry">
+                    <!-- Row 1 -->
+                    <div class="gallery-item tall" data-category="klinik" data-aos="fade-up" data-aos-delay="0">
+                        <img src="https://images.unsplash.com/photo-1629909613654-28e377c37b09?w=600&h=800&fit=crop" alt="Ruang Perawatan Modern">
+                        <div class="gallery-overlay">
+                            <div class="gallery-icon"><i class="fas fa-search-plus"></i></div>
+                            <h3>Ruang Perawatan</h3>
+                            <p>Modern & Nyaman</p>
+                        </div>
+                    </div>
+
+                    <div class="gallery-item" data-category="klinik" data-aos="fade-up" data-aos-delay="50">
+                        <img src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=600&h=400&fit=crop" alt="Ruang Sterilisasi">
+                        <div class="gallery-overlay">
+                            <div class="gallery-icon"><i class="fas fa-search-plus"></i></div>
+                            <h3>Ruang Sterilisasi</h3>
+                            <p>Standar Internasional</p>
+                        </div>
+                    </div>
+
+                    <div class="gallery-item" data-category="peralatan" data-aos="fade-up" data-aos-delay="100">
+                        <img src="https://images.unsplash.com/photo-1609840114035-3c981b782dfe?w=600&h=400&fit=crop" alt="Dental Chair">
+                        <div class="gallery-overlay">
+                            <div class="gallery-icon"><i class="fas fa-search-plus"></i></div>
+                            <h3>Dental Chair</h3>
+                            <p>Teknologi Terkini</p>
+                        </div>
+                    </div>
+
+                    <!-- Row 2 -->
+                    <div class="gallery-item wide" data-category="klinik" data-aos="fade-up" data-aos-delay="150">
+                        <img src="https://images.unsplash.com/photo-1629909615184-74f495363b67?w=800&h=400&fit=crop" alt="Area Resepsionis">
+                        <div class="gallery-overlay">
+                            <div class="gallery-icon"><i class="fas fa-search-plus"></i></div>
+                            <h3>Area Resepsionis</h3>
+                            <p>Pelayanan Ramah 24/7</p>
+                        </div>
+                    </div>
+
+                    <div class="gallery-item" data-category="tim" data-aos="fade-up" data-aos-delay="200">
+                        <img src="https://images.unsplash.com/photo-1606811841689-23dfddce3e95?w=600&h=400&fit=crop" alt="Tim Dokter">
+                        <div class="gallery-overlay">
+                            <div class="gallery-icon"><i class="fas fa-search-plus"></i></div>
+                            <h3>Tim Dokter</h3>
+                            <p>Profesional & Berpengalaman</p>
+                        </div>
+                    </div>
+
+                    <!-- Row 3 -->
+                    <div class="gallery-item" data-category="peralatan" data-aos="fade-up" data-aos-delay="250">
+                        <img src="https://images.unsplash.com/photo-1598256989800-fe5f95da9787?w=600&h=400&fit=crop" alt="Peralatan Digital">
+                        <div class="gallery-overlay">
+                            <div class="gallery-icon"><i class="fas fa-search-plus"></i></div>
+                            <h3>X-Ray Digital</h3>
+                            <p>Diagnosis Akurat</p>
+                        </div>
+                    </div>
+
+                    <div class="gallery-item tall" data-category="tim" data-aos="fade-up" data-aos-delay="300">
+                        <img src="https://images.unsplash.com/photo-1606265752439-1f18756aa5fc?w=600&h=800&fit=crop" alt="Pasien Bahagia">
+                        <div class="gallery-overlay">
+                            <div class="gallery-icon"><i class="fas fa-search-plus"></i></div>
+                            <h3>Pasien Bahagia</h3>
+                            <p>Senyum Sehat & Percaya Diri</p>
+                        </div>
+                    </div>
+
+                    <div class="gallery-item" data-category="klinik" data-aos="fade-up" data-aos-delay="350">
+                        <img src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?w=600&h=400&fit=crop" alt="Ruang Tunggu">
+                        <div class="gallery-overlay">
+                            <div class="gallery-icon"><i class="fas fa-search-plus"></i></div>
+                            <h3>Ruang Tunggu</h3>
+                            <p>Nyaman & Bersih</p>
+                        </div>
+                    </div>
+
+                    <div class="gallery-item wide" data-category="peralatan" data-aos="fade-up" data-aos-delay="400">
+                        <img src="https://images.unsplash.com/photo-1629909615184-74f495363b67?w=800&h=400&fit=crop" alt="Peralatan Sterilisasi">
+                        <div class="gallery-overlay">
+                            <div class="gallery-icon"><i class="fas fa-search-plus"></i></div>
+                            <h3>Autoclave Sterilizer</h3>
+                            <p>Jaminan Kebersihan 100%</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Lightbox -->
+            <div class="gallery-lightbox" id="gallery-lightbox">
+                <button class="lightbox-close" id="lightbox-close">
+                    <i class="fas fa-times"></i>
+                </button>
+                <button class="lightbox-nav lightbox-prev" id="lightbox-prev">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <button class="lightbox-nav lightbox-next" id="lightbox-next">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+                <div class="lightbox-content">
+                    <img src="" alt="" id="lightbox-image">
+                    <div class="lightbox-caption" id="lightbox-caption"></div>
+                    <div class="lightbox-counter" id="lightbox-counter"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section class="faq" id="faq">
+            <div class="container">
+                <div class="section-header" data-aos="fade-up">
+                    <span class="section-tag"><i class="fas fa-question-circle"></i> FAQ</span>
+                    <h2 class="section-title">
+                        Pertanyaan yang <span class="gradient-text-dark">Sering Ditanyakan</span>
+                    </h2>
+                    <p class="section-description">
+                        Temukan jawaban atas pertanyaan umum tentang layanan dan perawatan di Ocean Dental
+                    </p>
+                </div>
+
+                <div class="faq-container">
+                    <!-- FAQ Item 1 -->
+                    <div class="faq-item" data-aos="fade-up" data-aos-delay="0">
+                        <button class="faq-question">
+                            <span>Berapa biaya pemasangan veneer di Ocean Dental?</span>
+                            <span class="faq-icon"><i class="fas fa-chevron-down"></i></span>
+                        </button>
+                        <div class="faq-answer">
+                            <div class="faq-answer-content">
+                                <p>Biaya pemasangan veneer bervariasi tergantung jenis material dan jumlah gigi yang akan dipasang. Untuk veneer composite mulai dari Rp 1.5 juta per gigi, sedangkan veneer porcelain mulai dari Rp 4 juta per gigi. Kami menyediakan konsultasi gratis untuk memberikan estimasi biaya yang lebih akurat sesuai kebutuhan Anda.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- FAQ Item 2 -->
+                    <div class="faq-item" data-aos="fade-up" data-aos-delay="100">
+                        <button class="faq-question">
+                            <span>Apakah pemasangan behel terasa sakit?</span>
+                            <span class="faq-icon"><i class="fas fa-chevron-down"></i></span>
+                        </button>
+                        <div class="faq-answer">
+                            <div class="faq-answer-content">
+                                <p>Proses pemasangan behel tidak terasa sakit karena tidak memerlukan anestesi. Setelah pemasangan, Anda mungkin merasakan sedikit ketidaknyamanan atau gigi terasa ngilu selama 3-5 hari pertama saat gigi mulai bergerak. Kami akan memberikan tips dan obat pereda nyeri jika diperlukan untuk memastikan kenyamanan Anda.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- FAQ Item 3 -->
+                    <div class="faq-item" data-aos="fade-up" data-aos-delay="200">
+                        <button class="faq-question">
+                            <span>Berapa lama waktu yang dibutuhkan untuk bleaching?</span>
+                            <span class="faq-icon"><i class="fas fa-chevron-down"></i></span>
+                        </button>
+                        <div class="faq-answer">
+                            <div class="faq-answer-content">
+                                <p>Prosedur bleaching di klinik membutuhkan waktu sekitar 60-90 menit dalam satu kali kunjungan. Hasilnya langsung terlihat dengan gigi yang bisa menjadi 4-8 tingkat lebih putih. Untuk hasil yang lebih optimal, kami menyediakan paket home bleaching yang bisa dilanjutkan di rumah.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- FAQ Item 4 -->
+                    <div class="faq-item" data-aos="fade-up" data-aos-delay="300">
+                        <button class="faq-question">
+                            <span>Apakah Ocean Dental menerima pembayaran cicilan?</span>
+                            <span class="faq-icon"><i class="fas fa-chevron-down"></i></span>
+                        </button>
+                        <div class="faq-answer">
+                            <div class="faq-answer-content">
+                                <p>Ya, kami menerima berbagai metode pembayaran termasuk cicilan 0% dengan kartu kredit dari berbagai bank partner. Untuk perawatan dengan biaya tertentu, tersedia juga opsi cicilan internal tanpa kartu kredit. Silakan konsultasikan dengan tim kami untuk informasi lebih detail tentang opsi pembayaran.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- FAQ Item 5 -->
+                    <div class="faq-item" data-aos="fade-up" data-aos-delay="400">
+                        <button class="faq-question">
+                            <span>Apakah harus membuat janji terlebih dahulu?</span>
+                            <span class="faq-icon"><i class="fas fa-chevron-down"></i></span>
+                        </button>
+                        <div class="faq-answer">
+                            <div class="faq-answer-content">
+                                <p>Kami sangat menyarankan untuk membuat janji terlebih dahulu melalui WhatsApp atau telepon untuk memastikan ketersediaan dokter dan menghindari waktu tunggu yang lama. Namun, kami juga menerima pasien walk-in dengan catatan akan dilayani sesuai antrian yang ada.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- FAQ Item 6 -->
+                    <div class="faq-item" data-aos="fade-up" data-aos-delay="500">
+                        <button class="faq-question">
+                            <span>Berapa lama garansi untuk perawatan gigi?</span>
+                            <span class="faq-icon"><i class="fas fa-chevron-down"></i></span>
+                        </button>
+                        <div class="faq-answer">
+                            <div class="faq-answer-content">
+                                <p>Garansi perawatan berbeda-beda tergantung jenis tindakan. Untuk tambal gigi, garansi 6 bulan. Crown dan bridge memiliki garansi 1 tahun. Veneer porcelain garansi 2 tahun. Implan gigi garansi hingga 5 tahun. Garansi berlaku dengan syarat kontrol rutin sesuai jadwal yang ditentukan dokter.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Instagram Feed Section -->
+        <section class="instagram-feed" id="instagram">
+            <div class="container">
+                <div class="section-header" data-aos="fade-up">
+                    <span class="section-tag"><i class="fab fa-instagram"></i> Instagram</span>
+                    <h2 class="section-title">
+                        Follow Kami di <span class="gradient-text-dark">Instagram</span>
+                    </h2>
+                    <p class="section-description">
+                        Dapatkan tips kesehatan gigi, promo terbaru, dan update menarik lainnya
+                    </p>
+                </div>
+
+                <div class="instagram-grid">
+                    <!-- Instagram Item 1 -->
+                    <a href="https://instagram.com/oceandental.id" target="_blank" class="instagram-item" data-aos="zoom-in" data-aos-delay="0">
+                        <img src="https://images.unsplash.com/photo-1629909613654-28e377c37b09?w=400&h=400&fit=crop" alt="Ocean Dental Instagram">
+                        <div class="instagram-overlay">
+                            <i class="fab fa-instagram"></i>
+                        </div>
+                    </a>
+
+                    <!-- Instagram Item 2 -->
+                    <a href="https://instagram.com/oceandental.id" target="_blank" class="instagram-item" data-aos="zoom-in" data-aos-delay="50">
+                        <img src="https://images.unsplash.com/photo-1606811841689-23dfddce3e95?w=400&h=400&fit=crop" alt="Ocean Dental Instagram">
+                        <div class="instagram-overlay">
+                            <i class="fab fa-instagram"></i>
+                        </div>
+                    </a>
+
+                    <!-- Instagram Item 3 -->
+                    <a href="https://instagram.com/oceandental.id" target="_blank" class="instagram-item" data-aos="zoom-in" data-aos-delay="100">
+                        <img src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=400&h=400&fit=crop" alt="Ocean Dental Instagram">
+                        <div class="instagram-overlay">
+                            <i class="fab fa-instagram"></i>
+                        </div>
+                    </a>
+
+                    <!-- Instagram Item 4 -->
+                    <a href="https://instagram.com/oceandental.id" target="_blank" class="instagram-item" data-aos="zoom-in" data-aos-delay="150">
+                        <img src="https://images.unsplash.com/photo-1445527815219-ecbfec67492e?w=400&h=400&fit=crop" alt="Ocean Dental Instagram">
+                        <div class="instagram-overlay">
+                            <i class="fab fa-instagram"></i>
+                        </div>
+                    </a>
+
+                    <!-- Instagram Item 5 -->
+                    <a href="https://instagram.com/oceandental.id" target="_blank" class="instagram-item" data-aos="zoom-in" data-aos-delay="200">
+                        <img src="https://images.unsplash.com/photo-1609840114035-3c981b782dfe?w=400&h=400&fit=crop" alt="Ocean Dental Instagram">
+                        <div class="instagram-overlay">
+                            <i class="fab fa-instagram"></i>
+                        </div>
+                    </a>
+
+                    <!-- Instagram Item 6 -->
+                    <a href="https://instagram.com/oceandental.id" target="_blank" class="instagram-item" data-aos="zoom-in" data-aos-delay="250">
+                        <img src="https://images.unsplash.com/photo-1598256989800-fe5f95da9787?w=400&h=400&fit=crop" alt="Ocean Dental Instagram">
+                        <div class="instagram-overlay">
+                            <i class="fab fa-instagram"></i>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="instagram-cta" data-aos="fade-up">
+                    <a href="https://instagram.com/oceandental.id" target="_blank" class="btn btn-lg">
+                        <i class="fab fa-instagram"></i> Follow @oceandental.id
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="cta">
+            <div class="container">
+                <div
+                    class="cta-content"
+                    data-aos="fade-up"
+                >
+                    <h2>Siap untuk Senyum yang Lebih Sehat?</h2>
+                    <p>
+                        Konsultasi gratis dengan dokter gigi profesional kami.
+                        Hubungi kami sekarang!
+                    </p>
+                    <div class="cta-buttons">
+                        <a
+                            href="https://wa.me/6281234567890"
+                            class="btn btn-primary btn-lg"
+                            id="cta-whatsapp"
+                        >
+                            <i class="fab fa-whatsapp"></i> WhatsApp Sekarang
+                        </a>
+                        <a
+                            href="#branches"
+                            class="btn btn-secondary btn-lg"
+                            id="cta-location"
+                        >
+                            <i class="fas fa-map-marked-alt"></i> Cari Cabang
+                            Terdekat
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="container">
+                <div class="footer-content">
+                    <div class="footer-col">
+                        <div class="footer-brand">
+                            <i class="fas fa-tooth"></i>
+                            <span>Ocean Dental</span>
+                        </div>
+                        <p>
+                            Klinik gigi profesional dan terjangkau dengan 25+
+                            cabang di Jabodetabek. Misi kami:
+                            <strong>Senyum Sehat untuk Semua</strong>.
+                        </p>
+                        <div class="footer-social">
+                            <a
+                                href="https://instagram.com/oceandental.id"
+                                target="_blank"
+                                aria-label="Instagram Ocean Dental"
+                            >
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                            <a
+                                href="https://facebook.com/oceandental"
+                                target="_blank"
+                                aria-label="Facebook Ocean Dental"
+                            >
+                                <i class="fab fa-facebook"></i>
+                            </a>
+                            <a
+                                href="https://wa.me/6281234567890"
+                                target="_blank"
+                                aria-label="WhatsApp Ocean Dental"
+                            >
+                                <i class="fab fa-whatsapp"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="footer-col">
+                        <h3>Layanan Kami</h3>
                         <ul>
-                            <li><i class="fas fa-check-circle"></i> <strong>Profesional:</strong> Dokter berlisensi &
-                                berpengalaman</li>
-                            <li><i class="fas fa-check-circle"></i> <strong>Terjangkau:</strong> Harga transparan &
-                                kompetitif</li>
-                            <li><i class="fas fa-check-circle"></i> <strong>Edukasi:</strong> Membangun kesadaran
-                                kesehatan oral</li>
-                            <li><i class="fas fa-check-circle"></i> <strong>Sterilitas:</strong> Alat medis modern &
-                                steril</li>
+                            <li><a href="#services">Tambal Gigi</a></li>
+                            <li><a href="#services">Crown & Bridge</a></li>
+                            <li><a href="#services">Bracket / Behel</a></li>
+                            <li><a href="#services">Implan Gigi</a></li>
+                            <li><a href="#services">Veneer</a></li>
+                            <li><a href="#services">Scaling & Bleaching</a></li>
                         </ul>
                     </div>
-                </div>
-            </div>
-        </div>
-    </section>
 
-    <!-- Services Section -->
-    <section class="services" id="services">
-        <div class="container">
-            <div class="section-header" data-aos="fade-up">
-                <span class="section-tag">Layanan Kami</span>
-                <h2 class="section-title">Solusi Lengkap <span class="gradient-text-dark">Perawatan Gigi</span></h2>
-                <p class="section-description">Dari perawatan rutin hingga estetika, kami siap membantu Anda</p>
-            </div>
-
-            <div class="services-grid">
-                <div class="service-card" data-aos="fade-up" data-aos-delay="0">
-                    <div class="service-icon">
-                        <i class="fas fa-tooth"></i>
+                    <div class="footer-col">
+                        <h3>Informasi</h3>
+                        <ul>
+                            <li><a href="#about">Tentang Kami</a></li>
+                            <li><a href="#branches">Lokasi Cabang</a></li>
+                            <li><a href="#testimonials">Testimoni</a></li>
+                            <li><a href="#gallery">Galeri</a></li>
+                            <li>
+                                <a href="https://wa.me/6281234567890"
+                                    >Hubungi Kami</a
+                                >
+                            </li>
+                        </ul>
                     </div>
-                    <h3>Tambal Gigi</h3>
-                    <p>Perbaikan gigi berlubang dengan bahan berkualitas tinggi. Prosedur cepat dan minim rasa sakit.
+
+                    <div class="footer-col">
+                        <h3>Jam Operasional</h3>
+                        <div class="footer-hours">
+                            <p><strong>Setiap Hari</strong></p>
+                            <p>09:00 - 21:00 WIB</p>
+                        </div>
+                        <h3 style="margin-top: 1.5rem">Kontak</h3>
+                        <div class="footer-contact">
+                            <p>
+                                <i class="fab fa-whatsapp"></i> +62
+                                812-3456-7890
+                            </p>
+                            <p>
+                                <i class="fas fa-envelope"></i>
+                                info@oceandental.co.id
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="footer-bottom">
+                    <p>&copy; 2026 Ocean Dental. All Rights Reserved.</p>
+                    <p>
+                        NIB: <strong>9120317081259</strong> | Founder:
+                        <strong>drg. Aersy Henny Paramitha</strong>
                     </p>
-                    <a href="https://wa.me/6281234567890?text=Saya%20ingin%20konsultasi%20tentang%20Tambal%20Gigi"
-                        class="service-link">Konsultasi <i class="fas fa-arrow-right"></i></a>
-                </div>
-
-                <div class="service-card" data-aos="fade-up" data-aos-delay="100">
-                    <div class="service-icon">
-                        <i class="fas fa-crown"></i>
-                    </div>
-                    <h3>Crown & Bridge</h3>
-                    <p>Mahkota dan jembatan gigi untuk mengganti gigi yang rusak atau hilang dengan hasil natural.</p>
-                    <a href="https://wa.me/6281234567890?text=Saya%20ingin%20konsultasi%20tentang%20Crown%20%26%20Bridge"
-                        class="service-link">Konsultasi <i class="fas fa-arrow-right"></i></a>
-                </div>
-
-                <div class="service-card" data-aos="fade-up" data-aos-delay="200">
-                    <div class="service-icon">
-                        <i class="fas fa-grip-lines"></i>
-                    </div>
-                    <h3>Bracket / Behel</h3>
-                    <p>Perawatan ortodonti untuk merapikan gigi. Tersedia berbagai pilihan behel sesuai kebutuhan.</p>
-                    <a href="https://wa.me/6281234567890?text=Saya%20ingin%20konsultasi%20tentang%20Behel"
-                        class="service-link">Konsultasi <i class="fas fa-arrow-right"></i></a>
-                </div>
-
-                <div class="service-card" data-aos="fade-up" data-aos-delay="300">
-                    <div class="service-icon">
-                        <i class="fas fa-plus-circle"></i>
-                    </div>
-                    <h3>Implan Gigi</h3>
-                    <p>Solusi permanen untuk gigi yang hilang. Teknologi modern untuk hasil yang tahan lama.</p>
-                    <a href="https://wa.me/6281234567890?text=Saya%20ingin%20konsultasi%20tentang%20Implan%20Gigi"
-                        class="service-link">Konsultasi <i class="fas fa-arrow-right"></i></a>
-                </div>
-
-                <div class="service-card" data-aos="fade-up" data-aos-delay="400">
-                    <div class="service-icon">
-                        <i class="fas fa-layer-group"></i>
-                    </div>
-                    <h3>Veneer</h3>
-                    <p>Lapisan tipis untuk mempercantik senyum Anda. Hasil instant, tampilan natural & estetis.</p>
-                    <a href="https://wa.me/6281234567890?text=Saya%20ingin%20konsultasi%20tentang%20Veneer"
-                        class="service-link">Konsultasi <i class="fas fa-arrow-right"></i></a>
-                </div>
-
-                <div class="service-card" data-aos="fade-up" data-aos-delay="500">
-                    <div class="service-icon">
-                        <i class="fas fa-sparkles"></i>
-                    </div>
-                    <h3>Scaling & Bleaching</h3>
-                    <p>Pembersihan karang gigi dan pemutihan untuk senyum lebih cerah dan sehat.</p>
-                    <a href="https://wa.me/6281234567890?text=Saya%20ingin%20konsultasi%20tentang%20Scaling%20%26%20Bleaching"
-                        class="service-link">Konsultasi <i class="fas fa-arrow-right"></i></a>
-                </div>
-
-                <div class="service-card" data-aos="fade-up" data-aos-delay="600">
-                    <div class="service-icon">
-                        <i class="fas fa-hand-holding-medical"></i>
-                    </div>
-                    <h3>Gummy, Stain & Fissure Sealant</h3>
-                    <p>Perawatan khusus untuk perlindungan dan estetika gusi serta gigi Anda.</p>
-                    <a href="https://wa.me/6281234567890?text=Saya%20ingin%20konsultasi%20tentang%20perawatan%20gusi"
-                        class="service-link">Konsultasi <i class="fas fa-arrow-right"></i></a>
                 </div>
             </div>
-        </div>
-    </section>
+        </footer>
 
-    <!-- Branches Section -->
-    <section class="branches" id="branches">
-        <div class="container">
-            <div class="section-header" data-aos="fade-up">
-                <span class="section-tag">Lokasi Cabang</span>
-                <h2 class="section-title">Temukan <span class="gradient-text-dark">Ocean Dental</span> Terdekat</h2>
-                <p class="section-description">25+ cabang tersebar di Jakarta, Bekasi, Tangerang & Jabodetabek</p>
-            </div>
+        <!-- Floating WhatsApp Button -->
+        <a
+            href="https://wa.me/6281234567890"
+            class="whatsapp-float"
+            id="whatsapp-float"
+            target="_blank"
+            aria-label="Chat WhatsApp"
+        >
+            <i class="fab fa-whatsapp"></i>
+        </a>
 
-            <div class="branches-grid">
-                <div class="branch-card" data-aos="fade-up" data-aos-delay="0">
-                    <div class="branch-icon">
-                        <i class="fas fa-map-marker-alt"></i>
-                    </div>
-                    <h3>Ocean Dental Cempaka Putih</h3>
-                    <p class="branch-address">Jakarta Pusat</p>
-                    <div class="branch-info">
-                        <div class="branch-detail">
-                            <i class="fas fa-clock"></i>
-                            <span>Daily 09:00 - 21:00</span>
-                        </div>
-                        <div class="branch-detail">
-                            <i class="fas fa-phone"></i>
-                            <span>(021) XXX-XXXX</span>
-                        </div>
-                    </div>
-                    <div class="branch-actions">
-                        <a href="https://waze.com/ul?q=Ocean%20Dental%20Cempaka%20Putih" class="btn btn-sm"
-                            target="_blank">
-                            <i class="fas fa-directions"></i> Waze
-                        </a>
-                        <a href="https://wa.me/6281234567890" class="btn btn-sm btn-primary">
-                            <i class="fab fa-whatsapp"></i> Reservasi
-                        </a>
-                    </div>
-                </div>
+        <!-- Back to Top Button -->
+        <button
+            class="back-to-top"
+            id="back-to-top"
+            aria-label="Back to top"
+        >
+            <i class="fas fa-chevron-up"></i>
+        </button>
 
-                <div class="branch-card" data-aos="fade-up" data-aos-delay="100">
-                    <div class="branch-icon">
-                        <i class="fas fa-map-marker-alt"></i>
-                    </div>
-                    <h3>Ocean Dental Tebet</h3>
-                    <p class="branch-address">Jakarta Selatan</p>
-                    <div class="branch-info">
-                        <div class="branch-detail">
-                            <i class="fas fa-clock"></i>
-                            <span>Daily 09:00 - 21:00</span>
-                        </div>
-                        <div class="branch-detail">
-                            <i class="fas fa-phone"></i>
-                            <span>(021) XXX-XXXX</span>
-                        </div>
-                    </div>
-                    <div class="branch-actions">
-                        <a href="https://waze.com/ul?q=Ocean%20Dental%20Tebet" class="btn btn-sm" target="_blank">
-                            <i class="fas fa-directions"></i> Waze
-                        </a>
-                        <a href="https://wa.me/6281234567890" class="btn btn-sm btn-primary">
-                            <i class="fab fa-whatsapp"></i> Reservasi
-                        </a>
-                    </div>
-                </div>
+        <!-- Leaflet JS for Interactive Map -->
+        <script
+            src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+            integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+            crossorigin=""
+        ></script>
 
-                <div class="branch-card" data-aos="fade-up" data-aos-delay="200">
-                    <div class="branch-icon">
-                        <i class="fas fa-map-marker-alt"></i>
-                    </div>
-                    <h3>Ocean Dental Bekasi</h3>
-                    <p class="branch-address">Bekasi Timur</p>
-                    <div class="branch-info">
-                        <div class="branch-detail">
-                            <i class="fas fa-clock"></i>
-                            <span>Daily 09:00 - 21:00</span>
-                        </div>
-                        <div class="branch-detail">
-                            <i class="fas fa-phone"></i>
-                            <span>(021) XXX-XXXX</span>
-                        </div>
-                    </div>
-                    <div class="branch-actions">
-                        <a href="https://waze.com/ul?q=Ocean%20Dental%20Bekasi" class="btn btn-sm" target="_blank">
-                            <i class="fas fa-directions"></i> Waze
-                        </a>
-                        <a href="https://wa.me/6281234567890" class="btn btn-sm btn-primary">
-                            <i class="fab fa-whatsapp"></i> Reservasi
-                        </a>
-                    </div>
-                </div>
-
-                <div class="branch-card" data-aos="fade-up" data-aos-delay="300">
-                    <div class="branch-icon">
-                        <i class="fas fa-map-marker-alt"></i>
-                    </div>
-                    <h3>Ocean Dental Tangerang</h3>
-                    <p class="branch-address">Tangerang Kota</p>
-                    <div class="branch-info">
-                        <div class="branch-detail">
-                            <i class="fas fa-clock"></i>
-                            <span>Daily 09:00 - 21:00</span>
-                        </div>
-                        <div class="branch-detail">
-                            <i class="fas fa-phone"></i>
-                            <span>(021) XXX-XXXX</span>
-                        </div>
-                    </div>
-                    <div class="branch-actions">
-                        <a href="https://waze.com/ul?q=Ocean%20Dental%20Tangerang" class="btn btn-sm" target="_blank">
-                            <i class="fas fa-directions"></i> Waze
-                        </a>
-                        <a href="https://wa.me/6281234567890" class="btn btn-sm btn-primary">
-                            <i class="fab fa-whatsapp"></i> Reservasi
-                        </a>
-                    </div>
-                </div>
-
-                <div class="branch-card" data-aos="fade-up" data-aos-delay="400">
-                    <div class="branch-icon">
-                        <i class="fas fa-map-marker-alt"></i>
-                    </div>
-                    <h3>Ocean Dental Kelapa Gading</h3>
-                    <p class="branch-address">Jakarta Utara</p>
-                    <div class="branch-info">
-                        <div class="branch-detail">
-                            <i class="fas fa-clock"></i>
-                            <span>Daily 09:00 - 21:00</span>
-                        </div>
-                        <div class="branch-detail">
-                            <i class="fas fa-phone"></i>
-                            <span>(021) XXX-XXXX</span>
-                        </div>
-                    </div>
-                    <div class="branch-actions">
-                        <a href="https://waze.com/ul?q=Ocean%20Dental%20Kelapa%20Gading" class="btn btn-sm"
-                            target="_blank">
-                            <i class="fas fa-directions"></i> Waze
-                        </a>
-                        <a href="https://wa.me/6281234567890" class="btn btn-sm btn-primary">
-                            <i class="fab fa-whatsapp"></i> Reservasi
-                        </a>
-                    </div>
-                </div>
-
-                <div class="branch-card" data-aos="fade-up" data-aos-delay="500">
-                    <div class="branch-icon">
-                        <i class="fas fa-map-marker-alt"></i>
-                    </div>
-                    <h3>Ocean Dental Depok</h3>
-                    <p class="branch-address">Depok Kota</p>
-                    <div class="branch-info">
-                        <div class="branch-detail">
-                            <i class="fas fa-clock"></i>
-                            <span>Daily 09:00 - 21:00</span>
-                        </div>
-                        <div class="branch-detail">
-                            <i class="fas fa-phone"></i>
-                            <span>(021) XXX-XXXX</span>
-                        </div>
-                    </div>
-                    <div class="branch-actions">
-                        <a href="https://waze.com/ul?q=Ocean%20Dental%20Depok" class="btn btn-sm" target="_blank">
-                            <i class="fas fa-directions"></i> Waze
-                        </a>
-                        <a href="https://wa.me/6281234567890" class="btn btn-sm btn-primary">
-                            <i class="fab fa-whatsapp"></i> Reservasi
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="branches-cta" data-aos="fade-up">
-                <div class="cta-icon">
-                    <i class="fas fa-question-circle"></i>
-                </div>
-                <h3>Tidak Menemukan Cabang Terdekat?</h3>
-                <p>Tim customer service kami siap membantu Anda menemukan lokasi Ocean Dental yang paling sesuai dengan kebutuhan Anda</p>
-                <div class="cta-features">
-                    <div class="cta-feature">
-                        <i class="fas fa-clock"></i>
-                        <span>Respon Cepat</span>
-                    </div>
-                    <div class="cta-feature">
-                        <i class="fas fa-headset"></i>
-                        <span>24/7 Support</span>
-                    </div>
-                    <div class="cta-feature">
-                        <i class="fas fa-phone-alt"></i>
-                        <span>Gratis Konsultasi</span>
-                    </div>
-                </div>
-                <a href="https://wa.me/6281234567890" class="btn btn-primary btn-lg">
-                    <i class="fab fa-whatsapp"></i> Hubungi Customer Service
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Testimonials Section -->
-    <section class="testimonials" id="testimonials">
-        <div class="container">
-            <div class="section-header" data-aos="fade-up">
-                <span class="section-tag">Testimoni Pasien</span>
-                <h2 class="section-title">Apa Kata <span class="gradient-text-dark">Pasien Kami</span>?</h2>
-                <p class="section-description">Kepuasan dan kepercayaan Anda adalah prioritas kami</p>
-            </div>
-
-            <div class="testimonials-grid">
-                <div class="testimonial-card" data-aos="fade-up" data-aos-delay="0">
-                    <div class="testimonial-rating">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                    </div>
-                    <p class="testimonial-text">"Secara teknik dokter dan peralatan ok. Pelayanan ramah, tempat nyaman
-                        dan bersih. Harga terjangkau untuk kualitas yang didapat."</p>
-                    <div class="testimonial-author">
-                        <div class="author-avatar">
-                            <img src="images/founder-portrait.png" alt="Budi Santoso">
-                        </div>
-                        <div class="author-info">
-                            <h4>Budi Santoso</h4>
-                            <p>Jakarta Selatan</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="testimonial-card" data-aos="fade-up" data-aos-delay="100">
-                    <div class="testimonial-rating">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                    </div>
-                    <p class="testimonial-text">"Dokternya sabar banget, perawat juga ramah. Pas cabut gigi sama sekali
-                        gak sakit! Recommended untuk yang takut ke dokter gigi."</p>
-                    <div class="testimonial-author">
-                        <div class="author-avatar">
-                            <img src="images/founder-portrait.png" alt="Siti Nurhaliza">
-                        </div>
-                        <div class="author-info">
-                            <h4>Siti Nurhaliza</h4>
-                            <p>Bekasi</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="testimonial-card" data-aos="fade-up" data-aos-delay="200">
-                    <div class="testimonial-rating">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                    </div>
-                    <p class="testimonial-text">"Hasil veneer saya memuaskan! Giginya kelihatan natural dan senyum jadi
-                        lebih percaya diri. Terima kasih Ocean Dental!"</p>
-                    <div class="testimonial-author">
-                        <div class="author-avatar">
-                            <img src="images/founder-portrait.png" alt="Diana Putri">
-                        </div>
-                        <div class="author-info">
-                            <h4>Diana Putri</h4>
-                            <p>Tangerang</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="testimonial-card" data-aos="fade-up" data-aos-delay="300">
-                    <div class="testimonial-rating">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                    </div>
-                    <p class="testimonial-text">"Sudah langganan dari tahun 2015. Service konsisten bagus, dokternya
-                        profesional. Seluruh keluarga perawatan gigi disini."</p>
-                    <div class="testimonial-author">
-                        <div class="author-avatar">
-                            <img src="images/founder-portrait.png" alt="Ahmad Wijaya">
-                        </div>
-                        <div class="author-info">
-                            <h4>Ahmad Wijaya</h4>
-                            <p>Jakarta Pusat</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Gallery Section -->
-    <section class="gallery" id="gallery">
-        <div class="container">
-            <div class="section-header" data-aos="fade-up">
-                <span class="section-tag">Galeri</span>
-                <h2 class="section-title">Fasilitas <span class="gradient-text-dark">Klinik Kami</span></h2>
-                <p class="section-description">Lihat kenyamanan dan kebersihan fasilitas Ocean Dental</p>
-            </div>
-
-            <div class="gallery-grid">
-                <div class="gallery-item" data-aos="zoom-in" data-aos-delay="0">
-                    <img src="images/clinic-interior-1.png" alt="Ruang Perawatan Modern">
-                    <div class="gallery-overlay">
-                        <h3>Ruang Perawatan</h3>
-                        <p>Modern & Nyaman</p>
-                    </div>
-                </div>
-
-                <div class="gallery-item" data-aos="zoom-in" data-aos-delay="100">
-                    <img src="images/clinic-interior-2.png" alt="Ruang Sterilisasi">
-                    <div class="gallery-overlay">
-                        <h3>Ruang Sterilisasi</h3>
-                        <p>Alat Modern & Steril</p>
-                    </div>
-                </div>
-
-                <div class="gallery-item" data-aos="zoom-in" data-aos-delay="200">
-                    <img src="images/consultation-room.png" alt="Konsultasi Dokter">
-                    <div class="gallery-overlay">
-                        <h3>Ruang Konsultasi</h3>
-                        <p>Edukasi Pasien</p>
-                    </div>
-                </div>
-
-                <div class="gallery-item" data-aos="zoom-in" data-aos-delay="300">
-                    <img src="images/reception-area.png" alt="Area Resepsionis">
-                    <div class="gallery-overlay">
-                        <h3>Area Resepsionis</h3>
-                        <p>Pelayanan Ramah</p>
-                    </div>
-                </div>
-
-                <div class="gallery-item" data-aos="zoom-in" data-aos-delay="400">
-                    <img src="images/dental-tools.png" alt="Alat Kedokteran Gigi">
-                    <div class="gallery-overlay">
-                        <h3>Peralatan Medis</h3>
-                        <p>Teknologi Modern</p>
-                    </div>
-                </div>
-
-                <div class="gallery-item" data-aos="zoom-in" data-aos-delay="500">
-                    <img src="images/happy-patients.png" alt="Pasien Puas">
-                    <div class="gallery-overlay">
-                        <h3>Pasien Bahagia</h3>
-                        <p>Senyum Sehat</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- CTA Section -->
-    <section class="cta">
-        <div class="container">
-            <div class="cta-content" data-aos="fade-up">
-                <h2>Siap untuk Senyum yang Lebih Sehat?</h2>
-                <p>Konsultasi gratis dengan dokter gigi profesional kami. Hubungi kami sekarang!</p>
-                <div class="cta-buttons">
-                    <a href="https://wa.me/6281234567890" class="btn btn-primary btn-lg" id="cta-whatsapp">
-                        <i class="fab fa-whatsapp"></i> WhatsApp Sekarang
-                    </a>
-                    <a href="#branches" class="btn btn-secondary btn-lg" id="cta-location">
-                        <i class="fas fa-map-marked-alt"></i> Cari Cabang Terdekat
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-col">
-                    <div class="footer-brand">
-                        <i class="fas fa-tooth"></i>
-                        <span>Ocean Dental</span>
-                    </div>
-                    <p>Klinik gigi profesional dan terjangkau dengan 25+ cabang di Jabodetabek. Misi kami:
-                        <strong>Senyum Sehat untuk Semua</strong>.</p>
-                    <div class="footer-social">
-                        <a href="https://instagram.com/oceandental.id" target="_blank"
-                            aria-label="Instagram Ocean Dental">
-                            <i class="fab fa-instagram"></i>
-                        </a>
-                        <a href="https://facebook.com/oceandental" target="_blank" aria-label="Facebook Ocean Dental">
-                            <i class="fab fa-facebook"></i>
-                        </a>
-                        <a href="https://wa.me/6281234567890" target="_blank" aria-label="WhatsApp Ocean Dental">
-                            <i class="fab fa-whatsapp"></i>
-                        </a>
-                    </div>
-                </div>
-
-                <div class="footer-col">
-                    <h3>Layanan Kami</h3>
-                    <ul>
-                        <li><a href="#services">Tambal Gigi</a></li>
-                        <li><a href="#services">Crown & Bridge</a></li>
-                        <li><a href="#services">Bracket / Behel</a></li>
-                        <li><a href="#services">Implan Gigi</a></li>
-                        <li><a href="#services">Veneer</a></li>
-                        <li><a href="#services">Scaling & Bleaching</a></li>
-                    </ul>
-                </div>
-
-                <div class="footer-col">
-                    <h3>Informasi</h3>
-                    <ul>
-                        <li><a href="#about">Tentang Kami</a></li>
-                        <li><a href="#branches">Lokasi Cabang</a></li>
-                        <li><a href="#testimonials">Testimoni</a></li>
-                        <li><a href="#gallery">Galeri</a></li>
-                        <li><a href="https://wa.me/6281234567890">Hubungi Kami</a></li>
-                    </ul>
-                </div>
-
-                <div class="footer-col">
-                    <h3>Jam Operasional</h3>
-                    <div class="footer-hours">
-                        <p><strong>Setiap Hari</strong></p>
-                        <p>09:00 - 21:00 WIB</p>
-                    </div>
-                    <h3 style="margin-top: 1.5rem;">Kontak</h3>
-                    <div class="footer-contact">
-                        <p><i class="fab fa-whatsapp"></i> +62 812-3456-7890</p>
-                        <p><i class="fas fa-envelope"></i> info@oceandental.co.id</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="footer-bottom">
-                <p>&copy; 2024 Ocean Dental. All Rights Reserved.</p>
-                <p>NIB: <strong>9120317081259</strong> | Founder: <strong>drg. Aersy Henny Paramitha</strong></p>
-            </div>
-        </div>
-    </footer>
-
-    <!-- Floating WhatsApp Button -->
-    <a href="https://wa.me/6281234567890" class="whatsapp-float" id="whatsapp-float" target="_blank"
-        aria-label="Chat WhatsApp">
-        <i class="fab fa-whatsapp"></i>
-    </a>
-
-    <script src="script.js"></script>
-</body>
-
+        <script src="script.js"></script>
+    </body>
 </html>

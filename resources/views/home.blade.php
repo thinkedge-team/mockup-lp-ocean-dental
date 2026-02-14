@@ -594,14 +594,19 @@
     </div>
 </section>
 <!-- CTA Section -->
-<section class="cta-section">
+<section class="cta">
     <div class="container">
-        <div class="cta-content" data-aos="zoom-in">
-            <h2>Siap Untuk Senyum Lebih Sehat?</h2>
-            <p>Hubungi kami sekarang untuk konsultasi gratis dan dapatkan penawaran terbaik</p>
-            <a href="https://wa.me/6281234567890" class="btn btn-primary btn-lg">
-                <i class="fab fa-whatsapp"></i> Konsultasi Gratis Sekarang
-            </a>
+        <div class="cta-content" data-aos="fade-up">
+            <h2>Siap untuk Senyum yang Lebih Sehat?</h2>
+            <p>Konsultasi gratis dengan dokter gigi profesional kami. Hubungi kami sekarang!</p>
+            <div class="cta-buttons">
+                <a href="{{ whatsapp_url('Halo, saya ingin konsultasi gratis') }}" class="btn btn-primary btn-lg" id="cta-whatsapp">
+                    <i class="fab fa-whatsapp"></i> WhatsApp Sekarang
+                </a>
+                <a href="#branches" class="btn btn-secondary btn-lg" id="cta-location">
+                    <i class="fas fa-map-marked-alt"></i> Cari Cabang Terdekat
+                </a>
+            </div>
         </div>
     </div>
 </section>

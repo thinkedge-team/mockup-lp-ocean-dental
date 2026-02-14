@@ -75,45 +75,6 @@
         </div>
     </div>
 </section>
-
-<!-- Services Section -->
-<section class="services" id="services">
-    <div class="container">
-        <div class="section-header" data-aos="fade-up">
-            <span class="section-subtitle">Layanan Kami</span>
-            <h2 class="section-title">Perawatan Gigi Profesional</h2>
-            <p class="section-description">
-                Kami menyediakan berbagai layanan perawatan gigi dengan teknologi modern dan dokter berpengalaman
-            </p>
-        </div>
-        <div class="services-grid">
-            @forelse($services as $service)
-            <div class="service-card" data-aos="fade-up" data-aos-delay="{{ $loop->index * 100 }}">
-                @if($service->image)
-                <div class="service-image">
-                    <img src="{{ asset('storage/' . $service->image) }}" alt="{{ $service->name }}" />
-                </div>
-                @endif
-                <div class="service-icon">
-                    <i class="{{ $service->icon ?? 'fas fa-tooth' }}"></i>
-                </div>
-                <h3>{{ $service->name }}</h3>
-                <p>{{ Str::limit(strip_tags($service->description), 100) }}</p>
-                @if($service->price_range)
-                <div class="service-price">{{ $service->price_range }}</div>
-                @endif
-                <a href="https://wa.me/6281234567890?text=Saya%20ingin%20konsultasi%20tentang%20{{ urlencode($service->name) }}" class="btn btn-outline">
-                    Konsultasi <i class="fas fa-arrow-right"></i>
-                </a>
-            </div>
-            @empty
-            <!-- Fallback if no services in database yet -->
-            <p>Layanan sedang diperbarui...</p>
-            @endforelse
-        </div>
-    </div>
-</section>
-
 <!-- About Section -->
 <section class="about" id="about">
     <div class="container">
@@ -158,37 +119,124 @@
         </div>
     </div>
 </section>
-
-<!-- Gallery Section -->
-<section class="gallery" id="gallery">
+<!-- Services Section -->
+<section class="services" id="services">
     <div class="container">
         <div class="section-header" data-aos="fade-up">
-            <span class="section-subtitle">Galeri</span>
-            <h2 class="section-title">Suasana Ocean Dental</h2>
+            <span class="section-subtitle">Layanan Kami</span>
+            <h2 class="section-title">Perawatan Gigi Profesional</h2>
             <p class="section-description">
-                Lihat fasilitas dan hasil perawatan di klinik kami
+                Kami menyediakan berbagai layanan perawatan gigi dengan teknologi modern dan dokter berpengalaman
             </p>
         </div>
-        @if($gallery->count() > 0)
-        <div class="gallery-grid" data-aos="fade-up">
-            @foreach($gallery as $item)
-            <div class="gallery-item">
-                <img src="{{ Storage::url($item->image) }}" alt="{{ $item->title }}">
-                <div class="gallery-overlay">
-                    <h4>{{ $item->title }}</h4>
-                    @if($item->description)
-                    <p>{{ $item->description }}</p>
-                    @endif
+        <div class="services-grid">
+            @forelse($services as $service)
+            <div class="service-card" data-aos="fade-up" data-aos-delay="{{ $loop->index * 100 }}">
+                @if($service->image)
+                <div class="service-image">
+                    <img src="{{ asset('storage/' . $service->image) }}" alt="{{ $service->name }}" />
                 </div>
+                @endif
+                <div class="service-icon">
+                    <i class="{{ $service->icon ?? 'fas fa-tooth' }}"></i>
+                </div>
+                <h3>{{ $service->name }}</h3>
+                <p>{{ Str::limit(strip_tags($service->description), 100) }}</p>
+                @if($service->price_range)
+                <div class="service-price">{{ $service->price_range }}</div>
+                @endif
+                <a href="https://wa.me/6281234567890?text=Saya%20ingin%20konsultasi%20tentang%20{{ urlencode($service->name) }}" class="btn btn-outline">
+                    Konsultasi <i class="fas fa-arrow-right"></i>
+                </a>
             </div>
-            @endforeach
+            @empty
+            <!-- Fallback if no services in database yet -->
+            <p>Layanan sedang diperbarui...</p>
+            @endforelse
         </div>
-        @else
-        <p style="text-align: center;">Galeri sedang diperbarui...</p>
-        @endif
     </div>
 </section>
 
+
+<!-- Before-After / Results Section -->
+<section class="before-after" id="results">
+    <div class="container">
+        <div class="section-header" data-aos="fade-up">
+            <span class="section-tag"><i class="fas fa-magic"></i> Transformasi</span>
+            <h2 class="section-title">
+                Hasil <span class="gradient-text">Perawatan Kami</span>
+            </h2>
+            <p class="section-description">
+                Lihat transformasi nyata dari pasien kami. Geser untuk melihat perbandingan sebelum dan sesudah perawatan.
+            </p>
+        </div>
+
+        <div class="before-after-grid">
+            <!-- Before/After Slider 1 - Veneer -->
+            <div class="ba-item" data-aos="fade-up" data-aos-delay="0">
+                <div class="ba-slider-container" data-ba-slider>
+                    <img src="https://images.unsplash.com/photo-1606811841689-23dfddce3e95?w=800&h=600&fit=crop" alt="Before Treatment" class="before-image">
+                    <img src="https://images.unsplash.com/photo-1598256989800-fe5f95da9787?w=800&h=600&fit=crop" alt="After Treatment" class="after-image">
+                    <div class="ba-slider">
+                        <div class="ba-handle"></div>
+                    </div>
+                    <div class="ba-labels">
+                        <span class="ba-label before">Sebelum</span>
+                        <span class="ba-label after">Sesudah</span>
+                    </div>
+                </div>
+                <div class="ba-info">
+                    <h4>Pemasangan Veneer</h4>
+                    <p>Transformasi senyum dengan veneer porcelain premium</p>
+                </div>
+            </div>
+
+            <!-- Before/After Slider 2 - Bleaching -->
+            <div class="ba-item" data-aos="fade-up" data-aos-delay="100">
+                <div class="ba-slider-container" data-ba-slider>
+                    <img src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=800&h=600&fit=crop" alt="Before Bleaching" class="before-image">
+                    <img src="https://images.unsplash.com/photo-1606265752439-1f18756aa5fc?w=800&h=600&fit=crop" alt="After Bleaching" class="after-image">
+                    <div class="ba-slider">
+                        <div class="ba-handle"></div>
+                    </div>
+                    <div class="ba-labels">
+                        <span class="ba-label before">Sebelum</span>
+                        <span class="ba-label after">Sesudah</span>
+                    </div>
+                </div>
+                <div class="ba-info">
+                    <h4>Bleaching & Scaling</h4>
+                    <p>Pemutihan gigi profesional hingga 8 tingkat lebih cerah</p>
+                </div>
+            </div>
+
+            <!-- Before/After Slider 3 - Braces -->
+            <div class="ba-item" data-aos="fade-up" data-aos-delay="200">
+                <div class="ba-slider-container" data-ba-slider>
+                    <img src="https://images.unsplash.com/photo-1598256989800-fe5f95da9787?w=800&h=600&fit=crop" alt="Before Braces" class="before-image">
+                    <img src="https://images.unsplash.com/photo-1606811841689-23dfddce3e95?w=800&h=600&fit=crop" alt="After Braces" class="after-image">
+                    <div class="ba-slider">
+                        <div class="ba-handle"></div>
+                    </div>
+                    <div class="ba-labels">
+                        <span class="ba-label before">Sebelum</span>
+                        <span class="ba-label after">Sesudah</span>
+                    </div>
+                </div>
+                <div class="ba-info">
+                    <h4>Perawatan Behel</h4>
+                    <p>Hasil perawatan ortodonti selama 18 bulan</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="before-after-cta" data-aos="fade-up">
+            <a href="{{ whatsapp_url('Saya ingin konsultasi untuk transformasi senyum') }}" class="btn btn-primary btn-lg">
+                <i class="fab fa-whatsapp"></i> Konsultasi Transformasi Senyum Anda
+            </a>
+        </div>
+    </div>
+</section>
 <!-- Doctors/Team Section -->
 <section class="doctors" id="doctors">
     <div class="container">
@@ -274,6 +322,121 @@
     </div>
 </section>
 
+<!-- Testimonials Section -->
+<section class="testimonials" id="testimonials">
+    <div class="container">
+        <div class="section-header" data-aos="fade-up">
+            <span class="section-subtitle">Testimoni</span>
+            <h2 class="section-title">Apa Kata Pasien Kami?</h2>
+        </div>
+        <div class="testimonials-grid">
+            @forelse($testimonials as $testimonial)
+            <div class="testimonial-card" data-aos="fade-up" data-aos-delay="{{ $loop->index * 100 }}">
+                <div class="testimonial-rating">
+                    @for($i = 1; $i <= 5; $i++)
+                        <i class="fas fa-star {{ $i <= $testimonial->rating ? 'active' : '' }}"></i>
+                    @endfor
+                </div>
+                <p class="testimonial-content">{{ $testimonial->content }}</p>
+                <div class="testimonial-author">
+                    @if($testimonial->avatar)
+                    <img src="{{ asset('storage/' . $testimonial->avatar) }}" alt="{{ $testimonial->name }}" />
+                    @else
+                    <div class="testimonial-avatar-placeholder">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    @endif
+                    <div>
+                        <h4>{{ $testimonial->name }}</h4>
+                        @if($testimonial->position)
+                        <p>{{ $testimonial->position }}</p>
+                        @endif
+                    </div>
+                </div>
+            </div>
+            @empty
+            <p>Testimoni sedang diperbarui...</p>
+            @endforelse
+        </div>
+    </div>
+</section>
+
+<!-- Gallery Section -->
+<section class="gallery" id="gallery">
+    <div class="container">
+        <div class="section-header" data-aos="fade-up">
+            <span class="section-subtitle">Galeri</span>
+            <h2 class="section-title">Suasana Ocean Dental</h2>
+            <p class="section-description">
+                Lihat fasilitas dan hasil perawatan di klinik kami
+            </p>
+        </div>
+        @if($gallery->count() > 0)
+        <div class="gallery-grid" data-aos="fade-up">
+            @foreach($gallery as $item)
+            <div class="gallery-item">
+                <img src="{{ Storage::url($item->image) }}" alt="{{ $item->title }}">
+                <div class="gallery-overlay">
+                    <h4>{{ $item->title }}</h4>
+                    @if($item->description)
+                    <p>{{ $item->description }}</p>
+                    @endif
+                </div>
+            </div>
+            @endforeach
+        </div>
+        @else
+        <p style="text-align: center;">Galeri sedang diperbarui...</p>
+        @endif
+    </div>
+</section>
+<!-- Events Section -->
+<section class="events" id="events">
+    <div class="container">
+        <div class="section-header" data-aos="fade-up">
+            <span class="section-subtitle">Event & Promo</span>
+            <h2 class="section-title">Program Terbaru Kami</h2>
+            <p class="section-description">
+                Ikuti event dan dapatkan promo menarik untuk perawatan gigi Anda
+            </p>
+        </div>
+        <div class="events-grid">
+            @forelse($events as $event)
+            <div class="event-card" data-aos="fade-up" data-aos-delay="{{ $loop->index * 100 }}">
+                @if($event->image)
+                <div class="event-image">
+                    <img src="{{ asset('storage/' . $event->image) }}" alt="{{ $event->title }}" />
+                    @if($event->category)
+                    <span class="event-category">{{ $event->category }}</span>
+                    @endif
+                </div>
+                @endif
+                <div class="event-content">
+                    <div class="event-date">
+                        <i class="fas fa-calendar"></i>
+                        {{ $event->start_date->format('d M Y') }}
+                    </div>
+                    <h3>{{ $event->title }}</h3>
+                    <p>{{ Str::limit(strip_tags($event->description), 120) }}</p>
+                    <a href="{{ route('events.show', $event->slug) }}" class="btn btn-primary">
+                        Selengkapnya <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+            @empty
+            <p>Tidak ada event saat ini. Tunggu update dari kami!</p>
+            @endforelse
+        </div>
+        @if($events->count() > 0)
+        <div class="section-cta" data-aos="fade-up">
+            <a href="{{ route('events.index') }}" class="btn btn-secondary btn-lg">
+                Lihat Semua Event <i class="fas fa-arrow-right"></i>
+            </a>
+        </div>
+        @endif
+    </div>
+</section>
+
 <!-- FAQ Section -->
 <section class="faq" id="faq">
     <div class="container">
@@ -334,92 +497,50 @@
     </div>
 </section>
 
-<!-- Events Section -->
-<section class="events" id="events">
+
+<!-- Instagram Feed Section -->
+<section class="instagram-feed" id="instagram">
     <div class="container">
         <div class="section-header" data-aos="fade-up">
-            <span class="section-subtitle">Event & Promo</span>
-            <h2 class="section-title">Program Terbaru Kami</h2>
+            <span class="section-tag"><i class="fab fa-instagram"></i> Instagram</span>
+            <h2 class="section-title">
+                Follow Kami di <span class="gradient-text-dark">Instagram</span>
+            </h2>
             <p class="section-description">
-                Ikuti event dan dapatkan promo menarik untuk perawatan gigi Anda
+                Dapatkan tips kesehatan gigi, promo terbaru, dan update menarik lainnya
             </p>
         </div>
-        <div class="events-grid">
-            @forelse($events as $event)
-            <div class="event-card" data-aos="fade-up" data-aos-delay="{{ $loop->index * 100 }}">
-                @if($event->image)
-                <div class="event-image">
-                    <img src="{{ asset('storage/' . $event->image) }}" alt="{{ $event->title }}" />
-                    @if($event->category)
-                    <span class="event-category">{{ $event->category }}</span>
-                    @endif
+
+        <div class="instagram-grid">
+            @php
+                $instagramImages = [
+                    'https://images.unsplash.com/photo-1629909613654-28e377c37b09?w=400&h=400&fit=crop',
+                    'https://images.unsplash.com/photo-1606811841689-23dfddce3e95?w=400&h=400&fit=crop',
+                    'https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=400&h=400&fit=crop',
+                    'https://images.unsplash.com/photo-1445527815219-ecbfec67492e?w=400&h=400&fit=crop',
+                    'https://images.unsplash.com/photo-1609840114035-3c981b782dfe?w=400&h=400&fit=crop',
+                    'https://images.unsplash.com/photo-1598256989800-fe5f95da9787?w=400&h=400&fit=crop',
+                ];
+                $instagramUrl = setting('instagram_url', 'https://instagram.com/oceandental.id');
+            @endphp
+            
+            @foreach($instagramImages as $index => $image)
+            <a href="{{ $instagramUrl }}" target="_blank" class="instagram-item" data-aos="zoom-in" data-aos-delay="{{ $index * 50 }}">
+                <img src="{{ $image }}" alt="Ocean Dental Instagram">
+                <div class="instagram-overlay">
+                    <i class="fab fa-instagram"></i>
                 </div>
-                @endif
-                <div class="event-content">
-                    <div class="event-date">
-                        <i class="fas fa-calendar"></i>
-                        {{ $event->start_date->format('d M Y') }}
-                    </div>
-                    <h3>{{ $event->title }}</h3>
-                    <p>{{ Str::limit(strip_tags($event->description), 120) }}</p>
-                    <a href="{{ route('events.show', $event->slug) }}" class="btn btn-primary">
-                        Selengkapnya <i class="fas fa-arrow-right"></i>
-                    </a>
-                </div>
-            </div>
-            @empty
-            <p>Tidak ada event saat ini. Tunggu update dari kami!</p>
-            @endforelse
+            </a>
+            @endforeach
         </div>
-        @if($events->count() > 0)
-        <div class="section-cta" data-aos="fade-up">
-            <a href="{{ route('events.index') }}" class="btn btn-secondary btn-lg">
-                Lihat Semua Event <i class="fas fa-arrow-right"></i>
+
+        <div class="instagram-cta" data-aos="fade-up">
+            <a href="{{ $instagramUrl }}" target="_blank" class="btn btn-lg">
+                <i class="fab fa-instagram"></i> Follow @oceandental.id
             </a>
         </div>
-        @endif
     </div>
 </section>
-
-<!-- Testimonials Section -->
-<section class="testimonials" id="testimonials">
-    <div class="container">
-        <div class="section-header" data-aos="fade-up">
-            <span class="section-subtitle">Testimoni</span>
-            <h2 class="section-title">Apa Kata Pasien Kami?</h2>
-        </div>
-        <div class="testimonials-grid">
-            @forelse($testimonials as $testimonial)
-            <div class="testimonial-card" data-aos="fade-up" data-aos-delay="{{ $loop->index * 100 }}">
-                <div class="testimonial-rating">
-                    @for($i = 1; $i <= 5; $i++)
-                        <i class="fas fa-star {{ $i <= $testimonial->rating ? 'active' : '' }}"></i>
-                    @endfor
-                </div>
-                <p class="testimonial-content">{{ $testimonial->content }}</p>
-                <div class="testimonial-author">
-                    @if($testimonial->avatar)
-                    <img src="{{ asset('storage/' . $testimonial->avatar) }}" alt="{{ $testimonial->name }}" />
-                    @else
-                    <div class="testimonial-avatar-placeholder">
-                        <i class="fas fa-user"></i>
-                    </div>
-                    @endif
-                    <div>
-                        <h4>{{ $testimonial->name }}</h4>
-                        @if($testimonial->position)
-                        <p>{{ $testimonial->position }}</p>
-                        @endif
-                    </div>
-                </div>
-            </div>
-            @empty
-            <p>Testimoni sedang diperbarui...</p>
-            @endforelse
-        </div>
-    </div>
-</section>
-
 <!-- CTA Section -->
 <section class="cta-section">
     <div class="container">
@@ -498,9 +619,5 @@
         });
     });
 </script>
-@endpush
-
-@push('styles')
-<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 @endpush
 @endsection

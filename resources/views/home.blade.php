@@ -66,7 +66,7 @@
                     <div class="floating-card">
                         <i class="fas fa-star"></i>
                         <div>
-                            <strong>4.9/5</strong>
+                            <strong>4.8/5.0</strong>
                             <p>Rating Pasien</p>
                         </div>
                     </div>

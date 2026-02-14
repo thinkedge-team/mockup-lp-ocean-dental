@@ -985,37 +985,262 @@
 <section class="testimonials" id="testimonials">
     <div class="container">
         <div class="section-header" data-aos="fade-up">
-            <span class="section-subtitle">Testimoni</span>
-            <h2 class="section-title">Apa Kata Pasien Kami?</h2>
+            <span class="section-tag"><i class="fas fa-quote-left"></i> Testimoni Pasien</span>
+            <h2 class="section-title">
+                Apa Kata <span class="gradient-text-dark">Pasien Kami</span>?
+            </h2>
+            <p class="section-description">
+                Kepuasan dan kepercayaan Anda adalah prioritas kami
+            </p>
         </div>
-        <div class="testimonials-grid">
-            @forelse($testimonials as $testimonial)
-            <div class="testimonial-card" data-aos="fade-up" data-aos-delay="{{ $loop->index * 100 }}">
-                <div class="testimonial-rating">
-                    @for($i = 1; $i <= 5; $i++)
-                        <i class="fas fa-star {{ $i <= $testimonial->rating ? 'active' : '' }}"></i>
-                    @endfor
-                </div>
-                <p class="testimonial-content">{{ $testimonial->content }}</p>
-                <div class="testimonial-author">
-                    @if($testimonial->avatar)
-                    <img src="{{ asset('storage/' . $testimonial->avatar) }}" alt="{{ $testimonial->name }}" />
-                    @else
-                    <div class="testimonial-avatar-placeholder">
-                        <i class="fas fa-user"></i>
-                    </div>
-                    @endif
-                    <div>
-                        <h4>{{ $testimonial->name }}</h4>
-                        @if($testimonial->position)
-                        <p>{{ $testimonial->position }}</p>
-                        @endif
-                    </div>
+
+        <!-- Testimonial Stats -->
+        <div class="testimonial-stats" data-aos="fade-up">
+            <div class="testi-stat">
+                <div class="testi-stat-icon"><i class="fas fa-users"></i></div>
+                <div class="testi-stat-info">
+                    <span class="testi-stat-value" data-count="50000">50,000+</span>
+                    <span class="testi-stat-label">Pasien Puas</span>
                 </div>
             </div>
-            @empty
-            <p>Testimoni sedang diperbarui...</p>
-            @endforelse
+            <div class="testi-stat">
+                <div class="testi-stat-icon"><i class="fas fa-star"></i></div>
+                <div class="testi-stat-info">
+                    <span class="testi-stat-value">4.9</span>
+                    <span class="testi-stat-label">Rating Google</span>
+                </div>
+            </div>
+            <div class="testi-stat">
+                <div class="testi-stat-icon"><i class="fas fa-comments"></i></div>
+                <div class="testi-stat-info">
+                    <span class="testi-stat-value" data-count="12500">12,500+</span>
+                    <span class="testi-stat-label">Ulasan Positif</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Testimonial Slider -->
+        <div class="testimonial-slider-wrapper" data-aos="fade-up">
+            <div class="testimonial-slider" id="testimonial-slider">
+                
+                <!-- Testimonial 1 -->
+                <div class="testi-slide">
+                    <div class="testi-card">
+                        <div class="testi-card-header">
+                            <div class="testi-avatar">
+                                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face" alt="Budi Santoso">
+                                <span class="verified-badge"><i class="fas fa-check"></i></span>
+                            </div>
+                            <div class="testi-author-info">
+                                <h4>Budi Santoso</h4>
+                                <p class="testi-location"><i class="fas fa-map-marker-alt"></i> Jakarta Selatan</p>
+                                <div class="testi-rating">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                            </div>
+                            <div class="testi-platform">
+                                <i class="fab fa-google"></i>
+                            </div>
+                        </div>
+                        <div class="testi-card-body">
+                            <p class="testi-text">"Secara teknik dokter dan peralatan ok. Pelayanan ramah, tempat nyaman dan bersih. Harga terjangkau untuk kualitas yang didapat. Sudah 3 tahun jadi pasien tetap disini!"</p>
+                        </div>
+                        <div class="testi-card-footer">
+                            <span class="testi-service"><i class="fas fa-tooth"></i> Scaling & Polishing</span>
+                            <span class="testi-date">2 minggu lalu</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 2 -->
+                <div class="testi-slide">
+                    <div class="testi-card">
+                        <div class="testi-card-header">
+                            <div class="testi-avatar">
+                                <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&h=150&fit=crop&crop=face" alt="Siti Nurhaliza">
+                                <span class="verified-badge"><i class="fas fa-check"></i></span>
+                            </div>
+                            <div class="testi-author-info">
+                                <h4>Siti Nurhaliza</h4>
+                                <p class="testi-location"><i class="fas fa-map-marker-alt"></i> Bekasi</p>
+                                <div class="testi-rating">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                            </div>
+                            <div class="testi-platform">
+                                <i class="fab fa-google"></i>
+                            </div>
+                        </div>
+                        <div class="testi-card-body">
+                            <p class="testi-text">"Dokternya sabar banget, perawat juga ramah. Pas cabut gigi sama sekali gak sakit! Recommended banget untuk yang takut ke dokter gigi. Anak saya sekarang gak takut lagi."</p>
+                        </div>
+                        <div class="testi-card-footer">
+                            <span class="testi-service"><i class="fas fa-tooth"></i> Cabut Gigi</span>
+                            <span class="testi-date">1 bulan lalu</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 3 -->
+                <div class="testi-slide">
+                    <div class="testi-card">
+                        <div class="testi-card-header">
+                            <div class="testi-avatar">
+                                <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop&crop=face" alt="Diana Putri">
+                                <span class="verified-badge"><i class="fas fa-check"></i></span>
+                            </div>
+                            <div class="testi-author-info">
+                                <h4>Diana Putri</h4>
+                                <p class="testi-location"><i class="fas fa-map-marker-alt"></i> Tangerang</p>
+                                <div class="testi-rating">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                            </div>
+                            <div class="testi-platform">
+                                <i class="fab fa-instagram"></i>
+                            </div>
+                        </div>
+                        <div class="testi-card-body">
+                            <p class="testi-text">"Hasil veneer saya memuaskan! Giginya kelihatan natural dan senyum jadi lebih percaya diri. Proses konsultasi detil banget, dokternya jelasin semua opsi dengan sabar."</p>
+                        </div>
+                        <div class="testi-card-footer">
+                            <span class="testi-service"><i class="fas fa-gem"></i> Veneer</span>
+                            <span class="testi-date">3 minggu lalu</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 4 -->
+                <div class="testi-slide">
+                    <div class="testi-card">
+                        <div class="testi-card-header">
+                            <div class="testi-avatar">
+                                <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face" alt="Ahmad Wijaya">
+                                <span class="verified-badge"><i class="fas fa-check"></i></span>
+                            </div>
+                            <div class="testi-author-info">
+                                <h4>Ahmad Wijaya</h4>
+                                <p class="testi-location"><i class="fas fa-map-marker-alt"></i> Jakarta Pusat</p>
+                                <div class="testi-rating">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                            </div>
+                            <div class="testi-platform">
+                                <i class="fab fa-google"></i>
+                            </div>
+                        </div>
+                        <div class="testi-card-body">
+                            <p class="testi-text">"Sudah langganan dari tahun 2015. Service konsisten bagus, dokternya profesional. Seluruh keluarga perawatan gigi disini. Cabang dimana-mana jadi gampang aksesnya."</p>
+                        </div>
+                        <div class="testi-card-footer">
+                            <span class="testi-service"><i class="fas fa-users"></i> Perawatan Keluarga</span>
+                            <span class="testi-date">1 minggu lalu</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 5 -->
+                <div class="testi-slide">
+                    <div class="testi-card">
+                        <div class="testi-card-header">
+                            <div class="testi-avatar">
+                                <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&h=150&fit=crop&crop=face" alt="Rina Anggraini">
+                                <span class="verified-badge"><i class="fas fa-check"></i></span>
+                            </div>
+                            <div class="testi-author-info">
+                                <h4>Rina Anggraini</h4>
+                                <p class="testi-location"><i class="fas fa-map-marker-alt"></i> Kelapa Gading</p>
+                                <div class="testi-rating">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                            </div>
+                            <div class="testi-platform">
+                                <i class="fab fa-google"></i>
+                            </div>
+                        </div>
+                        <div class="testi-card-body">
+                            <p class="testi-text">"Behel saya sudah selesai setelah 2 tahun perawatan. Hasilnya luar biasa! Gigi rata sempurna. Dokter Michael sangat teliti dan profesional. Worth every penny!"</p>
+                        </div>
+                        <div class="testi-card-footer">
+                            <span class="testi-service"><i class="fas fa-teeth"></i> Ortodonti / Behel</span>
+                            <span class="testi-date">2 hari lalu</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 6 -->
+                <div class="testi-slide">
+                    <div class="testi-card">
+                        <div class="testi-card-header">
+                            <div class="testi-avatar">
+                                <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&h=150&fit=crop&crop=face" alt="Hendro Kusuma">
+                                <span class="verified-badge"><i class="fas fa-check"></i></span>
+                            </div>
+                            <div class="testi-author-info">
+                                <h4>Hendro Kusuma</h4>
+                                <p class="testi-location"><i class="fas fa-map-marker-alt"></i> PIK</p>
+                                <div class="testi-rating">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star-half-alt"></i>
+                                </div>
+                            </div>
+                            <div class="testi-platform">
+                                <i class="fab fa-facebook"></i>
+                            </div>
+                        </div>
+                        <div class="testi-card-body">
+                            <p class="testi-text">"Implant gigi saya sukses tanpa komplikasi. Dokter David sangat ahli dan menjelaskan prosedur dengan detail. Recovery cepat dan sekarang bisa makan normal lagi."</p>
+                        </div>
+                        <div class="testi-card-footer">
+                            <span class="testi-service"><i class="fas fa-syringe"></i> Implant Gigi</span>
+                            <span class="testi-date">1 bulan lalu</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Slider Navigation -->
+            <button class="testi-nav testi-prev" id="testi-prev" aria-label="Previous">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <button class="testi-nav testi-next" id="testi-next" aria-label="Next">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+
+            <!-- Slider Dots -->
+            <div class="testi-dots" id="testi-dots"></div>
+        </div>
+
+        <!-- CTA -->
+        <div class="testimonial-cta" data-aos="fade-up">
+            <p>Bergabunglah dengan <strong>50,000+ pasien</strong> yang sudah merasakan pelayanan terbaik kami</p>
+            <a href="{{ whatsapp_url('Saya ingin reservasi') }}" class="btn btn-primary btn-lg">
+                <i class="fab fa-whatsapp"></i> Reservasi Sekarang
+            </a>
         </div>
     </div>
 </section>

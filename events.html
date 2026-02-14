@@ -1,0 +1,1113 @@
+<!doctype html>
+<html lang="id">
+    <head>
+        <meta charset="UTF-8" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+        />
+        <meta
+            name="description"
+            content="Daftar lengkap event, seminar, workshop, dan promo spesial dari Ocean Dental. Jangan lewatkan kesempatan emas untuk kesehatan gigi Anda!"
+        />
+        <meta
+            name="keywords"
+            content="event dental, seminar gigi, promo ocean dental, workshop kesehatan gigi, dental camp"
+        />
+        <meta
+            name="theme-color"
+            content="#01215E"
+        />
+        <title>
+            Semua Event & Promo - Ocean Dental
+        </title>
+
+        <!-- Google Fonts -->
+        <link
+            rel="preconnect"
+            href="https://fonts.googleapis.com"
+        />
+        <link
+            rel="preconnect"
+            href="https://fonts.gstatic.com"
+            crossorigin
+        />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap"
+            rel="stylesheet"
+        />
+
+        <!-- Font Awesome -->
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+            integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"
+        />
+
+        <link
+            rel="stylesheet"
+            href="style.css"
+        />
+
+        <style>
+            /* Additional styles specific to events listing page */
+            .events-page-header {
+                background: linear-gradient(135deg, #01215E 0%, #024088 100%);
+                padding: 120px 0 80px;
+                text-align: center;
+                color: white;
+                position: relative;
+                overflow: hidden;
+            }
+
+            .events-page-header::before {
+                content: '';
+                position: absolute;
+                top: -50%;
+                right: -10%;
+                width: 500px;
+                height: 500px;
+                background: radial-gradient(circle, rgba(59, 130, 246, 0.15), transparent);
+                border-radius: 50%;
+            }
+
+            .events-page-header .container {
+                position: relative;
+                z-index: 1;
+            }
+
+            .events-page-header h1 {
+                font-size: 48px;
+                margin-bottom: 16px;
+                font-family: 'Outfit', sans-serif;
+                position: relative;
+                z-index: 1;
+                color: white;
+            }
+
+            .events-page-header p {
+                font-size: 18px;
+                opacity: 0.9;
+                position: relative;
+                z-index: 1;
+                color: white;
+            }
+
+            .breadcrumb {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 8px;
+                margin-top: 24px;
+                font-size: 14px;
+                opacity: 0.8;
+                color: white;
+            }
+
+            .breadcrumb a {
+                color: white;
+                text-decoration: none;
+                transition: opacity 0.3s;
+            }
+
+            .breadcrumb a:hover {
+                opacity: 1;
+                color: white;
+            }
+
+            .breadcrumb span {
+                color: white;
+            }
+
+            .events-page-controls {
+                background: var(--pure-white);
+                padding: 32px 0;
+                position: sticky;
+                top: 80px;
+                z-index: 100;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            }
+
+            .events-controls-wrapper {
+                display: flex;
+                gap: 24px;
+                align-items: center;
+                flex-wrap: wrap;
+            }
+
+            .events-search-box {
+                flex: 1;
+                min-width: 300px;
+                position: relative;
+            }
+
+            .events-search-box input {
+                width: 100%;
+                padding: 14px 48px 14px 48px;
+                border: 2px solid #E0E7EF;
+                border-radius: 12px;
+                font-size: 15px;
+                transition: all 0.3s;
+            }
+
+            .events-search-box input:focus {
+                outline: none;
+                border-color: var(--accent-color);
+                box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+            }
+
+            .events-search-box .search-icon {
+                position: absolute;
+                left: 16px;
+                top: 50%;
+                transform: translateY(-50%);
+                color: var(--text-light);
+            }
+
+            .events-search-box .clear-search {
+                position: absolute;
+                right: 16px;
+                top: 50%;
+                transform: translateY(-50%);
+                background: none;
+                border: none;
+                color: var(--text-light);
+                cursor: pointer;
+                padding: 4px 8px;
+                opacity: 0;
+                transition: opacity 0.3s;
+            }
+
+            .events-search-box .clear-search.visible {
+                opacity: 1;
+            }
+
+            .events-search-box .clear-search:hover {
+                color: var(--primary-color);
+            }
+
+            .events-filter-tabs {
+                display: flex;
+                gap: 12px;
+                flex-wrap: wrap;
+            }
+
+            .filter-tab {
+                padding: 10px 20px;
+                border: 2px solid #E0E7EF;
+                background: white;
+                border-radius: 24px;
+                font-size: 14px;
+                font-weight: 600;
+                color: var(--text-light);
+                cursor: pointer;
+                transition: all 0.3s;
+                display: flex;
+                align-items: center;
+                gap: 8px;
+            }
+
+            .filter-tab:hover {
+                border-color: var(--accent-color);
+                color: var(--accent-color);
+            }
+
+            .filter-tab.active {
+                background: var(--accent-color);
+                border-color: var(--accent-color);
+                color: var(--primary-color);
+            }
+
+            .filter-tab i {
+                font-size: 13px;
+            }
+
+            .events-results-info {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 32px;
+                flex-wrap: wrap;
+                gap: 16px;
+            }
+
+            .results-count {
+                font-size: 16px;
+                color: var(--text-light);
+            }
+
+            .results-count strong {
+                color: var(--primary-color);
+                font-weight: 700;
+            }
+
+            .events-sort {
+                display: flex;
+                align-items: center;
+                gap: 12px;
+            }
+
+            .events-sort label {
+                font-size: 14px;
+                color: var(--text-light);
+                font-weight: 600;
+            }
+
+            .events-sort select {
+                padding: 8px 36px 8px 16px;
+                border: 2px solid #E0E7EF;
+                border-radius: 8px;
+                font-size: 14px;
+                font-weight: 500;
+                cursor: pointer;
+                background: white;
+                appearance: none;
+                background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2301215E' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+                background-repeat: no-repeat;
+                background-position: right 12px center;
+            }
+
+            .events-sort select:focus {
+                outline: none;
+                border-color: var(--accent-color);
+            }
+
+            .events-list-container {
+                min-height: 600px;
+            }
+
+            .events-pagination {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                gap: 12px;
+                margin-top: 64px;
+            }
+
+            .pagination-btn {
+                padding: 12px 24px;
+                border: 2px solid #E0E7EF;
+                background: white;
+                border-radius: 8px;
+                font-size: 14px;
+                font-weight: 600;
+                color: var(--primary-color);
+                cursor: pointer;
+                transition: all 0.3s;
+                display: flex;
+                align-items: center;
+                gap: 8px;
+            }
+
+            .pagination-btn:hover:not(:disabled) {
+                background: var(--accent-color);
+                border-color: var(--accent-color);
+                color: var(--primary-color);
+            }
+
+            .pagination-btn:disabled {
+                opacity: 0.3;
+                cursor: not-allowed;
+            }
+
+            .pagination-info {
+                font-size: 14px;
+                color: var(--text-light);
+                padding: 0 16px;
+            }
+
+            .empty-state {
+                text-align: center;
+                padding: 80px 20px;
+            }
+
+            .empty-state i {
+                font-size: 64px;
+                color: #E0E7EF;
+                margin-bottom: 24px;
+            }
+
+            .empty-state h3 {
+                font-size: 24px;
+                color: var(--primary-color);
+                margin-bottom: 12px;
+            }
+
+            .empty-state p {
+                font-size: 16px;
+                color: var(--text-light);
+                margin-bottom: 24px;
+            }
+
+            /* Responsive */
+            @media (max-width: 768px) {
+                .events-page-header {
+                    padding: 100px 0 60px;
+                }
+
+                .events-page-header h1 {
+                    font-size: 32px;
+                }
+
+                .events-page-controls {
+                    position: static;
+                }
+
+                .events-controls-wrapper {
+                    flex-direction: column;
+                }
+
+                .events-search-box {
+                    min-width: 100%;
+                }
+
+                .events-filter-tabs {
+                    width: 100%;
+                    justify-content: center;
+                }
+
+                .events-results-info {
+                    flex-direction: column;
+                    text-align: center;
+                }
+
+                .events-pagination {
+                    flex-wrap: wrap;
+                }
+
+                .pagination-btn {
+                    padding: 10px 16px;
+                    font-size: 13px;
+                }
+            }
+        </style>
+    </head>
+
+    <body>
+        <!-- Scroll Progress Indicator -->
+        <div class="scroll-progress"></div>
+
+        <!-- Navigation -->
+        <nav
+            class="navbar"
+            id="navbar"
+        >
+            <div class="container">
+                <div class="nav-content">
+                    <div class="nav-brand">
+                        <i class="fas fa-tooth"></i>
+                        <span>Ocean Dental</span>
+                    </div>
+                    <ul
+                        class="nav-menu"
+                        id="nav-menu"
+                    >
+                        <li>
+                            <a
+                                href="index.html"
+                                class="nav-link"
+                                >Home</a
+                            >
+                        </li>
+                        <li>
+                            <a
+                                href="index.html#about"
+                                class="nav-link"
+                                >Tentang Kami</a
+                            >
+                        </li>
+                        <li>
+                            <a
+                                href="index.html#services"
+                                class="nav-link"
+                                >Layanan</a
+                            >
+                        </li>
+                        <li>
+                            <a
+                                href="index.html#gallery"
+                                class="nav-link"
+                                >Galeri</a
+                            >
+                        </li>
+                        <li>
+                            <a
+                                href="events.html"
+                                class="nav-link active"
+                                >Event</a
+                            >
+                        </li>
+                        <li>
+                            <a
+                                href="index.html#doctors"
+                                class="nav-link"
+                                >Dokter</a
+                            >
+                        </li>
+                        <li>
+                            <a
+                                href="index.html#branches"
+                                class="nav-link"
+                                >Cabang</a
+                            >
+                        </li>
+                        <li>
+                            <a
+                                href="index.html#faq"
+                                class="nav-link"
+                                >FAQ</a
+                            >
+                        </li>
+                    </ul>
+                    <a
+                        href="https://wa.me/6281234567890"
+                        class="btn btn-primary"
+                        id="nav-cta"
+                    >
+                        <i class="fab fa-whatsapp"></i> Konsultasi Gratis
+                    </a>
+                    <button
+                        class="nav-toggle"
+                        id="nav-toggle"
+                    >
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Page Header -->
+        <div class="events-page-header">
+            <div class="container">
+                <h1><i class="fas fa-calendar-alt"></i> Semua Event & Promo</h1>
+                <p>Temukan event menarik, seminar kesehatan gigi, dan promo spesial dari Ocean Dental</p>
+                <div class="breadcrumb">
+                    <a href="index.html"><i class="fas fa-home"></i> Home</a>
+                    <span>/</span>
+                    <span>Event</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Events Controls -->
+        <div class="events-page-controls">
+            <div class="container">
+                <div class="events-controls-wrapper">
+                    <!-- Search Box -->
+                    <div class="events-search-box">
+                        <i class="fas fa-search search-icon"></i>
+                        <input 
+                            type="text" 
+                            id="events-search" 
+                            placeholder="Cari event berdasarkan judul, deskripsi, atau lokasi..."
+                            autocomplete="off"
+                        />
+                        <button class="clear-search" id="clear-search">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+
+                    <!-- Filter Tabs -->
+                    <div class="events-filter-tabs">
+                        <button class="filter-tab active" data-category="all">
+                            <i class="fas fa-th"></i> Semua
+                        </button>
+                        <button class="filter-tab" data-category="community">
+                            <i class="fas fa-hands-helping"></i> Community
+                        </button>
+                        <button class="filter-tab" data-category="seminar">
+                            <i class="fas fa-graduation-cap"></i> Seminar
+                        </button>
+                        <button class="filter-tab" data-category="promo">
+                            <i class="fas fa-tags"></i> Promo
+                        </button>
+                        <button class="filter-tab" data-category="workshop">
+                            <i class="fas fa-tools"></i> Workshop
+                        </button>
+                        <button class="filter-tab" data-category="webinar">
+                            <i class="fas fa-laptop"></i> Webinar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Events Listing -->
+        <section class="events" style="padding-top: 64px; padding-bottom: 64px;">
+            <div class="container">
+                <!-- Results Info -->
+                <div class="events-results-info">
+                    <div class="results-count">
+                        Menampilkan <strong id="results-count">12</strong> event
+                    </div>
+                    <div class="events-sort">
+                        <label for="events-sort-select">Urutkan:</label>
+                        <select id="events-sort-select">
+                            <option value="date-desc">Terbaru</option>
+                            <option value="date-asc">Terlama</option>
+                            <option value="title-asc">A-Z</option>
+                            <option value="title-desc">Z-A</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Events Grid -->
+                <div class="events-list-container">
+                    <!-- CMS_ALL_EVENTS_START -->
+                    <div class="events-grid" id="events-grid">
+                        
+                        <!-- Event 1 -->
+                        <div class="event-card" data-event-id="1" data-category="community" data-date="2024-03-15" data-title="Free Dental Check-up Camp">
+                            <div class="event-image">
+                                <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=800&h=500&fit=crop" alt="Free Dental Check-up Camp">
+                                <div class="event-category community">
+                                    <i class="fas fa-hands-helping"></i> Community
+                                </div>
+                            </div>
+                            <div class="event-content">
+                                <h3 class="event-title">Free Dental Check-up Camp</h3>
+                                <div class="event-meta">
+                                    <div class="event-date">
+                                        <i class="fas fa-calendar"></i>
+                                        <span>15 Maret 2024</span>
+                                    </div>
+                                    <div class="event-time">
+                                        <i class="fas fa-clock"></i>
+                                        <span>09:00 - 16:00 WIB</span>
+                                    </div>
+                                    <div class="event-location">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                        <span>Ocean Dental Kelapa Gading</span>
+                                    </div>
+                                </div>
+                                <p class="event-description">
+                                    Pemeriksaan gigi gratis untuk 100 peserta pertama! Dapatkan konsultasi langsung dengan dokter gigi profesional kami dan screening kesehatan mulut lengkap.
+                                </p>
+                                <a href="event-detail.html?id=1" class="btn btn-primary event-btn">
+                                    <i class="fas fa-info-circle"></i> Lihat Detail
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Event 2 -->
+                        <div class="event-card" data-event-id="2" data-category="seminar" data-date="2024-03-22" data-title="Webinar: Tips Perawatan Behel">
+                            <div class="event-image">
+                                <img src="https://images.unsplash.com/photo-1606811841689-23dfddce3e95?w=800&h=500&fit=crop" alt="Webinar Perawatan Behel">
+                                <div class="event-category seminar">
+                                    <i class="fas fa-graduation-cap"></i> Seminar
+                                </div>
+                            </div>
+                            <div class="event-content">
+                                <h3 class="event-title">Webinar: Tips Perawatan Behel</h3>
+                                <div class="event-meta">
+                                    <div class="event-date">
+                                        <i class="fas fa-calendar"></i>
+                                        <span>22 Maret 2024</span>
+                                    </div>
+                                    <div class="event-time">
+                                        <i class="fas fa-clock"></i>
+                                        <span>19:00 - 20:30 WIB</span>
+                                    </div>
+                                    <div class="event-location">
+                                        <i class="fas fa-laptop"></i>
+                                        <span>Zoom (Online)</span>
+                                    </div>
+                                </div>
+                                <p class="event-description">
+                                    Pelajari cara merawat behel dengan benar bersama drg. Michael Santoso, Sp.Ort. Gratis untuk umum! Termasuk sesi tanya jawab langsung.
+                                </p>
+                                <a href="event-detail.html?id=2" class="btn btn-primary event-btn">
+                                    <i class="fas fa-info-circle"></i> Lihat Detail
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Event 3 -->
+                        <div class="event-card" data-event-id="3" data-category="promo" data-date="2024-03-01" data-title="Promo Ramadan: Paket Veneer Special">
+                            <div class="event-image">
+                                <img src="https://images.unsplash.com/photo-1606265752439-1f18756aa5fc?w=800&h=500&fit=crop" alt="Promo Ramadan Veneer">
+                                <div class="event-category promo">
+                                    <i class="fas fa-tags"></i> Promo
+                                </div>
+                                <div class="event-badge hot">
+                                    <i class="fas fa-fire"></i> HOT!
+                                </div>
+                            </div>
+                            <div class="event-content">
+                                <h3 class="event-title">Promo Ramadan: Paket Veneer Special</h3>
+                                <div class="event-meta">
+                                    <div class="event-date">
+                                        <i class="fas fa-calendar"></i>
+                                        <span>1 - 31 Maret 2024</span>
+                                    </div>
+                                    <div class="event-time">
+                                        <i class="fas fa-clock"></i>
+                                        <span>Sepanjang Hari</span>
+                                    </div>
+                                    <div class="event-location">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                        <span>Semua Cabang</span>
+                                    </div>
+                                </div>
+                                <p class="event-description">
+                                    Diskon hingga 30% untuk pemasangan veneer! Cicilan 0% tersedia. Terbatas untuk 50 pasien pertama. Wujudkan senyum impian Anda!
+                                </p>
+                                <a href="event-detail.html?id=3" class="btn btn-primary event-btn">
+                                    <i class="fas fa-info-circle"></i> Lihat Detail
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Event 4 -->
+                        <div class="event-card" data-event-id="4" data-category="workshop" data-date="2024-04-05" data-title="Workshop: Dental Photography">
+                            <div class="event-image">
+                                <img src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=800&h=500&fit=crop" alt="Dental Photography Workshop">
+                                <div class="event-category workshop">
+                                    <i class="fas fa-tools"></i> Workshop
+                                </div>
+                            </div>
+                            <div class="event-content">
+                                <h3 class="event-title">Workshop: Dental Photography</h3>
+                                <div class="event-meta">
+                                    <div class="event-date">
+                                        <i class="fas fa-calendar"></i>
+                                        <span>5 April 2024</span>
+                                    </div>
+                                    <div class="event-time">
+                                        <i class="fas fa-clock"></i>
+                                        <span>13:00 - 17:00 WIB</span>
+                                    </div>
+                                    <div class="event-location">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                        <span>Ocean Dental Pondok Indah</span>
+                                    </div>
+                                </div>
+                                <p class="event-description">
+                                    Workshop praktis fotografi dental untuk dokter gigi dan asisten. Pelajari teknik dokumentasi kasus yang profesional. Terbatas 20 peserta.
+                                </p>
+                                <a href="event-detail.html?id=4" class="btn btn-primary event-btn">
+                                    <i class="fas fa-info-circle"></i> Lihat Detail
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Event 5 -->
+                        <div class="event-card" data-event-id="5" data-category="community" data-date="2024-04-12" data-title="Kids Dental Health Day">
+                            <div class="event-image">
+                                <img src="https://images.unsplash.com/photo-1629909615184-74f495363b67?w=800&h=500&fit=crop" alt="Kids Dental Health Day">
+                                <div class="event-category community">
+                                    <i class="fas fa-hands-helping"></i> Community
+                                </div>
+                            </div>
+                            <div class="event-content">
+                                <h3 class="event-title">Kids Dental Health Day</h3>
+                                <div class="event-meta">
+                                    <div class="event-date">
+                                        <i class="fas fa-calendar"></i>
+                                        <span>12 April 2024</span>
+                                    </div>
+                                    <div class="event-time">
+                                        <i class="fas fa-clock"></i>
+                                        <span>10:00 - 15:00 WIB</span>
+                                    </div>
+                                    <div class="event-location">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                        <span>Ocean Dental Sunter</span>
+                                    </div>
+                                </div>
+                                <p class="event-description">
+                                    Acara seru untuk anak-anak! Edukasi kesehatan gigi, games interaktif, face painting, dan pemeriksaan gigi gratis. Hadiah menarik untuk semua peserta!
+                                </p>
+                                <a href="event-detail.html?id=5" class="btn btn-primary event-btn">
+                                    <i class="fas fa-info-circle"></i> Lihat Detail
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Event 6 -->
+                        <div class="event-card" data-event-id="6" data-category="webinar" data-date="2024-04-18" data-title="Webinar: Implant vs Bridge">
+                            <div class="event-image">
+                                <img src="https://images.unsplash.com/photo-1609840114035-3c981b782dfe?w=800&h=500&fit=crop" alt="Implant vs Bridge Webinar">
+                                <div class="event-category webinar">
+                                    <i class="fas fa-laptop"></i> Webinar
+                                </div>
+                            </div>
+                            <div class="event-content">
+                                <h3 class="event-title">Webinar: Implant vs Bridge</h3>
+                                <div class="event-meta">
+                                    <div class="event-date">
+                                        <i class="fas fa-calendar"></i>
+                                        <span>18 April 2024</span>
+                                    </div>
+                                    <div class="event-time">
+                                        <i class="fas fa-clock"></i>
+                                        <span>19:30 - 21:00 WIB</span>
+                                    </div>
+                                    <div class="event-location">
+                                        <i class="fas fa-laptop"></i>
+                                        <span>Google Meet</span>
+                                    </div>
+                                </div>
+                                <p class="event-description">
+                                    Bingung memilih antara implant atau bridge? Simak penjelasan lengkap dari drg. David Pratama, Sp.BM tentang kelebihan dan kekurangan masing-masing.
+                                </p>
+                                <a href="event-detail.html?id=6" class="btn btn-primary event-btn">
+                                    <i class="fas fa-info-circle"></i> Lihat Detail
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Event 7 -->
+                        <div class="event-card" data-event-id="7" data-category="promo" data-date="2024-04-01" data-title="Flash Sale: Scaling & Bleaching">
+                            <div class="event-image">
+                                <img src="https://images.unsplash.com/photo-1598256989800-fe5f95da9787?w=800&h=500&fit=crop" alt="Flash Sale Scaling Bleaching">
+                                <div class="event-category promo">
+                                    <i class="fas fa-tags"></i> Promo
+                                </div>
+                            </div>
+                            <div class="event-content">
+                                <h3 class="event-title">Flash Sale: Scaling & Bleaching</h3>
+                                <div class="event-meta">
+                                    <div class="event-date">
+                                        <i class="fas fa-calendar"></i>
+                                        <span>1 - 30 April 2024</span>
+                                    </div>
+                                    <div class="event-time">
+                                        <i class="fas fa-clock"></i>
+                                        <span>Setiap Hari</span>
+                                    </div>
+                                    <div class="event-location">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                        <span>Cabang Pilihan</span>
+                                    </div>
+                                </div>
+                                <p class="event-description">
+                                    Paket hemat scaling + bleaching hanya Rp 999rb (harga normal 1.5jt)! Dapatkan gigi bersih dan putih bersinar. Kuota terbatas per hari!
+                                </p>
+                                <a href="event-detail.html?id=7" class="btn btn-primary event-btn">
+                                    <i class="fas fa-info-circle"></i> Lihat Detail
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Event 8 -->
+                        <div class="event-card" data-event-id="8" data-category="seminar" data-date="2024-04-25" data-title="Seminar: Periodontal Disease">
+                            <div class="event-image">
+                                <img src="https://images.unsplash.com/photo-1629909613654-28e377c37b09?w=800&h=500&fit=crop" alt="Periodontal Disease Seminar">
+                                <div class="event-category seminar">
+                                    <i class="fas fa-graduation-cap"></i> Seminar
+                                </div>
+                            </div>
+                            <div class="event-content">
+                                <h3 class="event-title">Seminar: Periodontal Disease</h3>
+                                <div class="event-meta">
+                                    <div class="event-date">
+                                        <i class="fas fa-calendar"></i>
+                                        <span>25 April 2024</span>
+                                    </div>
+                                    <div class="event-time">
+                                        <i class="fas fa-clock"></i>
+                                        <span>14:00 - 16:30 WIB</span>
+                                    </div>
+                                    <div class="event-location">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                        <span>Hotel Santika Jakarta</span>
+                                    </div>
+                                </div>
+                                <p class="event-description">
+                                    Seminar ilmiah tentang penyakit periodontal dan penanganannya. Pembicara: drg. Aersy Henny Paramitha. Untuk tenaga medis dan mahasiswa kedokteran gigi.
+                                </p>
+                                <a href="event-detail.html?id=8" class="btn btn-primary event-btn">
+                                    <i class="fas fa-info-circle"></i> Lihat Detail
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Event 9 -->
+                        <div class="event-card" data-event-id="9" data-category="workshop" data-date="2024-05-03" data-title="Workshop: Smile Makeover Planning">
+                            <div class="event-image">
+                                <img src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?w=800&h=500&fit=crop" alt="Smile Makeover Workshop">
+                                <div class="event-category workshop">
+                                    <i class="fas fa-tools"></i> Workshop
+                                </div>
+                            </div>
+                            <div class="event-content">
+                                <h3 class="event-title">Workshop: Smile Makeover Planning</h3>
+                                <div class="event-meta">
+                                    <div class="event-date">
+                                        <i class="fas fa-calendar"></i>
+                                        <span>3 Mei 2024</span>
+                                    </div>
+                                    <div class="event-time">
+                                        <i class="fas fa-clock"></i>
+                                        <span>09:00 - 15:00 WIB</span>
+                                    </div>
+                                    <div class="event-location">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                        <span>Ocean Dental Training Center</span>
+                                    </div>
+                                </div>
+                                <p class="event-description">
+                                    Workshop intensif untuk dokter gigi: perencanaan smile makeover menggunakan digital smile design (DSD). Termasuk hands-on practice dan sertifikat.
+                                </p>
+                                <a href="event-detail.html?id=9" class="btn btn-primary event-btn">
+                                    <i class="fas fa-info-circle"></i> Lihat Detail
+                                </a>
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- CMS_ALL_EVENTS_END -->
+
+                    <!-- Empty State (hidden by default) -->
+                    <div class="empty-state" id="empty-state" style="display: none;">
+                        <i class="fas fa-calendar-times"></i>
+                        <h3>Tidak Ada Event Ditemukan</h3>
+                        <p>Coba ubah filter atau kata kunci pencarian Anda</p>
+                        <button class="btn btn-primary" onclick="resetFilters()">
+                            <i class="fas fa-redo"></i> Reset Filter
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Pagination -->
+                <div class="events-pagination" id="events-pagination">
+                    <button class="pagination-btn" id="prev-page" disabled>
+                        <i class="fas fa-chevron-left"></i> Sebelumnya
+                    </button>
+                    <span class="pagination-info">
+                        Halaman <span id="current-page">1</span> dari <span id="total-pages">2</span>
+                    </span>
+                    <button class="pagination-btn" id="next-page">
+                        Berikutnya <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- WhatsApp Float Button -->
+        <a
+            href="https://wa.me/6281234567890"
+            class="whatsapp-float"
+            target="_blank"
+            rel="noopener"
+            aria-label="Chat via WhatsApp"
+        >
+            <i class="fab fa-whatsapp"></i>
+        </a>
+
+        <!-- Back to Top Button -->
+        <button
+            class="back-to-top"
+            id="back-to-top"
+            aria-label="Back to top"
+        >
+            <i class="fas fa-arrow-up"></i>
+        </button>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="container">
+                <div class="footer-content">
+                    <div class="footer-col">
+                        <div class="footer-brand">
+                            <i class="fas fa-tooth"></i>
+                            <span>Ocean Dental</span>
+                        </div>
+                        <p>Senyum Sehat Bersama Kami. Klinik gigi profesional dengan 10+ tahun pengalaman melayani 50,000+ pasien.</p>
+                        <div class="footer-social">
+                            <a href="#"><i class="fab fa-facebook"></i></a>
+                            <a href="#"><i class="fab fa-instagram"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                            <a href="#"><i class="fab fa-youtube"></i></a>
+                        </div>
+                    </div>
+                    <div class="footer-col">
+                        <h3>Layanan Kami</h3>
+                        <ul>
+                            <li><a href="index.html#services">Veneer Gigi</a></li>
+                            <li><a href="index.html#services">Bleaching</a></li>
+                            <li><a href="index.html#services">Behel / Kawat Gigi</a></li>
+                            <li><a href="index.html#services">Implant Gigi</a></li>
+                            <li><a href="index.html#services">Scaling & Polishing</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-col">
+                        <h3>Informasi</h3>
+                        <ul>
+                            <li><a href="index.html#about">Tentang Kami</a></li>
+                            <li><a href="index.html#doctors">Tim Dokter</a></li>
+                            <li><a href="index.html#branches">Lokasi Cabang</a></li>
+                            <li><a href="events.html">Event & Promo</a></li>
+                            <li><a href="index.html#faq">FAQ</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-col">
+                        <h3>Kontak Kami</h3>
+                        <ul class="footer-contact">
+                            <li><i class="fas fa-phone"></i> (021) 1234-5678</li>
+                            <li><i class="fab fa-whatsapp"></i> 0812-3456-7890</li>
+                            <li><i class="fas fa-envelope"></i> info@oceandental.id</li>
+                            <li><i class="fas fa-clock"></i> Senin - Minggu: 09:00 - 21:00</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="footer-bottom">
+                    <p>&copy; 2024 Ocean Dental. All rights reserved.</p>
+                    <div class="footer-links">
+                        <a href="#">Privacy Policy</a>
+                        <a href="#">Terms of Service</a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+        <script src="script.js"></script>
+        <script>
+            // Events page specific JavaScript
+            document.addEventListener('DOMContentLoaded', function() {
+                const searchInput = document.getElementById('events-search');
+                const clearSearchBtn = document.getElementById('clear-search');
+                const filterTabs = document.querySelectorAll('.filter-tab');
+                const eventCards = document.querySelectorAll('.event-card');
+                const eventsGrid = document.getElementById('events-grid');
+                const emptyState = document.getElementById('empty-state');
+                const resultsCount = document.getElementById('results-count');
+                const sortSelect = document.getElementById('events-sort-select');
+
+                let currentFilter = 'all';
+                let currentSearchQuery = '';
+
+                // Search functionality
+                searchInput.addEventListener('input', function(e) {
+                    currentSearchQuery = e.target.value.toLowerCase();
+                    clearSearchBtn.classList.toggle('visible', currentSearchQuery.length > 0);
+                    filterEvents();
+                });
+
+                clearSearchBtn.addEventListener('click', function() {
+                    searchInput.value = '';
+                    currentSearchQuery = '';
+                    clearSearchBtn.classList.remove('visible');
+                    filterEvents();
+                });
+
+                // Filter functionality
+                filterTabs.forEach(tab => {
+                    tab.addEventListener('click', function() {
+                        filterTabs.forEach(t => t.classList.remove('active'));
+                        this.classList.add('active');
+                        currentFilter = this.dataset.category;
+                        filterEvents();
+                    });
+                });
+
+                // Sort functionality
+                sortSelect.addEventListener('change', function() {
+                    sortEvents(this.value);
+                });
+
+                function filterEvents() {
+                    let visibleCount = 0;
+
+                    eventCards.forEach(card => {
+                        const category = card.dataset.category;
+                        const title = card.dataset.title.toLowerCase();
+                        const description = card.querySelector('.event-description').textContent.toLowerCase();
+                        const location = card.querySelector('.event-location span').textContent.toLowerCase();
+
+                        const matchesFilter = currentFilter === 'all' || category === currentFilter;
+                        const matchesSearch = currentSearchQuery === '' || 
+                            title.includes(currentSearchQuery) || 
+                            description.includes(currentSearchQuery) ||
+                            location.includes(currentSearchQuery);
+
+                        if (matchesFilter && matchesSearch) {
+                            card.style.display = '';
+                            visibleCount++;
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+
+                    resultsCount.textContent = visibleCount;
+                    
+                    if (visibleCount === 0) {
+                        eventsGrid.style.display = 'none';
+                        emptyState.style.display = 'block';
+                    } else {
+                        eventsGrid.style.display = 'grid';
+                        emptyState.style.display = 'none';
+                    }
+                }
+
+                function sortEvents(sortType) {
+                    const cardsArray = Array.from(eventCards);
+                    
+                    cardsArray.sort((a, b) => {
+                        switch(sortType) {
+                            case 'date-desc':
+                                return new Date(b.dataset.date) - new Date(a.dataset.date);
+                            case 'date-asc':
+                                return new Date(a.dataset.date) - new Date(b.dataset.date);
+                            case 'title-asc':
+                                return a.dataset.title.localeCompare(b.dataset.title);
+                            case 'title-desc':
+                                return b.dataset.title.localeCompare(a.dataset.title);
+                            default:
+                                return 0;
+                        }
+                    });
+
+                    cardsArray.forEach(card => eventsGrid.appendChild(card));
+                }
+
+                // Reset filters function
+                window.resetFilters = function() {
+                    searchInput.value = '';
+                    currentSearchQuery = '';
+                    currentFilter = 'all';
+                    clearSearchBtn.classList.remove('visible');
+                    filterTabs.forEach(t => t.classList.remove('active'));
+                    filterTabs[0].classList.add('active');
+                    filterEvents();
+                };
+
+                // Pagination (simple example - can be enhanced for real pagination)
+                const prevPageBtn = document.getElementById('prev-page');
+                const nextPageBtn = document.getElementById('next-page');
+                const currentPageSpan = document.getElementById('current-page');
+                const totalPagesSpan = document.getElementById('total-pages');
+                
+                let currentPage = 1;
+                const totalPages = 2; // Set based on your total events
+
+                prevPageBtn.addEventListener('click', function() {
+                    if (currentPage > 1) {
+                        currentPage--;
+                        updatePagination();
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                    }
+                });
+
+                nextPageBtn.addEventListener('click', function() {
+                    if (currentPage < totalPages) {
+                        currentPage++;
+                        updatePagination();
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                    }
+                });
+
+                function updatePagination() {
+                    currentPageSpan.textContent = currentPage;
+                    prevPageBtn.disabled = currentPage === 1;
+                    nextPageBtn.disabled = currentPage === totalPages;
+                }
+            });
+        </script>
+    </body>
+</html>

@@ -1024,29 +1024,134 @@
 <section class="gallery" id="gallery">
     <div class="container">
         <div class="section-header" data-aos="fade-up">
-            <span class="section-subtitle">Galeri</span>
-            <h2 class="section-title">Suasana Ocean Dental</h2>
+            <span class="section-tag"><i class="fas fa-images"></i> Galeri</span>
+            <h2 class="section-title">
+                Fasilitas <span class="gradient-text-dark">Klinik Kami</span>
+            </h2>
             <p class="section-description">
-                Lihat fasilitas dan hasil perawatan di klinik kami
+                Lihat kenyamanan dan kebersihan fasilitas Ocean Dental
             </p>
         </div>
-        @if($gallery->count() > 0)
-        <div class="gallery-grid" data-aos="fade-up">
-            @foreach($gallery as $item)
-            <div class="gallery-item">
-                <img src="{{ Storage::url($item->image) }}" alt="{{ $item->title }}">
+
+        <!-- Gallery Filter -->
+        <div class="gallery-filters" data-aos="fade-up">
+            <button class="gallery-filter-btn active" data-filter="all">
+                <i class="fas fa-th"></i> Semua
+            </button>
+            <button class="gallery-filter-btn" data-filter="klinik">
+                <i class="fas fa-hospital"></i> Klinik
+            </button>
+            <button class="gallery-filter-btn" data-filter="peralatan">
+                <i class="fas fa-tools"></i> Peralatan
+            </button>
+            <button class="gallery-filter-btn" data-filter="tim">
+                <i class="fas fa-user-md"></i> Tim & Pasien
+            </button>
+        </div>
+
+        <div class="gallery-masonry">
+            <!-- Row 1 -->
+            <div class="gallery-item tall" data-category="klinik" data-aos="fade-up" data-aos-delay="0">
+                <img src="https://images.unsplash.com/photo-1629909613654-28e377c37b09?w=600&h=800&fit=crop" alt="Ruang Perawatan Modern">
                 <div class="gallery-overlay">
-                    <h4>{{ $item->title }}</h4>
-                    @if($item->description)
-                    <p>{{ $item->description }}</p>
-                    @endif
+                    <div class="gallery-icon"><i class="fas fa-search-plus"></i></div>
+                    <h3>Ruang Perawatan</h3>
+                    <p>Modern & Nyaman</p>
                 </div>
             </div>
-            @endforeach
+
+            <div class="gallery-item" data-category="klinik" data-aos="fade-up" data-aos-delay="50">
+                <img src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=600&h=400&fit=crop" alt="Ruang Sterilisasi">
+                <div class="gallery-overlay">
+                    <div class="gallery-icon"><i class="fas fa-search-plus"></i></div>
+                    <h3>Ruang Sterilisasi</h3>
+                    <p>Standar Internasional</p>
+                </div>
+            </div>
+
+            <div class="gallery-item" data-category="peralatan" data-aos="fade-up" data-aos-delay="100">
+                <img src="https://images.unsplash.com/photo-1609840114035-3c981b782dfe?w=600&h=400&fit=crop" alt="Dental Chair">
+                <div class="gallery-overlay">
+                    <div class="gallery-icon"><i class="fas fa-search-plus"></i></div>
+                    <h3>Dental Chair</h3>
+                    <p>Teknologi Terkini</p>
+                </div>
+            </div>
+
+            <!-- Row 2 -->
+            <div class="gallery-item wide" data-category="klinik" data-aos="fade-up" data-aos-delay="150">
+                <img src="https://images.unsplash.com/photo-1629909615184-74f495363b67?w=800&h=400&fit=crop" alt="Area Resepsionis">
+                <div class="gallery-overlay">
+                    <div class="gallery-icon"><i class="fas fa-search-plus"></i></div>
+                    <h3>Area Resepsionis</h3>
+                    <p>Pelayanan Ramah 24/7</p>
+                </div>
+            </div>
+
+            <div class="gallery-item" data-category="tim" data-aos="fade-up" data-aos-delay="200">
+                <img src="https://images.unsplash.com/photo-1606811841689-23dfddce3e95?w=600&h=400&fit=crop" alt="Tim Dokter">
+                <div class="gallery-overlay">
+                    <div class="gallery-icon"><i class="fas fa-search-plus"></i></div>
+                    <h3>Tim Dokter</h3>
+                    <p>Profesional & Berpengalaman</p>
+                </div>
+            </div>
+
+            <!-- Row 3 -->
+            <div class="gallery-item" data-category="peralatan" data-aos="fade-up" data-aos-delay="250">
+                <img src="https://images.unsplash.com/photo-1598256989800-fe5f95da9787?w=600&h=400&fit=crop" alt="Peralatan Digital">
+                <div class="gallery-overlay">
+                    <div class="gallery-icon"><i class="fas fa-search-plus"></i></div>
+                    <h3>X-Ray Digital</h3>
+                    <p>Diagnosis Akurat</p>
+                </div>
+            </div>
+
+            <div class="gallery-item tall" data-category="tim" data-aos="fade-up" data-aos-delay="300">
+                <img src="https://images.unsplash.com/photo-1606265752439-1f18756aa5fc?w=600&h=800&fit=crop" alt="Pasien Bahagia">
+                <div class="gallery-overlay">
+                    <div class="gallery-icon"><i class="fas fa-search-plus"></i></div>
+                    <h3>Pasien Bahagia</h3>
+                    <p>Senyum Sehat & Percaya Diri</p>
+                </div>
+            </div>
+
+            <div class="gallery-item" data-category="klinik" data-aos="fade-up" data-aos-delay="350">
+                <img src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?w=600&h=400&fit=crop" alt="Ruang Tunggu">
+                <div class="gallery-overlay">
+                    <div class="gallery-icon"><i class="fas fa-search-plus"></i></div>
+                    <h3>Ruang Tunggu</h3>
+                    <p>Nyaman & Bersih</p>
+                </div>
+            </div>
+
+            <div class="gallery-item wide" data-category="peralatan" data-aos="fade-up" data-aos-delay="400">
+                <img src="https://images.unsplash.com/photo-1629909615184-74f495363b67?w=800&h=400&fit=crop" alt="Peralatan Sterilisasi">
+                <div class="gallery-overlay">
+                    <div class="gallery-icon"><i class="fas fa-search-plus"></i></div>
+                    <h3>Autoclave Sterilizer</h3>
+                    <p>Jaminan Kebersihan 100%</p>
+                </div>
+            </div>
         </div>
-        @else
-        <p style="text-align: center;">Galeri sedang diperbarui...</p>
-        @endif
+    </div>
+
+    <!-- Lightbox -->
+    <div class="gallery-lightbox" id="gallery-lightbox">
+        <button class="lightbox-close" id="lightbox-close">
+            <i class="fas fa-times"></i>
+        </button>
+        <button class="lightbox-nav lightbox-prev" id="lightbox-prev">
+            <i class="fas fa-chevron-left"></i>
+        </button>
+        <button class="lightbox-nav lightbox-next" id="lightbox-next">
+            <i class="fas fa-chevron-right"></i>
+        </button>
+        <div class="lightbox-content">
+            <img src="" alt="" id="lightbox-image">
+            <div class="lightbox-caption" id="lightbox-caption"></div>
+            <div class="lightbox-counter" id="lightbox-counter"></div>
+        </div>
     </div>
 </section>
 <!-- Events Section -->

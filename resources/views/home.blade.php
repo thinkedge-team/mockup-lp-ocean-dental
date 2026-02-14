@@ -1,0 +1,506 @@
+@extends('layouts.app')
+
+@section('title', 'Ocean Dental - Senyum Sehat Bersama Kami | Klinik Gigi Profesional')
+
+@section('content')
+<!-- Hero Section -->
+<section class="hero" id="home">
+    <div class="hero-background">
+        <div class="hero-overlay"></div>
+        <div class="hero-decoration">
+            <div class="decoration-circle circle-1" data-parallax="0.05"></div>
+            <div class="decoration-circle circle-2" data-parallax="0.08"></div>
+            <div class="decoration-circle circle-3" data-parallax="0.03"></div>
+            <div class="decoration-circle circle-4" data-parallax="0.06"></div>
+        </div>
+        <div class="floating-elements">
+            <div class="floating-element sparkle" style="top: 15%; left: 10%;"></div>
+            <div class="floating-element plus">+</div>
+            <div class="floating-element tooth"><i class="fas fa-tooth"></i></div>
+            <div class="floating-element sparkle" style="top: 70%; right: 10%;"></div>
+            <div class="floating-element plus">+</div>
+            <div class="floating-element sparkle" style="top: 80%; left: 20%;"></div>
+            <div class="floating-element tooth"><i class="fas fa-tooth"></i></div>
+            <div class="floating-element sparkle" style="top: 50%; right: 20%;"></div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="hero-content">
+            <div class="hero-text" data-aos="fade-right">
+                <h1 class="hero-title">
+                    <span class="typing-container">
+                        <span class="gradient-text typing-text" id="typing-text">Senyum Sehat</span>
+                    </span><br />
+                    Bersama Ocean Dental
+                </h1>
+                <p class="hero-subtitle">
+                    Perawatan Gigi Profesional & Terjangkau<br />
+                    <strong>10+ Tahun Pengalaman</strong> | <strong>25+ Cabang</strong> di Jabodetabek
+                </p>
+                <div class="hero-features">
+                    <div class="feature-badge">
+                        <i class="fas fa-clock"></i>
+                        <span>Daily 09:00-21:00</span>
+                    </div>
+                    <div class="feature-badge">
+                        <i class="fas fa-award"></i>
+                        <span>Dokter Berpengalaman</span>
+                    </div>
+                    <div class="feature-badge">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>Alat Modern & Steril</span>
+                    </div>
+                </div>
+                <div class="hero-cta">
+                    <a href="https://wa.me/6281234567890" class="btn btn-primary btn-lg" id="hero-cta-primary">
+                        <i class="fab fa-whatsapp"></i> Book Appointment Now
+                    </a>
+                    <a href="#services" class="btn btn-secondary btn-lg" id="hero-cta-secondary">
+                        <i class="fas fa-tooth"></i> Lihat Layanan
+                    </a>
+                </div>
+            </div>
+            <div class="hero-image" data-aos="fade-left">
+                <div class="hero-image-wrapper">
+                    <img src="{{ asset('images/hero-dentist-patient.png') }}" alt="Ocean Dental - Dokter Gigi Profesional" />
+                    <div class="floating-card">
+                        <i class="fas fa-star"></i>
+                        <div>
+                            <strong>4.9/5</strong>
+                            <p>Rating Pasien</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Services Section -->
+<section class="services" id="services">
+    <div class="container">
+        <div class="section-header" data-aos="fade-up">
+            <span class="section-subtitle">Layanan Kami</span>
+            <h2 class="section-title">Perawatan Gigi Profesional</h2>
+            <p class="section-description">
+                Kami menyediakan berbagai layanan perawatan gigi dengan teknologi modern dan dokter berpengalaman
+            </p>
+        </div>
+        <div class="services-grid">
+            @forelse($services as $service)
+            <div class="service-card" data-aos="fade-up" data-aos-delay="{{ $loop->index * 100 }}">
+                @if($service->image)
+                <div class="service-image">
+                    <img src="{{ asset('storage/' . $service->image) }}" alt="{{ $service->name }}" />
+                </div>
+                @endif
+                <div class="service-icon">
+                    <i class="{{ $service->icon ?? 'fas fa-tooth' }}"></i>
+                </div>
+                <h3>{{ $service->name }}</h3>
+                <p>{{ Str::limit(strip_tags($service->description), 100) }}</p>
+                @if($service->price_range)
+                <div class="service-price">{{ $service->price_range }}</div>
+                @endif
+                <a href="https://wa.me/6281234567890?text=Saya%20ingin%20konsultasi%20tentang%20{{ urlencode($service->name) }}" class="btn btn-outline">
+                    Konsultasi <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+            @empty
+            <!-- Fallback if no services in database yet -->
+            <p>Layanan sedang diperbarui...</p>
+            @endforelse
+        </div>
+    </div>
+</section>
+
+<!-- About Section -->
+<section class="about" id="about">
+    <div class="container">
+        <div class="section-header" data-aos="fade-up">
+            <span class="section-subtitle">Tentang Kami</span>
+            <h2 class="section-title">
+                Mengapa Memilih <span class="gradient-text-dark">Ocean Dental</span>?
+            </h2>
+            <p class="section-description">
+                Lebih dari sekedar klinik gigi, kami adalah mitra kesehatan oral Anda
+            </p>
+        </div>
+
+        <div class="about-stats-bar" data-aos="fade-up" style="margin-top: 48px;">
+            <div class="stat-item">
+                <div class="stat-number">
+                    <span class="counter" data-target="29">0</span>
+                </div>
+                <div class="stat-label">Cabang Klinik</div>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat-item">
+                <div class="stat-number">
+                    <span class="counter" data-target="50">0</span>+
+                </div>
+                <div class="stat-label">Dokter Gigi</div>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat-item">
+                <div class="stat-number">
+                    <span class="counter" data-target="50">0</span>K+
+                </div>
+                <div class="stat-label">Pasien Puas</div>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat-item">
+                <div class="stat-number">
+                    <span class="counter-decimal" data-target="4.9">0</span>
+                </div>
+                <div class="stat-label">Rating Google</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Gallery Section -->
+<section class="gallery" id="gallery">
+    <div class="container">
+        <div class="section-header" data-aos="fade-up">
+            <span class="section-subtitle">Galeri</span>
+            <h2 class="section-title">Suasana Ocean Dental</h2>
+            <p class="section-description">
+                Lihat fasilitas dan hasil perawatan di klinik kami
+            </p>
+        </div>
+        @if($gallery->count() > 0)
+        <div class="gallery-grid" data-aos="fade-up">
+            @foreach($gallery as $item)
+            <div class="gallery-item">
+                <img src="{{ Storage::url($item->image) }}" alt="{{ $item->title }}">
+                <div class="gallery-overlay">
+                    <h4>{{ $item->title }}</h4>
+                    @if($item->description)
+                    <p>{{ $item->description }}</p>
+                    @endif
+                </div>
+            </div>
+            @endforeach
+        </div>
+        @else
+        <p style="text-align: center;">Galeri sedang diperbarui...</p>
+        @endif
+    </div>
+</section>
+
+<!-- Doctors/Team Section -->
+<section class="doctors" id="doctors">
+    <div class="container">
+        <div class="section-header" data-aos="fade-up">
+            <span class="section-subtitle">Tim Dokter</span>
+            <h2 class="section-title">Dokter Gigi Profesional</h2>
+            <p class="section-description">
+                Tim dokter berpengalaman dan bersertifikat siap melayani Anda
+            </p>
+        </div>
+        @if($teamMembers->count() > 0)
+        <div class="doctors-grid" data-aos="fade-up">
+            @foreach($teamMembers as $member)
+            <div class="doctor-card" data-aos="fade-up" data-aos-delay="{{ $loop->index * 100 }}">
+                <div class="doctor-image">
+                    @if($member->photo)
+                    <img src="{{ Storage::url($member->photo) }}" alt="{{ $member->name }}">
+                    @else
+                    <img src="https://ui-avatars.com/api/?name={{ urlencode($member->name) }}&size=300&background=01215E&color=fff" alt="{{ $member->name }}">
+                    @endif
+                </div>
+                <div class="doctor-info">
+                    <h3>{{ $member->name }}</h3>
+                    <p class="doctor-specialty">{{ $member->position }}</p>
+                    @if($member->specialization)
+                    <p class="doctor-education">{{ $member->specialization }}</p>
+                    @endif
+                    @if($member->education)
+                    <p class="doctor-education"><i class="fas fa-graduation-cap"></i> {{ $member->education }}</p>
+                    @endif
+                </div>
+            </div>
+            @endforeach
+        </div>
+        @else
+        <p style="text-align: center;">Informasi dokter sedang diperbarui...</p>
+        @endif
+    </div>
+</section>
+
+<!-- Branches/Locations Section -->
+<section class="branches" id="branches">
+    <div class="container">
+        <div class="section-header" data-aos="fade-up">
+            <span class="section-subtitle">Lokasi Kami</span>
+            <h2 class="section-title">Cabang Ocean Dental</h2>
+            <p class="section-description">
+                29 cabang tersebar di Jabodetabek untuk kemudahan Anda
+            </p>
+        </div>
+        @if($locations->count() > 0)
+        <div class="branches-grid" data-aos="fade-up">
+            @foreach($locations as $location)
+            <div class="branch-card" data-aos="fade-up" data-aos-delay="{{ $loop->index * 100 }}">
+                <div class="branch-icon">
+                    <i class="fas fa-map-marker-alt"></i>
+                </div>
+                <h3>{{ $location->name }}</h3>
+                <p class="branch-address">
+                    <i class="fas fa-location-dot"></i> {{ $location->address }}
+                </p>
+                @if($location->phone)
+                <p class="branch-phone">
+                    <i class="fas fa-phone"></i> {{ $location->phone }}
+                </p>
+                @endif
+                @if($location->operating_hours)
+                <p class="branch-hours">
+                    <i class="fas fa-clock"></i> {{ $location->operating_hours }}
+                </p>
+                @endif
+                @if($location->map_url)
+                <a href="{{ $location->map_url }}" target="_blank" class="btn btn-outline btn-sm">
+                    <i class="fas fa-directions"></i> Petunjuk Arah
+                </a>
+                @endif
+            </div>
+            @endforeach
+        </div>
+        @else
+        <p style="text-align: center;">Informasi cabang sedang diperbarui...</p>
+        @endif
+    </div>
+</section>
+
+<!-- FAQ Section -->
+<section class="faq" id="faq">
+    <div class="container">
+        <div class="section-header" data-aos="fade-up">
+            <span class="section-subtitle">FAQ</span>
+            <h2 class="section-title">Pertanyaan Yang Sering Diajukan</h2>
+            <p class="section-description">
+                Temukan jawaban untuk pertanyaan umum seputar perawatan gigi
+            </p>
+        </div>
+        <div class="faq-container" data-aos="fade-up">
+            <div class="faq-item">
+                <div class="faq-question">
+                    <h4>Apakah perawatan di Ocean Dental menggunakan alat yang steril?</h4>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Ya, semua alat medis yang kami gunakan telah melalui proses sterilisasi sesuai standar kesehatan internasional. Kami menggunakan autoclave dan UV sterilizer untuk memastikan keamanan pasien.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">
+                    <h4>Apakah bisa konsultasi terlebih dahulu sebelum melakukan perawatan?</h4>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Tentu! Kami menyediakan konsultasi gratis untuk semua pasien. Anda bisa berkonsultasi langsung dengan dokter gigi kami melalui WhatsApp atau datang langsung ke klinik.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">
+                    <h4>Apakah Ocean Dental buka setiap hari?</h4>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Ya, Ocean Dental buka setiap hari Senin-Minggu dari jam 09:00 - 21:00 WIB. Kami siap melayani Anda kapan saja termasuk hari libur nasional.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">
+                    <h4>Apakah tersedia cicilan untuk perawatan tertentu?</h4>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Ya, kami menyediakan berbagai pilihan cicilan 0% untuk perawatan tertentu melalui kerjasama dengan beberapa bank dan fintech. Hubungi kami untuk informasi lebih lanjut.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">
+                    <h4>Bagaimana cara membuat janji temu?</h4>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Anda bisa membuat janji temu melalui WhatsApp di 0812-3456-7890, telepon ke (021) 1234-5678, atau langsung datang ke salah satu cabang Ocean Dental terdekat.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Events Section -->
+<section class="events" id="events">
+    <div class="container">
+        <div class="section-header" data-aos="fade-up">
+            <span class="section-subtitle">Event & Promo</span>
+            <h2 class="section-title">Program Terbaru Kami</h2>
+            <p class="section-description">
+                Ikuti event dan dapatkan promo menarik untuk perawatan gigi Anda
+            </p>
+        </div>
+        <div class="events-grid">
+            @forelse($events as $event)
+            <div class="event-card" data-aos="fade-up" data-aos-delay="{{ $loop->index * 100 }}">
+                @if($event->image)
+                <div class="event-image">
+                    <img src="{{ asset('storage/' . $event->image) }}" alt="{{ $event->title }}" />
+                    @if($event->category)
+                    <span class="event-category">{{ $event->category }}</span>
+                    @endif
+                </div>
+                @endif
+                <div class="event-content">
+                    <div class="event-date">
+                        <i class="fas fa-calendar"></i>
+                        {{ $event->event_date->format('d M Y') }}
+                    </div>
+                    <h3>{{ $event->title }}</h3>
+                    <p>{{ Str::limit(strip_tags($event->description), 120) }}</p>
+                    <a href="{{ route('events.show', $event->slug) }}" class="btn btn-primary">
+                        Selengkapnya <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+            @empty
+            <p>Tidak ada event saat ini. Tunggu update dari kami!</p>
+            @endforelse
+        </div>
+        @if($events->count() > 0)
+        <div class="section-cta" data-aos="fade-up">
+            <a href="{{ route('events.index') }}" class="btn btn-secondary btn-lg">
+                Lihat Semua Event <i class="fas fa-arrow-right"></i>
+            </a>
+        </div>
+        @endif
+    </div>
+</section>
+
+<!-- Testimonials Section -->
+<section class="testimonials" id="testimonials">
+    <div class="container">
+        <div class="section-header" data-aos="fade-up">
+            <span class="section-subtitle">Testimoni</span>
+            <h2 class="section-title">Apa Kata Pasien Kami?</h2>
+        </div>
+        <div class="testimonials-grid">
+            @forelse($testimonials as $testimonial)
+            <div class="testimonial-card" data-aos="fade-up" data-aos-delay="{{ $loop->index * 100 }}">
+                <div class="testimonial-rating">
+                    @for($i = 1; $i <= 5; $i++)
+                        <i class="fas fa-star {{ $i <= $testimonial->rating ? 'active' : '' }}"></i>
+                    @endfor
+                </div>
+                <p class="testimonial-content">{{ $testimonial->content }}</p>
+                <div class="testimonial-author">
+                    @if($testimonial->avatar)
+                    <img src="{{ asset('storage/' . $testimonial->avatar) }}" alt="{{ $testimonial->name }}" />
+                    @else
+                    <div class="testimonial-avatar-placeholder">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    @endif
+                    <div>
+                        <h4>{{ $testimonial->name }}</h4>
+                        @if($testimonial->position)
+                        <p>{{ $testimonial->position }}</p>
+                        @endif
+                    </div>
+                </div>
+            </div>
+            @empty
+            <p>Testimoni sedang diperbarui...</p>
+            @endforelse
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="cta-section">
+    <div class="container">
+        <div class="cta-content" data-aos="zoom-in">
+            <h2>Siap Untuk Senyum Lebih Sehat?</h2>
+            <p>Hubungi kami sekarang untuk konsultasi gratis dan dapatkan penawaran terbaik</p>
+            <a href="https://wa.me/6281234567890" class="btn btn-primary btn-lg">
+                <i class="fab fa-whatsapp"></i> Konsultasi Gratis Sekarang
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Initialize AOS (Animate on Scroll) -->
+@push('scripts')
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+    AOS.init({
+        duration: 800,
+        once: true,
+        offset: 100
+    });
+
+    // Counter Animation
+    const counters = document.querySelectorAll('.counter, .counter-decimal');
+    const speed = 200;
+
+    const animateCounter = (counter) => {
+        const target = +counter.getAttribute('data-target');
+        const isDecimal = counter.classList.contains('counter-decimal');
+        const increment = target / speed;
+
+        const updateCount = () => {
+            const count = +counter.innerText;
+            if (count < target) {
+                counter.innerText = isDecimal ? (count + increment).toFixed(1) : Math.ceil(count + increment);
+                setTimeout(updateCount, 10);
+            } else {
+                counter.innerText = isDecimal ? target.toFixed(1) : target;
+            }
+        };
+
+        updateCount();
+    };
+
+    // Intersection Observer for counter animation
+    const counterObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                animateCounter(entry.target);
+                counterObserver.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.5 });
+
+    counters.forEach(counter => {
+        counterObserver.observe(counter);
+    });
+
+    // FAQ Accordion
+    const faqItems = document.querySelectorAll('.faq-item');
+    faqItems.forEach(item => {
+        const question = item.querySelector('.faq-question');
+        question.addEventListener('click', () => {
+            const isActive = item.classList.contains('active');
+            
+            // Close all items
+            faqItems.forEach(faqItem => {
+                faqItem.classList.remove('active');
+            });
+            
+            // Open clicked item if it wasn't active
+            if (!isActive) {
+                item.classList.add('active');
+            }
+        });
+    });
+</script>
+@endpush
+
+@push('styles')
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+@endpush
+@endsection

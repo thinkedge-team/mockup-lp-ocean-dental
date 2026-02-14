@@ -493,56 +493,91 @@
 <section class="faq" id="faq">
     <div class="container">
         <div class="section-header" data-aos="fade-up">
-            <span class="section-subtitle">FAQ</span>
-            <h2 class="section-title">Pertanyaan Yang Sering Diajukan</h2>
+            <span class="section-tag"><i class="fas fa-question-circle"></i> FAQ</span>
+            <h2 class="section-title">
+                Pertanyaan yang <span class="gradient-text-dark">Sering Ditanyakan</span>
+            </h2>
             <p class="section-description">
-                Temukan jawaban untuk pertanyaan umum seputar perawatan gigi
+                Temukan jawaban atas pertanyaan umum tentang layanan dan perawatan di Ocean Dental
             </p>
         </div>
-        <div class="faq-container" data-aos="fade-up">
-            <div class="faq-item">
-                <div class="faq-question">
-                    <h4>Apakah perawatan di Ocean Dental menggunakan alat yang steril?</h4>
-                    <i class="fas fa-chevron-down"></i>
-                </div>
+
+        <div class="faq-container">
+            <!-- FAQ Item 1 -->
+            <div class="faq-item" data-aos="fade-up" data-aos-delay="0">
+                <button class="faq-question">
+                    <span>Berapa biaya pemasangan veneer di Ocean Dental?</span>
+                    <span class="faq-icon"><i class="fas fa-chevron-down"></i></span>
+                </button>
                 <div class="faq-answer">
-                    <p>Ya, semua alat medis yang kami gunakan telah melalui proses sterilisasi sesuai standar kesehatan internasional. Kami menggunakan autoclave dan UV sterilizer untuk memastikan keamanan pasien.</p>
+                    <div class="faq-answer-content">
+                        <p>Biaya pemasangan veneer bervariasi tergantung jenis material dan jumlah gigi yang akan dipasang. Untuk veneer composite mulai dari Rp 1.5 juta per gigi, sedangkan veneer porcelain mulai dari Rp 4 juta per gigi. Kami menyediakan konsultasi gratis untuk memberikan estimasi biaya yang lebih akurat sesuai kebutuhan Anda.</p>
+                    </div>
                 </div>
             </div>
-            <div class="faq-item">
-                <div class="faq-question">
-                    <h4>Apakah bisa konsultasi terlebih dahulu sebelum melakukan perawatan?</h4>
-                    <i class="fas fa-chevron-down"></i>
-                </div>
+
+            <!-- FAQ Item 2 -->
+            <div class="faq-item" data-aos="fade-up" data-aos-delay="100">
+                <button class="faq-question">
+                    <span>Apakah pemasangan behel terasa sakit?</span>
+                    <span class="faq-icon"><i class="fas fa-chevron-down"></i></span>
+                </button>
                 <div class="faq-answer">
-                    <p>Tentu! Kami menyediakan konsultasi gratis untuk semua pasien. Anda bisa berkonsultasi langsung dengan dokter gigi kami melalui WhatsApp atau datang langsung ke klinik.</p>
+                    <div class="faq-answer-content">
+                        <p>Proses pemasangan behel tidak terasa sakit karena tidak memerlukan anestesi. Setelah pemasangan, Anda mungkin merasakan sedikit ketidaknyamanan atau gigi terasa ngilu selama 3-5 hari pertama saat gigi mulai bergerak. Kami akan memberikan tips dan obat pereda nyeri jika diperlukan untuk memastikan kenyamanan Anda.</p>
+                    </div>
                 </div>
             </div>
-            <div class="faq-item">
-                <div class="faq-question">
-                    <h4>Apakah Ocean Dental buka setiap hari?</h4>
-                    <i class="fas fa-chevron-down"></i>
-                </div>
+
+            <!-- FAQ Item 3 -->
+            <div class="faq-item" data-aos="fade-up" data-aos-delay="200">
+                <button class="faq-question">
+                    <span>Berapa lama waktu yang dibutuhkan untuk bleaching?</span>
+                    <span class="faq-icon"><i class="fas fa-chevron-down"></i></span>
+                </button>
                 <div class="faq-answer">
-                    <p>Ya, Ocean Dental buka setiap hari Senin-Minggu dari jam 09:00 - 21:00 WIB. Kami siap melayani Anda kapan saja termasuk hari libur nasional.</p>
+                    <div class="faq-answer-content">
+                        <p>Prosedur bleaching di klinik membutuhkan waktu sekitar 60-90 menit dalam satu kali kunjungan. Hasilnya langsung terlihat dengan gigi yang bisa menjadi 4-8 tingkat lebih putih. Untuk hasil yang lebih optimal, kami menyediakan paket home bleaching yang bisa dilanjutkan di rumah.</p>
+                    </div>
                 </div>
             </div>
-            <div class="faq-item">
-                <div class="faq-question">
-                    <h4>Apakah tersedia cicilan untuk perawatan tertentu?</h4>
-                    <i class="fas fa-chevron-down"></i>
-                </div>
+
+            <!-- FAQ Item 4 -->
+            <div class="faq-item" data-aos="fade-up" data-aos-delay="300">
+                <button class="faq-question">
+                    <span>Apakah Ocean Dental menerima pembayaran cicilan?</span>
+                    <span class="faq-icon"><i class="fas fa-chevron-down"></i></span>
+                </button>
                 <div class="faq-answer">
-                    <p>Ya, kami menyediakan berbagai pilihan cicilan 0% untuk perawatan tertentu melalui kerjasama dengan beberapa bank dan fintech. Hubungi kami untuk informasi lebih lanjut.</p>
+                    <div class="faq-answer-content">
+                        <p>Ya, kami menerima berbagai metode pembayaran termasuk cicilan 0% dengan kartu kredit dari berbagai bank partner. Untuk perawatan dengan biaya tertentu, tersedia juga opsi cicilan internal tanpa kartu kredit. Silakan konsultasikan dengan tim kami untuk informasi lebih detail tentang opsi pembayaran.</p>
+                    </div>
                 </div>
             </div>
-            <div class="faq-item">
-                <div class="faq-question">
-                    <h4>Bagaimana cara membuat janji temu?</h4>
-                    <i class="fas fa-chevron-down"></i>
-                </div>
+
+            <!-- FAQ Item 5 -->
+            <div class="faq-item" data-aos="fade-up" data-aos-delay="400">
+                <button class="faq-question">
+                    <span>Apakah harus membuat janji terlebih dahulu?</span>
+                    <span class="faq-icon"><i class="fas fa-chevron-down"></i></span>
+                </button>
                 <div class="faq-answer">
-                    <p>Anda bisa membuat janji temu melalui WhatsApp di 0812-3456-7890, telepon ke (021) 1234-5678, atau langsung datang ke salah satu cabang Ocean Dental terdekat.</p>
+                    <div class="faq-answer-content">
+                        <p>Kami sangat menyarankan untuk membuat janji terlebih dahulu melalui WhatsApp atau telepon untuk memastikan ketersediaan dokter dan menghindari waktu tunggu yang lama. Namun, kami juga menerima pasien walk-in dengan catatan akan dilayani sesuai antrian yang ada.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- FAQ Item 6 -->
+            <div class="faq-item" data-aos="fade-up" data-aos-delay="500">
+                <button class="faq-question">
+                    <span>Berapa lama garansi untuk perawatan gigi?</span>
+                    <span class="faq-icon"><i class="fas fa-chevron-down"></i></span>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        <p>Garansi perawatan berbeda-beda tergantung jenis tindakan. Untuk tambal gigi, garansi 6 bulan. Crown dan bridge memiliki garansi 1 tahun. Veneer porcelain garansi 2 tahun. Implan gigi garansi hingga 5 tahun. Garansi berlaku dengan syarat kontrol rutin sesuai jadwal yang ditentukan dokter.</p>
+                    </div>
                 </div>
             </div>
         </div>

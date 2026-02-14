@@ -175,36 +175,240 @@
 <section class="services" id="services">
     <div class="container">
         <div class="section-header" data-aos="fade-up">
-            <span class="section-subtitle">Layanan Kami</span>
-            <h2 class="section-title">Perawatan Gigi Profesional</h2>
+            <span class="section-tag"><i class="fas fa-tooth"></i> Layanan Kami</span>
+            <h2 class="section-title">
+                Solusi Lengkap <span class="gradient-text-dark">Perawatan Gigi</span>
+            </h2>
             <p class="section-description">
-                Kami menyediakan berbagai layanan perawatan gigi dengan teknologi modern dan dokter berpengalaman
+                Dari perawatan rutin hingga estetika, kami siap membantu Anda
             </p>
         </div>
+
+        <!-- Service Filter Tabs -->
+        <div class="service-filters" data-aos="fade-up">
+            <button class="filter-btn active" data-filter="all">
+                <i class="fas fa-th-large"></i> Semua
+            </button>
+            <button class="filter-btn" data-filter="estetika">
+                <i class="fas fa-gem"></i> Estetika
+            </button>
+            <button class="filter-btn" data-filter="perawatan">
+                <i class="fas fa-briefcase-medical"></i> Perawatan
+            </button>
+            <button class="filter-btn" data-filter="ortodonti">
+                <i class="fas fa-teeth"></i> Ortodonti
+            </button>
+        </div>
+
         <div class="services-grid">
-            @forelse($services as $service)
-            <div class="service-card" data-aos="fade-up" data-aos-delay="{{ $loop->index * 100 }}">
-                @if($service->image)
-                <div class="service-image">
-                    <img src="{{ asset('storage/' . $service->image) }}" alt="{{ $service->name }}" />
+            <!-- Veneer -->
+            <div class="service-card" data-category="estetika" data-aos="fade-up" data-aos-delay="0">
+                <div class="service-card-image">
+                    <img src="https://images.unsplash.com/photo-1606811841689-23dfddce3e95?w=400&h=250&fit=crop" alt="Veneer Gigi">
+                    <div class="service-badge popular">Populer</div>
                 </div>
-                @endif
-                <div class="service-icon">
-                    <i class="{{ $service->icon ?? 'fas fa-tooth' }}"></i>
+                <div class="service-card-content">
+                    <div class="service-icon-small">
+                        <i class="fas fa-layer-group"></i>
+                    </div>
+                    <h3>Veneer Gigi</h3>
+                    <p>Transformasi senyum dengan lapisan tipis yang mempercantik gigi dengan hasil natural dan tahan lama.</p>
+                    <div class="service-meta">
+                        <span class="service-price"><i class="fas fa-tag"></i> Mulai Rp 1.5jt</span>
+                        <span class="service-duration"><i class="fas fa-clock"></i> 1-2 Kunjungan</span>
+                    </div>
+                    <a href="{{ whatsapp_url('Saya ingin konsultasi tentang Veneer') }}" class="service-cta">
+                        <span>Konsultasi Gratis</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
                 </div>
-                <h3>{{ $service->name }}</h3>
-                <p>{{ Str::limit(strip_tags($service->description), 100) }}</p>
-                @if($service->price_range)
-                <div class="service-price">{{ $service->price_range }}</div>
-                @endif
-                <a href="https://wa.me/6281234567890?text=Saya%20ingin%20konsultasi%20tentang%20{{ urlencode($service->name) }}" class="btn btn-outline">
-                    Konsultasi <i class="fas fa-arrow-right"></i>
-                </a>
             </div>
-            @empty
-            <!-- Fallback if no services in database yet -->
-            <p>Layanan sedang diperbarui...</p>
-            @endforelse
+
+            <!-- Bleaching -->
+            <div class="service-card" data-category="estetika" data-aos="fade-up" data-aos-delay="100">
+                <div class="service-card-image">
+                    <img src="https://images.unsplash.com/photo-1598256989800-fe5f95da9787?w=400&h=250&fit=crop" alt="Bleaching Gigi">
+                </div>
+                <div class="service-card-content">
+                    <div class="service-icon-small">
+                        <i class="fas fa-sun"></i>
+                    </div>
+                    <h3>Bleaching Gigi</h3>
+                    <p>Pemutihan gigi profesional untuk senyum lebih cerah hingga 8 tingkat dalam satu sesi.</p>
+                    <div class="service-meta">
+                        <span class="service-price"><i class="fas fa-tag"></i> Mulai Rp 800rb</span>
+                        <span class="service-duration"><i class="fas fa-clock"></i> 1 Jam</span>
+                    </div>
+                    <a href="{{ whatsapp_url('Saya ingin konsultasi tentang Bleaching') }}" class="service-cta">
+                        <span>Konsultasi Gratis</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Scaling -->
+            <div class="service-card" data-category="perawatan" data-aos="fade-up" data-aos-delay="200">
+                <div class="service-card-image">
+                    <img src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=400&h=250&fit=crop" alt="Scaling Gigi">
+                    <div class="service-badge recommended">Direkomendasikan</div>
+                </div>
+                <div class="service-card-content">
+                    <div class="service-icon-small">
+                        <i class="fas fa-sparkles"></i>
+                    </div>
+                    <h3>Scaling & Polishing</h3>
+                    <p>Pembersihan karang gigi dan plak untuk menjaga kesehatan gusi dan mulut yang optimal.</p>
+                    <div class="service-meta">
+                        <span class="service-price"><i class="fas fa-tag"></i> Mulai Rp 250rb</span>
+                        <span class="service-duration"><i class="fas fa-clock"></i> 30-45 Menit</span>
+                    </div>
+                    <a href="{{ whatsapp_url('Saya ingin konsultasi tentang Scaling') }}" class="service-cta">
+                        <span>Konsultasi Gratis</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Behel -->
+            <div class="service-card" data-category="ortodonti" data-aos="fade-up" data-aos-delay="0">
+                <div class="service-card-image">
+                    <img src="https://images.unsplash.com/photo-1606265752439-1f18756aa5fc?w=400&h=250&fit=crop" alt="Behel Gigi">
+                    <div class="service-badge popular">Populer</div>
+                </div>
+                <div class="service-card-content">
+                    <div class="service-icon-small">
+                        <i class="fas fa-grip-lines"></i>
+                    </div>
+                    <h3>Behel / Kawat Gigi</h3>
+                    <p>Perawatan ortodonti untuk merapikan gigi. Tersedia metal, ceramic, dan clear aligner.</p>
+                    <div class="service-meta">
+                        <span class="service-price"><i class="fas fa-tag"></i> Mulai Rp 8jt</span>
+                        <span class="service-duration"><i class="fas fa-clock"></i> 1-2 Tahun</span>
+                    </div>
+                    <a href="{{ whatsapp_url('Saya ingin konsultasi tentang Behel') }}" class="service-cta">
+                        <span>Konsultasi Gratis</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Tambal Gigi -->
+            <div class="service-card" data-category="perawatan" data-aos="fade-up" data-aos-delay="100">
+                <div class="service-card-image">
+                    <img src="https://images.unsplash.com/photo-1609840114035-3c981b782dfe?w=400&h=250&fit=crop" alt="Tambal Gigi">
+                </div>
+                <div class="service-card-content">
+                    <div class="service-icon-small">
+                        <i class="fas fa-tooth"></i>
+                    </div>
+                    <h3>Tambal Gigi</h3>
+                    <p>Perbaikan gigi berlubang dengan bahan berkualitas tinggi. Prosedur cepat dan minim sakit.</p>
+                    <div class="service-meta">
+                        <span class="service-price"><i class="fas fa-tag"></i> Mulai Rp 150rb</span>
+                        <span class="service-duration"><i class="fas fa-clock"></i> 30 Menit</span>
+                    </div>
+                    <a href="{{ whatsapp_url('Saya ingin konsultasi tentang Tambal Gigi') }}" class="service-cta">
+                        <span>Konsultasi Gratis</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Crown & Bridge -->
+            <div class="service-card" data-category="estetika" data-aos="fade-up" data-aos-delay="200">
+                <div class="service-card-image">
+                    <img src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?w=400&h=250&fit=crop" alt="Crown Bridge">
+                </div>
+                <div class="service-card-content">
+                    <div class="service-icon-small">
+                        <i class="fas fa-crown"></i>
+                    </div>
+                    <h3>Crown & Bridge</h3>
+                    <p>Mahkota dan jembatan gigi untuk mengganti gigi rusak atau hilang dengan hasil natural.</p>
+                    <div class="service-meta">
+                        <span class="service-price"><i class="fas fa-tag"></i> Mulai Rp 2jt</span>
+                        <span class="service-duration"><i class="fas fa-clock"></i> 2-3 Kunjungan</span>
+                    </div>
+                    <a href="{{ whatsapp_url('Saya ingin konsultasi tentang Crown Bridge') }}" class="service-cta">
+                        <span>Konsultasi Gratis</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Implan -->
+            <div class="service-card" data-category="perawatan" data-aos="fade-up" data-aos-delay="0">
+                <div class="service-card-image">
+                    <img src="https://images.unsplash.com/photo-1629909613654-28e377c37b09?w=400&h=250&fit=crop" alt="Implan Gigi">
+                </div>
+                <div class="service-card-content">
+                    <div class="service-icon-small">
+                        <i class="fas fa-plus-circle"></i>
+                    </div>
+                    <h3>Implan Gigi</h3>
+                    <p>Solusi permanen untuk gigi yang hilang dengan teknologi modern dan hasil tahan lama.</p>
+                    <div class="service-meta">
+                        <span class="service-price"><i class="fas fa-tag"></i> Mulai Rp 15jt</span>
+                        <span class="service-duration"><i class="fas fa-clock"></i> 3-6 Bulan</span>
+                    </div>
+                    <a href="{{ whatsapp_url('Saya ingin konsultasi tentang Implan') }}" class="service-cta">
+                        <span>Konsultasi Gratis</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Cabut Gigi -->
+            <div class="service-card" data-category="perawatan" data-aos="fade-up" data-aos-delay="100">
+                <div class="service-card-image">
+                    <img src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=400&h=250&fit=crop" alt="Cabut Gigi">
+                </div>
+                <div class="service-card-content">
+                    <div class="service-icon-small">
+                        <i class="fas fa-hand-holding-medical"></i>
+                    </div>
+                    <h3>Cabut Gigi</h3>
+                    <p>Pencabutan gigi dengan teknik modern dan minim rasa sakit. Termasuk gigi bungsu.</p>
+                    <div class="service-meta">
+                        <span class="service-price"><i class="fas fa-tag"></i> Mulai Rp 200rb</span>
+                        <span class="service-duration"><i class="fas fa-clock"></i> 15-30 Menit</span>
+                    </div>
+                    <a href="{{ whatsapp_url('Saya ingin konsultasi tentang Cabut Gigi') }}" class="service-cta">
+                        <span>Konsultasi Gratis</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Retainer -->
+            <div class="service-card" data-category="ortodonti" data-aos="fade-up" data-aos-delay="200">
+                <div class="service-card-image">
+                    <img src="https://images.unsplash.com/photo-1606265752439-1f18756aa5fc?w=400&h=250&fit=crop" alt="Retainer">
+                </div>
+                <div class="service-card-content">
+                    <div class="service-icon-small">
+                        <i class="fas fa-teeth"></i>
+                    </div>
+                    <h3>Retainer</h3>
+                    <p>Mempertahankan hasil perawatan behel agar gigi tetap rapi. Tersedia fixed dan removable.</p>
+                    <div class="service-meta">
+                        <span class="service-price"><i class="fas fa-tag"></i> Mulai Rp 500rb</span>
+                        <span class="service-duration"><i class="fas fa-clock"></i> 1 Kunjungan</span>
+                    </div>
+                    <a href="{{ whatsapp_url('Saya ingin konsultasi tentang Retainer') }}" class="service-cta">
+                        <span>Konsultasi Gratis</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Services CTA -->
+        <div class="services-cta" data-aos="fade-up">
+            <p>Tidak yakin layanan mana yang tepat untuk Anda?</p>
+            <a href="{{ whatsapp_url('Saya ingin konsultasi gratis') }}" class="btn btn-primary btn-lg">
+                <i class="fab fa-whatsapp"></i> Konsultasi Gratis
+            </a>
         </div>
     </div>
 </section>

@@ -497,39 +497,442 @@
 <section class="doctors" id="doctors">
     <div class="container">
         <div class="section-header" data-aos="fade-up">
-            <span class="section-subtitle">Tim Dokter</span>
-            <h2 class="section-title">Dokter Gigi Profesional</h2>
+            <span class="section-tag"><i class="fas fa-user-md"></i> Tim Dokter</span>
+            <h2 class="section-title">
+                Dokter <span class="gradient-text-dark">Profesional</span> Kami
+            </h2>
             <p class="section-description">
-                Tim dokter berpengalaman dan bersertifikat siap melayani Anda
+                Tim dokter gigi berpengalaman dan tersertifikasi siap memberikan perawatan terbaik untuk Anda
             </p>
         </div>
-        @if($teamMembers->count() > 0)
-        <div class="doctors-grid" data-aos="fade-up">
-            @foreach($teamMembers as $member)
-            <div class="doctor-card" data-aos="fade-up" data-aos-delay="{{ $loop->index * 100 }}">
-                <div class="doctor-image">
-                    @if($member->photo)
-                    <img src="{{ Storage::url($member->photo) }}" alt="{{ $member->name }}">
-                    @else
-                    <img src="https://ui-avatars.com/api/?name={{ urlencode($member->name) }}&size=300&background=01215E&color=fff" alt="{{ $member->name }}">
-                    @endif
+
+        <div class="doctors-carousel-container">
+            <div class="doctors-carousel" id="doctors-carousel">
+                <!-- Doctor Card 1 - Founder -->
+                <div class="doctor-card" data-aos="fade-up" data-aos-delay="0">
+                    <div class="doctor-card-inner">
+                        <div class="doctor-header">
+                            <div class="doctor-image-wrapper">
+                                <div class="doctor-image">
+                                    <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=400&h=400&fit=crop&crop=face" alt="drg. Aersy Henny Paramitha">
+                                </div>
+                                <span class="doctor-badge founder"><i class="fas fa-crown"></i></span>
+                                <span class="doctor-status online"></span>
+                            </div>
+                            <div class="doctor-rating">
+                                <div class="stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <span class="rating-score">5.0</span>
+                                <span class="rating-count">(2.5k+ ulasan)</span>
+                            </div>
+                        </div>
+                        
+                        <div class="doctor-body">
+                            <h3>drg. Aersy Henny Paramitha</h3>
+                            <p class="doctor-specialty"><i class="fas fa-tooth"></i> Founder & General Dentist</p>
+                            
+                            <div class="doctor-stats">
+                                <div class="stat-item">
+                                    <span class="stat-value">15+</span>
+                                    <span class="stat-label">Tahun</span>
+                                </div>
+                                <div class="stat-divider"></div>
+                                <div class="stat-item">
+                                    <span class="stat-value">10K+</span>
+                                    <span class="stat-label">Pasien</span>
+                                </div>
+                                <div class="stat-divider"></div>
+                                <div class="stat-item">
+                                    <span class="stat-value">29</span>
+                                    <span class="stat-label">Cabang</span>
+                                </div>
+                            </div>
+                            
+                            <div class="doctor-expertise">
+                                <span class="expertise-tag">Estetika Gigi</span>
+                                <span class="expertise-tag">Veneer</span>
+                                <span class="expertise-tag">Smile Design</span>
+                            </div>
+                            
+                            <div class="doctor-education">
+                                <i class="fas fa-graduation-cap"></i>
+                                <span>Universitas Indonesia</span>
+                            </div>
+                        </div>
+                        
+                        <div class="doctor-footer">
+                            <a href="{{ whatsapp_url('Halo, saya ingin reservasi dengan drg. Aersy') }}" class="btn btn-primary btn-doctor">
+                                <i class="fab fa-whatsapp"></i> Reservasi
+                            </a>
+                            <a href="#" class="btn btn-outline btn-doctor">
+                                <i class="fas fa-user"></i> Profil
+                            </a>
+                        </div>
+                    </div>
                 </div>
-                <div class="doctor-info">
-                    <h3>{{ $member->name }}</h3>
-                    <p class="doctor-specialty">{{ $member->position }}</p>
-                    @if($member->specialization)
-                    <p class="doctor-education">{{ $member->specialization }}</p>
-                    @endif
-                    @if($member->education)
-                    <p class="doctor-education"><i class="fas fa-graduation-cap"></i> {{ $member->education }}</p>
-                    @endif
+
+                <!-- Doctor Card 2 - Ortodonti -->
+                <div class="doctor-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="doctor-card-inner">
+                        <div class="doctor-header">
+                            <div class="doctor-image-wrapper">
+                                <div class="doctor-image">
+                                    <img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=400&h=400&fit=crop&crop=face" alt="drg. Michael Santoso, Sp.Ort">
+                                </div>
+                                <span class="doctor-badge specialist"><i class="fas fa-award"></i></span>
+                                <span class="doctor-status online"></span>
+                            </div>
+                            <div class="doctor-rating">
+                                <div class="stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <span class="rating-score">4.9</span>
+                                <span class="rating-count">(1.8k+ ulasan)</span>
+                            </div>
+                        </div>
+                        
+                        <div class="doctor-body">
+                            <h3>drg. Michael Santoso, Sp.Ort</h3>
+                            <p class="doctor-specialty"><i class="fas fa-teeth"></i> Spesialis Ortodonti</p>
+                            
+                            <div class="doctor-stats">
+                                <div class="stat-item">
+                                    <span class="stat-value">12+</span>
+                                    <span class="stat-label">Tahun</span>
+                                </div>
+                                <div class="stat-divider"></div>
+                                <div class="stat-item">
+                                    <span class="stat-value">5K+</span>
+                                    <span class="stat-label">Pasien</span>
+                                </div>
+                                <div class="stat-divider"></div>
+                                <div class="stat-item">
+                                    <span class="stat-value">3K+</span>
+                                    <span class="stat-label">Behel</span>
+                                </div>
+                            </div>
+                            
+                            <div class="doctor-expertise">
+                                <span class="expertise-tag">Behel</span>
+                                <span class="expertise-tag">Invisalign</span>
+                                <span class="expertise-tag">Clear Aligner</span>
+                            </div>
+                            
+                            <div class="doctor-education">
+                                <i class="fas fa-graduation-cap"></i>
+                                <span>UI - Invisalign Certified</span>
+                            </div>
+                        </div>
+                        
+                        <div class="doctor-footer">
+                            <a href="{{ whatsapp_url('Halo, saya ingin reservasi dengan drg. Michael Sp.Ort') }}" class="btn btn-primary btn-doctor">
+                                <i class="fab fa-whatsapp"></i> Reservasi
+                            </a>
+                            <a href="#" class="btn btn-outline btn-doctor">
+                                <i class="fas fa-user"></i> Profil
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Doctor Card 3 - Prostodonti -->
+                <div class="doctor-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="doctor-card-inner">
+                        <div class="doctor-header">
+                            <div class="doctor-image-wrapper">
+                                <div class="doctor-image">
+                                    <img src="https://images.unsplash.com/photo-1594824476967-48c8b964273f?w=400&h=400&fit=crop&crop=face" alt="drg. Sarah Wijaya, Sp.Pros">
+                                </div>
+                                <span class="doctor-badge specialist"><i class="fas fa-award"></i></span>
+                                <span class="doctor-status online"></span>
+                            </div>
+                            <div class="doctor-rating">
+                                <div class="stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star-half-alt"></i>
+                                </div>
+                                <span class="rating-score">4.8</span>
+                                <span class="rating-count">(1.2k+ ulasan)</span>
+                            </div>
+                        </div>
+                        
+                        <div class="doctor-body">
+                            <h3>drg. Sarah Wijaya, Sp.Pros</h3>
+                            <p class="doctor-specialty"><i class="fas fa-gem"></i> Spesialis Prostodonti</p>
+                            
+                            <div class="doctor-stats">
+                                <div class="stat-item">
+                                    <span class="stat-value">10+</span>
+                                    <span class="stat-label">Tahun</span>
+                                </div>
+                                <div class="stat-divider"></div>
+                                <div class="stat-item">
+                                    <span class="stat-value">4K+</span>
+                                    <span class="stat-label">Pasien</span>
+                                </div>
+                                <div class="stat-divider"></div>
+                                <div class="stat-item">
+                                    <span class="stat-value">2K+</span>
+                                    <span class="stat-label">Veneer</span>
+                                </div>
+                            </div>
+                            
+                            <div class="doctor-expertise">
+                                <span class="expertise-tag">Veneer</span>
+                                <span class="expertise-tag">Crown</span>
+                                <span class="expertise-tag">Smile Makeover</span>
+                            </div>
+                            
+                            <div class="doctor-education">
+                                <i class="fas fa-graduation-cap"></i>
+                                <span>Universitas Trisakti</span>
+                            </div>
+                        </div>
+                        
+                        <div class="doctor-footer">
+                            <a href="{{ whatsapp_url('Halo, saya ingin reservasi dengan drg. Sarah Sp.Pros') }}" class="btn btn-primary btn-doctor">
+                                <i class="fab fa-whatsapp"></i> Reservasi
+                            </a>
+                            <a href="#" class="btn btn-outline btn-doctor">
+                                <i class="fas fa-user"></i> Profil
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Doctor Card 4 - Bedah Mulut -->
+                <div class="doctor-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="doctor-card-inner">
+                        <div class="doctor-header">
+                            <div class="doctor-image-wrapper">
+                                <div class="doctor-image">
+                                    <img src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=400&h=400&fit=crop&crop=face" alt="drg. David Pratama, Sp.BM">
+                                </div>
+                                <span class="doctor-badge specialist"><i class="fas fa-award"></i></span>
+                                <span class="doctor-status busy"></span>
+                            </div>
+                            <div class="doctor-rating">
+                                <div class="stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <span class="rating-score">5.0</span>
+                                <span class="rating-count">(980+ ulasan)</span>
+                            </div>
+                        </div>
+                        
+                        <div class="doctor-body">
+                            <h3>drg. David Pratama, Sp.BM</h3>
+                            <p class="doctor-specialty"><i class="fas fa-syringe"></i> Spesialis Bedah Mulut</p>
+                            
+                            <div class="doctor-stats">
+                                <div class="stat-item">
+                                    <span class="stat-value">8+</span>
+                                    <span class="stat-label">Tahun</span>
+                                </div>
+                                <div class="stat-divider"></div>
+                                <div class="stat-item">
+                                    <span class="stat-value">3K+</span>
+                                    <span class="stat-label">Pasien</span>
+                                </div>
+                                <div class="stat-divider"></div>
+                                <div class="stat-item">
+                                    <span class="stat-value">1K+</span>
+                                    <span class="stat-label">Implant</span>
+                                </div>
+                            </div>
+                            
+                            <div class="doctor-expertise">
+                                <span class="expertise-tag">Implant</span>
+                                <span class="expertise-tag">Cabut Gigi</span>
+                                <span class="expertise-tag">Bedah Minor</span>
+                            </div>
+                            
+                            <div class="doctor-education">
+                                <i class="fas fa-graduation-cap"></i>
+                                <span>Universitas Padjadjaran</span>
+                            </div>
+                        </div>
+                        
+                        <div class="doctor-footer">
+                            <a href="{{ whatsapp_url('Halo, saya ingin reservasi dengan drg. David Sp.BM') }}" class="btn btn-primary btn-doctor">
+                                <i class="fab fa-whatsapp"></i> Reservasi
+                            </a>
+                            <a href="#" class="btn btn-outline btn-doctor">
+                                <i class="fas fa-user"></i> Profil
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Doctor Card 5 - Gigi Anak -->
+                <div class="doctor-card" data-aos="fade-up" data-aos-delay="400">
+                    <div class="doctor-card-inner">
+                        <div class="doctor-header">
+                            <div class="doctor-image-wrapper">
+                                <div class="doctor-image">
+                                    <img src="https://images.unsplash.com/photo-1651008376811-b90baee60c1f?w=400&h=400&fit=crop&crop=face" alt="drg. Amanda Putri, Sp.KGA">
+                                </div>
+                                <span class="doctor-badge specialist"><i class="fas fa-award"></i></span>
+                                <span class="doctor-status online"></span>
+                            </div>
+                            <div class="doctor-rating">
+                                <div class="stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <span class="rating-score">5.0</span>
+                                <span class="rating-count">(1.5k+ ulasan)</span>
+                            </div>
+                        </div>
+                        
+                        <div class="doctor-body">
+                            <h3>drg. Amanda Putri, Sp.KGA</h3>
+                            <p class="doctor-specialty"><i class="fas fa-child"></i> Spesialis Gigi Anak</p>
+                            
+                            <div class="doctor-stats">
+                                <div class="stat-item">
+                                    <span class="stat-value">7+</span>
+                                    <span class="stat-label">Tahun</span>
+                                </div>
+                                <div class="stat-divider"></div>
+                                <div class="stat-item">
+                                    <span class="stat-value">6K+</span>
+                                    <span class="stat-label">Pasien</span>
+                                </div>
+                                <div class="stat-divider"></div>
+                                <div class="stat-item">
+                                    <span class="stat-value">100%</span>
+                                    <span class="stat-label">Happy</span>
+                                </div>
+                            </div>
+                            
+                            <div class="doctor-expertise">
+                                <span class="expertise-tag">Gigi Anak</span>
+                                <span class="expertise-tag">Fissure Sealant</span>
+                                <span class="expertise-tag">Edukasi</span>
+                            </div>
+                            
+                            <div class="doctor-education">
+                                <i class="fas fa-graduation-cap"></i>
+                                <span>Universitas Airlangga</span>
+                            </div>
+                        </div>
+                        
+                        <div class="doctor-footer">
+                            <a href="{{ whatsapp_url('Halo, saya ingin reservasi dengan drg. Amanda Sp.KGA') }}" class="btn btn-primary btn-doctor">
+                                <i class="fab fa-whatsapp"></i> Reservasi
+                            </a>
+                            <a href="#" class="btn btn-outline btn-doctor">
+                                <i class="fas fa-user"></i> Profil
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Doctor Card 6 - Konservasi -->
+                <div class="doctor-card" data-aos="fade-up" data-aos-delay="500">
+                    <div class="doctor-card-inner">
+                        <div class="doctor-header">
+                            <div class="doctor-image-wrapper">
+                                <div class="doctor-image">
+                                    <img src="https://images.unsplash.com/photo-1537368910025-700350fe46c7?w=400&h=400&fit=crop&crop=face" alt="drg. Reza Firmansyah, Sp.KG">
+                                </div>
+                                <span class="doctor-badge specialist"><i class="fas fa-award"></i></span>
+                                <span class="doctor-status online"></span>
+                            </div>
+                            <div class="doctor-rating">
+                                <div class="stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star-half-alt"></i>
+                                </div>
+                                <span class="rating-score">4.7</span>
+                                <span class="rating-count">(850+ ulasan)</span>
+                            </div>
+                        </div>
+                        
+                        <div class="doctor-body">
+                            <h3>drg. Reza Firmansyah, Sp.KG</h3>
+                            <p class="doctor-specialty"><i class="fas fa-fill-drip"></i> Spesialis Konservasi</p>
+                            
+                            <div class="doctor-stats">
+                                <div class="stat-item">
+                                    <span class="stat-value">9+</span>
+                                    <span class="stat-label">Tahun</span>
+                                </div>
+                                <div class="stat-divider"></div>
+                                <div class="stat-item">
+                                    <span class="stat-value">4K+</span>
+                                    <span class="stat-label">Pasien</span>
+                                </div>
+                                <div class="stat-divider"></div>
+                                <div class="stat-item">
+                                    <span class="stat-value">2K+</span>
+                                    <span class="stat-label">Root Canal</span>
+                                </div>
+                            </div>
+                            
+                            <div class="doctor-expertise">
+                                <span class="expertise-tag">Root Canal</span>
+                                <span class="expertise-tag">Tambal Gigi</span>
+                                <span class="expertise-tag">Bleaching</span>
+                            </div>
+                            
+                            <div class="doctor-education">
+                                <i class="fas fa-graduation-cap"></i>
+                                <span>Universitas Gadjah Mada</span>
+                            </div>
+                        </div>
+                        
+                        <div class="doctor-footer">
+                            <a href="{{ whatsapp_url('Halo, saya ingin reservasi dengan drg. Reza Sp.KG') }}" class="btn btn-primary btn-doctor">
+                                <i class="fab fa-whatsapp"></i> Reservasi
+                            </a>
+                            <a href="#" class="btn btn-outline btn-doctor">
+                                <i class="fas fa-user"></i> Profil
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
-            @endforeach
         </div>
-        @else
-        <p style="text-align: center;">Informasi dokter sedang diperbarui...</p>
-        @endif
+
+        <!-- Carousel Navigation -->
+        <div class="carousel-nav">
+            <button class="carousel-btn prev" id="doctors-prev" aria-label="Previous">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <div class="carousel-dots" id="doctors-dots">
+                <span class="carousel-dot active"></span>
+                <span class="carousel-dot"></span>
+                <span class="carousel-dot"></span>
+                <span class="carousel-dot"></span>
+            </div>
+            <button class="carousel-btn next" id="doctors-next" aria-label="Next">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+        </div>
     </div>
 </section>
 

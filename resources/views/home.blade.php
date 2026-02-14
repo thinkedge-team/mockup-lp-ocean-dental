@@ -650,8 +650,8 @@
 <section class="events" id="events">
     <div class="container">
         <div class="section-header" data-aos="fade-up">
-            <span class="section-subtitle">Event & Promo</span>
-            <h2 class="section-title">Program Terbaru Kami</h2>
+            <span class="section-tag"><i class="fas fa-calendar-alt"></i> Event Kami</span>
+            <h2 class="section-title">Acara & <span class="gradient-text-dark">Promo Terbaru</span></h2>
             <p class="section-description">
                 Ikuti event dan dapatkan promo menarik untuk perawatan gigi Anda
             </p>
@@ -663,18 +663,26 @@
                 <div class="event-image">
                     <img src="{{ asset('storage/' . $event->image) }}" alt="{{ $event->title }}" />
                     @if($event->category)
-                    <span class="event-category">{{ $event->category }}</span>
+                    <span class="event-category {{ strtolower($event->category) }}">{{ $event->category }}</span>
                     @endif
                 </div>
                 @endif
                 <div class="event-content">
-                    <div class="event-date">
-                        <i class="fas fa-calendar"></i>
-                        {{ $event->start_date->format('d M Y') }}
+                    <div class="event-meta">
+                        <span class="event-date">
+                            <i class="fas fa-calendar"></i>
+                            {{ $event->start_date->format('d M Y') }}
+                        </span>
+                        @if($event->location)
+                        <span class="event-location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            {{ $event->location }}
+                        </span>
+                        @endif
                     </div>
                     <h3>{{ $event->title }}</h3>
                     <p>{{ Str::limit(strip_tags($event->description), 120) }}</p>
-                    <a href="{{ route('events.show', $event->slug) }}" class="btn btn-primary">
+                    <a href="{{ route('events.show', $event->slug) }}" class="event-btn">
                         Selengkapnya <i class="fas fa-arrow-right"></i>
                     </a>
                 </div>

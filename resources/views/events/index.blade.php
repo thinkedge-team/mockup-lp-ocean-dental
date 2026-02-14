@@ -374,7 +374,7 @@
                         <div class="event-card" 
                              data-event-id="{{ $event->id }}" 
                              data-category="{{ strtolower($event->category) }}" 
-                             data-date="{{ $event->event_date->format('Y-m-d') }}" 
+                             data-date="{{ $event->start_date->format('Y-m-d') }}" 
                              data-title="{{ $event->title }}">
                             <div class="event-image">
                                 @if($event->image)
@@ -414,12 +414,12 @@
                                 <div class="event-meta">
                                     <div class="event-date">
                                         <i class="fas fa-calendar"></i>
-                                        <span>{{ $event->event_date->format('d F Y') }}</span>
+                                        <span>{{ $event->start_date->format('d F Y') }}</span>
                                     </div>
-                                    @if($event->event_time)
+                                    @if($event->start_date)
                                         <div class="event-time">
                                             <i class="fas fa-clock"></i>
-                                            <span>{{ $event->event_time }}</span>
+                                            <span>{{ $event->start_date->format('H:i') }}@if($event->end_date) - {{ $event->end_date->format('H:i') }}@endif WIB</span>
                                         </div>
                                     @endif
                                     @if($event->location)

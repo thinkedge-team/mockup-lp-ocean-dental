@@ -432,12 +432,12 @@
                 <div class="event-hero-meta">
                     <div class="event-hero-meta-item">
                         <i class="fas fa-calendar"></i>
-                        <span>{{ $event->event_date->format('d F Y') }}</span>
+                        <span>{{ $event->start_date->format('d F Y') }}</span>
                     </div>
-                    @if($event->event_time)
+                    @if($event->start_date)
                         <div class="event-hero-meta-item">
                             <i class="fas fa-clock"></i>
-                            <span>{{ $event->event_time }}</span>
+                            <span>{{ $event->start_date->format('H:i') }}@if($event->end_date) - {{ $event->end_date->format('H:i') }}@endif WIB</span>
                         </div>
                     @endif
                     @if($event->location)
@@ -516,7 +516,7 @@
             <aside class="event-detail-sidebar">
                 <div class="event-info-card">
                     @php
-                        $eventDate = $event->event_date;
+                        $eventDate = $event->start_date;
                         $today = now();
                         $isEnded = $eventDate->lt($today);
                         $isUpcoming = $eventDate->gte($today);
@@ -542,18 +542,18 @@
                         </div>
                         <div class="event-info-text">
                             <div class="event-info-label">Tanggal</div>
-                            <div class="event-info-value">{{ $event->event_date->format('d F Y') }}</div>
+                            <div class="event-info-value">{{ $event->start_date->format('d F Y') }}</div>
                         </div>
                     </div>
 
-                    @if($event->event_time)
+                    @if($event->start_date)
                         <div class="event-info-item">
                             <div class="event-info-icon">
                                 <i class="fas fa-clock"></i>
                             </div>
                             <div class="event-info-text">
                                 <div class="event-info-label">Waktu</div>
-                                <div class="event-info-value">{{ $event->event_time }}</div>
+                                <div class="event-info-value">{{ $event->start_date->format('H:i') }}@if($event->end_date) - {{ $event->end_date->format('H:i') }}@endif WIB</div>
                             </div>
                         </div>
                     @endif
@@ -583,7 +583,7 @@
                     @endif
 
                     <div class="event-cta-buttons">
-                        <a href="https://wa.me/6281234567890?text=Halo,%20saya%20ingin%20daftar%20untuk%20{{ urlencode($event->title) }}%20pada%20{{ urlencode($event->event_date->format('d F Y')) }}" class="btn btn-primary btn-lg">
+                        <a href="https://wa.me/6281234567890?text=Halo,%20saya%20ingin%20daftar%20untuk%20{{ urlencode($event->title) }}%20pada%20{{ urlencode($event->start_date->format('d F Y')) }}" class="btn btn-primary btn-lg">
                             <i class="fab fa-whatsapp"></i> Daftar via WhatsApp
                         </a>
                         <a href="tel:+6221123456778" class="btn btn-outline">
@@ -669,12 +669,12 @@
                         <div class="event-meta">
                             <div class="event-date">
                                 <i class="fas fa-calendar"></i>
-                                <span>{{ $relatedEvent->event_date->format('d F Y') }}</span>
+                                <span>{{ $relatedEvent->start_date->format('d F Y') }}</span>
                             </div>
-                            @if($relatedEvent->event_time)
+                            @if($relatedEvent->start_date)
                                 <div class="event-time">
                                     <i class="fas fa-clock"></i>
-                                    <span>{{ $relatedEvent->event_time }}</span>
+                                    <span>{{ $relatedEvent->start_date->format('H:i') }}@if($relatedEvent->end_date) - {{ $relatedEvent->end_date->format('H:i') }}@endif WIB</span>
                                 </div>
                             @endif
                             @if($relatedEvent->location)

@@ -17,7 +17,7 @@ class HomeController extends Controller
         // Get featured/active content for homepage
         $events = Event::where('is_active', true)
             ->where('is_featured', true)
-            ->orderBy('event_date', 'desc')
+            ->orderBy('start_date', 'desc')
             ->take(3)
             ->get();
 

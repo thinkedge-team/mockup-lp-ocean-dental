@@ -10,7 +10,7 @@ class EventController extends Controller
     public function index()
     {
         $events = Event::where('is_active', true)
-            ->orderBy('event_date', 'desc')
+            ->orderBy('start_date', 'desc')
             ->paginate(12);
 
         return view('events.index', compact('events'));
@@ -25,7 +25,7 @@ class EventController extends Controller
         $relatedEvents = Event::where('is_active', true)
             ->where('id', '!=', $event->id)
             ->where('category', $event->category)
-            ->orderBy('event_date', 'desc')
+            ->orderBy('start_date', 'desc')
             ->take(3)
             ->get();
 

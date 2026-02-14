@@ -358,7 +358,7 @@
                 <div class="event-content">
                     <div class="event-date">
                         <i class="fas fa-calendar"></i>
-                        {{ $event->event_date->format('d M Y') }}
+                        {{ $event->start_date->format('d M Y') }}
                     </div>
                     <h3>{{ $event->title }}</h3>
                     <p>{{ Str::limit(strip_tags($event->description), 120) }}</p>

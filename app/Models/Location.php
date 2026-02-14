@@ -14,6 +14,7 @@ class Location extends Model
         'name',
         'slug',
         'address',
+        'region',
         'phone',
         'whatsapp',
         'email',

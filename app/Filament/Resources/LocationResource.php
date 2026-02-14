@@ -30,6 +30,16 @@ class LocationResource extends Resource
                 Forms\Components\Textarea::make('address')
                     ->required()
                     ->columnSpanFull(),
+                Forms\Components\Select::make('region')
+                    ->options([
+                        'Jakarta Utara' => 'Jakarta Utara',
+                        'Jakarta Timur' => 'Jakarta Timur',
+                        'Jakarta Barat' => 'Jakarta Barat',
+                        'Jakarta Selatan' => 'Jakarta Selatan',
+                        'Bekasi Barat' => 'Bekasi Barat',
+                        'Bekasi Utara' => 'Bekasi Utara',
+                        'Bekasi Timur' => 'Bekasi Timur',
+                    ]),
                 Forms\Components\TextInput::make('phone')
                     ->tel()
                     ->required(),
@@ -63,8 +73,9 @@ class LocationResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('name')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('slug')
-                    ->searchable(),
+                Tables\Columns\TextColumn::make('region')
+                    ->searchable()
+                    ->sortable(),
                 Tables\Columns\TextColumn::make('phone')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('whatsapp')

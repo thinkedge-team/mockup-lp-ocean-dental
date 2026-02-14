@@ -940,44 +940,132 @@
 <section class="branches" id="branches">
     <div class="container">
         <div class="section-header" data-aos="fade-up">
-            <span class="section-subtitle">Lokasi Kami</span>
-            <h2 class="section-title">Cabang Ocean Dental</h2>
+            <span class="section-tag"><i class="fas fa-map-marker-alt"></i> Lokasi Cabang</span>
+            <h2 class="section-title">
+                Temukan <span class="gradient-text-dark">Ocean Dental</span> Terdekat
+            </h2>
             <p class="section-description">
-                29 cabang tersebar di Jabodetabek untuk kemudahan Anda
+                29 cabang tersebar di Jakarta & Bekasi, selalu dekat dengan Anda
             </p>
         </div>
-        @if($locations->count() > 0)
-        <div class="branches-grid" data-aos="fade-up">
-            @foreach($locations as $location)
-            <div class="branch-card" data-aos="fade-up" data-aos-delay="{{ $loop->index * 100 }}">
-                <div class="branch-icon">
-                    <i class="fas fa-map-marker-alt"></i>
-                </div>
-                <h3>{{ $location->name }}</h3>
-                <p class="branch-address">
-                    <i class="fas fa-location-dot"></i> {{ $location->address }}
-                </p>
-                @if($location->phone)
-                <p class="branch-phone">
-                    <i class="fas fa-phone"></i> {{ $location->phone }}
-                </p>
-                @endif
-                @if($location->operating_hours)
-                <p class="branch-hours">
-                    <i class="fas fa-clock"></i> {{ $location->operating_hours }}
-                </p>
-                @endif
-                @if($location->map_url)
-                <a href="{{ $location->map_url }}" target="_blank" class="btn btn-outline btn-sm">
-                    <i class="fas fa-directions"></i> Petunjuk Arah
-                </a>
-                @endif
+
+        <!-- Search Box -->
+        <div class="branches-search" data-aos="fade-up">
+            <div class="search-input-wrapper">
+                <i class="fas fa-search"></i>
+                <input 
+                    type="text" 
+                    id="branch-search" 
+                    placeholder="Cari cabang atau area..." 
+                    autocomplete="off"
+                />
+                <button class="search-clear" id="search-clear" aria-label="Clear search">
+                    <i class="fas fa-times"></i>
+                </button>
             </div>
-            @endforeach
+            <div class="search-results-count" id="search-results-count"></div>
         </div>
-        @else
-        <p style="text-align: center;">Informasi cabang sedang diperbarui...</p>
-        @endif
+
+        <div class="branches-wrapper">
+            <!-- Branches List with Accordion -->
+            <div class="branches-list-container" data-aos="fade-right">
+                <div class="branches-accordion" id="branches-accordion">
+                    
+                    @php
+                        // Group locations by region
+                        $regions = [
+                            'jakarta-utara' => ['name' => 'Jakarta Utara', 'locations' => []],
+                            'jakarta-timur' => ['name' => 'Jakarta Timur', 'locations' => []],
+                            'jakarta-barat' => ['name' => 'Jakarta Barat', 'locations' => []],
+                            'jakarta-selatan' => ['name' => 'Jakarta Selatan', 'locations' => []],
+                            'bekasi-barat' => ['name' => 'Bekasi Barat', 'locations' => []],
+                            'bekasi-utara' => ['name' => 'Bekasi Utara', 'locations' => []],
+                            'bekasi-timur' => ['name' => 'Bekasi Timur', 'locations' => []],
+                        ];
+                        
+                        foreach($locations as $location) {
+                            $regionKey = strtolower(str_replace(' ', '-', $location->region ?? 'jakarta-utara'));
+                            if(isset($regions[$regionKey])) {
+                                $regions[$regionKey]['locations'][] = $location;
+                            }
+                        }
+                    @endphp
+                    
+                    @foreach($regions as $regionKey => $region)
+                    @if(count($region['locations']) > 0)
+                    <!-- {{ $region['name'] }} -->
+                    <div class="region-group" data-region="{{ $regionKey }}">
+                        <button class="region-header{{ $loop->first ? ' active' : '' }}">
+                            <div class="region-info">
+                                <i class="fas fa-building"></i>
+                                <span class="region-name">{{ $region['name'] }}</span>
+                                <span class="region-count">{{ count($region['locations']) }} Cabang</span>
+                            </div>
+                            <i class="fas fa-chevron-down region-toggle"></i>
+                        </button>
+                        <div class="region-branches{{ $loop->first ? ' active' : '' }}">
+                            @foreach($region['locations'] as $location)
+                            <div class="branch-card" data-branch="{{ $location->slug }}" data-lat="{{ $location->latitude ?? '' }}" data-lng="{{ $location->longitude ?? '' }}">
+                                <div class="branch-card-header">
+                                    <div class="branch-icon"><i class="fas fa-map-marker-alt"></i></div>
+                                    <div>
+                                        <h4>{{ $location->name }}</h4>
+                                        <p class="branch-address">{{ $location->address }}</p>
+                                    </div>
+                                </div>
+                                <div class="branch-info">
+                                    <span><i class="fas fa-clock"></i> {{ $location->operating_hours ?? '09:00 - 21:00' }}</span>
+                                    @if($location->phone)
+                                    <span><i class="fas fa-phone"></i> {{ $location->phone }}</span>
+                                    @endif
+                                </div>
+                                <div class="branch-actions">
+                                    @if($location->latitude && $location->longitude)
+                                    <a href="https://maps.google.com/?q={{ $location->latitude }},{{ $location->longitude }}" target="_blank" class="btn btn-sm"><i class="fas fa-directions"></i> Maps</a>
+                                    @elseif($location->map_url)
+                                    <a href="{{ $location->map_url }}" target="_blank" class="btn btn-sm"><i class="fas fa-directions"></i> Maps</a>
+                                    @endif
+                                    <a href="{{ whatsapp_url('Halo, saya ingin reservasi di ' . $location->name) }}" class="btn btn-sm btn-primary"><i class="fab fa-whatsapp"></i> Reservasi</a>
+                                </div>
+                            </div>
+                            @endforeach
+                        </div>
+                    </div>
+                    @endif
+                    @endforeach
+
+                </div>
+            </div>
+
+            <!-- Interactive Map Container -->
+            <div class="map-container" data-aos="fade-left">
+                <div id="branches-map"></div>
+                <div class="map-legend">
+                    <div class="legend-item">
+                        <span class="legend-marker"></span>
+                        <span>Cabang Ocean Dental</span>
+                    </div>
+                    <p class="legend-hint">Klik cabang untuk melihat lokasi di peta</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Branches CTA -->
+        <div class="branches-cta" data-aos="fade-up">
+            <div class="cta-icon">
+                <i class="fas fa-headset"></i>
+            </div>
+            <h3>Butuh Bantuan Menemukan Cabang?</h3>
+            <p>Tim customer service kami siap membantu Anda 24/7</p>
+            <div class="cta-features">
+                <div class="cta-feature"><i class="fas fa-check-circle"></i><span>Respon Cepat</span></div>
+                <div class="cta-feature"><i class="fas fa-check-circle"></i><span>Gratis Konsultasi</span></div>
+                <div class="cta-feature"><i class="fas fa-check-circle"></i><span>Booking Online</span></div>
+            </div>
+            <a href="{{ whatsapp_url('Halo, saya butuh bantuan menemukan cabang terdekat') }}" class="btn btn-primary btn-lg">
+                <i class="fab fa-whatsapp"></i> Hubungi Kami
+            </a>
+        </div>
     </div>
 </section>
 

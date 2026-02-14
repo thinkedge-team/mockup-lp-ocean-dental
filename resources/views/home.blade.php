@@ -78,8 +78,9 @@
 <!-- About Section -->
 <section class="about" id="about">
     <div class="container">
+        <!-- Section Header -->
         <div class="section-header" data-aos="fade-up">
-            <span class="section-subtitle">Tentang Kami</span>
+            <span class="section-tag"><i class="fas fa-info-circle"></i> Tentang Kami</span>
             <h2 class="section-title">
                 Mengapa Memilih <span class="gradient-text-dark">Ocean Dental</span>?
             </h2>
@@ -88,7 +89,58 @@
             </p>
         </div>
 
-        <div class="about-stats-bar" data-aos="fade-up" style="margin-top: 48px;">
+        <!-- About Main Content -->
+        <div class="about-main" data-aos="fade-up">
+            <!-- Left: Founder Image -->
+            <div class="about-visual">
+                <div class="about-image-container">
+                    <img src="{{ asset('images/founder-portrait.png') }}" alt="drg. Aersy Henny Paramitha - Founder Ocean Dental">
+                    <div class="about-image-badge">
+                        <i class="fas fa-crown"></i>
+                        <span>Founder</span>
+                    </div>
+                </div>
+                <!-- Floating Stats Card -->
+                <div class="about-floating-stat">
+                    <div class="floating-stat-number">10+</div>
+                    <div class="floating-stat-text">Tahun<br>Pengalaman</div>
+                </div>
+            </div>
+
+            <!-- Right: Content -->
+            <div class="about-info">
+                <div class="about-quote">
+                    <i class="fas fa-quote-left"></i>
+                    <blockquote>
+                        "Senyum yang sehat adalah cerminan dari tubuh yang sehat. 
+                        Di Ocean Dental, kami tidak hanya merawat gigi, 
+                        tetapi juga membangun kepercayaan diri setiap pasien."
+                    </blockquote>
+                </div>
+                
+                <div class="about-founder-info">
+                    <h3>drg. Aersy Henny Paramitha</h3>
+                    <span class="founder-role">Founder & Lead Dentist</span>
+                    <p>
+                        Mendirikan Ocean Dental pada tahun <strong>2013</strong> dengan visi 
+                        menyediakan layanan kesehatan gigi berkualitas yang dapat diakses oleh semua kalangan. 
+                        Kini telah berkembang menjadi jaringan <strong>29 cabang</strong> di Jabodetabek.
+                    </p>
+                    <div class="founder-tags">
+                        <span><i class="fas fa-graduation-cap"></i> Universitas Trisakti</span>
+                        <span><i class="fas fa-certificate"></i> PDGI Certified</span>
+                    </div>
+                </div>
+
+                <!-- CTA Button -->
+                <a href="{{ whatsapp_url('Halo, saya ingin konsultasi') }}" class="btn btn-primary">
+                    <i class="fab fa-whatsapp"></i> Konsultasi Sekarang
+                </a>
+            </div>
+        </div>
+
+        <!-- Stats Bar -->
+        <div class="about-stats-bar" data-aos="fade-up">
             <div class="stat-item">
                 <div class="stat-number">
                     <span class="counter" data-target="29">0</span>

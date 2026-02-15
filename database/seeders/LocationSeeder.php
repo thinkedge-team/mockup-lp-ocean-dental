@@ -12,7 +12,6 @@ class LocationSeeder extends Seeder
      */
     public function run(): void
     {
-        // --- NEW: Seed unique regions and map string to id
         $regionNames = collect([
             'Jakarta Utara',
             'Jakarta Selatan',
@@ -36,15 +35,15 @@ class LocationSeeder extends Seeder
                 'email' => 'kelapagading@oceandental.id',
                 'latitude' => -6.1584000,
                 'longitude' => 106.9049000,
-'schedule' => [
-    'monday' => ['open' => '09:00', 'close' => '21:00'],
-    'tuesday' => ['open' => '09:00', 'close' => '21:00'],
-    'wednesday' => ['open' => '09:00', 'close' => '21:00'],
-    'thursday' => ['open' => '09:00', 'close' => '21:00'],
-    'friday' => ['open' => '09:00', 'close' => '21:00'],
-    'saturday' => ['open' => '09:00', 'close' => '21:00'],
-    'sunday' => ['open' => '09:00', 'close' => '21:00'],
-
+                'schedule' => [
+                    'monday' => ['open' => '09:00', 'close' => '21:00'],
+                    'tuesday' => ['open' => '09:00', 'close' => '21:00'],
+                    'wednesday' => ['open' => '09:00', 'close' => '21:00'],
+                    'thursday' => ['open' => '09:00', 'close' => '21:00'],
+                    'friday' => ['open' => '09:00', 'close' => '21:00'],
+                    'saturday' => ['open' => '09:00', 'close' => '21:00'],
+                    'sunday' => ['open' => '09:00', 'close' => '21:00'],
+                ],
                 'order' => 1,
             ],
             [
@@ -56,15 +55,15 @@ class LocationSeeder extends Seeder
                 'email' => 'pondokindah@oceandental.id',
                 'latitude' => -6.2659000,
                 'longitude' => 106.7844000,
-'schedule' => [
-    'monday' => ['open' => '10:00', 'close' => '22:00'],
-    'tuesday' => ['open' => '10:00', 'close' => '22:00'],
-    'wednesday' => ['open' => '10:00', 'close' => '22:00'],
-    'thursday' => ['open' => '10:00', 'close' => '22:00'],
-    'friday' => ['open' => '10:00', 'close' => '22:00'],
-    'saturday' => ['open' => '10:00', 'close' => '22:00'],
-    'sunday' => ['open' => '10:00', 'close' => '22:00'],
-
+                'schedule' => [
+                    'monday' => ['open' => '10:00', 'close' => '22:00'],
+                    'tuesday' => ['open' => '10:00', 'close' => '22:00'],
+                    'wednesday' => ['open' => '10:00', 'close' => '22:00'],
+                    'thursday' => ['open' => '10:00', 'close' => '22:00'],
+                    'friday' => ['open' => '10:00', 'close' => '22:00'],
+                    'saturday' => ['open' => '10:00', 'close' => '22:00'],
+                    'sunday' => ['open' => '10:00', 'close' => '22:00'],
+                ],
                 'order' => 2,
             ],
             [
@@ -76,15 +75,15 @@ class LocationSeeder extends Seeder
                 'email' => 'sunter@oceandental.id',
                 'latitude' => -6.1384000,
                 'longitude' => 106.8656000,
-'schedule' => [
-    'monday' => ['open' => '09:00', 'close' => '21:00'],
-    'tuesday' => ['open' => '09:00', 'close' => '21:00'],
-    'wednesday' => ['open' => '09:00', 'close' => '21:00'],
-    'thursday' => ['open' => '09:00', 'close' => '21:00'],
-    'friday' => ['open' => '09:00', 'close' => '21:00'],
-    'saturday' => ['open' => '09:00', 'close' => '21:00'],
-    'sunday' => ['open' => '09:00', 'close' => '21:00'],
-
+                'schedule' => [
+                    'monday' => ['open' => '09:00', 'close' => '21:00'],
+                    'tuesday' => ['open' => '09:00', 'close' => '21:00'],
+                    'wednesday' => ['open' => '09:00', 'close' => '21:00'],
+                    'thursday' => ['open' => '09:00', 'close' => '21:00'],
+                    'friday' => ['open' => '09:00', 'close' => '21:00'],
+                    'saturday' => ['open' => '09:00', 'close' => '21:00'],
+                    'sunday' => ['open' => '09:00', 'close' => '21:00'],
+                ],
                 'order' => 3,
             ],
             [
@@ -96,15 +95,15 @@ class LocationSeeder extends Seeder
                 'email' => 'pik@oceandental.id',
                 'latitude' => -6.1084000,
                 'longitude' => 106.7429000,
-'schedule' => [
-    'monday' => ['open' => '10:00', 'close' => '22:00'],
-    'tuesday' => ['open' => '10:00', 'close' => '22:00'],
-    'wednesday' => ['open' => '10:00', 'close' => '22:00'],
-    'thursday' => ['open' => '10:00', 'close' => '22:00'],
-    'friday' => ['open' => '10:00', 'close' => '22:00'],
-    'saturday' => ['open' => '10:00', 'close' => '22:00'],
-    'sunday' => ['open' => '10:00', 'close' => '22:00'],
-
+                'schedule' => [
+                    'monday' => ['open' => '10:00', 'close' => '22:00'],
+                    'tuesday' => ['open' => '10:00', 'close' => '22:00'],
+                    'wednesday' => ['open' => '10:00', 'close' => '22:00'],
+                    'thursday' => ['open' => '10:00', 'close' => '22:00'],
+                    'friday' => ['open' => '10:00', 'close' => '22:00'],
+                    'saturday' => ['open' => '10:00', 'close' => '22:00'],
+                    'sunday' => ['open' => '10:00', 'close' => '22:00'],
+                ],
                 'order' => 4,
             ],
             [
@@ -116,15 +115,15 @@ class LocationSeeder extends Seeder
                 'email' => 'senayan@oceandental.id',
                 'latitude' => -6.2249000,
                 'longitude' => 106.8011000,
-'schedule' => [
-    'monday' => ['open' => '10:00', 'close' => '22:00'],
-    'tuesday' => ['open' => '10:00', 'close' => '22:00'],
-    'wednesday' => ['open' => '10:00', 'close' => '22:00'],
-    'thursday' => ['open' => '10:00', 'close' => '22:00'],
-    'friday' => ['open' => '10:00', 'close' => '22:00'],
-    'saturday' => ['open' => '10:00', 'close' => '22:00'],
-    'sunday' => ['open' => '10:00', 'close' => '22:00'],
-
+                'schedule' => [
+                    'monday' => ['open' => '10:00', 'close' => '22:00'],
+                    'tuesday' => ['open' => '10:00', 'close' => '22:00'],
+                    'wednesday' => ['open' => '10:00', 'close' => '22:00'],
+                    'thursday' => ['open' => '10:00', 'close' => '22:00'],
+                    'friday' => ['open' => '10:00', 'close' => '22:00'],
+                    'saturday' => ['open' => '10:00', 'close' => '22:00'],
+                    'sunday' => ['open' => '10:00', 'close' => '22:00'],
+                ],
                 'order' => 5,
             ],
             [
@@ -136,24 +135,38 @@ class LocationSeeder extends Seeder
                 'email' => 'bsd@oceandental.id',
                 'latitude' => -6.3023000,
                 'longitude' => 106.6520000,
-'schedule' => [
-    'monday' => ['open' => '09:00', 'close' => '21:00'],
-    'tuesday' => ['open' => '09:00', 'close' => '21:00'],
-    'wednesday' => ['open' => '09:00', 'close' => '21:00'],
-    'thursday' => ['open' => '09:00', 'close' => '21:00'],
-    'friday' => ['open' => '09:00', 'close' => '21:00'],
-    'saturday' => ['open' => '09:00', 'close' => '21:00'],
-    'sunday' => ['open' => '09:00', 'close' => '21:00'],
-
+                'schedule' => [
+                    'monday' => ['open' => '09:00', 'close' => '21:00'],
+                    'tuesday' => ['open' => '09:00', 'close' => '21:00'],
+                    'wednesday' => ['open' => '09:00', 'close' => '21:00'],
+                    'thursday' => ['open' => '09:00', 'close' => '21:00'],
+                    'friday' => ['open' => '09:00', 'close' => '21:00'],
+                    'saturday' => ['open' => '09:00', 'close' => '21:00'],
+                    'sunday' => ['open' => '09:00', 'close' => '21:00'],
+                ],
                 'order' => 6,
             ],
         ];
 
         foreach ($locations as $location) {
-            // Remove legacy fields if present
-            foreach ([
-                'monday_open','monday_close','tuesday_open','tuesday_close','wednesday_open','wednesday_close','thursday_open','thursday_close','friday_open','friday_close','saturday_open','saturday_close','sunday_open','sunday_close'
-            ] as $field) {
+            foreach (
+                [
+                    'monday_open',
+                    'monday_close',
+                    'tuesday_open',
+                    'tuesday_close',
+                    'wednesday_open',
+                    'wednesday_close',
+                    'thursday_open',
+                    'thursday_close',
+                    'friday_open',
+                    'friday_close',
+                    'saturday_open',
+                    'saturday_close',
+                    'sunday_open',
+                    'sunday_close',
+                ] as $field
+            ) {
                 unset($location[$field]);
             }
             Location::create($location);

@@ -11,11 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('pages', function (Blueprint $table) {
+        Schema::create('results', function (Blueprint $table) {
             $table->id();
-            $table->string('key')->unique(); // e.g., 'hero', 'about', 'contact'
             $table->string('title');
-            $table->json('content'); // Flexible JSON structure for different sections
+            $table->string('before_image');
+            $table->string('after_image');
+            $table->text('description');
+            $table->integer('order')->default(0);
             $table->boolean('is_active')->default(true);
             $table->timestamps();
         });
@@ -26,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('pages');
+        Schema::dropIfExists('results');
     }
 };

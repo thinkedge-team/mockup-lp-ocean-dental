@@ -8,7 +8,7 @@
     <!-- SEO Meta Tags -->
     <title>@yield('title', setting('site_name', 'Ocean Dental') . ' - ' . setting('site_tagline', 'Senyum Sehat Bersama Kami'))</title>
     <meta name="description" content="@yield('meta_description', setting('site_description', 'Ocean Dental - Klinik Gigi Profesional & Terjangkau. 10+ tahun pengalaman, 25+ cabang di Jakarta & Jabodetabek. Senyum Sehat, Percaya Diri Meningkat.'))" />
-    <meta name="keywords" content="@yield('meta_keywords', setting('site_keywords', 'klinik gigi, ocean dental, dokter gigi jakarta, tambal gigi, behel, veneer, implant gigi, scaling, bleaching'))" />
+    <meta name="keywords" content="@yield('meta_keywords', setting('meta_keywords', ''))" />
     <meta name="author" content="{{ setting('site_name', 'Ocean Dental') }}" />
     <meta name="robots" content="@yield('meta_robots', 'index, follow')" />
     <link rel="canonical" href="@yield('canonical', url()->current())" />
@@ -18,7 +18,7 @@
     <meta property="og:url" content="{{ url()->current() }}" />
     <meta property="og:title" content="@yield('og_title', $title ?? setting('site_name', 'Ocean Dental') . ' - ' . setting('site_tagline', 'Senyum Sehat Bersama Kami'))" />
     <meta property="og:description" content="@yield('og_description', setting('site_description', 'Ocean Dental - Klinik Gigi Profesional & Terjangkau'))" />
-    <meta property="og:image" content="@yield('og_image', asset('images/og-image.jpg'))" />
+    <meta property="og:image" content="@yield('og_image', setting('og_image') ? asset('storage/' . setting('og_image')) : '')" />
     <meta property="og:locale" content="id_ID" />
     <meta property="og:site_name" content="{{ setting('site_name', 'Ocean Dental') }}" />
     
@@ -27,7 +27,10 @@
     <meta name="twitter:url" content="{{ url()->current() }}" />
     <meta name="twitter:title" content="@yield('twitter_title', $title ?? setting('site_name', 'Ocean Dental') . ' - ' . setting('site_tagline', 'Senyum Sehat Bersama Kami'))" />
     <meta name="twitter:description" content="@yield('twitter_description', setting('site_description', 'Ocean Dental - Klinik Gigi Profesional & Terjangkau'))" />
-    <meta name="twitter:image" content="@yield('twitter_image', asset('images/og-image.jpg'))" />
+    <meta name="twitter:image" content="@yield('twitter_image', setting('og_image') ? asset('storage/' . setting('og_image')) : '')" />
+    
+    <!-- Custom Meta Tags (from individual pages) -->
+    @stack('custom_meta')
     
     <!-- Additional Meta Tags -->
     <meta name="theme-color" content="#01215E" />
@@ -36,8 +39,10 @@
     <meta name="format-detection" content="telephone=yes" />
     
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="{{ asset('images/favicon.ico') }}" />
-    <link rel="apple-touch-icon" href="{{ asset('images/apple-touch-icon.png') }}" />
+    @if(setting('favicon'))
+    <link rel="icon" type="image/x-icon" href="{{ asset('storage/' . setting('favicon')) }}" />
+    <link rel="apple-touch-icon" href="{{ asset('storage/' . setting('favicon')) }}" />
+    @endif
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />

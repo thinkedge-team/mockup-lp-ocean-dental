@@ -4,6 +4,30 @@
 @section('meta_keywords', 'event dental, ' . strtolower($event->category) . ', ocean dental event, ' . $event->title)
 @section('title', $event->title . ' - Ocean Dental')
 
+@push('custom_meta')
+    {{-- Custom meta tags from Event admin panel --}}
+    @if($event->meta_tags && is_array($event->meta_tags))
+        @foreach($event->meta_tags as $key => $value)
+            @if(Str::startsWith($key, 'og:'))
+                <meta property="{{ $key }}" content="{{ $value }}" />
+            @elseif(Str::startsWith($key, 'twitter:'))
+                <meta name="{{ $key }}" content="{{ $value }}" />
+            @else
+                <meta name="{{ $key }}" content="{{ $value }}" />
+            @endif
+        @endforeach
+        
+        {{-- Add event image as og:image and twitter:image if not already set --}}
+        @if($event->image && !isset($event->meta_tags['og:image']))
+            <meta property="og:image" content="{{ asset('storage/' . $event->image) }}" />
+        @endif
+        @if($event->image && !isset($event->meta_tags['twitter:image']))
+            <meta name="twitter:image" content="{{ asset('storage/' . $event->image) }}" />
+        @endif
+    @endif
+@endpush
+
+
 @push('styles')
 <style>
     /* Event Detail Page Specific Styles */
@@ -399,7 +423,7 @@
         />
     @else
         <img 
-            src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=1600&h=800&fit=crop" 
+            src="{{ asset('images/no-image.jpg') }}" 
             alt="{{ $event->title }}" 
             class="event-detail-hero-image"
         />
@@ -635,7 +659,7 @@
                         @if($relatedEvent->image)
                             <img src="{{ Storage::url($relatedEvent->image) }}" alt="{{ $relatedEvent->title }}">
                         @else
-                            <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=800&h=500&fit=crop" alt="{{ $relatedEvent->title }}">
+                            <img src="{{ asset('images/no-image.jpg') }}" alt="{{ $relatedEvent->title }}">
                         @endif
                         <div class="event-category {{ strtolower($relatedEvent->category) }}">
                             @switch(strtolower($relatedEvent->category))

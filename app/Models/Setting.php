@@ -19,6 +19,7 @@ class Setting extends Model
     public static function get($key, $default = null)
     {
         $setting = self::where('key', $key)->first();
+
         return $setting ? $setting->value : $default;
     }
 
@@ -28,5 +29,14 @@ class Setting extends Model
             ['key' => $key],
             ['value' => $value, 'type' => $type, 'group' => $group]
         );
+    }
+
+    public function getValueAttribute($value)
+    {
+        if ($this->type === 'image' && empty($value)) {
+            return null;
+        }
+
+        return $value;
     }
 }

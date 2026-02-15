@@ -380,7 +380,7 @@
                                 @if($event->image)
                                     <img src="{{ Storage::url($event->image) }}" alt="{{ $event->title }}">
                                 @else
-                                    <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=800&h=500&fit=crop" alt="{{ $event->title }}">
+                                    <img src="{{ asset('images/no-image.jpg') }}" alt="{{ $event->title }}">
                                 @endif
                                 <div class="event-category {{ strtolower($event->category) }}">
                                     @switch(strtolower($event->category))

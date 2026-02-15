@@ -15,6 +15,11 @@ class Testimonial extends Model
         'content',
         'rating',
         'avatar',
+        'location',
+        'service_type',
+        'platform',
+        'verified',
+        'review_date',
         'service_used',
         'is_active',
         'is_featured',
@@ -24,6 +29,8 @@ class Testimonial extends Model
     protected $casts = [
         'is_active' => 'boolean',
         'is_featured' => 'boolean',
-        'rating' => 'integer',
+        'verified' => 'boolean',
+        'rating' => 'decimal:1',
+        'review_date' => 'datetime',
     ];
 }

@@ -31,6 +31,24 @@ document.addEventListener('DOMContentLoaded', function() {
     initAboutTabs();
     initAboutCounters();
     
+    // Handle hash in URL on page load (smooth scroll to section)
+    if (window.location.hash) {
+        setTimeout(() => {
+            const hash = window.location.hash;
+            const target = document.querySelector(hash);
+            if (target) {
+                const headerOffset = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--header-height')) || 80;
+                const elementPosition = target.getBoundingClientRect().top;
+                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: 'smooth'
+                });
+            }
+        }, 100); // Small delay to ensure page is fully rendered
+    }
+    
     // ===================================
     // Navigation Functionality
     // ===================================
@@ -82,13 +100,26 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
         
-        // Smooth scroll for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        // Smooth scroll for anchor links (handles both #anchor and full URL with #anchor)
+        document.querySelectorAll('a[href*="#"]').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
                 const href = this.getAttribute('href');
-                if (href !== '#' && href !== '') {
+                
+                // Extract hash from href (handles both #anchor and http://example.com#anchor)
+                const hashIndex = href.indexOf('#');
+                if (hashIndex === -1 || href === '#') return;
+                
+                const hash = href.substring(hashIndex);
+                if (hash === '' || hash === '#') return;
+                
+                // Check if the link is for the current page (same origin or just a hash)
+                const url = new URL(href, window.location.href);
+                const isSamePage = url.origin === window.location.origin && 
+                                  url.pathname === window.location.pathname;
+                
+                if (isSamePage) {
                     e.preventDefault();
-                    const target = document.querySelector(href);
+                    const target = document.querySelector(hash);
                     if (target) {
                         const headerOffset = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--header-height')) || 80;
                         const elementPosition = target.getBoundingClientRect().top;
@@ -98,6 +129,9 @@ document.addEventListener('DOMContentLoaded', function() {
                             top: offsetPosition,
                             behavior: 'smooth'
                         });
+                        
+                        // Update URL hash without jumping
+                        history.pushState(null, '', hash);
                     }
                 }
             });
@@ -1092,25 +1126,20 @@ function initDoctorsCarousel() {
 
 function initFAQAccordion() {
     const faqItems = document.querySelectorAll('.faq-item');
-    
+
+    // Accordion logic
     faqItems.forEach(item => {
         const question = item.querySelector('.faq-question');
-        
         question.addEventListener('click', () => {
             const isActive = item.classList.contains('active');
-            
-            // Close all other items
+            // Close other items
             faqItems.forEach(otherItem => {
                 if (otherItem !== item) {
                     otherItem.classList.remove('active');
                 }
             });
-            
-            // Toggle current item
             item.classList.toggle('active', !isActive);
         });
-        
-        // Keyboard accessibility
         question.addEventListener('keypress', (e) => {
             if (e.key === 'Enter' || e.key === ' ') {
                 e.preventDefault();
@@ -1118,7 +1147,29 @@ function initFAQAccordion() {
             }
         });
     });
+
+    // Filter logic
+    const faqFilterBtns = document.querySelectorAll('.faq-filter .filter-btn');
+    faqFilterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const filter = btn.getAttribute('data-filter');
+            // Update active class on buttons
+            faqFilterBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            // Filter items by category
+            faqItems.forEach(item => {
+                const category = item.getAttribute('data-category');
+                if (filter === 'all' || category === filter) {
+                    item.classList.remove('hidden');
+                } else {
+                    item.classList.add('hidden');
+                    item.classList.remove('active'); // also close any open answer when filtering out
+                }
+            });
+        });
+    });
 }
+
 
 // ===================================
 // Video Modal
@@ -1191,6 +1242,37 @@ function initBranchCards() {
     initBranchesMap();
     initBranchSearch();
     initRegionAccordion();
+
+    // =============================================
+    // Location Detail Modal Trigger Implementation
+    // =============================================
+    const detailButtons = document.querySelectorAll('.btn-location-detail');
+    detailButtons.forEach(btn => {
+        btn.addEventListener('click', function() {
+            try {
+                const data = JSON.parse(this.getAttribute('data-location'));
+                if (typeof showLocationModal === 'function') {
+                    showLocationModal(data);
+
+                    // Accessibility: focus close button after modal opens
+                    setTimeout(() => {
+                        const closeBtn = document.querySelector('.location-modal-close');
+                        if (closeBtn) closeBtn.focus();
+                    }, 100);
+                }
+            } catch (e) {
+                console.error('Failed to open location modal:', e);
+            }
+        });
+    });
+
+    // Extra accessibility: Close modal on Escape key if modal is open
+    document.addEventListener('keydown', function(e) {
+        const modal = document.getElementById('location-detail-modal');
+        if (e.key === 'Escape' && modal && modal.style.display === 'block') {
+            if (typeof closeLocationModal === 'function') closeLocationModal();
+        }
+    });
 }
 
 // ===================================
@@ -1912,8 +1994,8 @@ function initAboutTabs() {
 // ===================================
 
 function initAboutCounters() {
-    const counters = document.querySelectorAll('.about-stat-card .counter');
-    const decimalCounters = document.querySelectorAll('.about-stat-card .counter-decimal');
+    const counters = document.querySelectorAll('.about-stats-bar .counter');
+    const decimalCounters = document.querySelectorAll('.about-stats-bar .counter-decimal');
     
     if (!counters.length && !decimalCounters.length) return;
     
@@ -2013,3 +2095,230 @@ function initAboutCounters() {
     counters.forEach(counter => counterObserver.observe(counter));
     decimalCounters.forEach(counter => decimalObserver.observe(counter));
 }
+
+// ============================================
+// Doctor Profile Modal Functions
+// ============================================
+
+/**
+ * Decode HTML entities
+ */
+function decodeHTMLEntities(text) {
+    const textarea = document.createElement('textarea');
+    textarea.innerHTML = text;
+    return textarea.value;
+}
+
+/**
+ * Open doctor profile modal with populated data
+ */
+function openDoctorModal(event, button) {
+    event.preventDefault();
+    
+    // Helper to safely parse JSON from data attributes
+    function safeJSONParse(str, defaultValue) {
+        try {
+            // Decode HTML entities first
+            const decoded = decodeHTMLEntities(str || '');
+            return JSON.parse(decoded);
+        } catch (e) {
+            console.warn('Failed to parse JSON:', str, e);
+            return defaultValue;
+        }
+    }
+    
+    // Get all data attributes from the button
+    const doctorData = {
+        id: button.dataset.doctorId,
+        name: button.dataset.doctorName,
+        position: button.dataset.doctorPosition,
+        photo: button.dataset.doctorPhoto,
+        university: button.dataset.doctorUniversity,
+        badge: button.dataset.doctorBadge,
+        status: button.dataset.doctorStatus,
+        rating: parseFloat(button.dataset.doctorRating),
+        reviewCount: parseInt(button.dataset.doctorReviewCount),
+        experience: parseInt(button.dataset.doctorExperience),
+        patients: parseInt(button.dataset.doctorPatients),
+        specialization: button.dataset.doctorSpecialization,
+        bio: decodeHTMLEntities(button.dataset.doctorBioHtml || ''),
+        qualifications: safeJSONParse(button.dataset.doctorQualifications, []),
+        expertise: safeJSONParse(button.dataset.doctorExpertise, []),
+        social: safeJSONParse(button.dataset.doctorSocial, {})
+    };
+    
+    // Populate modal with data
+    populateDoctorModal(doctorData);
+    
+    // Show modal
+    const modal = document.getElementById('doctor-profile-modal');
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+
+/**
+ * Populate modal content with doctor data
+ */
+function populateDoctorModal(data) {
+    // Photo
+    document.getElementById('modal-doctor-photo').src = data.photo;
+    document.getElementById('modal-doctor-photo').alt = data.name;
+    
+    // Name and position
+    document.getElementById('modal-doctor-name').textContent = data.name;
+    document.getElementById('modal-doctor-position').textContent = data.position;
+    
+    // University
+    if (data.university) {
+        document.getElementById('modal-doctor-university').style.display = 'flex';
+        document.getElementById('modal-university-text').textContent = data.university;
+    } else {
+        document.getElementById('modal-doctor-university').style.display = 'none';
+    }
+    
+    // Badge
+    const badgeContainer = document.getElementById('modal-doctor-badge-container');
+    if (data.badge) {
+        const badgeIcon = data.badge === 'founder' ? 'crown' : 'award';
+        badgeContainer.innerHTML = `<span class="doctor-badge ${data.badge}"><i class="fas fa-${badgeIcon}"></i></span>`;
+    } else {
+        badgeContainer.innerHTML = '';
+    }
+    
+    // Status
+    const statusIndicator = document.getElementById('modal-doctor-status');
+    statusIndicator.className = `modal-status-indicator ${data.status}`;
+    
+    // Rating
+    const starsContainer = document.getElementById('modal-doctor-stars');
+    let starsHTML = '';
+    for (let i = 1; i <= 5; i++) {
+        if (i <= Math.floor(data.rating)) {
+            starsHTML += '<i class="fas fa-star"></i>';
+        } else if (i - 0.5 <= data.rating) {
+            starsHTML += '<i class="fas fa-star-half-alt"></i>';
+        } else {
+            starsHTML += '<i class="far fa-star"></i>';
+        }
+    }
+    starsContainer.innerHTML = starsHTML;
+    document.getElementById('modal-doctor-rating').textContent = data.rating.toFixed(1);
+    document.getElementById('modal-doctor-reviews').textContent = `(${data.reviewCount} ulasan)`;
+    
+    // Experience and patients
+    document.getElementById('modal-doctor-experience').textContent = `${data.experience}+`;
+    document.getElementById('modal-doctor-patients').textContent = data.patients;
+    
+    // Specialization (only show if different from position)
+    if (data.specialization && data.specialization !== data.position) {
+        document.getElementById('modal-specialization-section').style.display = 'block';
+        document.getElementById('modal-doctor-specialization').textContent = data.specialization;
+    } else {
+        document.getElementById('modal-specialization-section').style.display = 'none';
+    }
+    
+    // Expertise tags
+    if (data.expertise && data.expertise.length > 0) {
+        document.getElementById('modal-expertise-section').style.display = 'block';
+        const expertiseContainer = document.getElementById('modal-doctor-expertise');
+        expertiseContainer.innerHTML = data.expertise.map(tag => 
+            `<span class="expertise-tag">${tag}</span>`
+        ).join('');
+    } else {
+        document.getElementById('modal-expertise-section').style.display = 'none';
+    }
+    
+    // Bio
+    if (data.bio) {
+        document.getElementById('modal-bio-section').style.display = 'block';
+        document.getElementById('modal-doctor-bio').innerHTML = data.bio;
+    } else {
+        document.getElementById('modal-bio-section').style.display = 'none';
+    }
+    
+    // Qualifications
+    if (data.qualifications && data.qualifications.length > 0) {
+        document.getElementById('modal-qualifications-section').style.display = 'block';
+        const qualificationsContainer = document.getElementById('modal-doctor-qualifications');
+        qualificationsContainer.innerHTML = data.qualifications.map(qual => 
+            `<li>${qual}</li>`
+        ).join('');
+    } else {
+        document.getElementById('modal-qualifications-section').style.display = 'none';
+    }
+    
+    // Social links
+    if (data.social && Object.keys(data.social).length > 0) {
+        document.getElementById('modal-social-section').style.display = 'block';
+        const socialContainer = document.getElementById('modal-doctor-social');
+        let socialHTML = '';
+        
+        if (data.social.instagram) {
+            socialHTML += `<a href="${data.social.instagram}" target="_blank" class="social-link instagram" rel="noopener noreferrer">
+                <i class="fab fa-instagram"></i>
+            </a>`;
+        }
+        if (data.social.linkedin) {
+            socialHTML += `<a href="${data.social.linkedin}" target="_blank" class="social-link linkedin" rel="noopener noreferrer">
+                <i class="fab fa-linkedin"></i>
+            </a>`;
+        }
+        if (data.social.facebook) {
+            socialHTML += `<a href="${data.social.facebook}" target="_blank" class="social-link facebook" rel="noopener noreferrer">
+                <i class="fab fa-facebook"></i>
+            </a>`;
+        }
+        if (data.social.twitter) {
+            socialHTML += `<a href="${data.social.twitter}" target="_blank" class="social-link twitter" rel="noopener noreferrer">
+                <i class="fab fa-twitter"></i>
+            </a>`;
+        }
+        
+        socialContainer.innerHTML = socialHTML;
+    } else {
+        document.getElementById('modal-social-section').style.display = 'none';
+    }
+    
+    // WhatsApp button
+    const whatsappBtn = document.getElementById('modal-whatsapp-btn');
+    const message = encodeURIComponent(`Halo, saya ingin reservasi dengan ${data.name}`);
+    whatsappBtn.href = `https://wa.me/6281234567890?text=${message}`;
+}
+
+/**
+ * Close doctor profile modal
+ */
+function closeDoctorModal() {
+    const modal = document.getElementById('doctor-profile-modal');
+    modal.classList.remove('active');
+    document.body.style.overflow = '';
+}
+
+// Event listeners for modal
+document.addEventListener('DOMContentLoaded', function() {
+    // Close button
+    const closeBtn = document.querySelector('.doctor-modal-close');
+    if (closeBtn) {
+        closeBtn.addEventListener('click', closeDoctorModal);
+    }
+    
+    // Backdrop click
+    const modal = document.getElementById('doctor-profile-modal');
+    if (modal) {
+        modal.addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeDoctorModal();
+            }
+        });
+    }
+    
+    // ESC key
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            const modal = document.getElementById('doctor-profile-modal');
+            if (modal && modal.classList.contains('active')) {
+                closeDoctorModal();
+            }
+        }
+    });
+});

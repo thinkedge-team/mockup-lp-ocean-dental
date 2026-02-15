@@ -28,13 +28,19 @@
                 </div>
                 @endif
                 
+                @if($service->badge)
+                <div class="badge-custom" style="position: absolute; top: 15px; left: 15px; background: #01215E; color: white; padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: 700; z-index: 10;">
+                    {{ ucfirst($service->badge) }}
+                </div>
+                @endif
+                
                 <!-- Service Image -->
                 <div class="service-image" style="height: 240px; overflow: hidden; background: #f8f9fa;">
                     @if($service->image)
                     <img src="{{ asset('storage/' . $service->image) }}" alt="{{ $service->name }}" style="width: 100%; height: 100%; object-fit: cover;">
                     @else
                     <div style="display: flex; align-items: center; justify-content: center; height: 100%; background: linear-gradient(135deg, #01215E 0%, #012056 100%);">
-                        <i class="fas fa-tooth" style="font-size: 80px; color: rgba(255,255,255,0.2);"></i>
+                        <i class="{{ $service->icon ?? 'fas fa-tooth' }}" style="font-size: 80px; color: rgba(255,255,255,0.2);"></i>
                     </div>
                     @endif
                 </div>
@@ -46,18 +52,25 @@
                     </h3>
                     
                     <p style="font-size: 15px; color: #666; line-height: 1.7; margin-bottom: 1.25rem;">
-                        {{ Str::limit(strip_tags($service->description), 120) }}
+                        {{ Str::limit($service->short_description ?? strip_tags($service->description), 120) }}
                     </p>
                     
-                    <!-- Price -->
-                    @if($service->price)
-                    <div class="service-price" style="margin-bottom: 1.25rem;">
-                        <span style="font-size: 14px; color: #999;">Mulai dari</span>
-                        <strong style="display: block; font-size: 24px; color: #01215E; font-weight: 800;">
-                            {{ format_price($service->price) }}
-                        </strong>
+                    <!-- Meta Info -->
+                    <div style="display: flex; gap: 15px; margin-bottom: 1.25rem; flex-wrap: wrap;">
+                        @if($service->price_start)
+                        <div style="display: flex; align-items: center; gap: 6px; font-size: 14px; color: #01215E;">
+                            <i class="fas fa-tag"></i>
+                            <strong>{{ $service->formatted_price }}</strong>
+                        </div>
+                        @endif
+                        
+                        @if($service->duration)
+                        <div style="display: flex; align-items: center; gap: 6px; font-size: 14px; color: #666;">
+                            <i class="fas fa-clock"></i>
+                            <span>{{ $service->formatted_duration }}</span>
+                        </div>
+                        @endif
                     </div>
-                    @endif
                     
                     <!-- CTA Button -->
                     <a href="{{ route('services.show', $service->slug) }}" class="btn-service" style="display: block; text-align: center; padding: 12px 24px; background: #01215E; color: white; border-radius: 8px; text-decoration: none; font-weight: 600; transition: all 0.3s;">

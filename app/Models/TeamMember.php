@@ -18,6 +18,13 @@ class TeamMember extends Model
         'qualifications',
         'years_of_experience',
         'social_links',
+        'badge',
+        'status',
+        'rating',
+        'review_count',
+        'patient_count',
+        'expertise_tags',
+        'university',
         'order',
         'is_active',
     ];
@@ -25,6 +32,10 @@ class TeamMember extends Model
     protected $casts = [
         'qualifications' => 'array',
         'social_links' => 'array',
+        'expertise_tags' => 'array',
         'is_active' => 'boolean',
+        'rating' => 'decimal:1',
+        'review_count' => 'integer',
+        'patient_count' => 'integer',
     ];
 }

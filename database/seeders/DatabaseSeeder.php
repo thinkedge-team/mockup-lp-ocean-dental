@@ -16,16 +16,19 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         // Call all seeders in the correct order
-        // Settings and Pages first (no dependencies)
+        // User first (admin access)
+        // Settings next (no dependencies)
         $this->call([
+            UserSeeder::class,
             SettingSeeder::class,
-            PageSeeder::class,
             ServiceSeeder::class,
             EventSeeder::class,
             TestimonialSeeder::class,
             TeamMemberSeeder::class,
             LocationSeeder::class,
             GallerySeeder::class,
+            FaqSeeder::class,
+            SocMedPlatformSeeder::class,
         ]);
 
         $this->command->info('All seeders completed successfully!');

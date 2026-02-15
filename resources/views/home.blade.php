@@ -1,3 +1,4 @@
+@php use Illuminate\Support\Str; @endphp
 @extends('layouts.app')
 
 @section('title', 'Ocean Dental - Senyum Sehat Bersama Kami | Klinik Gigi Profesional')
@@ -29,34 +30,34 @@
             <div class="hero-text" data-aos="fade-right">
                 <h1 class="hero-title">
                     <span class="typing-container">
-                        <span class="gradient-text typing-text" id="typing-text">Senyum Sehat</span>
+                        <span class="gradient-text typing-text" id="typing-text">{{ setting('hero_title', 'Senyum Sehat') }}</span>
                     </span><br />
-                    Bersama Ocean Dental
+                    {{ setting('hero_subtitle', 'Bersama Ocean Dental') }}
                 </h1>
                 <p class="hero-subtitle">
-                    Perawatan Gigi Profesional & Terjangkau<br />
-                    <strong>10+ Tahun Pengalaman</strong> | <strong>25+ Cabang</strong> di Jabodetabek
+                    {{ setting('hero_description', 'Perawatan Gigi Profesional & Terjangkau') }}<br />
+                    <strong>{{ setting('hero_experience', '10+ Tahun Pengalaman') }}</strong> | <strong>{{ setting('hero_branches', '25+ Cabang') }}</strong> {{ setting('hero_location', 'di Jabodetabek') }}
                 </p>
                 <div class="hero-features">
                     <div class="feature-badge">
                         <i class="fas fa-clock"></i>
-                        <span>Daily 09:00-21:00</span>
+                        <span>{{ setting('operating_hours', 'Daily 09:00-21:00') }}</span>
                     </div>
                     <div class="feature-badge">
                         <i class="fas fa-award"></i>
-                        <span>Dokter Berpengalaman</span>
+                        <span>{{ setting('hero_badge_2', 'Dokter Berpengalaman') }}</span>
                     </div>
                     <div class="feature-badge">
                         <i class="fas fa-shield-alt"></i>
-                        <span>Alat Modern & Steril</span>
+                        <span>{{ setting('hero_badge_3', 'Alat Modern & Steril') }}</span>
                     </div>
                 </div>
                 <div class="hero-cta">
-                    <a href="https://wa.me/6281234567890" class="btn btn-primary btn-lg" id="hero-cta-primary">
-                        <i class="fab fa-whatsapp"></i> Book Appointment Now
+                    <a href="{{ whatsapp_url(setting('hero_cta_primary', 'Book Appointment Now')) }}" class="btn btn-primary btn-lg" id="hero-cta-primary">
+                        <i class="fab fa-whatsapp"></i> {{ setting('hero_cta_primary', 'Book Appointment Now') }}
                     </a>
                     <a href="#services" class="btn btn-secondary btn-lg" id="hero-cta-secondary">
-                        <i class="fas fa-tooth"></i> Lihat Layanan
+                        <i class="fas fa-tooth"></i> {{ setting('hero_cta_secondary', 'Lihat Layanan') }}
                     </a>
                 </div>
             </div>
@@ -66,8 +67,8 @@
                     <div class="floating-card">
                         <i class="fas fa-star"></i>
                         <div>
-                            <strong>4.8/5.0</strong>
-                            <p>Rating Pasien</p>
+                            <strong>{{ setting('hero_floating_rating', '4.8') }}/5.0</strong>
+                            <p>{{ setting('hero_floating_rating_label', 'Rating Pasien') }}</p>
                         </div>
                     </div>
                 </div>
@@ -82,10 +83,10 @@
         <div class="section-header" data-aos="fade-up">
             <span class="section-tag"><i class="fas fa-info-circle"></i> Tentang Kami</span>
             <h2 class="section-title">
-                Mengapa Memilih <span class="gradient-text-dark">Ocean Dental</span>?
+                {{ setting('about_section_title', 'Mengapa Memilih Ocean Dental?') }}
             </h2>
             <p class="section-description">
-                Lebih dari sekedar klinik gigi, kami adalah mitra kesehatan oral Anda
+                {{ setting('about_section_description', 'Lebih dari sekedar klinik gigi, kami adalah mitra kesehatan oral Anda') }}
             </p>
         </div>
 
@@ -94,7 +95,7 @@
             <!-- Left: Founder Image -->
             <div class="about-visual">
                 <div class="about-image-container">
-                    <img src="{{ asset('images/founder-portrait.png') }}" alt="drg. Aersy Henny Paramitha - Founder Ocean Dental">
+                    <img src="{{ setting('about_founder_image') ? asset('storage/' . setting('about_founder_image')) : asset('images/founder-portrait.png') }}" alt="{{ setting('about_founder_name', 'drg. Aersy Henny Paramitha') }} - Founder Ocean Dental">
                     <div class="about-image-badge">
                         <i class="fas fa-crown"></i>
                         <span>Founder</span>
@@ -102,7 +103,7 @@
                 </div>
                 <!-- Floating Stats Card -->
                 <div class="about-floating-stat">
-                    <div class="floating-stat-number">10+</div>
+                    <div class="floating-stat-number">{{ setting('about_years_experience', '10') }}+</div>
                     <div class="floating-stat-text">Tahun<br>Pengalaman</div>
                 </div>
             </div>
@@ -112,29 +113,25 @@
                 <div class="about-quote">
                     <i class="fas fa-quote-left"></i>
                     <blockquote>
-                        "Senyum yang sehat adalah cerminan dari tubuh yang sehat. 
-                        Di Ocean Dental, kami tidak hanya merawat gigi, 
-                        tetapi juga membangun kepercayaan diri setiap pasien."
+                        "{{ setting('about_founder_quote', 'Senyum yang sehat adalah cerminan dari tubuh yang sehat. Di Ocean Dental, kami tidak hanya merawat gigi, tetapi juga membangun kepercayaan diri setiap pasien.') }}"
                     </blockquote>
                 </div>
-                
+
                 <div class="about-founder-info">
-                    <h3>drg. Aersy Henny Paramitha</h3>
-                    <span class="founder-role">Founder & Lead Dentist</span>
+                    <h3>{{ setting('about_founder_name', 'drg. Aersy Henny Paramitha') }}</h3>
+                    <span class="founder-role">{{ setting('about_founder_role', 'Founder & Lead Dentist') }}</span>
                     <p>
-                        Mendirikan Ocean Dental pada tahun <strong>2013</strong> dengan visi 
-                        menyediakan layanan kesehatan gigi berkualitas yang dapat diakses oleh semua kalangan. 
-                        Kini telah berkembang menjadi jaringan <strong>29 cabang</strong> di Jabodetabek.
+                        {{ setting('about_founder_description', 'Mendirikan Ocean Dental pada tahun 2013 dengan visi menyediakan layanan kesehatan gigi berkualitas yang dapat diakses oleh semua kalangan. Kini telah berkembang menjadi jaringan 29 cabang di Jabodetabek.') }}
                     </p>
                     <div class="founder-tags">
-                        <span><i class="fas fa-graduation-cap"></i> Universitas Trisakti</span>
-                        <span><i class="fas fa-certificate"></i> PDGI Certified</span>
+                        <span><i class="fas fa-graduation-cap"></i> {{ setting('about_founder_university', 'Universitas Trisakti') }}</span>
+                        <span><i class="fas fa-certificate"></i> {{ setting('about_founder_certification', 'PDGI Certified') }}</span>
                     </div>
                 </div>
 
                 <!-- CTA Button -->
                 <a href="{{ whatsapp_url('Halo, saya ingin konsultasi') }}" class="btn btn-primary">
-                    <i class="fab fa-whatsapp"></i> Konsultasi Sekarang
+                    <i class="fab fa-whatsapp"></i> {{ setting('about_cta_text', 'Konsultasi Sekarang') }}
                 </a>
             </div>
         </div>
@@ -143,28 +140,28 @@
         <div class="about-stats-bar" data-aos="fade-up">
             <div class="stat-item">
                 <div class="stat-number">
-                    <span class="counter" data-target="29">0</span>
+                    <span class="counter" data-target="{{ setting('stat_branches', '29') }}">0</span>
                 </div>
                 <div class="stat-label">Cabang Klinik</div>
             </div>
             <div class="stat-divider"></div>
             <div class="stat-item">
                 <div class="stat-number">
-                    <span class="counter" data-target="50">0</span>+
+                    <span class="counter" data-target="{{ setting('stat_doctors', '50') }}">0</span>+
                 </div>
                 <div class="stat-label">Dokter Gigi</div>
             </div>
             <div class="stat-divider"></div>
             <div class="stat-item">
                 <div class="stat-number">
-                    <span class="counter" data-target="50">0</span>K+
+                    <span class="counter" data-target="{{ floor(setting('stat_patients', '50000') / 1000) }}">0</span>K+
                 </div>
                 <div class="stat-label">Pasien Puas</div>
             </div>
             <div class="stat-divider"></div>
             <div class="stat-item">
                 <div class="stat-number">
-                    <span class="counter-decimal" data-target="4.9">0</span>
+                    <span class="counter-decimal" data-target="{{ setting('stat_rating', '4.9') }}">0</span>
                 </div>
                 <div class="stat-label">Rating Google</div>
             </div>
@@ -201,214 +198,57 @@
         </div>
 
         <div class="services-grid">
-            <!-- Veneer -->
-            <div class="service-card" data-category="estetika" data-aos="fade-up" data-aos-delay="0">
+            @foreach($services as $index => $service)
+            <!-- {{ $service->name }} -->
+            <div class="service-card" data-category="{{ $service->category }}" data-aos="fade-up" data-aos-delay="{{ ($index % 3) * 100 }}">
                 <div class="service-card-image">
-                    <img src="https://images.unsplash.com/photo-1606811841689-23dfddce3e95?w=400&h=250&fit=crop" alt="Veneer Gigi">
-                    <div class="service-badge popular">Populer</div>
+                    @if($service->image)
+                    <img src="{{ asset('storage/' . $service->image) }}" alt="{{ $service->name }}">
+                    @else
+                    <div style="width: 100%; height: 100%; background: linear-gradient(135deg, #01215E 0%, #012056 100%); display: flex; align-items: center; justify-content: center;">
+                        <i class="{{ $service->icon ?? 'fas fa-tooth' }}" style="font-size: 80px; color: rgba(255,255,255,0.2);"></i>
+                    </div>
+                    @endif
+                    @if($service->badge)
+                    <div class="service-badge {{ $service->badge }}">
+                        {{ ucfirst($service->badge) }}
+                    </div>
+                    @endif
                 </div>
                 <div class="service-card-content">
                     <div class="service-icon-small">
-                        <i class="fas fa-layer-group"></i>
+                        <i class="{{ $service->icon ?? 'fas fa-tooth' }}"></i>
                     </div>
-                    <h3>Veneer Gigi</h3>
-                    <p>Transformasi senyum dengan lapisan tipis yang mempercantik gigi dengan hasil natural dan tahan lama.</p>
+                    <h3>{{ $service->name }}</h3>
+                    <p>{{ $service->short_description }}</p>
                     <div class="service-meta">
-                        <span class="service-price"><i class="fas fa-tag"></i> Mulai Rp 1.5jt</span>
-                        <span class="service-duration"><i class="fas fa-clock"></i> 1-2 Kunjungan</span>
+                        @if($service->price_start)
+                        <span class="service-price"><i class="fas fa-tag"></i> {{ $service->formatted_price }}</span>
+                        @endif
+                        @if($service->duration)
+                        <span class="service-duration"><i class="fas fa-clock"></i> {{ $service->formatted_duration }}</span>
+                        @endif
                     </div>
-                    <a href="{{ whatsapp_url('Saya ingin konsultasi tentang Veneer') }}" class="service-cta">
+                    <a href="{{ whatsapp_url('Saya ingin konsultasi tentang ' . $service->name) }}" class="service-cta">
                         <span>Konsultasi Gratis</span>
                         <i class="fas fa-arrow-right"></i>
                     </a>
                 </div>
             </div>
-
-            <!-- Bleaching -->
-            <div class="service-card" data-category="estetika" data-aos="fade-up" data-aos-delay="100">
-                <div class="service-card-image">
-                    <img src="https://images.unsplash.com/photo-1598256989800-fe5f95da9787?w=400&h=250&fit=crop" alt="Bleaching Gigi">
-                </div>
-                <div class="service-card-content">
-                    <div class="service-icon-small">
-                        <i class="fas fa-sun"></i>
-                    </div>
-                    <h3>Bleaching Gigi</h3>
-                    <p>Pemutihan gigi profesional untuk senyum lebih cerah hingga 8 tingkat dalam satu sesi.</p>
-                    <div class="service-meta">
-                        <span class="service-price"><i class="fas fa-tag"></i> Mulai Rp 800rb</span>
-                        <span class="service-duration"><i class="fas fa-clock"></i> 1 Jam</span>
-                    </div>
-                    <a href="{{ whatsapp_url('Saya ingin konsultasi tentang Bleaching') }}" class="service-cta">
-                        <span>Konsultasi Gratis</span>
-                        <i class="fas fa-arrow-right"></i>
-                    </a>
-                </div>
-            </div>
-
-            <!-- Scaling -->
-            <div class="service-card" data-category="perawatan" data-aos="fade-up" data-aos-delay="200">
-                <div class="service-card-image">
-                    <img src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=400&h=250&fit=crop" alt="Scaling Gigi">
-                    <div class="service-badge recommended">Direkomendasikan</div>
-                </div>
-                <div class="service-card-content">
-                    <div class="service-icon-small">
-                        <i class="fas fa-sparkles"></i>
-                    </div>
-                    <h3>Scaling & Polishing</h3>
-                    <p>Pembersihan karang gigi dan plak untuk menjaga kesehatan gusi dan mulut yang optimal.</p>
-                    <div class="service-meta">
-                        <span class="service-price"><i class="fas fa-tag"></i> Mulai Rp 250rb</span>
-                        <span class="service-duration"><i class="fas fa-clock"></i> 30-45 Menit</span>
-                    </div>
-                    <a href="{{ whatsapp_url('Saya ingin konsultasi tentang Scaling') }}" class="service-cta">
-                        <span>Konsultasi Gratis</span>
-                        <i class="fas fa-arrow-right"></i>
-                    </a>
-                </div>
-            </div>
-
-            <!-- Behel -->
-            <div class="service-card" data-category="ortodonti" data-aos="fade-up" data-aos-delay="0">
-                <div class="service-card-image">
-                    <img src="https://images.unsplash.com/photo-1606265752439-1f18756aa5fc?w=400&h=250&fit=crop" alt="Behel Gigi">
-                    <div class="service-badge popular">Populer</div>
-                </div>
-                <div class="service-card-content">
-                    <div class="service-icon-small">
-                        <i class="fas fa-grip-lines"></i>
-                    </div>
-                    <h3>Behel / Kawat Gigi</h3>
-                    <p>Perawatan ortodonti untuk merapikan gigi. Tersedia metal, ceramic, dan clear aligner.</p>
-                    <div class="service-meta">
-                        <span class="service-price"><i class="fas fa-tag"></i> Mulai Rp 8jt</span>
-                        <span class="service-duration"><i class="fas fa-clock"></i> 1-2 Tahun</span>
-                    </div>
-                    <a href="{{ whatsapp_url('Saya ingin konsultasi tentang Behel') }}" class="service-cta">
-                        <span>Konsultasi Gratis</span>
-                        <i class="fas fa-arrow-right"></i>
-                    </a>
-                </div>
-            </div>
-
-            <!-- Tambal Gigi -->
-            <div class="service-card" data-category="perawatan" data-aos="fade-up" data-aos-delay="100">
-                <div class="service-card-image">
-                    <img src="https://images.unsplash.com/photo-1609840114035-3c981b782dfe?w=400&h=250&fit=crop" alt="Tambal Gigi">
-                </div>
-                <div class="service-card-content">
-                    <div class="service-icon-small">
-                        <i class="fas fa-tooth"></i>
-                    </div>
-                    <h3>Tambal Gigi</h3>
-                    <p>Perbaikan gigi berlubang dengan bahan berkualitas tinggi. Prosedur cepat dan minim sakit.</p>
-                    <div class="service-meta">
-                        <span class="service-price"><i class="fas fa-tag"></i> Mulai Rp 150rb</span>
-                        <span class="service-duration"><i class="fas fa-clock"></i> 30 Menit</span>
-                    </div>
-                    <a href="{{ whatsapp_url('Saya ingin konsultasi tentang Tambal Gigi') }}" class="service-cta">
-                        <span>Konsultasi Gratis</span>
-                        <i class="fas fa-arrow-right"></i>
-                    </a>
-                </div>
-            </div>
-
-            <!-- Crown & Bridge -->
-            <div class="service-card" data-category="estetika" data-aos="fade-up" data-aos-delay="200">
-                <div class="service-card-image">
-                    <img src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?w=400&h=250&fit=crop" alt="Crown Bridge">
-                </div>
-                <div class="service-card-content">
-                    <div class="service-icon-small">
-                        <i class="fas fa-crown"></i>
-                    </div>
-                    <h3>Crown & Bridge</h3>
-                    <p>Mahkota dan jembatan gigi untuk mengganti gigi rusak atau hilang dengan hasil natural.</p>
-                    <div class="service-meta">
-                        <span class="service-price"><i class="fas fa-tag"></i> Mulai Rp 2jt</span>
-                        <span class="service-duration"><i class="fas fa-clock"></i> 2-3 Kunjungan</span>
-                    </div>
-                    <a href="{{ whatsapp_url('Saya ingin konsultasi tentang Crown Bridge') }}" class="service-cta">
-                        <span>Konsultasi Gratis</span>
-                        <i class="fas fa-arrow-right"></i>
-                    </a>
-                </div>
-            </div>
-
-            <!-- Implan -->
-            <div class="service-card" data-category="perawatan" data-aos="fade-up" data-aos-delay="0">
-                <div class="service-card-image">
-                    <img src="https://images.unsplash.com/photo-1629909613654-28e377c37b09?w=400&h=250&fit=crop" alt="Implan Gigi">
-                </div>
-                <div class="service-card-content">
-                    <div class="service-icon-small">
-                        <i class="fas fa-plus-circle"></i>
-                    </div>
-                    <h3>Implan Gigi</h3>
-                    <p>Solusi permanen untuk gigi yang hilang dengan teknologi modern dan hasil tahan lama.</p>
-                    <div class="service-meta">
-                        <span class="service-price"><i class="fas fa-tag"></i> Mulai Rp 15jt</span>
-                        <span class="service-duration"><i class="fas fa-clock"></i> 3-6 Bulan</span>
-                    </div>
-                    <a href="{{ whatsapp_url('Saya ingin konsultasi tentang Implan') }}" class="service-cta">
-                        <span>Konsultasi Gratis</span>
-                        <i class="fas fa-arrow-right"></i>
-                    </a>
-                </div>
-            </div>
-
-            <!-- Cabut Gigi -->
-            <div class="service-card" data-category="perawatan" data-aos="fade-up" data-aos-delay="100">
-                <div class="service-card-image">
-                    <img src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=400&h=250&fit=crop" alt="Cabut Gigi">
-                </div>
-                <div class="service-card-content">
-                    <div class="service-icon-small">
-                        <i class="fas fa-hand-holding-medical"></i>
-                    </div>
-                    <h3>Cabut Gigi</h3>
-                    <p>Pencabutan gigi dengan teknik modern dan minim rasa sakit. Termasuk gigi bungsu.</p>
-                    <div class="service-meta">
-                        <span class="service-price"><i class="fas fa-tag"></i> Mulai Rp 200rb</span>
-                        <span class="service-duration"><i class="fas fa-clock"></i> 15-30 Menit</span>
-                    </div>
-                    <a href="{{ whatsapp_url('Saya ingin konsultasi tentang Cabut Gigi') }}" class="service-cta">
-                        <span>Konsultasi Gratis</span>
-                        <i class="fas fa-arrow-right"></i>
-                    </a>
-                </div>
-            </div>
-
-            <!-- Retainer -->
-            <div class="service-card" data-category="ortodonti" data-aos="fade-up" data-aos-delay="200">
-                <div class="service-card-image">
-                    <img src="https://images.unsplash.com/photo-1606265752439-1f18756aa5fc?w=400&h=250&fit=crop" alt="Retainer">
-                </div>
-                <div class="service-card-content">
-                    <div class="service-icon-small">
-                        <i class="fas fa-teeth"></i>
-                    </div>
-                    <h3>Retainer</h3>
-                    <p>Mempertahankan hasil perawatan behel agar gigi tetap rapi. Tersedia fixed dan removable.</p>
-                    <div class="service-meta">
-                        <span class="service-price"><i class="fas fa-tag"></i> Mulai Rp 500rb</span>
-                        <span class="service-duration"><i class="fas fa-clock"></i> 1 Kunjungan</span>
-                    </div>
-                    <a href="{{ whatsapp_url('Saya ingin konsultasi tentang Retainer') }}" class="service-cta">
-                        <span>Konsultasi Gratis</span>
-                        <i class="fas fa-arrow-right"></i>
-                    </a>
-                </div>
-            </div>
+            @endforeach
         </div>
 
         <!-- Services CTA -->
         <div class="services-cta" data-aos="fade-up">
-            <p>Tidak yakin layanan mana yang tepat untuk Anda?</p>
-            <a href="{{ whatsapp_url('Saya ingin konsultasi gratis') }}" class="btn btn-primary btn-lg">
-                <i class="fab fa-whatsapp"></i> Konsultasi Gratis
-            </a>
+            <p>Ingin tahu lebih banyak layanan kami?</p>
+            <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+                <a href="{{ route('services.index') }}" class="btn btn-primary btn-lg">
+                    <i class="fas fa-tooth"></i> Jelajahi Semua Layanan
+                </a>
+                <a href="{{ whatsapp_url('Saya ingin konsultasi gratis') }}" class="btn btn-secondary btn-lg" style="background: #25D366; border-color: #25D366;">
+                    <i class="fab fa-whatsapp"></i> Konsultasi Gratis
+                </a>
+            </div>
         </div>
     </div>
 </section>
@@ -420,19 +260,19 @@
         <div class="section-header" data-aos="fade-up">
             <span class="section-tag"><i class="fas fa-magic"></i> Transformasi</span>
             <h2 class="section-title">
-                Hasil <span class="gradient-text">Perawatan Kami</span>
+                {{ setting('results_section_title', 'Hasil Perawatan Kami') }}
             </h2>
             <p class="section-description">
-                Lihat transformasi nyata dari pasien kami. Geser untuk melihat perbandingan sebelum dan sesudah perawatan.
+                {{ setting('results_section_description', 'Lihat transformasi nyata dari pasien kami. Geser untuk melihat perbandingan sebelum dan sesudah perawatan.') }}
             </p>
         </div>
 
         <div class="before-after-grid">
-            <!-- Before/After Slider 1 - Veneer -->
-            <div class="ba-item" data-aos="fade-up" data-aos-delay="0">
+            @forelse($results as $index => $result)
+            <div class="ba-item" data-aos="fade-up" data-aos-delay="{{ $index * 100 }}">
                 <div class="ba-slider-container" data-ba-slider>
-                    <img src="https://images.unsplash.com/photo-1606811841689-23dfddce3e95?w=800&h=600&fit=crop" alt="Before Treatment" class="before-image">
-                    <img src="https://images.unsplash.com/photo-1598256989800-fe5f95da9787?w=800&h=600&fit=crop" alt="After Treatment" class="after-image">
+                    <img src="{{ str_starts_with($result->before_image, 'http') ? $result->before_image : asset('storage/' . $result->before_image) }}" alt="Before - {{ $result->title }}" class="before-image">
+                    <img src="{{ str_starts_with($result->after_image, 'http') ? $result->after_image : asset('storage/' . $result->after_image) }}" alt="After - {{ $result->title }}" class="after-image">
                     <div class="ba-slider">
                         <div class="ba-handle"></div>
                     </div>
@@ -442,53 +282,20 @@
                     </div>
                 </div>
                 <div class="ba-info">
-                    <h4>Pemasangan Veneer</h4>
-                    <p>Transformasi senyum dengan veneer porcelain premium</p>
+                    <h4>{{ $result->title }}</h4>
+                    <p>{{ $result->description }}</p>
                 </div>
             </div>
-
-            <!-- Before/After Slider 2 - Bleaching -->
-            <div class="ba-item" data-aos="fade-up" data-aos-delay="100">
-                <div class="ba-slider-container" data-ba-slider>
-                    <img src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=800&h=600&fit=crop" alt="Before Bleaching" class="before-image">
-                    <img src="https://images.unsplash.com/photo-1606265752439-1f18756aa5fc?w=800&h=600&fit=crop" alt="After Bleaching" class="after-image">
-                    <div class="ba-slider">
-                        <div class="ba-handle"></div>
-                    </div>
-                    <div class="ba-labels">
-                        <span class="ba-label before">Sebelum</span>
-                        <span class="ba-label after">Sesudah</span>
-                    </div>
-                </div>
-                <div class="ba-info">
-                    <h4>Bleaching & Scaling</h4>
-                    <p>Pemutihan gigi profesional hingga 8 tingkat lebih cerah</p>
-                </div>
+            @empty
+            <div class="col-span-full text-center py-8">
+                <p class="text-gray-500">Belum ada hasil transformasi yang ditampilkan.</p>
             </div>
-
-            <!-- Before/After Slider 3 - Braces -->
-            <div class="ba-item" data-aos="fade-up" data-aos-delay="200">
-                <div class="ba-slider-container" data-ba-slider>
-                    <img src="https://images.unsplash.com/photo-1598256989800-fe5f95da9787?w=800&h=600&fit=crop" alt="Before Braces" class="before-image">
-                    <img src="https://images.unsplash.com/photo-1606811841689-23dfddce3e95?w=800&h=600&fit=crop" alt="After Braces" class="after-image">
-                    <div class="ba-slider">
-                        <div class="ba-handle"></div>
-                    </div>
-                    <div class="ba-labels">
-                        <span class="ba-label before">Sebelum</span>
-                        <span class="ba-label after">Sesudah</span>
-                    </div>
-                </div>
-                <div class="ba-info">
-                    <h4>Perawatan Behel</h4>
-                    <p>Hasil perawatan ortodonti selama 18 bulan</p>
-                </div>
-            </div>
+            @endforelse
         </div>
 
         <div class="before-after-cta" data-aos="fade-up">
-            <a href="{{ whatsapp_url('Saya ingin konsultasi untuk transformasi senyum') }}" class="btn btn-primary btn-lg">
-                <i class="fab fa-whatsapp"></i> Konsultasi Transformasi Senyum Anda
+            <a href="{{ whatsapp_url(setting('results_cta_message', 'Saya ingin konsultasi untuk transformasi senyum')) }}" class="btn btn-primary btn-lg">
+                <i class="fab fa-whatsapp"></i> {{ setting('results_cta_text', 'Konsultasi Transformasi Senyum Anda') }}
             </a>
         </div>
     </div>
@@ -508,413 +315,104 @@
 
         <div class="doctors-carousel-container">
             <div class="doctors-carousel" id="doctors-carousel">
-                <!-- Doctor Card 1 - Founder -->
-                <div class="doctor-card" data-aos="fade-up" data-aos-delay="0">
+                @foreach($teamMembers as $index => $doctor)
+                <!-- {{ $doctor->name }} -->
+                <div class="doctor-card" data-aos="fade-up" data-aos-delay="{{ $index * 100 }}">
                     <div class="doctor-card-inner">
                         <div class="doctor-header">
                             <div class="doctor-image-wrapper">
                                 <div class="doctor-image">
-                                    <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=400&h=400&fit=crop&crop=face" alt="drg. Aersy Henny Paramitha">
+                                    <img src="@if($doctor->photo){{ (filter_var($doctor->photo, FILTER_VALIDATE_URL)) ? $doctor->photo : asset('storage/' . $doctor->photo) }}@else{{ asset('images/no-image.jpg') }}@endif" alt="{{ $doctor->name }}">
                                 </div>
-                                <span class="doctor-badge founder"><i class="fas fa-crown"></i></span>
-                                <span class="doctor-status online"></span>
+                                @if($doctor->badge)
+                                <span class="doctor-badge {{ $doctor->badge }}">
+                                    <i class="fas fa-{{ $doctor->badge === 'founder' ? 'crown' : 'award' }}"></i>
+                                </span>
+                                @endif
+                                <span class="doctor-status {{ $doctor->status }}"></span>
                             </div>
                             <div class="doctor-rating">
                                 <div class="stars">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
+                                    @for($i = 1; $i <= 5; $i++)
+                                        @if($i <=floor($doctor->rating))
+                                        <i class="fas fa-star"></i>
+                                        @elseif($i - 0.5 <= $doctor->rating)
+                                            <i class="fas fa-star-half-alt"></i>
+                                            @else
+                                            <i class="far fa-star"></i>
+                                            @endif
+                                            @endfor
                                 </div>
-                                <span class="rating-score">5.0</span>
-                                <span class="rating-count">(2.5k+ ulasan)</span>
+                                <span class="rating-score">{{ number_format($doctor->rating, 1) }}</span>
+                                <span class="rating-count">({{ $doctor->review_count }} ulasan)</span>
                             </div>
                         </div>
-                        
-                        <div class="doctor-body">
-                            <h3>drg. Aersy Henny Paramitha</h3>
-                            <p class="doctor-specialty"><i class="fas fa-tooth"></i> Founder & General Dentist</p>
-                            
-                            <div class="doctor-stats">
-                                <div class="stat-item">
-                                    <span class="stat-value">15+</span>
-                                    <span class="stat-label">Tahun</span>
-                                </div>
-                                <div class="stat-divider"></div>
-                                <div class="stat-item">
-                                    <span class="stat-value">10K+</span>
-                                    <span class="stat-label">Pasien</span>
-                                </div>
-                                <div class="stat-divider"></div>
-                                <div class="stat-item">
-                                    <span class="stat-value">29</span>
-                                    <span class="stat-label">Cabang</span>
-                                </div>
-                            </div>
-                            
-                            <div class="doctor-expertise">
-                                <span class="expertise-tag">Estetika Gigi</span>
-                                <span class="expertise-tag">Veneer</span>
-                                <span class="expertise-tag">Smile Design</span>
-                            </div>
-                            
-                            <div class="doctor-education">
-                                <i class="fas fa-graduation-cap"></i>
-                                <span>Universitas Indonesia</span>
-                            </div>
-                        </div>
-                        
-                        <div class="doctor-footer">
-                            <a href="{{ whatsapp_url('Halo, saya ingin reservasi dengan drg. Aersy') }}" class="btn btn-primary btn-doctor">
-                                <i class="fab fa-whatsapp"></i> Reservasi
-                            </a>
-                            <a href="#" class="btn btn-outline btn-doctor">
-                                <i class="fas fa-user"></i> Profil
-                            </a>
-                        </div>
-                    </div>
-                </div>
 
-                <!-- Doctor Card 2 - Ortodonti -->
-                <div class="doctor-card" data-aos="fade-up" data-aos-delay="100">
-                    <div class="doctor-card-inner">
-                        <div class="doctor-header">
-                            <div class="doctor-image-wrapper">
-                                <div class="doctor-image">
-                                    <img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=400&h=400&fit=crop&crop=face" alt="drg. Michael Santoso, Sp.Ort">
-                                </div>
-                                <span class="doctor-badge specialist"><i class="fas fa-award"></i></span>
-                                <span class="doctor-status online"></span>
-                            </div>
-                            <div class="doctor-rating">
-                                <div class="stars">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                </div>
-                                <span class="rating-score">4.9</span>
-                                <span class="rating-count">(1.8k+ ulasan)</span>
-                            </div>
-                        </div>
-                        
                         <div class="doctor-body">
-                            <h3>drg. Michael Santoso, Sp.Ort</h3>
-                            <p class="doctor-specialty"><i class="fas fa-teeth"></i> Spesialis Ortodonti</p>
-                            
-                            <div class="doctor-stats">
-                                <div class="stat-item">
-                                    <span class="stat-value">12+</span>
-                                    <span class="stat-label">Tahun</span>
-                                </div>
-                                <div class="stat-divider"></div>
-                                <div class="stat-item">
-                                    <span class="stat-value">5K+</span>
-                                    <span class="stat-label">Pasien</span>
-                                </div>
-                                <div class="stat-divider"></div>
-                                <div class="stat-item">
-                                    <span class="stat-value">3K+</span>
-                                    <span class="stat-label">Behel</span>
-                                </div>
-                            </div>
-                            
-                            <div class="doctor-expertise">
-                                <span class="expertise-tag">Behel</span>
-                                <span class="expertise-tag">Invisalign</span>
-                                <span class="expertise-tag">Clear Aligner</span>
-                            </div>
-                            
-                            <div class="doctor-education">
-                                <i class="fas fa-graduation-cap"></i>
-                                <span>UI - Invisalign Certified</span>
-                            </div>
-                        </div>
-                        
-                        <div class="doctor-footer">
-                            <a href="{{ whatsapp_url('Halo, saya ingin reservasi dengan drg. Michael Sp.Ort') }}" class="btn btn-primary btn-doctor">
-                                <i class="fab fa-whatsapp"></i> Reservasi
-                            </a>
-                            <a href="#" class="btn btn-outline btn-doctor">
-                                <i class="fas fa-user"></i> Profil
-                            </a>
-                        </div>
-                    </div>
-                </div>
+                            <h3>{{ $doctor->name }}</h3>
+                            <p class="doctor-specialty"><i class="fas fa-tooth"></i> {{ $doctor->position }}</p>
 
-                <!-- Doctor Card 3 - Prostodonti -->
-                <div class="doctor-card" data-aos="fade-up" data-aos-delay="200">
-                    <div class="doctor-card-inner">
-                        <div class="doctor-header">
-                            <div class="doctor-image-wrapper">
-                                <div class="doctor-image">
-                                    <img src="https://images.unsplash.com/photo-1594824476967-48c8b964273f?w=400&h=400&fit=crop&crop=face" alt="drg. Sarah Wijaya, Sp.Pros">
-                                </div>
-                                <span class="doctor-badge specialist"><i class="fas fa-award"></i></span>
-                                <span class="doctor-status online"></span>
-                            </div>
-                            <div class="doctor-rating">
-                                <div class="stars">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star-half-alt"></i>
-                                </div>
-                                <span class="rating-score">4.8</span>
-                                <span class="rating-count">(1.2k+ ulasan)</span>
-                            </div>
-                        </div>
-                        
-                        <div class="doctor-body">
-                            <h3>drg. Sarah Wijaya, Sp.Pros</h3>
-                            <p class="doctor-specialty"><i class="fas fa-gem"></i> Spesialis Prostodonti</p>
-                            
                             <div class="doctor-stats">
                                 <div class="stat-item">
-                                    <span class="stat-value">10+</span>
+                                    <span class="stat-value">{{ $doctor->years_of_experience }}+</span>
                                     <span class="stat-label">Tahun</span>
                                 </div>
                                 <div class="stat-divider"></div>
                                 <div class="stat-item">
-                                    <span class="stat-value">4K+</span>
+                                    <span class="stat-value">{{ $doctor->patient_count }}</span>
                                     <span class="stat-label">Pasien</span>
                                 </div>
                                 <div class="stat-divider"></div>
                                 <div class="stat-item">
-                                    <span class="stat-value">2K+</span>
-                                    <span class="stat-label">Veneer</span>
+                                    <span class="stat-value">{{ $doctor->badge === 'founder' ? '29' : '100%' }}</span>
+                                    <span class="stat-label">{{ $doctor->badge === 'founder' ? 'Cabang' : 'Happy' }}</span>
                                 </div>
                             </div>
-                            
-                            <div class="doctor-expertise">
-                                <span class="expertise-tag">Veneer</span>
-                                <span class="expertise-tag">Crown</span>
-                                <span class="expertise-tag">Smile Makeover</span>
-                            </div>
-                            
-                            <div class="doctor-education">
-                                <i class="fas fa-graduation-cap"></i>
-                                <span>Universitas Trisakti</span>
-                            </div>
-                        </div>
-                        
-                        <div class="doctor-footer">
-                            <a href="{{ whatsapp_url('Halo, saya ingin reservasi dengan drg. Sarah Sp.Pros') }}" class="btn btn-primary btn-doctor">
-                                <i class="fab fa-whatsapp"></i> Reservasi
-                            </a>
-                            <a href="#" class="btn btn-outline btn-doctor">
-                                <i class="fas fa-user"></i> Profil
-                            </a>
-                        </div>
-                    </div>
-                </div>
 
-                <!-- Doctor Card 4 - Bedah Mulut -->
-                <div class="doctor-card" data-aos="fade-up" data-aos-delay="300">
-                    <div class="doctor-card-inner">
-                        <div class="doctor-header">
-                            <div class="doctor-image-wrapper">
-                                <div class="doctor-image">
-                                    <img src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=400&h=400&fit=crop&crop=face" alt="drg. David Pratama, Sp.BM">
-                                </div>
-                                <span class="doctor-badge specialist"><i class="fas fa-award"></i></span>
-                                <span class="doctor-status busy"></span>
-                            </div>
-                            <div class="doctor-rating">
-                                <div class="stars">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                </div>
-                                <span class="rating-score">5.0</span>
-                                <span class="rating-count">(980+ ulasan)</span>
-                            </div>
-                        </div>
-                        
-                        <div class="doctor-body">
-                            <h3>drg. David Pratama, Sp.BM</h3>
-                            <p class="doctor-specialty"><i class="fas fa-syringe"></i> Spesialis Bedah Mulut</p>
-                            
-                            <div class="doctor-stats">
-                                <div class="stat-item">
-                                    <span class="stat-value">8+</span>
-                                    <span class="stat-label">Tahun</span>
-                                </div>
-                                <div class="stat-divider"></div>
-                                <div class="stat-item">
-                                    <span class="stat-value">3K+</span>
-                                    <span class="stat-label">Pasien</span>
-                                </div>
-                                <div class="stat-divider"></div>
-                                <div class="stat-item">
-                                    <span class="stat-value">1K+</span>
-                                    <span class="stat-label">Implant</span>
-                                </div>
-                            </div>
-                            
+                            @if($doctor->expertise_tags && is_array($doctor->expertise_tags))
                             <div class="doctor-expertise">
-                                <span class="expertise-tag">Implant</span>
-                                <span class="expertise-tag">Cabut Gigi</span>
-                                <span class="expertise-tag">Bedah Minor</span>
+                                @foreach(array_slice($doctor->expertise_tags, 0, 3) as $tag)
+                                <span class="expertise-tag">{{ $tag }}</span>
+                                @endforeach
                             </div>
-                            
-                            <div class="doctor-education">
-                                <i class="fas fa-graduation-cap"></i>
-                                <span>Universitas Padjadjaran</span>
-                            </div>
-                        </div>
-                        
-                        <div class="doctor-footer">
-                            <a href="{{ whatsapp_url('Halo, saya ingin reservasi dengan drg. David Sp.BM') }}" class="btn btn-primary btn-doctor">
-                                <i class="fab fa-whatsapp"></i> Reservasi
-                            </a>
-                            <a href="#" class="btn btn-outline btn-doctor">
-                                <i class="fas fa-user"></i> Profil
-                            </a>
-                        </div>
-                    </div>
-                </div>
+                            @endif
 
-                <!-- Doctor Card 5 - Gigi Anak -->
-                <div class="doctor-card" data-aos="fade-up" data-aos-delay="400">
-                    <div class="doctor-card-inner">
-                        <div class="doctor-header">
-                            <div class="doctor-image-wrapper">
-                                <div class="doctor-image">
-                                    <img src="https://images.unsplash.com/photo-1651008376811-b90baee60c1f?w=400&h=400&fit=crop&crop=face" alt="drg. Amanda Putri, Sp.KGA">
-                                </div>
-                                <span class="doctor-badge specialist"><i class="fas fa-award"></i></span>
-                                <span class="doctor-status online"></span>
-                            </div>
-                            <div class="doctor-rating">
-                                <div class="stars">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                </div>
-                                <span class="rating-score">5.0</span>
-                                <span class="rating-count">(1.5k+ ulasan)</span>
-                            </div>
-                        </div>
-                        
-                        <div class="doctor-body">
-                            <h3>drg. Amanda Putri, Sp.KGA</h3>
-                            <p class="doctor-specialty"><i class="fas fa-child"></i> Spesialis Gigi Anak</p>
-                            
-                            <div class="doctor-stats">
-                                <div class="stat-item">
-                                    <span class="stat-value">7+</span>
-                                    <span class="stat-label">Tahun</span>
-                                </div>
-                                <div class="stat-divider"></div>
-                                <div class="stat-item">
-                                    <span class="stat-value">6K+</span>
-                                    <span class="stat-label">Pasien</span>
-                                </div>
-                                <div class="stat-divider"></div>
-                                <div class="stat-item">
-                                    <span class="stat-value">100%</span>
-                                    <span class="stat-label">Happy</span>
-                                </div>
-                            </div>
-                            
-                            <div class="doctor-expertise">
-                                <span class="expertise-tag">Gigi Anak</span>
-                                <span class="expertise-tag">Fissure Sealant</span>
-                                <span class="expertise-tag">Edukasi</span>
-                            </div>
-                            
+                            @if($doctor->university)
                             <div class="doctor-education">
                                 <i class="fas fa-graduation-cap"></i>
-                                <span>Universitas Airlangga</span>
+                                <span>{{ $doctor->university }}</span>
                             </div>
+                            @endif
                         </div>
-                        
-                        <div class="doctor-footer">
-                            <a href="{{ whatsapp_url('Halo, saya ingin reservasi dengan drg. Amanda Sp.KGA') }}" class="btn btn-primary btn-doctor">
-                                <i class="fab fa-whatsapp"></i> Reservasi
-                            </a>
-                            <a href="#" class="btn btn-outline btn-doctor">
-                                <i class="fas fa-user"></i> Profil
-                            </a>
-                        </div>
-                    </div>
-                </div>
 
-                <!-- Doctor Card 6 - Konservasi -->
-                <div class="doctor-card" data-aos="fade-up" data-aos-delay="500">
-                    <div class="doctor-card-inner">
-                        <div class="doctor-header">
-                            <div class="doctor-image-wrapper">
-                                <div class="doctor-image">
-                                    <img src="https://images.unsplash.com/photo-1537368910025-700350fe46c7?w=400&h=400&fit=crop&crop=face" alt="drg. Reza Firmansyah, Sp.KG">
-                                </div>
-                                <span class="doctor-badge specialist"><i class="fas fa-award"></i></span>
-                                <span class="doctor-status online"></span>
-                            </div>
-                            <div class="doctor-rating">
-                                <div class="stars">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star-half-alt"></i>
-                                </div>
-                                <span class="rating-score">4.7</span>
-                                <span class="rating-count">(850+ ulasan)</span>
-                            </div>
-                        </div>
-                        
-                        <div class="doctor-body">
-                            <h3>drg. Reza Firmansyah, Sp.KG</h3>
-                            <p class="doctor-specialty"><i class="fas fa-fill-drip"></i> Spesialis Konservasi</p>
-                            
-                            <div class="doctor-stats">
-                                <div class="stat-item">
-                                    <span class="stat-value">9+</span>
-                                    <span class="stat-label">Tahun</span>
-                                </div>
-                                <div class="stat-divider"></div>
-                                <div class="stat-item">
-                                    <span class="stat-value">4K+</span>
-                                    <span class="stat-label">Pasien</span>
-                                </div>
-                                <div class="stat-divider"></div>
-                                <div class="stat-item">
-                                    <span class="stat-value">2K+</span>
-                                    <span class="stat-label">Root Canal</span>
-                                </div>
-                            </div>
-                            
-                            <div class="doctor-expertise">
-                                <span class="expertise-tag">Root Canal</span>
-                                <span class="expertise-tag">Tambal Gigi</span>
-                                <span class="expertise-tag">Bleaching</span>
-                            </div>
-                            
-                            <div class="doctor-education">
-                                <i class="fas fa-graduation-cap"></i>
-                                <span>Universitas Gadjah Mada</span>
-                            </div>
-                        </div>
-                        
                         <div class="doctor-footer">
-                            <a href="{{ whatsapp_url('Halo, saya ingin reservasi dengan drg. Reza Sp.KG') }}" class="btn btn-primary btn-doctor">
+                            <a href="{{ whatsapp_url('Halo, saya ingin reservasi dengan ' . $doctor->name) }}" class="btn btn-primary btn-doctor">
                                 <i class="fab fa-whatsapp"></i> Reservasi
                             </a>
-                            <a href="#" class="btn btn-outline btn-doctor">
+                            <a href="#" class="btn btn-outline btn-doctor"
+                                onclick="openDoctorModal(event, this)"
+                                data-doctor-id="{{ $doctor->id }}"
+                                data-doctor-name="{{ $doctor->name }}"
+                                data-doctor-position="{{ $doctor->position }}"
+                                data-doctor-photo="@if($doctor->photo){{ (filter_var($doctor->photo, FILTER_VALIDATE_URL)) ? $doctor->photo : asset('storage/' . $doctor->photo) }}@else{{ asset('images/no-image.jpg') }}@endif"
+                                data-doctor-university="{{ $doctor->university ?? '' }}"
+                                data-doctor-badge="{{ $doctor->badge ?? '' }}"
+                                data-doctor-status="{{ $doctor->status }}"
+                                data-doctor-rating="{{ $doctor->rating }}"
+                                data-doctor-review-count="{{ $doctor->review_count }}"
+                                data-doctor-experience="{{ $doctor->years_of_experience }}"
+                                data-doctor-patients="{{ $doctor->patient_count }}"
+                                data-doctor-specialization="{{ $doctor->specialization ?? '' }}"
+                                data-doctor-bio-html="{{ e($doctor->bio ?? '') }}"
+                                data-doctor-qualifications="{{ e(json_encode($doctor->qualifications ?? [])) }}"
+                                data-doctor-expertise="{{ e(json_encode($doctor->expertise_tags ?? [])) }}"
+                                data-doctor-social="{{ e(json_encode($doctor->social_links ?? [])) }}">
                                 <i class="fas fa-user"></i> Profil
                             </a>
                         </div>
                     </div>
                 </div>
+                @endforeach
             </div>
         </div>
 
@@ -936,8 +434,12 @@
     </div>
 </section>
 
+<!-- Doctor Profile Modal -->
+@include('components.doctor-profile-modal')
+
 <!-- Branches/Locations Section -->
 <section class="branches" id="branches">
+    <!-- DEBUG_MARK: If you see this, you are looking at the right file! -->
     <div class="container">
         <div class="section-header" data-aos="fade-up">
             <span class="section-tag"><i class="fas fa-map-marker-alt"></i> Lokasi Cabang</span>
@@ -953,12 +455,11 @@
         <div class="branches-search" data-aos="fade-up">
             <div class="search-input-wrapper">
                 <i class="fas fa-search"></i>
-                <input 
-                    type="text" 
-                    id="branch-search" 
-                    placeholder="Cari cabang atau area..." 
-                    autocomplete="off"
-                />
+                <input
+                    type="text"
+                    id="branch-search"
+                    placeholder="Cari cabang atau area..."
+                    autocomplete="off" />
                 <button class="search-clear" id="search-clear" aria-label="Clear search">
                     <i class="fas fa-times"></i>
                 </button>
@@ -970,41 +471,28 @@
             <!-- Branches List with Accordion -->
             <div class="branches-list-container" data-aos="fade-right">
                 <div class="branches-accordion" id="branches-accordion">
-                    
+
                     @php
-                        // Group locations by region
-                        $regions = [
-                            'jakarta-utara' => ['name' => 'Jakarta Utara', 'locations' => []],
-                            'jakarta-timur' => ['name' => 'Jakarta Timur', 'locations' => []],
-                            'jakarta-barat' => ['name' => 'Jakarta Barat', 'locations' => []],
-                            'jakarta-selatan' => ['name' => 'Jakarta Selatan', 'locations' => []],
-                            'bekasi-barat' => ['name' => 'Bekasi Barat', 'locations' => []],
-                            'bekasi-utara' => ['name' => 'Bekasi Utara', 'locations' => []],
-                            'bekasi-timur' => ['name' => 'Bekasi Timur', 'locations' => []],
-                        ];
-                        
-                        foreach($locations as $location) {
-                            $regionKey = strtolower(str_replace(' ', '-', $location->region ?? 'jakarta-utara'));
-                            if(isset($regions[$regionKey])) {
-                                $regions[$regionKey]['locations'][] = $location;
-                            }
-                        }
+                    // NEW: Use Eloquent, dynamic
+                    $regions = \App\Models\Region::with(['locations' => function($q) {
+                    $q->orderBy('order');
+                    }])->orderBy('name')->get();
                     @endphp
-                    
-                    @foreach($regions as $regionKey => $region)
-                    @if(count($region['locations']) > 0)
-                    <!-- {{ $region['name'] }} -->
-                    <div class="region-group" data-region="{{ $regionKey }}">
+
+                    @foreach($regions as $region)
+                    @if($region->locations->count() > 0)
+                    <!-- {{ $region->name }} -->
+                    <div class="region-group" data-region="{{ Str::slug($region->name) }}">
                         <button class="region-header{{ $loop->first ? ' active' : '' }}">
                             <div class="region-info">
                                 <i class="fas fa-building"></i>
-                                <span class="region-name">{{ $region['name'] }}</span>
-                                <span class="region-count">{{ count($region['locations']) }} Cabang</span>
+                                <span class="region-name">{{ $region->name }}</span>
+                                <span class="region-count">{{ $region->locations->count() }} Cabang</span>
                             </div>
                             <i class="fas fa-chevron-down region-toggle"></i>
                         </button>
                         <div class="region-branches{{ $loop->first ? ' active' : '' }}">
-                            @foreach($region['locations'] as $location)
+                            @foreach($region->locations as $location)
                             <div class="branch-card" data-branch="{{ $location->slug }}" data-lat="{{ $location->latitude ?? '' }}" data-lng="{{ $location->longitude ?? '' }}">
                                 <div class="branch-card-header">
                                     <div class="branch-icon"><i class="fas fa-map-marker-alt"></i></div>
@@ -1014,11 +502,35 @@
                                     </div>
                                 </div>
                                 <div class="branch-info">
-                                    <span><i class="fas fa-clock"></i> {{ $location->operating_hours ?? '09:00 - 21:00' }}</span>
-                                    @if($location->phone)
-                                    <span><i class="fas fa-phone"></i> {{ $location->phone }}</span>
+                                    @php
+                                    $days = [
+                                    'monday' => 'Senin',
+                                    'tuesday' => 'Selasa',
+                                    'wednesday' => 'Rabu',
+                                    'thursday' => 'Kamis',
+                                    'friday' => 'Jumat',
+                                    'saturday' => 'Sabtu',
+                                    'sunday' => 'Minggu',
+                                    ];
+                                    $dayKey = strtolower(now()->englishDayOfWeek); // "monday", ...
+                                    $today = $location->schedule[$dayKey] ?? null;
+                                    $todayLabel = $days[$dayKey] ?? ucfirst($dayKey);
+                                    $todayHours = (!empty($today['open']) && !empty($today['close']))
+                                    ? ($today['open'] . ' - ' . $today['close'])
+                                    : 'Tutup';
+                                    @endphp
+                                    <span class="branch-schedule-summary">
+                                        <i class="fas fa-clock" aria-hidden="true"></i>
+                                        <strong>Hari Ini ({{ $todayLabel }}):</strong> {{ $todayHours }}
+                                    </span>
+                                    @if(!empty($location->whatsapp))
+                                    <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', $location->whatsapp) }}" target="_blank" rel="noopener" class="branch-whatsapp">
+                                        <i class="fab fa-whatsapp" aria-hidden="true"></i> WhatsApp: {{ $location->whatsapp }}
+                                    </a>
                                     @endif
                                 </div>
+
+
                                 <div class="branch-actions">
                                     @if($location->latitude && $location->longitude)
                                     <a href="https://maps.google.com/?q={{ $location->latitude }},{{ $location->longitude }}" target="_blank" class="btn btn-sm"><i class="fas fa-directions"></i> Maps</a>
@@ -1026,6 +538,30 @@
                                     <a href="{{ $location->map_url }}" target="_blank" class="btn btn-sm"><i class="fas fa-directions"></i> Maps</a>
                                     @endif
                                     <a href="{{ whatsapp_url('Halo, saya ingin reservasi di ' . $location->name) }}" class="btn btn-sm btn-primary"><i class="fab fa-whatsapp"></i> Reservasi</a>
+                                    @php
+                                    $modalData = [
+                                    'region' => $location->region->name ?? null,
+                                    'name' => $location->name,
+                                    'address' => $location->address,
+                                    'whatsapp' => $location->whatsapp,
+                                    'email' => $location->email,
+                                    'image' => ($location->image ? (filter_var($location->image, FILTER_VALIDATE_URL) ? $location->image : asset('storage/' . $location->image)) : asset('images/no-image.jpg')),
+                                    'hours' => [
+                                    ['day' => 'Senin', 'open' => $location->schedule['monday']['open'] ?? null, 'close' => $location->schedule['monday']['close'] ?? null],
+                                    ['day' => 'Selasa', 'open' => $location->schedule['tuesday']['open'] ?? null, 'close' => $location->schedule['tuesday']['close'] ?? null],
+                                    ['day' => 'Rabu', 'open' => $location->schedule['wednesday']['open']?? null, 'close' => $location->schedule['wednesday']['close']?? null],
+                                    ['day' => 'Kamis', 'open' => $location->schedule['thursday']['open'] ?? null, 'close' => $location->schedule['thursday']['close'] ?? null],
+                                    ['day' => 'Jumat', 'open' => $location->schedule['friday']['open'] ?? null, 'close' => $location->schedule['friday']['close'] ?? null],
+                                    ['day' => 'Sabtu', 'open' => $location->schedule['saturday']['open'] ?? null, 'close' => $location->schedule['saturday']['close'] ?? null],
+                                    ['day' => 'Minggu', 'open' => $location->schedule['sunday']['open'] ?? null, 'close' => $location->schedule['sunday']['close'] ?? null],
+                                    ],
+                                    'whatsapp_url' => whatsapp_url('Halo, saya ingin reservasi di ' . $location->name),
+                                    'maps_url' => ($location->latitude && $location->longitude)
+                                    ? ('https://maps.google.com/?q=' . $location->latitude . ',' . $location->longitude)
+                                    : null
+                                    ];
+                                    @endphp
+                                    <button type="button" class="btn btn-sm btn-secondary btn-location-detail" data-location='@json($modalData)'><i class="fas fa-info-circle"></i> Detail</button>
                                 </div>
                             </div>
                             @endforeach
@@ -1087,21 +623,21 @@
             <div class="testi-stat">
                 <div class="testi-stat-icon"><i class="fas fa-users"></i></div>
                 <div class="testi-stat-info">
-                    <span class="testi-stat-value" data-count="50000">50,000+</span>
+                    <span class="testi-stat-value" data-count="{{ setting('stat_patients', '50000') }}">{{ number_format(setting('stat_patients', '50000')) }}+</span>
                     <span class="testi-stat-label">Pasien Puas</span>
                 </div>
             </div>
             <div class="testi-stat">
                 <div class="testi-stat-icon"><i class="fas fa-star"></i></div>
                 <div class="testi-stat-info">
-                    <span class="testi-stat-value">4.9</span>
+                    <span class="testi-stat-value">{{ setting('stat_rating', '4.9') }}</span>
                     <span class="testi-stat-label">Rating Google</span>
                 </div>
             </div>
             <div class="testi-stat">
                 <div class="testi-stat-icon"><i class="fas fa-comments"></i></div>
                 <div class="testi-stat-info">
-                    <span class="testi-stat-value" data-count="12500">12,500+</span>
+                    <span class="testi-stat-value" data-count="{{ setting('stat_reviews', '12500') }}">{{ number_format(setting('stat_reviews', '12500')) }}+</span>
                     <span class="testi-stat-label">Ulasan Positif</span>
                 </div>
             </div>
@@ -1110,204 +646,78 @@
         <!-- Testimonial Slider -->
         <div class="testimonial-slider-wrapper" data-aos="fade-up">
             <div class="testimonial-slider" id="testimonial-slider">
-                
-                <!-- Testimonial 1 -->
+
+                @foreach($testimonials as $testimonial)
+                <!-- Testimonial {{ $loop->iteration }} -->
                 <div class="testi-slide">
                     <div class="testi-card">
                         <div class="testi-card-header">
                             <div class="testi-avatar">
-                                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face" alt="Budi Santoso">
+                                <img src="@if($testimonial->avatar){{ (filter_var($testimonial->avatar, FILTER_VALIDATE_URL)) ? $testimonial->avatar : asset('storage/' . $testimonial->avatar) }}@else{{ asset('images/no-image.jpg') }}@endif" alt="{{ $testimonial->name }}">
+                                @if($testimonial->verified)
                                 <span class="verified-badge"><i class="fas fa-check"></i></span>
+                                @endif
                             </div>
                             <div class="testi-author-info">
-                                <h4>Budi Santoso</h4>
-                                <p class="testi-location"><i class="fas fa-map-marker-alt"></i> Jakarta Selatan</p>
+                                <h4>{{ $testimonial->name }}</h4>
+                                @if($testimonial->position)
+                                <p class="testi-position">{{ $testimonial->position }}</p>
+                                @endif
+                                <p class="testi-location"><i class="fas fa-map-marker-alt"></i> {{ $testimonial->location }}</p>
                                 <div class="testi-rating">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
+                                    @php
+                                    $fullStars = floor($testimonial->rating);
+                                    $hasHalfStar = ($testimonial->rating - $fullStars) >= 0.5;
+                                    $emptyStars = 5 - $fullStars - ($hasHalfStar ? 1 : 0);
+                                    @endphp
+                                    @for($i = 0; $i < $fullStars; $i++)
+                                        <i class="fas fa-star"></i>
+                                        @endfor
+                                        @if($hasHalfStar)
+                                        <i class="fas fa-star-half-alt"></i>
+                                        @endif
+                                        @for($i = 0; $i < $emptyStars; $i++)
+                                            <i class="far fa-star"></i>
+                                            @endfor
                                 </div>
                             </div>
                             <div class="testi-platform">
+                                @if($testimonial->platform === 'google')
                                 <i class="fab fa-google"></i>
-                            </div>
-                        </div>
-                        <div class="testi-card-body">
-                            <p class="testi-text">"Secara teknik dokter dan peralatan ok. Pelayanan ramah, tempat nyaman dan bersih. Harga terjangkau untuk kualitas yang didapat. Sudah 3 tahun jadi pasien tetap disini!"</p>
-                        </div>
-                        <div class="testi-card-footer">
-                            <span class="testi-service"><i class="fas fa-tooth"></i> Scaling & Polishing</span>
-                            <span class="testi-date">2 minggu lalu</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Testimonial 2 -->
-                <div class="testi-slide">
-                    <div class="testi-card">
-                        <div class="testi-card-header">
-                            <div class="testi-avatar">
-                                <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&h=150&fit=crop&crop=face" alt="Siti Nurhaliza">
-                                <span class="verified-badge"><i class="fas fa-check"></i></span>
-                            </div>
-                            <div class="testi-author-info">
-                                <h4>Siti Nurhaliza</h4>
-                                <p class="testi-location"><i class="fas fa-map-marker-alt"></i> Bekasi</p>
-                                <div class="testi-rating">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                </div>
-                            </div>
-                            <div class="testi-platform">
-                                <i class="fab fa-google"></i>
-                            </div>
-                        </div>
-                        <div class="testi-card-body">
-                            <p class="testi-text">"Dokternya sabar banget, perawat juga ramah. Pas cabut gigi sama sekali gak sakit! Recommended banget untuk yang takut ke dokter gigi. Anak saya sekarang gak takut lagi."</p>
-                        </div>
-                        <div class="testi-card-footer">
-                            <span class="testi-service"><i class="fas fa-tooth"></i> Cabut Gigi</span>
-                            <span class="testi-date">1 bulan lalu</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Testimonial 3 -->
-                <div class="testi-slide">
-                    <div class="testi-card">
-                        <div class="testi-card-header">
-                            <div class="testi-avatar">
-                                <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop&crop=face" alt="Diana Putri">
-                                <span class="verified-badge"><i class="fas fa-check"></i></span>
-                            </div>
-                            <div class="testi-author-info">
-                                <h4>Diana Putri</h4>
-                                <p class="testi-location"><i class="fas fa-map-marker-alt"></i> Tangerang</p>
-                                <div class="testi-rating">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                </div>
-                            </div>
-                            <div class="testi-platform">
-                                <i class="fab fa-instagram"></i>
-                            </div>
-                        </div>
-                        <div class="testi-card-body">
-                            <p class="testi-text">"Hasil veneer saya memuaskan! Giginya kelihatan natural dan senyum jadi lebih percaya diri. Proses konsultasi detil banget, dokternya jelasin semua opsi dengan sabar."</p>
-                        </div>
-                        <div class="testi-card-footer">
-                            <span class="testi-service"><i class="fas fa-gem"></i> Veneer</span>
-                            <span class="testi-date">3 minggu lalu</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Testimonial 4 -->
-                <div class="testi-slide">
-                    <div class="testi-card">
-                        <div class="testi-card-header">
-                            <div class="testi-avatar">
-                                <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face" alt="Ahmad Wijaya">
-                                <span class="verified-badge"><i class="fas fa-check"></i></span>
-                            </div>
-                            <div class="testi-author-info">
-                                <h4>Ahmad Wijaya</h4>
-                                <p class="testi-location"><i class="fas fa-map-marker-alt"></i> Jakarta Pusat</p>
-                                <div class="testi-rating">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                </div>
-                            </div>
-                            <div class="testi-platform">
-                                <i class="fab fa-google"></i>
-                            </div>
-                        </div>
-                        <div class="testi-card-body">
-                            <p class="testi-text">"Sudah langganan dari tahun 2015. Service konsisten bagus, dokternya profesional. Seluruh keluarga perawatan gigi disini. Cabang dimana-mana jadi gampang aksesnya."</p>
-                        </div>
-                        <div class="testi-card-footer">
-                            <span class="testi-service"><i class="fas fa-users"></i> Perawatan Keluarga</span>
-                            <span class="testi-date">1 minggu lalu</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Testimonial 5 -->
-                <div class="testi-slide">
-                    <div class="testi-card">
-                        <div class="testi-card-header">
-                            <div class="testi-avatar">
-                                <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&h=150&fit=crop&crop=face" alt="Rina Anggraini">
-                                <span class="verified-badge"><i class="fas fa-check"></i></span>
-                            </div>
-                            <div class="testi-author-info">
-                                <h4>Rina Anggraini</h4>
-                                <p class="testi-location"><i class="fas fa-map-marker-alt"></i> Kelapa Gading</p>
-                                <div class="testi-rating">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                </div>
-                            </div>
-                            <div class="testi-platform">
-                                <i class="fab fa-google"></i>
-                            </div>
-                        </div>
-                        <div class="testi-card-body">
-                            <p class="testi-text">"Behel saya sudah selesai setelah 2 tahun perawatan. Hasilnya luar biasa! Gigi rata sempurna. Dokter Michael sangat teliti dan profesional. Worth every penny!"</p>
-                        </div>
-                        <div class="testi-card-footer">
-                            <span class="testi-service"><i class="fas fa-teeth"></i> Ortodonti / Behel</span>
-                            <span class="testi-date">2 hari lalu</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Testimonial 6 -->
-                <div class="testi-slide">
-                    <div class="testi-card">
-                        <div class="testi-card-header">
-                            <div class="testi-avatar">
-                                <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&h=150&fit=crop&crop=face" alt="Hendro Kusuma">
-                                <span class="verified-badge"><i class="fas fa-check"></i></span>
-                            </div>
-                            <div class="testi-author-info">
-                                <h4>Hendro Kusuma</h4>
-                                <p class="testi-location"><i class="fas fa-map-marker-alt"></i> PIK</p>
-                                <div class="testi-rating">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star-half-alt"></i>
-                                </div>
-                            </div>
-                            <div class="testi-platform">
+                                @elseif($testimonial->platform === 'facebook')
                                 <i class="fab fa-facebook"></i>
+                                @elseif($testimonial->platform === 'instagram')
+                                <i class="fab fa-instagram"></i>
+                                @else
+                                <i class="fas fa-globe"></i>
+                                @endif
                             </div>
                         </div>
                         <div class="testi-card-body">
-                            <p class="testi-text">"Implant gigi saya sukses tanpa komplikasi. Dokter David sangat ahli dan menjelaskan prosedur dengan detail. Recovery cepat dan sekarang bisa makan normal lagi."</p>
+                            <p class="testi-text">"{{ $testimonial->content }}"</p>
                         </div>
                         <div class="testi-card-footer">
-                            <span class="testi-service"><i class="fas fa-syringe"></i> Implant Gigi</span>
-                            <span class="testi-date">1 bulan lalu</span>
+                            <span class="testi-service">
+                                @if(str_contains(strtolower($testimonial->service_type), 'scaling') || str_contains(strtolower($testimonial->service_type), 'cabut'))
+                                <i class="fas fa-tooth"></i>
+                                @elseif(str_contains(strtolower($testimonial->service_type), 'veneer'))
+                                <i class="fas fa-gem"></i>
+                                @elseif(str_contains(strtolower($testimonial->service_type), 'keluarga'))
+                                <i class="fas fa-users"></i>
+                                @elseif(str_contains(strtolower($testimonial->service_type), 'ortodonti') || str_contains(strtolower($testimonial->service_type), 'behel'))
+                                <i class="fas fa-teeth"></i>
+                                @elseif(str_contains(strtolower($testimonial->service_type), 'implant'))
+                                <i class="fas fa-syringe"></i>
+                                @else
+                                <i class="fas fa-tooth"></i>
+                                @endif
+                                {{ $testimonial->service_type }}
+                            </span>
+                            <span class="testi-date">{{ $testimonial->review_date->diffForHumans() }}</span>
                         </div>
                     </div>
                 </div>
+                @endforeach
 
             </div>
 
@@ -1325,7 +735,7 @@
 
         <!-- CTA -->
         <div class="testimonial-cta" data-aos="fade-up">
-            <p>Bergabunglah dengan <strong>50,000+ pasien</strong> yang sudah merasakan pelayanan terbaik kami</p>
+            <p>Bergabunglah dengan <strong>{{ number_format(setting('stat_patients', '50000')) }}+ pasien</strong> yang sudah merasakan pelayanan terbaik kami</p>
             <a href="{{ whatsapp_url('Saya ingin reservasi') }}" class="btn btn-primary btn-lg">
                 <i class="fab fa-whatsapp"></i> Reservasi Sekarang
             </a>
@@ -1351,101 +761,28 @@
             <button class="gallery-filter-btn active" data-filter="all">
                 <i class="fas fa-th"></i> Semua
             </button>
-            <button class="gallery-filter-btn" data-filter="klinik">
+            <button class="gallery-filter-btn" data-filter="Klinik">
                 <i class="fas fa-hospital"></i> Klinik
             </button>
-            <button class="gallery-filter-btn" data-filter="peralatan">
+            <button class="gallery-filter-btn" data-filter="Peralatan">
                 <i class="fas fa-tools"></i> Peralatan
             </button>
-            <button class="gallery-filter-btn" data-filter="tim">
+            <button class="gallery-filter-btn" data-filter="Tim">
                 <i class="fas fa-user-md"></i> Tim & Pasien
             </button>
         </div>
 
         <div class="gallery-masonry">
-            <!-- Row 1 -->
-            <div class="gallery-item tall" data-category="klinik" data-aos="fade-up" data-aos-delay="0">
-                <img src="https://images.unsplash.com/photo-1629909613654-28e377c37b09?w=600&h=800&fit=crop" alt="Ruang Perawatan Modern">
+            @foreach($gallery as $index => $item)
+            <div class="gallery-item {{ $item->size }}" data-category="{{ $item->category }}" data-aos="fade-up" data-aos-delay="{{ $index * 50 }}">
+                <img src="@if($item->image){{ (filter_var($item->image, FILTER_VALIDATE_URL)) ? $item->image : asset('storage/' . $item->image) }}@else{{ asset('images/no-image.jpg') }}@endif" alt="{{ $item->title }}">
                 <div class="gallery-overlay">
                     <div class="gallery-icon"><i class="fas fa-search-plus"></i></div>
-                    <h3>Ruang Perawatan</h3>
-                    <p>Modern & Nyaman</p>
+                    <h3>{{ $item->title }}</h3>
+                    <p>{{ $item->description }}</p>
                 </div>
             </div>
-
-            <div class="gallery-item" data-category="klinik" data-aos="fade-up" data-aos-delay="50">
-                <img src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=600&h=400&fit=crop" alt="Ruang Sterilisasi">
-                <div class="gallery-overlay">
-                    <div class="gallery-icon"><i class="fas fa-search-plus"></i></div>
-                    <h3>Ruang Sterilisasi</h3>
-                    <p>Standar Internasional</p>
-                </div>
-            </div>
-
-            <div class="gallery-item" data-category="peralatan" data-aos="fade-up" data-aos-delay="100">
-                <img src="https://images.unsplash.com/photo-1609840114035-3c981b782dfe?w=600&h=400&fit=crop" alt="Dental Chair">
-                <div class="gallery-overlay">
-                    <div class="gallery-icon"><i class="fas fa-search-plus"></i></div>
-                    <h3>Dental Chair</h3>
-                    <p>Teknologi Terkini</p>
-                </div>
-            </div>
-
-            <!-- Row 2 -->
-            <div class="gallery-item wide" data-category="klinik" data-aos="fade-up" data-aos-delay="150">
-                <img src="https://images.unsplash.com/photo-1629909615184-74f495363b67?w=800&h=400&fit=crop" alt="Area Resepsionis">
-                <div class="gallery-overlay">
-                    <div class="gallery-icon"><i class="fas fa-search-plus"></i></div>
-                    <h3>Area Resepsionis</h3>
-                    <p>Pelayanan Ramah 24/7</p>
-                </div>
-            </div>
-
-            <div class="gallery-item" data-category="tim" data-aos="fade-up" data-aos-delay="200">
-                <img src="https://images.unsplash.com/photo-1606811841689-23dfddce3e95?w=600&h=400&fit=crop" alt="Tim Dokter">
-                <div class="gallery-overlay">
-                    <div class="gallery-icon"><i class="fas fa-search-plus"></i></div>
-                    <h3>Tim Dokter</h3>
-                    <p>Profesional & Berpengalaman</p>
-                </div>
-            </div>
-
-            <!-- Row 3 -->
-            <div class="gallery-item" data-category="peralatan" data-aos="fade-up" data-aos-delay="250">
-                <img src="https://images.unsplash.com/photo-1598256989800-fe5f95da9787?w=600&h=400&fit=crop" alt="Peralatan Digital">
-                <div class="gallery-overlay">
-                    <div class="gallery-icon"><i class="fas fa-search-plus"></i></div>
-                    <h3>X-Ray Digital</h3>
-                    <p>Diagnosis Akurat</p>
-                </div>
-            </div>
-
-            <div class="gallery-item tall" data-category="tim" data-aos="fade-up" data-aos-delay="300">
-                <img src="https://images.unsplash.com/photo-1606265752439-1f18756aa5fc?w=600&h=800&fit=crop" alt="Pasien Bahagia">
-                <div class="gallery-overlay">
-                    <div class="gallery-icon"><i class="fas fa-search-plus"></i></div>
-                    <h3>Pasien Bahagia</h3>
-                    <p>Senyum Sehat & Percaya Diri</p>
-                </div>
-            </div>
-
-            <div class="gallery-item" data-category="klinik" data-aos="fade-up" data-aos-delay="350">
-                <img src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?w=600&h=400&fit=crop" alt="Ruang Tunggu">
-                <div class="gallery-overlay">
-                    <div class="gallery-icon"><i class="fas fa-search-plus"></i></div>
-                    <h3>Ruang Tunggu</h3>
-                    <p>Nyaman & Bersih</p>
-                </div>
-            </div>
-
-            <div class="gallery-item wide" data-category="peralatan" data-aos="fade-up" data-aos-delay="400">
-                <img src="https://images.unsplash.com/photo-1629909615184-74f495363b67?w=800&h=400&fit=crop" alt="Peralatan Sterilisasi">
-                <div class="gallery-overlay">
-                    <div class="gallery-icon"><i class="fas fa-search-plus"></i></div>
-                    <h3>Autoclave Sterilizer</h3>
-                    <p>Jaminan Kebersihan 100%</p>
-                </div>
-            </div>
+            @endforeach
         </div>
     </div>
 
@@ -1480,20 +817,28 @@
         <div class="events-grid">
             @forelse($events as $event)
             <div class="event-card" data-aos="fade-up" data-aos-delay="{{ $loop->index * 100 }}">
-                @if($event->image)
                 <div class="event-image">
+                    @if($event->image)
                     <img src="{{ asset('storage/' . $event->image) }}" alt="{{ $event->title }}" />
+                    @else
+                    <img src="{{ asset('images/no-image.jpg') }}" alt="{{ $event->title }}" />
+                    @endif
                     @if($event->category)
                     <span class="event-category {{ strtolower($event->category) }}">{{ $event->category }}</span>
                     @endif
                 </div>
-                @endif
                 <div class="event-content">
                     <div class="event-meta">
                         <span class="event-date">
                             <i class="fas fa-calendar"></i>
                             {{ $event->start_date->format('d M Y') }}
                         </span>
+                        @if($event->start_date)
+                        <span class="event-time">
+                            <i class="fas fa-clock"></i>
+                            {{ $event->start_date->format('H:i') }}@if($event->end_date) - {{ $event->end_date->format('H:i') }}@endif WIB
+                        </span>
+                        @endif
                         @if($event->location)
                         <span class="event-location">
                             <i class="fas fa-map-marker-alt"></i>
@@ -1513,9 +858,10 @@
             @endforelse
         </div>
         @if($events->count() > 0)
-        <div class="section-cta" data-aos="fade-up">
-            <a href="{{ route('events.index') }}" class="btn btn-secondary btn-lg">
-                Lihat Semua Event <i class="fas fa-arrow-right"></i>
+        <div class="events-cta" data-aos="fade-up">
+            <p>Lihat semua event menarik lainnya</p>
+            <a href="{{ route('events.index') }}" class="btn btn-outline btn-lg">
+                <i class="fas fa-calendar-week"></i> Lihat Semua Event
             </a>
         </div>
         @endif
@@ -1535,132 +881,61 @@
             </p>
         </div>
 
+        <div class="faq-filter" data-aos="fade-up">
+            <button type="button" class="filter-btn active" data-filter="all">Semua</button>
+            <button type="button" class="filter-btn" data-filter="umum">Umum</button>
+            <button type="button" class="filter-btn" data-filter="biaya">Biaya</button>
+            <button type="button" class="filter-btn" data-filter="perawatan">Perawatan</button>
+            <button type="button" class="filter-btn" data-filter="garansi">Garansi</button>
+        </div>
+
         <div class="faq-container">
-            <!-- FAQ Item 1 -->
-            <div class="faq-item" data-aos="fade-up" data-aos-delay="0">
-                <button class="faq-question">
-                    <span>Berapa biaya pemasangan veneer di Ocean Dental?</span>
+            @foreach($faqs as $index => $faq)
+            <!-- FAQ Item {{ $loop->iteration }} -->
+            <div class="faq-item" data-aos="fade-up" data-aos-delay="{{ $index * 100 }}" data-category="{{ $faq->category }}">
+                <button type="button" class="faq-question">
+                    <span>{{ $faq->question }}</span>
                     <span class="faq-icon"><i class="fas fa-chevron-down"></i></span>
                 </button>
                 <div class="faq-answer">
                     <div class="faq-answer-content">
-                        <p>Biaya pemasangan veneer bervariasi tergantung jenis material dan jumlah gigi yang akan dipasang. Untuk veneer composite mulai dari Rp 1.5 juta per gigi, sedangkan veneer porcelain mulai dari Rp 4 juta per gigi. Kami menyediakan konsultasi gratis untuk memberikan estimasi biaya yang lebih akurat sesuai kebutuhan Anda.</p>
+                        <p>{!! $faq->answer !!}</p>
                     </div>
                 </div>
             </div>
-
-            <!-- FAQ Item 2 -->
-            <div class="faq-item" data-aos="fade-up" data-aos-delay="100">
-                <button class="faq-question">
-                    <span>Apakah pemasangan behel terasa sakit?</span>
-                    <span class="faq-icon"><i class="fas fa-chevron-down"></i></span>
-                </button>
-                <div class="faq-answer">
-                    <div class="faq-answer-content">
-                        <p>Proses pemasangan behel tidak terasa sakit karena tidak memerlukan anestesi. Setelah pemasangan, Anda mungkin merasakan sedikit ketidaknyamanan atau gigi terasa ngilu selama 3-5 hari pertama saat gigi mulai bergerak. Kami akan memberikan tips dan obat pereda nyeri jika diperlukan untuk memastikan kenyamanan Anda.</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- FAQ Item 3 -->
-            <div class="faq-item" data-aos="fade-up" data-aos-delay="200">
-                <button class="faq-question">
-                    <span>Berapa lama waktu yang dibutuhkan untuk bleaching?</span>
-                    <span class="faq-icon"><i class="fas fa-chevron-down"></i></span>
-                </button>
-                <div class="faq-answer">
-                    <div class="faq-answer-content">
-                        <p>Prosedur bleaching di klinik membutuhkan waktu sekitar 60-90 menit dalam satu kali kunjungan. Hasilnya langsung terlihat dengan gigi yang bisa menjadi 4-8 tingkat lebih putih. Untuk hasil yang lebih optimal, kami menyediakan paket home bleaching yang bisa dilanjutkan di rumah.</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- FAQ Item 4 -->
-            <div class="faq-item" data-aos="fade-up" data-aos-delay="300">
-                <button class="faq-question">
-                    <span>Apakah Ocean Dental menerima pembayaran cicilan?</span>
-                    <span class="faq-icon"><i class="fas fa-chevron-down"></i></span>
-                </button>
-                <div class="faq-answer">
-                    <div class="faq-answer-content">
-                        <p>Ya, kami menerima berbagai metode pembayaran termasuk cicilan 0% dengan kartu kredit dari berbagai bank partner. Untuk perawatan dengan biaya tertentu, tersedia juga opsi cicilan internal tanpa kartu kredit. Silakan konsultasikan dengan tim kami untuk informasi lebih detail tentang opsi pembayaran.</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- FAQ Item 5 -->
-            <div class="faq-item" data-aos="fade-up" data-aos-delay="400">
-                <button class="faq-question">
-                    <span>Apakah harus membuat janji terlebih dahulu?</span>
-                    <span class="faq-icon"><i class="fas fa-chevron-down"></i></span>
-                </button>
-                <div class="faq-answer">
-                    <div class="faq-answer-content">
-                        <p>Kami sangat menyarankan untuk membuat janji terlebih dahulu melalui WhatsApp atau telepon untuk memastikan ketersediaan dokter dan menghindari waktu tunggu yang lama. Namun, kami juga menerima pasien walk-in dengan catatan akan dilayani sesuai antrian yang ada.</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- FAQ Item 6 -->
-            <div class="faq-item" data-aos="fade-up" data-aos-delay="500">
-                <button class="faq-question">
-                    <span>Berapa lama garansi untuk perawatan gigi?</span>
-                    <span class="faq-icon"><i class="fas fa-chevron-down"></i></span>
-                </button>
-                <div class="faq-answer">
-                    <div class="faq-answer-content">
-                        <p>Garansi perawatan berbeda-beda tergantung jenis tindakan. Untuk tambal gigi, garansi 6 bulan. Crown dan bridge memiliki garansi 1 tahun. Veneer porcelain garansi 2 tahun. Implan gigi garansi hingga 5 tahun. Garansi berlaku dengan syarat kontrol rutin sesuai jadwal yang ditentukan dokter.</p>
-                    </div>
-                </div>
-            </div>
+            @endforeach
         </div>
     </div>
 </section>
 
 
-<!-- Instagram Feed Section -->
-<section class="instagram-feed" id="instagram">
+<!-- SocMed/Social Media Section -->
+@if($socmedPlatforms->isNotEmpty())
+<section class="socmed-feed" id="socmed">
     <div class="container">
         <div class="section-header" data-aos="fade-up">
-            <span class="section-tag"><i class="fab fa-instagram"></i> Instagram</span>
+            <span class="section-tag"><i class="fas fa-share-alt"></i> Media Sosial</span>
             <h2 class="section-title">
-                Follow Kami di <span class="gradient-text-dark">Instagram</span>
+                {{ setting('socmed_section_title', 'Ikuti Kami di Media Sosial') }}
             </h2>
             <p class="section-description">
-                Dapatkan tips kesehatan gigi, promo terbaru, dan update menarik lainnya
+                {{ setting('socmed_section_description', 'Dapatkan update terbaru, tips kesehatan gigi, dan promo menarik dari kami.') }}
             </p>
         </div>
 
-        <div class="instagram-grid">
-            @php
-                $instagramImages = [
-                    'https://images.unsplash.com/photo-1629909613654-28e377c37b09?w=400&h=400&fit=crop',
-                    'https://images.unsplash.com/photo-1606811841689-23dfddce3e95?w=400&h=400&fit=crop',
-                    'https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=400&h=400&fit=crop',
-                    'https://images.unsplash.com/photo-1445527815219-ecbfec67492e?w=400&h=400&fit=crop',
-                    'https://images.unsplash.com/photo-1609840114035-3c981b782dfe?w=400&h=400&fit=crop',
-                    'https://images.unsplash.com/photo-1598256989800-fe5f95da9787?w=400&h=400&fit=crop',
-                ];
-                $instagramUrl = setting('instagram_url', 'https://instagram.com/oceandental.id');
-            @endphp
-            
-            @foreach($instagramImages as $index => $image)
-            <a href="{{ $instagramUrl }}" target="_blank" class="instagram-item" data-aos="zoom-in" data-aos-delay="{{ $index * 50 }}">
-                <img src="{{ $image }}" alt="Ocean Dental Instagram">
-                <div class="instagram-overlay">
-                    <i class="fab fa-instagram"></i>
+        <div class="socmed-grid">
+            @foreach($socmedPlatforms as $platform)
+            <a href="{{ $platform->getUrl() }}" target="_blank" class="socmed-item" data-aos="zoom-in" data-aos-delay="{{ $loop->index * 50 }}" style="--platform-color: {{ $platform->getColor() }}; --platform-bg: {{ $platform->getBgColor() }}">
+                <div class="socmed-icon">
+                    <i class="{{ $platform->getIcon() }}"></i>
                 </div>
+                <span class="socmed-label">{{ $platform->label }}</span>
             </a>
             @endforeach
         </div>
-
-        <div class="instagram-cta" data-aos="fade-up">
-            <a href="{{ $instagramUrl }}" target="_blank" class="btn btn-lg">
-                <i class="fab fa-instagram"></i> Follow @oceandental.id
-            </a>
-        </div>
     </div>
 </section>
+@endif
 <!-- CTA Section -->
 <section class="cta">
     <div class="container">
@@ -1680,18 +955,18 @@
 </section>
 
 <!-- Initialize AOS (Animate on Scroll) -->
+@include('components.location-detail-modal')
+
 @push('scripts')
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script>
-    AOS.init({
-        duration: 800,
-        once: true,
-        offset: 100
+    document.addEventListener('DOMContentLoaded', function() {
+        AOS.init({
+            duration: 800,
+            once: true,
+            offset: 100
+        });
     });
-
-    // Counter Animation
-    const counters = document.querySelectorAll('.counter, .counter-decimal');
-    const speed = 200;
 
     const animateCounter = (counter) => {
         const target = +counter.getAttribute('data-target');
@@ -1711,38 +986,52 @@
         updateCount();
     };
 
-    // Intersection Observer for counter animation
-    const counterObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                animateCounter(entry.target);
-                counterObserver.unobserve(entry.target);
-            }
-        });
-    }, { threshold: 0.5 });
-
-    counters.forEach(counter => {
-        counterObserver.observe(counter);
-    });
-
     // FAQ Accordion
     const faqItems = document.querySelectorAll('.faq-item');
     faqItems.forEach(item => {
         const question = item.querySelector('.faq-question');
         question.addEventListener('click', () => {
             const isActive = item.classList.contains('active');
-            
-            // Close all items
-            faqItems.forEach(faqItem => {
-                faqItem.classList.remove('active');
+            // Close all other items
+            faqItems.forEach(otherItem => {
+                if (otherItem !== item) {
+                    otherItem.classList.remove('active');
+                }
             });
-            
-            // Open clicked item if it wasn't active
-            if (!isActive) {
-                item.classList.add('active');
+            // Toggle the current one
+            item.classList.toggle('active', !isActive);
+        });
+        // Keyboard accessibility
+        question.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                question.click();
             }
         });
     });
+
+    // FAQ Category Filter
+    const faqFilterBtns = document.querySelectorAll('.faq-filter .filter-btn');
+    faqFilterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const filter = btn.getAttribute('data-filter');
+
+            // Update active button
+            faqFilterBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            // Filter FAQ items
+            faqItems.forEach(item => {
+                const category = item.getAttribute('data-category');
+                if (filter === 'all' || category === filter) {
+                    item.style.display = 'block';
+                    item.setAttribute('data-aos', 'fade-up');
+                } else {
+                    item.style.display = 'none';
+                    item.removeAttribute('data-aos');
+                }
+            });
+        });
+    });
 </script>
-@endpush
 @endsection

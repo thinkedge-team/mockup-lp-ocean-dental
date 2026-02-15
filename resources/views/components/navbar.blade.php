@@ -2,8 +2,12 @@
     <div class="container">
         <div class="nav-content">
             <div class="nav-brand">
+                @if(setting('logo'))
+                <img src="{{ asset('storage/' . setting('logo')) }}" alt="{{ setting('site_name', 'Ocean Dental') }}" style="height: 40px; width: auto;">
+                @else
                 <i class="fas fa-tooth"></i>
-                <span>Ocean Dental</span>
+                <span>{{ setting('site_name', 'Ocean Dental') }}</span>
+                @endif
             </div>
             <ul class="nav-menu" id="nav-menu">
                 <li>
@@ -19,7 +23,7 @@
                     <a href="{{ route('home') }}#gallery" class="nav-link">Galeri</a>
                 </li>
                 <li>
-                    <a href="{{ route('events.index') }}" class="nav-link">Event</a>
+                    <a href="{{ route('home') }}#events" class="nav-link">Event</a>
                 </li>
                 <li>
                     <a href="{{ route('home') }}#doctors" class="nav-link">Dokter</a>
@@ -31,7 +35,7 @@
                     <a href="{{ route('home') }}#faq" class="nav-link">FAQ</a>
                 </li>
             </ul>
-            <a href="https://wa.me/6281234567890" class="btn btn-primary" id="nav-cta">
+            <a href="{{ whatsapp_url() }}" class="btn btn-primary" id="nav-cta">
                 <i class="fab fa-whatsapp"></i> Konsultasi Gratis
             </a>
             <button class="nav-toggle" id="nav-toggle">

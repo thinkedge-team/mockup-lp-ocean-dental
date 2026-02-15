@@ -14,6 +14,7 @@ class Gallery extends Model
         'description',
         'image',
         'category',
+        'size',
         'order',
         'is_active',
     ];

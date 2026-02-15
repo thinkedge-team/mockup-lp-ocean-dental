@@ -1,4 +1,5 @@
-@extends('layouts.app')
+@php use Illuminate\Support\Str; @endphp
+<!-- (This file intentionally left blank as location detail now uses modal on homepage) -->
 
 @section('title', $location->name . ' - ' . setting('site_name', 'Ocean Dental'))
 @section('meta_description', $location->name . ' - ' . $location->address)
@@ -12,11 +13,7 @@
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;">
             <!-- Location Info -->
             <div>
-                @if($location->is_featured)
-                <div class="badge-featured" style="display: inline-block; background: #FFD700; color: #01215E; padding: 8px 16px; border-radius: 20px; font-size: 14px; font-weight: 700; margin-bottom: 1.5rem;">
-                    <i class="fas fa-star"></i> Cabang Populer
-                </div>
-                @endif
+
                 
                 <h1 style="font-size: 48px; font-weight: 800; margin-bottom: 1.5rem; line-height: 1.2;">{{ $location->name }}</h1>
                 
@@ -28,11 +25,11 @@
                 
                 <!-- Contact Info -->
                 <div style="display: flex; flex-direction: column; gap: 1rem; margin-bottom: 2rem;">
-                    @if($location->phone)
-                    <a href="tel:{{ $location->phone }}" style="display: inline-flex; align-items: center; gap: 12px; color: white; text-decoration: none; font-size: 18px;">
+                    @if($location->contact)
+                    <span style="display: inline-flex; align-items: center; gap: 12px; color: white; font-size: 18px;">
                         <i class="fas fa-phone" style="font-size: 18px;"></i>
-                        {{ $location->phone }}
-                    </a>
+                        {{ $location->contact }}
+                    </span>
                     @endif
                     
                     @if($location->email)
@@ -74,7 +71,6 @@
 </section>
 
 <!-- Opening Hours -->
-@if($location->opening_hours)
 <section class="opening-hours-section" style="padding: 80px 0; background: #f8f9fa;">
     <div class="container">
         <div style="text-align: center; margin-bottom: 60px;">
@@ -83,34 +79,44 @@
             </h2>
             <p style="font-size: 18px; color: #666;">Kami siap melayani Anda</p>
         </div>
-        
         <div style="max-width: 600px; margin: 0 auto; background: white; border-radius: 16px; padding: 40px; box-shadow: 0 4px 20px rgba(0,0,0,0.08);">
             @php
-                $days = ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu'];
-                $hours = is_array($location->opening_hours) ? $location->opening_hours : json_decode($location->opening_hours, true);
+$days = [
+    'Senin' => 'monday',
+    'Selasa' => 'tuesday',
+    'Rabu' => 'wednesday',
+    'Kamis' => 'thursday',
+    'Jumat' => 'friday',
+    'Sabtu' => 'saturday',
+    'Minggu' => 'sunday',
+];
             @endphp
-            
-            @if(is_array($hours))
-                @foreach($days as $index => $day)
-                    @php
-                        $dayKey = strtolower($day);
-                        $dayHours = $hours[$dayKey] ?? 'Tutup';
-                    @endphp
-                    <div style="display: flex; justify-content: space-between; padding: 15px 0; border-bottom: 1px solid #f0f0f0;">
-                        <strong style="color: #01215E; font-size: 16px;">{{ $day }}</strong>
-                        <span style="color: {{ $dayHours == 'Tutup' ? '#dc3545' : '#666' }}; font-size: 16px;">
-                            {{ $dayHours }}
-                        </span>
-                    </div>
-                @endforeach
+@foreach($days as $label => $day)
+    @php
+        $open = $location->schedule[$day]['open'] ?? null;
+        $close = $location->schedule[$day]['close'] ?? null;
+    @endphp
+    <div style="display: flex; justify-content: space-between; padding: 15px 0; border-bottom: 1px solid #f0f0f0;">
+        <strong style="color: #01215E; font-size: 16px;">{{ $label }}</strong>
+        <span style="font-size: 16px; color: #444;">
+            @if($open && $close)
+                {{ $open }} - {{ $close }}
+            @else
+                Tutup
             @endif
+        </span>
+    </div>
+@endforeach
+        </div>
+    </div>
+</section>
         </div>
     </div>
 </section>
 @endif
 
 <!-- Map Section -->
-@if($location->maps_embed_url || ($location->latitude && $location->longitude))
+@if($location->maps_url || ($location->latitude && $location->longitude))
 <section class="map-section" style="padding: 80px 0;">
     <div class="container">
         <div style="text-align: center; margin-bottom: 60px;">
@@ -121,9 +127,9 @@
         </div>
         
         <div style="border-radius: 16px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.1);">
-            @if($location->maps_embed_url)
+            @if($location->maps_url)
                 <iframe 
-                    src="{{ $location->maps_embed_url }}" 
+                    src="{{ $location->maps_url }}" 
                     width="100%" 
                     height="500" 
                     style="border:0;" 
@@ -238,13 +244,7 @@
                 <i class="fab fa-whatsapp" style="font-size: 24px;"></i>
                 Buat Janji Sekarang
             </a>
-            @if($location->phone)
-            <a href="tel:{{ $location->phone }}" class="btn-cta-secondary" style="display: inline-flex; align-items: center; gap: 10px; padding: 16px 40px; background: white; color: #01215E; border-radius: 50px; text-decoration: none; font-size: 18px; font-weight: 700; transition: all 0.3s;">
-                <i class="fas fa-phone"></i>
-                Telepon Kami
-            </a>
-            @endif
-        </div>
+                    </div>
     </div>
 </section>
 
@@ -297,7 +297,7 @@
     }
 </style>
 
-@if($location->latitude && $location->longitude && !$location->maps_embed_url)
+@if($location->latitude && $location->longitude && empty($location->maps_url))
 @push('scripts')
 <script>
     // Initialize Leaflet map

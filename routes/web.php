@@ -1,10 +1,10 @@
 <?php
 
-use App\Http\Controllers\HomeController;
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ServiceController;
-use App\Http\Controllers\LocationController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Storage;
 
 // Home page
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -16,8 +16,3 @@ Route::get('/events/{slug}', [EventController::class, 'show'])->name('events.sho
 // Services
 Route::get('/services', [ServiceController::class, 'index'])->name('services.index');
 Route::get('/services/{slug}', [ServiceController::class, 'show'])->name('services.show');
-
-// Locations
-Route::get('/locations', [LocationController::class, 'index'])->name('locations.index');
-Route::get('/locations/{slug}', [LocationController::class, 'show'])->name('locations.show');
-

@@ -3,12 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\Event;
-use App\Models\Service;
-use App\Models\Testimonial;
-use App\Models\TeamMember;
-use App\Models\Location;
+use App\Models\Faq;
 use App\Models\Gallery;
-use Illuminate\Http\Request;
+use App\Models\Location;
+use App\Models\Result;
+use App\Models\Service;
+use App\Models\SocMedPlatform;
+use App\Models\TeamMember;
+use App\Models\Testimonial;
 
 class HomeController extends Controller
 {
@@ -24,7 +26,7 @@ class HomeController extends Controller
         $services = Service::where('is_active', true)
             ->where('is_featured', true)
             ->orderBy('order')
-            ->take(6)
+            ->take(9)
             ->get();
 
         $testimonials = Testimonial::where('is_active', true)
@@ -35,18 +37,27 @@ class HomeController extends Controller
 
         $teamMembers = TeamMember::where('is_active', true)
             ->orderBy('order')
-            ->take(4)
+            ->take(6)
             ->get();
 
-        $locations = Location::where('is_active', true)
-            ->where('is_featured', true)
+        $locations = Location::orderBy('name')->get();
+
+        $gallery = Gallery::where('is_active', true)
+            ->orderBy('order')
+            ->take(9)
+            ->get();
+
+        $faqs = Faq::where('is_active', true)
             ->orderBy('order')
             ->take(6)
             ->get();
 
-        $gallery = Gallery::where('is_active', true)
+        $results = Result::where('is_active', true)
             ->orderBy('order')
-            ->take(8)
+            ->get();
+
+        $socmedPlatforms = SocMedPlatform::where('is_active', true)
+            ->orderBy('order')
             ->get();
 
         return view('home', compact(
@@ -55,7 +66,10 @@ class HomeController extends Controller
             'testimonials',
             'teamMembers',
             'locations',
-            'gallery'
+            'gallery',
+            'faqs',
+            'results',
+            'socmedPlatforms'
         ));
     }
 }

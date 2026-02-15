@@ -5,19 +5,20 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Page extends Model
+class Result extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'key',
         'title',
-        'content',
+        'before_image',
+        'after_image',
+        'description',
+        'order',
         'is_active',
     ];
 
     protected $casts = [
-        'content' => 'array',
         'is_active' => 'boolean',
     ];
 }

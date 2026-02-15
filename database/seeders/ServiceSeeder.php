@@ -17,18 +17,16 @@ class ServiceSeeder extends Seeder
             [
                 'name' => 'Veneer Gigi',
                 'slug' => 'veneer-gigi',
-                'description' => '<p>Transformasi senyum dengan lapisan tipis yang mempercantik gigi dengan hasil natural dan tahan lama. Veneer adalah solusi sempurna untuk memperbaiki warna, bentuk, dan susunan gigi Anda.</p>
-                <h3>Keuntungan Veneer:</h3>
-                <ul>
-                    <li>Hasil natural dan estetis</li>
-                    <li>Tahan lama hingga 10-15 tahun</li>
-                    <li>Minimal pengikisan gigi</li>
-                    <li>Dapat memperbaiki warna gigi yang tidak bisa diputihkan</li>
-                    <li>Memperbaiki bentuk dan ukuran gigi</li>
-                </ul>',
+                'description' => '<p>Transformasi senyum dengan lapisan tipis yang mempercantik gigi dengan hasil natural dan tahan lama. Veneer adalah solusi sempurna untuk memperbaiki warna, bentuk, dan susunan gigi Anda.</p><p>Veneer gigi kami menggunakan bahan porselen premium yang memberikan tampilan alami seperti gigi asli. Prosedur ini minimal invasif dan dapat bertahan hingga 10-15 tahun dengan perawatan yang tepat.</p>',
+                'short_description' => 'Lapisan tipis untuk senyum sempurna. Tahan lama & natural.',
                 'icon' => 'fas fa-layer-group',
-                'price_range' => 'Mulai Rp 1.5jt/gigi',
-                'duration' => '1-2 Kunjungan',
+                'image' => null, // Will use placeholder
+                'price_start' => 1500000,
+                'price_end' => 4000000,
+                'duration' => '1-2',
+                'duration_type' => 'kunjungan',
+                'category' => 'Estetika',
+                'badge' => 'popular',
                 'order' => 1,
                 'is_active' => true,
                 'is_featured' => true,
@@ -36,37 +34,33 @@ class ServiceSeeder extends Seeder
             [
                 'name' => 'Bleaching Gigi',
                 'slug' => 'bleaching-gigi',
-                'description' => '<p>Pemutihan gigi profesional untuk senyum lebih cerah hingga 8 tingkat dalam satu sesi. Menggunakan teknologi laser terbaru yang aman dan efektif.</p>
-                <h3>Proses Bleaching:</h3>
-                <ul>
-                    <li>Konsultasi dan pemeriksaan awal</li>
-                    <li>Pembersihan gigi (scaling)</li>
-                    <li>Aplikasi gel pemutih khusus</li>
-                    <li>Aktivasi dengan laser/LED light</li>
-                    <li>Hasil langsung terlihat</li>
-                </ul>',
+                'description' => '<p>Pemutihan gigi profesional untuk senyum lebih cerah hingga 8 tingkat dalam satu sesi. Menggunakan teknologi laser terbaru yang aman dan efektif.</p><p>Proses bleaching dilakukan oleh dokter gigi profesional dengan bahan berkualitas tinggi yang tidak merusak email gigi. Hasil langsung terlihat setelah treatment pertama.</p>',
+                'short_description' => 'Pemutihan profesional dengan teknologi laser. Hasil cepat & aman.',
                 'icon' => 'fas fa-sun',
-                'price_range' => 'Mulai Rp 800rb',
-                'duration' => '1 Jam',
+                'image' => null,
+                'price_start' => 800000,
+                'price_end' => 2500000,
+                'duration' => '45-60 menit',
+                'duration_type' => 'waktu',
+                'category' => 'Estetika',
+                'badge' => 'recommended',
                 'order' => 2,
                 'is_active' => true,
                 'is_featured' => true,
             ],
             [
-                'name' => 'Scaling & Polishing',
-                'slug' => 'scaling-polishing',
-                'description' => '<p>Pembersihan karang gigi dan plak untuk menjaga kesehatan gusi dan mulut yang optimal. Direkomendasikan dilakukan setiap 6 bulan sekali.</p>
-                <h3>Manfaat Scaling:</h3>
-                <ul>
-                    <li>Mencegah penyakit gusi</li>
-                    <li>Menghilangkan bau mulut</li>
-                    <li>Mencegah gigi berlubang</li>
-                    <li>Gigi lebih bersih dan sehat</li>
-                    <li>Mencegah kerusakan tulang pendukung gigi</li>
-                </ul>',
-                'icon' => 'fas fa-sparkles',
-                'price_range' => 'Mulai Rp 250rb',
-                'duration' => '30-45 Menit',
+                'name' => 'Crown & Bridge',
+                'slug' => 'crown-bridge',
+                'description' => '<p>Restorasi gigi dengan mahkota dan jembatan berkualitas tinggi untuk fungsi optimal dan estetika sempurna. Crown gigi melindungi gigi yang rusak, sementara bridge menggantikan gigi yang hilang.</p><p>Kami menggunakan bahan zirconia dan porselen yang kuat dan natural. Prosedur dilakukan dengan presisi tinggi untuk kenyamanan maksimal.</p>',
+                'short_description' => 'Mahkota gigi premium untuk hasil natural & kuat.',
+                'icon' => 'fas fa-crown',
+                'image' => null,
+                'price_start' => 1200000,
+                'price_end' => 5000000,
+                'duration' => '2-3',
+                'duration_type' => 'kunjungan',
+                'category' => 'Perawatan',
+                'badge' => null,
                 'order' => 3,
                 'is_active' => true,
                 'is_featured' => true,
@@ -74,47 +68,50 @@ class ServiceSeeder extends Seeder
             [
                 'name' => 'Behel / Kawat Gigi',
                 'slug' => 'behel-kawat-gigi',
-                'description' => '<p>Perbaiki susunan gigi untuk senyum lebih percaya diri. Tersedia berbagai jenis behel: metal, ceramic, self-ligating, dan Invisalign.</p>
-                <h3>Jenis Behel:</h3>
-                <ul>
-                    <li>Metal Braces - Paling ekonomis dan efektif</li>
-                    <li>Ceramic Braces - Lebih estetis, warna seperti gigi</li>
-                    <li>Self-Ligating - Lebih nyaman, kontrol lebih jarang</li>
-                    <li>Invisalign - Transparan, bisa dilepas pasang</li>
-                </ul>',
-                'icon' => 'fas fa-teeth',
-                'price_range' => 'Mulai Rp 3jt',
-                'duration' => '12-24 Bulan',
+                'description' => '<p>Perawatan ortodonti untuk merapikan gigi dan memperbaiki gigitan. Tersedia berbagai pilihan: behel metal (konvensional), ceramic (estetis), dan clear aligner (invisible).</p><p>Konsultasi gratis untuk menentukan jenis behel yang sesuai dengan kebutuhan Anda. Treatment plan disesuaikan dengan kondisi gigi dan budget Anda.</p>',
+                'short_description' => 'Rapikan gigi dengan behel metal, ceramic, atau clear aligner.',
+                'icon' => 'fas fa-grip-lines',
+                'image' => null,
+                'price_start' => 8000000,
+                'price_end' => 25000000,
+                'duration' => '12-24 bulan',
+                'duration_type' => 'waktu',
+                'category' => 'Ortodonti',
+                'badge' => 'popular',
                 'order' => 4,
-                'is_active' => true,
-                'is_featured' => true,
-            ],
-            [
-                'name' => 'Implant Gigi',
-                'slug' => 'implant-gigi',
-                'description' => '<p>Solusi permanen untuk gigi yang hilang dengan hasil yang natural dan kuat. Implant gigi adalah pilihan terbaik untuk menggantikan gigi yang hilang.</p>
-                <h3>Keunggulan Implant:</h3>
-                <ul>
-                    <li>Permanen dan tahan lama</li>
-                    <li>Tidak merusak gigi sebelahnya</li>
-                    <li>Terasa seperti gigi asli</li>
-                    <li>Mencegah penyusutan tulang rahang</li>
-                    <li>Fungsi mengunyah optimal</li>
-                </ul>',
-                'icon' => 'fas fa-tooth',
-                'price_range' => 'Mulai Rp 8jt',
-                'duration' => '3-6 Bulan',
-                'order' => 5,
                 'is_active' => true,
                 'is_featured' => true,
             ],
             [
                 'name' => 'Tambal Gigi',
                 'slug' => 'tambal-gigi',
-                'description' => '<p>Perbaikan gigi berlubang dengan bahan berkualitas tinggi. Menggunakan composite resin yang warnanya menyerupai gigi asli untuk hasil yang estetis.</p>',
-                'icon' => 'fas fa-fill-drip',
-                'price_range' => 'Mulai Rp 150rb',
-                'duration' => '30 Menit',
+                'description' => '<p>Perbaikan gigi berlubang dengan bahan composite resin berkualitas tinggi yang sewarna dengan gigi asli. Prosedur cepat, minim sakit, dan hasil yang tahan lama.</p><p>Kami menggunakan bahan tambal modern yang kuat dan estetis. Tidak perlu khawatir dengan warna yang berbeda, tambal kami akan menyatu sempurna dengan gigi alami Anda.</p>',
+                'short_description' => 'Perbaikan gigi berlubang cepat dengan bahan berkualitas. Hasil natural.',
+                'icon' => 'fas fa-tooth',
+                'image' => null,
+                'price_start' => 150000,
+                'price_end' => 500000,
+                'duration' => '30-45 menit',
+                'duration_type' => 'waktu',
+                'category' => 'Perawatan',
+                'badge' => null,
+                'order' => 5,
+                'is_active' => true,
+                'is_featured' => true,
+            ],
+            [
+                'name' => 'Scaling & Polishing',
+                'slug' => 'scaling-polishing',
+                'description' => '<p>Pembersihan karang gigi (scaling) dan pemolesan gigi (polishing) untuk kesehatan gusi optimal. Mencegah periodontitis dan bau mulut. Direkomendasikan setiap 6 bulan.</p><p>Prosedur dilakukan dengan alat ultrasonic modern yang efektif membersihkan karang gigi tanpa merusak email. Gigi akan terasa lebih halus dan bersih setelah treatment.</p>',
+                'short_description' => 'Pembersihan profesional untuk gigi & gusi sehat. Cegah penyakit gusi.',
+                'icon' => 'fas fa-sparkles',
+                'image' => null,
+                'price_start' => 250000,
+                'price_end' => 600000,
+                'duration' => '30-60 menit',
+                'duration_type' => 'waktu',
+                'category' => 'Perawatan',
+                'badge' => 'recommended',
                 'order' => 6,
                 'is_active' => true,
                 'is_featured' => true,
@@ -122,24 +119,53 @@ class ServiceSeeder extends Seeder
             [
                 'name' => 'Cabut Gigi',
                 'slug' => 'cabut-gigi',
-                'description' => '<p>Pencabutan gigi yang aman dan minim rasa sakit dengan teknik modern dan anastesi yang tepat.</p>',
-                'icon' => 'fas fa-tooth',
-                'price_range' => 'Mulai Rp 100rb',
-                'duration' => '30 Menit',
+                'description' => '<p>Pencabutan gigi (ekstraksi) aman dengan teknik modern dan anestesi yang tepat. Minim rasa sakit dan waktu pemulihan cepat.</p><p>Dokter gigi kami berpengalaman dalam pencabutan gigi impacted, gigi bungsu, dan kasus kompleks lainnya. After care yang jelas untuk pemulihan optimal.</p>',
+                'short_description' => 'Pencabutan aman dengan teknik modern. Prosedur cepat & minim sakit.',
+                'icon' => 'fas fa-teeth-open',
+                'image' => null,
+                'price_start' => 100000,
+                'price_end' => 1500000,
+                'duration' => '20-45 menit',
+                'duration_type' => 'waktu',
+                'category' => 'Perawatan',
+                'badge' => null,
                 'order' => 7,
                 'is_active' => true,
-                'is_featured' => false,
+                'is_featured' => true,
+            ],
+            [
+                'name' => 'Implan Gigi',
+                'slug' => 'implan-gigi',
+                'description' => '<p>Solusi permanen untuk mengganti gigi hilang dengan implan titanium yang terintegrasi dengan tulang rahang. Hasil natural seperti gigi asli dengan fungsi pengunyahan optimal.</p><p>Teknologi implan terkini dari brand internasional. Prosedur dilakukan secara bertahap untuk hasil yang sempurna dan tahan seumur hidup.</p>',
+                'short_description' => 'Solusi permanen untuk gigi hilang. Hasil natural & tahan lama.',
+                'icon' => 'fas fa-tooth',
+                'image' => null,
+                'price_start' => 8000000,
+                'price_end' => 20000000,
+                'duration' => '3-6',
+                'duration_type' => 'kunjungan',
+                'category' => 'Estetika',
+                'badge' => null,
+                'order' => 8,
+                'is_active' => true,
+                'is_featured' => true,
             ],
             [
                 'name' => 'Perawatan Saluran Akar',
                 'slug' => 'perawatan-saluran-akar',
-                'description' => '<p>Menyelamatkan gigi yang terinfeksi atau rusak parah dengan perawatan root canal yang presisi.</p>',
-                'icon' => 'fas fa-tooth',
-                'price_range' => 'Mulai Rp 500rb',
-                'duration' => '1-3 Kunjungan',
-                'order' => 8,
+                'description' => '<p>Root canal treatment untuk menyelamatkan gigi yang terinfeksi. Prosedur tanpa rasa sakit dengan teknologi modern dan anestesi efektif.</p><p>Lebih baik dari cabut gigi karena mempertahankan gigi asli. Hasil perawatan dapat bertahan seumur hidup dengan crown proteksi.</p>',
+                'short_description' => 'Selamatkan gigi terinfeksi tanpa rasa sakit. Alternatif cabut gigi.',
+                'icon' => 'fas fa-hand-holding-medical',
+                'image' => null,
+                'price_start' => 500000,
+                'price_end' => 2500000,
+                'duration' => '2-4',
+                'duration_type' => 'kunjungan',
+                'category' => 'Perawatan',
+                'badge' => null,
+                'order' => 9,
                 'is_active' => true,
-                'is_featured' => false,
+                'is_featured' => true,
             ],
         ];
 

@@ -17,7 +17,11 @@ class EventResource extends Resource
 {
     protected static ?string $model = Event::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-calendar-days';
+
+    protected static ?string $navigationGroup = 'Content';
+
+    protected static ?int $navigationSort = 2;
 
     public static function form(Form $form): Form
     {
@@ -27,13 +31,43 @@ class EventResource extends Resource
                     ->required(),
                 Forms\Components\TextInput::make('slug')
                     ->required(),
-                Forms\Components\Textarea::make('description')
+                Forms\Components\RichEditor::make('description')
                     ->required()
-                    ->columnSpanFull(),
+                    ->helperText('Full event description with formatting. Use bold, lists, headings, and links to create engaging content.')
+                    ->columnSpanFull()
+                    ->toolbarButtons([
+                        'attachFiles',
+                        'blockquote',
+                        'bold',
+                        'bulletList',
+                        'codeBlock',
+                        'h2',
+                        'h3',
+                        'italic',
+                        'link',
+                        'orderedList',
+                        'redo',
+                        'strike',
+                        'underline',
+                        'undo',
+                    ]),
                 Forms\Components\Textarea::make('short_description')
                     ->columnSpanFull(),
                 Forms\Components\FileUpload::make('image')
-                    ->image(),
+                    ->label('Event Image')
+                    ->image()
+                    ->disk('public')
+                    ->directory('events')
+                    ->visibility('public')
+                    ->imageEditor()
+                    ->imageEditorAspectRatios([
+                        '16:9',
+                        '4:3',
+                        '1:1',
+                    ])
+                    ->maxSize(2048)
+                    ->helperText('Upload event image (max 2MB). Recommended size: 1600x800px for best display.')
+                    ->columnSpanFull(),
                 Forms\Components\DateTimePicker::make('start_date')
                     ->required(),
                 Forms\Components\DateTimePicker::make('end_date'),
@@ -41,7 +75,38 @@ class EventResource extends Resource
                     ->required(),
                 Forms\Components\Textarea::make('address')
                     ->columnSpanFull(),
-                Forms\Components\TextInput::make('category'),
+                Forms\Components\Select::make('category')
+                    ->label('Event Category')
+                    ->options(function () {
+                        // Get existing categories from database
+                        $categories = \App\Models\Event::whereNotNull('category')
+                            ->distinct()
+                            ->pluck('category', 'category')
+                            ->toArray();
+
+                        // Add default suggestions
+                        $defaults = [
+                            'Community' => 'Community',
+                            'Seminar' => 'Seminar',
+                            'Workshop' => 'Workshop',
+                            'Promo' => 'Promo',
+                            'Dental Camp' => 'Dental Camp',
+                        ];
+
+                        return array_merge($defaults, $categories);
+                    })
+                    ->searchable()
+                    ->createOptionForm([
+                        Forms\Components\TextInput::make('category')
+                            ->label('New Category Name')
+                            ->required()
+                            ->maxLength(100),
+                    ])
+                    ->createOptionUsing(function ($data) {
+                        return $data['category'];
+                    })
+                    ->nullable()
+                    ->helperText('Select existing category or create a new one inline. Categories help organize events and improve filtering.'),
                 Forms\Components\TextInput::make('max_participants')
                     ->numeric(),
                 Forms\Components\TextInput::make('registered_participants')
@@ -61,9 +126,14 @@ class EventResource extends Resource
                     ->required()
                     ->numeric()
                     ->default(0)
-                    ->prefix('$'),
-                Forms\Components\Textarea::make('meta_tags')
-                    ->columnSpanFull(),
+                    ->prefix('Rp')
+                    ->placeholder('150000')
+                    ->helperText('Enter price in Rupiah (e.g., 150000 for Rp 150K, or 0 for free events)'),
+                Forms\Components\KeyValue::make('meta_tags')
+                    ->label('SEO Meta Tags')
+                    ->helperText('Add SEO meta tags for search engines and social media. Examples: description: "Join our free dental camp event" (150-160 chars) | keywords: "dental checkup, free event, jakarta" | og:title: "Free Dental Camp - Ocean Dental" | og:description: "Get free dental checkup for 100 participants" | twitter:card: "summary_large_image"')
+                    ->columnSpanFull()
+                    ->nullable(),
             ]);
     }
 
@@ -75,7 +145,10 @@ class EventResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('slug')
                     ->searchable(),
-                Tables\Columns\ImageColumn::make('image'),
+                Tables\Columns\ImageColumn::make('image')
+                    ->disk('public')
+                    ->size(60)
+                    ->defaultImageUrl(asset('images/no-image.jpg')),
                 Tables\Columns\TextColumn::make('start_date')
                     ->dateTime()
                     ->sortable(),

@@ -14,26 +14,26 @@ class Location extends Model
         'name',
         'slug',
         'address',
-        'phone',
+        'region_id',
         'whatsapp',
         'email',
         'latitude',
         'longitude',
-        'opening_hours',
-        'maps_embed_url',
+        'schedule',
         'image',
-        'is_active',
-        'is_featured',
         'order',
     ];
 
     protected $casts = [
-        'opening_hours' => 'array',
-        'is_active' => 'boolean',
-        'is_featured' => 'boolean',
         'latitude' => 'decimal:7',
         'longitude' => 'decimal:7',
+        'schedule' => 'array',
     ];
+
+    public function region()
+    {
+        return $this->belongsTo(Region::class);
+    }
 
     protected static function boot()
     {

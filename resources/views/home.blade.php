@@ -203,7 +203,7 @@
             <div class="service-card" data-category="{{ $service->category }}" data-aos="fade-up" data-aos-delay="{{ ($index % 3) * 100 }}">
                 <div class="service-card-image">
                     @if($service->image)
-                    <img src="{{ asset('storage/' . $service->image) }}" alt="{{ $service->name }}">
+                    <img src="{{ asset('storage/' . $service->image) }}" alt="{{ $service->name }}" loading="lazy">
                     @else
                     <div style="width: 100%; height: 100%; background: linear-gradient(135deg, #01215E 0%, #012056 100%); display: flex; align-items: center; justify-content: center;">
                         <i class="{{ $service->icon ?? 'fas fa-tooth' }}" style="font-size: 80px; color: rgba(255,255,255,0.2);"></i>
@@ -271,8 +271,8 @@
             @forelse($results as $index => $result)
             <div class="ba-item" data-aos="fade-up" data-aos-delay="{{ $index * 100 }}">
                 <div class="ba-slider-container" data-ba-slider>
-                    <img src="{{ str_starts_with($result->before_image, 'http') ? $result->before_image : asset('storage/' . $result->before_image) }}" alt="Before - {{ $result->title }}" class="before-image">
-                    <img src="{{ str_starts_with($result->after_image, 'http') ? $result->after_image : asset('storage/' . $result->after_image) }}" alt="After - {{ $result->title }}" class="after-image">
+                    <img src="{{ str_starts_with($result->before_image, 'http') ? $result->before_image : asset('storage/' . $result->before_image) }}" alt="Before - {{ $result->title }}" class="before-image" loading="lazy">
+                    <img src="{{ str_starts_with($result->after_image, 'http') ? $result->after_image : asset('storage/' . $result->after_image) }}" alt="After - {{ $result->title }}" class="after-image" loading="lazy">
                     <div class="ba-slider">
                         <div class="ba-handle"></div>
                     </div>
@@ -322,7 +322,7 @@
                         <div class="doctor-header">
                             <div class="doctor-image-wrapper">
                                 <div class="doctor-image">
-                                    <img src="@if($doctor->photo){{ (filter_var($doctor->photo, FILTER_VALIDATE_URL)) ? $doctor->photo : asset('storage/' . $doctor->photo) }}@else{{ asset('images/no-image.jpg') }}@endif" alt="{{ $doctor->name }}">
+                                    <img src="@if($doctor->photo){{ (filter_var($doctor->photo, FILTER_VALIDATE_URL)) ? $doctor->photo : asset('storage/' . $doctor->photo) }}@else{{ asset('images/no-image.jpg') }}@endif" alt="{{ $doctor->name }}" loading="lazy">
                                 </div>
                                 @if($doctor->badge)
                                 <span class="doctor-badge {{ $doctor->badge }}">
@@ -473,10 +473,13 @@
                 <div class="branches-accordion" id="branches-accordion">
 
                     @php
-                    // NEW: Use Eloquent, dynamic
-                    $regions = \App\Models\Region::with(['locations' => function($q) {
-                    $q->orderBy('order');
-                    }])->orderBy('name')->get();
+                    // Cached and eager-loaded regions with locations to avoid N+1 queries
+                    $regions = \Cache::remember('homepage.regions_with_locations', 3600, function() {
+                        return \App\Models\Region::with(['locations' => function($q) {
+                            $q->select('id', 'region_id', 'name', 'slug', 'address', 'latitude', 'longitude', 'whatsapp', 'email', 'image', 'map_url', 'schedule', 'order')
+                              ->orderBy('order');
+                        }])->orderBy('name')->get();
+                    });
                     @endphp
 
                     @foreach($regions as $region)
@@ -540,7 +543,7 @@
                                     <a href="{{ whatsapp_url('Halo, saya ingin reservasi di ' . $location->name) }}" class="btn btn-sm btn-primary"><i class="fab fa-whatsapp"></i> Reservasi</a>
                                     @php
                                     $modalData = [
-                                    'region' => $location->region->name ?? null,
+                                    'region' => $region->name ?? null,
                                     'name' => $location->name,
                                     'address' => $location->address,
                                     'whatsapp' => $location->whatsapp,
@@ -653,7 +656,7 @@
                     <div class="testi-card">
                         <div class="testi-card-header">
                             <div class="testi-avatar">
-                                <img src="@if($testimonial->avatar){{ (filter_var($testimonial->avatar, FILTER_VALIDATE_URL)) ? $testimonial->avatar : asset('storage/' . $testimonial->avatar) }}@else{{ asset('images/no-image.jpg') }}@endif" alt="{{ $testimonial->name }}">
+                                <img src="@if($testimonial->avatar){{ (filter_var($testimonial->avatar, FILTER_VALIDATE_URL)) ? $testimonial->avatar : asset('storage/' . $testimonial->avatar) }}@else{{ asset('images/no-image.jpg') }}@endif" alt="{{ $testimonial->name }}" loading="lazy">
                                 @if($testimonial->verified)
                                 <span class="verified-badge"><i class="fas fa-check"></i></span>
                                 @endif
@@ -775,7 +778,7 @@
         <div class="gallery-masonry">
             @foreach($gallery as $index => $item)
             <div class="gallery-item {{ $item->size }}" data-category="{{ $item->category }}" data-aos="fade-up" data-aos-delay="{{ $index * 50 }}">
-                <img src="@if($item->image){{ (filter_var($item->image, FILTER_VALIDATE_URL)) ? $item->image : asset('storage/' . $item->image) }}@else{{ asset('images/no-image.jpg') }}@endif" alt="{{ $item->title }}">
+                <img src="@if($item->image){{ (filter_var($item->image, FILTER_VALIDATE_URL)) ? $item->image : asset('storage/' . $item->image) }}@else{{ asset('images/no-image.jpg') }}@endif" alt="{{ $item->title }}" loading="lazy">
                 <div class="gallery-overlay">
                     <div class="gallery-icon"><i class="fas fa-search-plus"></i></div>
                     <h3>{{ $item->title }}</h3>

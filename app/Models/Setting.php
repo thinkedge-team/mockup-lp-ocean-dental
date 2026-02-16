@@ -18,13 +18,20 @@ class Setting extends Model
 
     public static function get($key, $default = null)
     {
-        $setting = self::where('key', $key)->first();
+        // Cache all settings at once to prevent N+1 queries
+        // Cache duration: 24 hours (86400 seconds)
+        $allSettings = \Cache::remember('all_settings', 86400, function () {
+            return self::all()->pluck('value', 'key')->toArray();
+        });
 
-        return $setting ? $setting->value : $default;
+        return $allSettings[$key] ?? $default;
     }
 
     public static function set($key, $value, $type = 'text', $group = 'general')
     {
+        // Clear settings cache when updating
+        \Cache::forget('all_settings');
+        
         return self::updateOrCreate(
             ['key' => $key],
             ['value' => $value, 'type' => $type, 'group' => $group]

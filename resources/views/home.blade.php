@@ -960,6 +960,8 @@
 <!-- Initialize AOS (Animate on Scroll) -->
 @include('components.location-detail-modal')
 
+@endsection
+
 @push('scripts')
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script>
@@ -989,52 +991,5 @@
         updateCount();
     };
 
-    // FAQ Accordion
-    const faqItems = document.querySelectorAll('.faq-item');
-    faqItems.forEach(item => {
-        const question = item.querySelector('.faq-question');
-        question.addEventListener('click', () => {
-            const isActive = item.classList.contains('active');
-            // Close all other items
-            faqItems.forEach(otherItem => {
-                if (otherItem !== item) {
-                    otherItem.classList.remove('active');
-                }
-            });
-            // Toggle the current one
-            item.classList.toggle('active', !isActive);
-        });
-        // Keyboard accessibility
-        question.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter' || e.key === ' ') {
-                e.preventDefault();
-                question.click();
-            }
-        });
-    });
-
-    // FAQ Category Filter
-    const faqFilterBtns = document.querySelectorAll('.faq-filter .filter-btn');
-    faqFilterBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-            const filter = btn.getAttribute('data-filter');
-
-            // Update active button
-            faqFilterBtns.forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-
-            // Filter FAQ items
-            faqItems.forEach(item => {
-                const category = item.getAttribute('data-category');
-                if (filter === 'all' || category === filter) {
-                    item.style.display = 'block';
-                    item.setAttribute('data-aos', 'fade-up');
-                } else {
-                    item.style.display = 'none';
-                    item.removeAttribute('data-aos');
-                }
-            });
-        });
-    });
 </script>
-@endsection
+@endpush

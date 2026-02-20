@@ -1230,7 +1230,7 @@ section {
     display: inline-block;
     padding: 8px 20px;
     background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-light) 100%);
-    color: var(--ocean-blue);
+    color: var(--ocean-blue-pale);
     font-size: 0.875rem;
     font-weight: 600;
     border-radius: var(--radius-full);
@@ -1395,7 +1395,7 @@ section {
 .filter-btn.active {
     background: var(--ocean-blue-gradient);
     border-color: transparent;
-    color: var(--primary-dark);
+    color: var(--ocean-blue-pale);
     box-shadow: var(--shadow-teal);
 }
 
@@ -1583,6 +1583,7 @@ section {
 .services-cta {
     text-align: center;
     margin-top: var(--spacing-2xl);
+    margin-bottom: var(--spacing-2xl);
     padding: var(--spacing-xl);
     background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-light) 100%);
     border-radius: var(--radius-2xl);

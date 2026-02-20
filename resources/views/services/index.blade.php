@@ -1,128 +1,269 @@
-@extends('layouts.app')
+@extends('layouts.page')
 
 @section('title', 'Layanan Kami - ' . setting('site_name', 'Ocean Dental'))
 @section('meta_description', 'Berbagai layanan perawatan gigi profesional dari Ocean Dental: Veneer, Behel, Scaling, Bleaching, Implant, dan banyak lagi.')
 @section('meta_keywords', 'layanan gigi, veneer gigi, behel gigi, scaling gigi, bleaching gigi, implant gigi, tambal gigi, cabut gigi')
 
+@push('styles')
+<style>
+    .service-card {
+        background: white;
+        border-radius: var(--radius-lg);
+        overflow: hidden;
+        box-shadow: var(--shadow-md);
+        transition: all var(--transition);
+        position: relative;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .service-card:hover {
+        transform: translateY(-8px);
+        box-shadow: var(--shadow-lg);
+    }
+
+    .service-card:hover .service-card-image img {
+        transform: scale(1.06);
+    }
+
+    .service-card-image {
+        height: 240px;
+        overflow: hidden;
+        background: var(--off-white);
+        position: relative;
+    }
+
+    .service-card-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform var(--transition);
+    }
+
+    .service-card-placeholder {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+        background: linear-gradient(135deg, var(--navy) 0%, var(--navy-dark) 100%);
+    }
+
+    .service-card-placeholder i {
+        font-size: 80px;
+        color: rgba(255, 255, 255, 0.15);
+    }
+
+    .service-card-badges {
+        position: absolute;
+        top: 14px;
+        left: 14px;
+        right: 14px;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        pointer-events: none;
+    }
+
+    .service-card-body {
+        padding: 28px;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .service-card-title {
+        font-size: 21px;
+        font-family: 'Outfit', sans-serif;
+        font-weight: 700;
+        color: var(--navy);
+        margin-bottom: 10px;
+        line-height: 1.3;
+    }
+
+    .service-card-desc {
+        font-size: 15px;
+        color: var(--text-body);
+        line-height: 1.7;
+        margin-bottom: 16px;
+        flex: 1;
+    }
+
+    .service-card-meta {
+        display: flex;
+        gap: 16px;
+        margin-bottom: 20px;
+        flex-wrap: wrap;
+    }
+
+    .service-card-meta-item {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 14px;
+        color: var(--text-body);
+    }
+
+    .service-card-meta-item i {
+        color: var(--teal);
+    }
+
+    .service-card-meta-item strong {
+        color: var(--navy);
+    }
+
+    .service-card-cta {
+        display: block;
+        text-align: center;
+        padding: 13px 24px;
+        background: var(--navy);
+        color: white;
+        border-radius: var(--radius-sm);
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 15px;
+        transition: all var(--transition);
+    }
+
+    .service-card-cta:hover {
+        background: var(--navy-dark);
+        transform: translateX(3px);
+    }
+
+    .service-card-cta i {
+        margin-left: 8px;
+    }
+
+    /* CTA Section */
+    .services-cta {
+        padding: 80px 0;
+        background: linear-gradient(135deg, var(--navy) 0%, var(--navy-dark) 100%);
+        color: white;
+        text-align: center;
+        width: 80%;
+        margin: 0 auto;
+        border-radius: var(--radius-lg);
+        margin-bottom: var(--spacing-xl);
+    }
+
+    .services-cta h2 {
+        font-size: 40px;
+        font-family: 'Outfit', sans-serif;
+        font-weight: 800;
+        margin-bottom: 16px;
+    }
+
+    .services-cta p {
+        font-size: 18px;
+        opacity: 0.9;
+        margin-bottom: 40px;
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    @media (max-width: 768px) {
+        .services-cta h2 {
+            font-size: 28px;
+        }
+    }
+</style>
+@endpush
+
 @section('content')
-<!-- Hero Section -->
-<section class="page-hero" style="padding: 120px 0 80px; background: linear-gradient(135deg, #01215E 0%, #012056 100%); color: white; text-align: center;">
+<!-- Page Hero -->
+<div class="page-hero">
     <div class="container">
-        <h1 style="font-size: 48px; font-weight: 800; margin-bottom: 1rem;">Layanan Kami</h1>
-        <p style="font-size: 20px; opacity: 0.9; max-width: 700px; margin: 0 auto;">
-            Perawatan gigi profesional dengan teknologi terkini dan tim dokter berpengalaman
-        </p>
+        <h1 style="color: var(--ocean-blue-pale);"><i class="fas fa-tooth"></i> Layanan Kami</h1>
+        <p style="color: var(--ocean-blue-pale);">Perawatan gigi profesional dengan teknologi terkini dan tim dokter berpengalaman</p>
+        <div class="page-breadcrumb">
+            <a href="{{ route('home') }}"><i class="fas fa-home"></i> Home</a>
+            <span>/</span>
+            <span class="breadcrumb-current">Layanan</span>
+        </div>
     </div>
-</section>
+</div>
 
 <!-- Services Grid -->
-<section class="services-section" style="padding: 80px 0;">
+<section class="section">
     <div class="container">
         @if($services->count() > 0)
-        <div class="services-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 30px;">
-            @foreach($services as $service)
-            <article class="service-card" style="background: white; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.08); transition: all 0.3s; position: relative;">
-                @if($service->is_featured)
-                <div class="badge-featured" style="position: absolute; top: 15px; right: 15px; background: #FFD700; color: #01215E; padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: 700; z-index: 10; box-shadow: 0 2px 8px rgba(255,215,0,0.3);">
-                    <i class="fas fa-star"></i> Populer
-                </div>
-                @endif
-                
-                @if($service->badge)
-                <div class="badge-custom" style="position: absolute; top: 15px; left: 15px; background: #01215E; color: white; padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: 700; z-index: 10;">
-                    {{ ucfirst($service->badge) }}
-                </div>
-                @endif
-                
-                <!-- Service Image -->
-                <div class="service-image" style="height: 240px; overflow: hidden; background: #f8f9fa;">
-                    @if($service->image)
-                    <img src="{{ asset('storage/' . $service->image) }}" alt="{{ $service->name }}" style="width: 100%; height: 100%; object-fit: cover;">
-                    @else
-                    <div style="display: flex; align-items: center; justify-content: center; height: 100%; background: linear-gradient(135deg, #01215E 0%, #012056 100%);">
-                        <i class="{{ $service->icon ?? 'fas fa-tooth' }}" style="font-size: 80px; color: rgba(255,255,255,0.2);"></i>
-                    </div>
-                    @endif
-                </div>
-                
-                <!-- Service Content -->
-                <div class="service-content" style="padding: 25px;">
-                    <h3 style="font-size: 22px; font-weight: 700; color: #01215E; margin-bottom: 0.75rem;">
-                        {{ $service->name }}
-                    </h3>
-                    
-                    <p style="font-size: 15px; color: #666; line-height: 1.7; margin-bottom: 1.25rem;">
-                        {{ Str::limit($service->short_description ?? strip_tags($service->description), 120) }}
-                    </p>
-                    
-                    <!-- Meta Info -->
-                    <div style="display: flex; gap: 15px; margin-bottom: 1.25rem; flex-wrap: wrap;">
-                        @if($service->price_start)
-                        <div style="display: flex; align-items: center; gap: 6px; font-size: 14px; color: #01215E;">
-                            <i class="fas fa-tag"></i>
-                            <strong>{{ $service->formatted_price }}</strong>
-                        </div>
+            <div class="grid-auto">
+                @foreach($services as $service)
+                <article class="service-card">
+                    <!-- Badges -->
+                    <div class="service-card-image">
+                        @if($service->image)
+                            <img src="{{ asset('storage/' . $service->image) }}" alt="{{ $service->name }}">
+                        @else
+                            <div class="service-card-placeholder">
+                                <i class="{{ $service->icon ?? 'fas fa-tooth' }}"></i>
+                            </div>
                         @endif
-                        
-                        @if($service->duration)
-                        <div style="display: flex; align-items: center; gap: 6px; font-size: 14px; color: #666;">
-                            <i class="fas fa-clock"></i>
-                            <span>{{ $service->formatted_duration }}</span>
+                        <div class="service-card-badges">
+                            @if($service->badge)
+                                <span class="badge badge-custom">{{ ucfirst($service->badge) }}</span>
+                            @else
+                                <span></span>
+                            @endif
+                            @if($service->is_featured)
+                                <span class="badge badge-featured"><i class="fas fa-star"></i> Populer</span>
+                            @endif
                         </div>
-                        @endif
                     </div>
-                    
-                    <!-- CTA Button -->
-                    <a href="{{ route('services.show', $service->slug) }}" class="btn-service" style="display: block; text-align: center; padding: 12px 24px; background: #01215E; color: white; border-radius: 8px; text-decoration: none; font-weight: 600; transition: all 0.3s;">
-                        Lihat Detail <i class="fas fa-arrow-right" style="margin-left: 8px;"></i>
-                    </a>
-                </div>
-            </article>
-            @endforeach
-        </div>
-        
-        <!-- Pagination -->
-        <div class="pagination-wrapper" style="margin-top: 60px; display: flex; justify-content: center;">
-            {{ $services->links() }}
-        </div>
+
+                    <!-- Content -->
+                    <div class="service-card-body">
+                        <h3 class="service-card-title">{{ $service->name }}</h3>
+                        <p class="service-card-desc">
+                            {{ Str::limit($service->short_description ?? strip_tags($service->description), 120) }}
+                        </p>
+
+                        <div class="service-card-meta">
+                            @if($service->price_start)
+                                <div class="service-card-meta-item">
+                                    <i class="fas fa-tag"></i>
+                                    <strong>{{ $service->formatted_price }}</strong>
+                                </div>
+                            @endif
+                            @if($service->duration)
+                                <div class="service-card-meta-item">
+                                    <i class="fas fa-clock"></i>
+                                    <span>{{ $service->formatted_duration }}</span>
+                                </div>
+                            @endif
+                        </div>
+
+                        <a href="{{ route('services.show', $service->slug) }}" class="service-card-cta">
+                            Lihat Detail <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </article>
+                @endforeach
+            </div>
+
+            <!-- Pagination -->
+            <div class="pagination-wrapper">
+                {{ $services->links() }}
+            </div>
         @else
-        <div style="text-align: center; padding: 60px 20px;">
-            <i class="fas fa-inbox" style="font-size: 80px; color: #ddd; margin-bottom: 1rem;"></i>
-            <p style="font-size: 18px; color: #999;">Belum ada layanan tersedia</p>
-        </div>
+            <div class="empty-state">
+                <i class="fas fa-inbox"></i>
+                <h3>Belum Ada Layanan</h3>
+                <p>Belum ada layanan yang tersedia saat ini.</p>
+            </div>
         @endif
     </div>
 </section>
 
 <!-- CTA Section -->
-<section class="cta-section" style="padding: 80px 0; background: linear-gradient(135deg, #01215E 0%, #012056 100%); color: white;">
-    <div class="container" style="text-align: center;">
-        <h2 style="font-size: 36px; font-weight: 800; margin-bottom: 1rem;">Siap Memulai Perawatan Gigi Anda?</h2>
-        <p style="font-size: 18px; opacity: 0.9; margin-bottom: 2rem; max-width: 600px; margin-left: auto; margin-right: auto;">
-            Konsultasikan kebutuhan perawatan gigi Anda dengan dokter kami sekarang
-        </p>
-        <a href="{{ whatsapp_url('Halo, saya ingin konsultasi mengenai layanan Ocean Dental') }}" target="_blank" class="btn-cta" style="display: inline-flex; align-items: center; gap: 10px; padding: 16px 40px; background: #25D366; color: white; border-radius: 50px; text-decoration: none; font-size: 18px; font-weight: 700; transition: all 0.3s;">
-            <i class="fab fa-whatsapp" style="font-size: 24px;"></i>
+<section class="services-cta">
+    <div class="container">
+        <h2 style="color: var(--ocean-blue-pale);">Siap Memulai Perawatan Gigi Anda?</h2>
+        <p>Konsultasikan kebutuhan perawatan gigi Anda dengan dokter kami sekarang</p>
+        <a href="{{ whatsapp_url('Halo, saya ingin konsultasi mengenai layanan Ocean Dental') }}" target="_blank" class="btn-whatsapp" style="display: inline-flex;">
+            <i class="fab fa-whatsapp"></i>
             Konsultasi Gratis via WhatsApp
         </a>
     </div>
 </section>
-
-<style>
-    .service-card:hover {
-        transform: translateY(-8px);
-        box-shadow: 0 8px 30px rgba(0,0,0,0.15);
-    }
-    
-    .btn-service:hover {
-        background: #012056;
-        transform: translateX(4px);
-    }
-    
-    .btn-cta:hover {
-        background: #20BA5A;
-        transform: scale(1.05);
-        box-shadow: 0 6px 25px rgba(37, 211, 102, 0.4);
-    }
-</style>
 @endsection

@@ -107,28 +107,11 @@ class EventResource extends Resource
                     })
                     ->nullable()
                     ->helperText('Select existing category or create a new one inline. Categories help organize events and improve filtering.'),
-                Forms\Components\TextInput::make('max_participants')
-                    ->numeric(),
-                Forms\Components\TextInput::make('registered_participants')
-                    ->required()
-                    ->numeric()
-                    ->default(0),
+
                 Forms\Components\Toggle::make('is_active')
                     ->required(),
                 Forms\Components\Toggle::make('is_featured')
                     ->required(),
-                Forms\Components\Textarea::make('benefits')
-                    ->columnSpanFull(),
-                Forms\Components\Textarea::make('requirements')
-                    ->columnSpanFull(),
-                Forms\Components\TextInput::make('registration_url'),
-                Forms\Components\TextInput::make('price')
-                    ->required()
-                    ->numeric()
-                    ->default(0)
-                    ->prefix('Rp')
-                    ->placeholder('150000')
-                    ->helperText('Enter price in Rupiah (e.g., 150000 for Rp 150K, or 0 for free events)'),
                 Forms\Components\KeyValue::make('meta_tags')
                     ->label('SEO Meta Tags')
                     ->helperText('Add SEO meta tags for search engines and social media. Examples: description: "Join our free dental camp event" (150-160 chars) | keywords: "dental checkup, free event, jakarta" | og:title: "Free Dental Camp - Ocean Dental" | og:description: "Get free dental checkup for 100 participants" | twitter:card: "summary_large_image"')
@@ -159,21 +142,10 @@ class EventResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('category')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('max_participants')
-                    ->numeric()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('registered_participants')
-                    ->numeric()
-                    ->sortable(),
                 Tables\Columns\IconColumn::make('is_active')
                     ->boolean(),
                 Tables\Columns\IconColumn::make('is_featured')
                     ->boolean(),
-                Tables\Columns\TextColumn::make('registration_url')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('price')
-                    ->money()
-                    ->sortable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()

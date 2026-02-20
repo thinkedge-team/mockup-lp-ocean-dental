@@ -155,6 +155,55 @@ class ServiceResource extends Resource
                     ])
                     ->columns(2),
 
+                Forms\Components\Section::make('Keunggulan Layanan (Benefits)')
+                    ->schema([
+                        Forms\Components\Repeater::make('benefits')
+                            ->label('Benefits')
+                            ->schema([
+                                Forms\Components\TextInput::make('icon')
+                                    ->label('Icon (FontAwesome)')
+                                    ->placeholder('fas fa-star')
+                                    ->maxLength(100),
+                                Forms\Components\TextInput::make('title')
+                                    ->label('Title')
+                                    ->required()
+                                    ->maxLength(255),
+                                Forms\Components\Textarea::make('description')
+                                    ->label('Description')
+                                    ->required()
+                                    ->maxLength(500),
+                            ])
+                            ->columns(2)
+                            ->itemLabel(fn (array $state): ?string => $state['title'] ?? null)
+                            ->collapsible()
+                            ->reorderable()
+                            ->defaultItems(0)
+                            ->helperText('Add key benefits shown on the service detail page.'),
+                    ]),
+
+                Forms\Components\Section::make('Prosedur Perawatan (Procedure Steps)')
+                    ->schema([
+                        Forms\Components\Repeater::make('procedure_steps')
+                            ->label('Procedure Steps')
+                            ->schema([
+                                Forms\Components\TextInput::make('title')
+                                    ->label('Step Title (Optional)')
+                                    ->placeholder('e.g., Konsultasi Awal')
+                                    ->maxLength(255)
+                                    ->helperText('If empty, it will default to "Langkah X" in the view.'),
+                                Forms\Components\Textarea::make('description')
+                                    ->label('Description')
+                                    ->required()
+                                    ->maxLength(1000),
+                            ])
+                            ->columns(1)
+                            ->itemLabel(fn (array $state): ?string => $state['title'] ?? null)
+                            ->collapsible()
+                            ->reorderable()
+                            ->defaultItems(0)
+                            ->helperText('List the step-by-step procedure for this service.'),
+                    ]),
+
                 Forms\Components\Section::make('Settings')
                     ->schema([
                         Forms\Components\TextInput::make('order')

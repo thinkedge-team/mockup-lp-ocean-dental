@@ -26,6 +26,8 @@ class Service extends Model
         'order',
         'is_active',
         'is_featured',
+        'benefits',
+        'procedure_steps',
     ];
 
     protected $casts = [
@@ -33,6 +35,8 @@ class Service extends Model
         'is_featured' => 'boolean',
         'price_start' => 'decimal:2',
         'price_end' => 'decimal:2',
+        'benefits' => 'array',
+        'procedure_steps' => 'array',
     ];
 
     protected static function boot()

@@ -22,14 +22,8 @@ class Event extends Model
         'location',
         'address',
         'category',
-        'max_participants',
-        'registered_participants',
         'is_active',
         'is_featured',
-        'benefits',
-        'requirements',
-        'registration_url',
-        'price',
         'meta_tags',
     ];
 
@@ -38,10 +32,7 @@ class Event extends Model
         'end_date' => 'datetime',
         'is_active' => 'boolean',
         'is_featured' => 'boolean',
-        'benefits' => 'array',
-        'requirements' => 'array',
         'meta_tags' => 'array',
-        'price' => 'decimal:2',
     ];
 
     protected static function boot()

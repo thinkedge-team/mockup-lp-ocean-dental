@@ -422,10 +422,7 @@
                 <i class="fas fa-chevron-left"></i>
             </button>
             <div class="carousel-dots" id="doctors-dots">
-                <span class="carousel-dot active"></span>
-                <span class="carousel-dot"></span>
-                <span class="carousel-dot"></span>
-                <span class="carousel-dot"></span>
+                <!-- Dots are correctly calculated and dynamically injected by script.js -->
             </div>
             <button class="carousel-btn next" id="doctors-next" aria-label="Next">
                 <i class="fas fa-chevron-right"></i>

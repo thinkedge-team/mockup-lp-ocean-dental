@@ -28,6 +28,14 @@
     --shadow-md: 0 4px 20px rgba(1, 33, 94, 0.08);
     --shadow-lg: 0 8px 30px rgba(1, 33, 94, 0.12);
     --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+     /* Ocean Blue Palette - Primary Accent */
+    --ocean-blue: #3B82F6;
+    --ocean-blue-light: #60A5FA;
+    --ocean-blue-dark: #2563EB;
+    --ocean-blue-pale: #DBEAFE;
+    --ocean-blue-gradient: linear-gradient(135deg, #3B82F6 0%, #60A5FA 50%, #3B82F6 100%);
+    --ocean-blue-shimmer: linear-gradient(90deg, #3B82F6 0%, #60A5FA 25%, #3B82F6 50%, #60A5FA 75%, #3B82F6 100%);
 }
 
 /* =====================================================
@@ -111,8 +119,8 @@
     align-items: center;
     gap: 10px;
     padding: 10px 24px;
-    background: linear-gradient(135deg, var(--teal) 0%, #3DBDB5 100%);
-    color: var(--navy);
+    background: var(--accent);
+    color: var(--ocean-blue-pale);
     font-weight: 700;
     font-size: 14px;
     border-radius: var(--radius-full);
@@ -124,7 +132,7 @@
 .btn-back-home:hover {
     transform: translateY(-2px);
     box-shadow: 0 6px 20px rgba(78, 205, 196, 0.4);
-    background: linear-gradient(135deg, #5ee0d7 0%, var(--teal) 100%);
+    background: var(--ocean-blue-light);
 }
 
 .btn-back-home i {
@@ -200,7 +208,7 @@
 }
 
 .page-breadcrumb a {
-    color: var(--teal);
+    color: var(--ocean-blue-light);
     text-decoration: none;
     transition: opacity var(--transition);
 }

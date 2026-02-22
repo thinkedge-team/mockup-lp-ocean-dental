@@ -951,7 +951,14 @@ function initDoctorsCarousel() {
     if (!carousel) return;
     
     const cards = carousel.querySelectorAll('.doctor-card');
-    const cardWidth = 320 + 32; // card width + gap
+    
+    function getCardWidth() {
+        if (!cards.length) return 352;
+        const style = window.getComputedStyle(carousel);
+        const gap = parseInt(style.gap) || 32;
+        return cards[0].offsetWidth + gap;
+    }
+    
     let currentIndex = 0;
     let isDragging = false;
     let startX = 0;
@@ -959,22 +966,53 @@ function initDoctorsCarousel() {
     
     // Calculate max index based on visible cards
     function getMaxIndex() {
+        if (!carousel.parentElement) return 0;
         const containerWidth = carousel.parentElement.offsetWidth;
-        const visibleCards = Math.floor(containerWidth / cardWidth);
+        const visibleCards = Math.floor(containerWidth / getCardWidth()) || 1;
         return Math.max(0, cards.length - visibleCards);
     }
     
-    function updateCarousel() {
-        const offset = currentIndex * cardWidth;
-        carousel.style.transform = `translateX(-${offset}px)`;
+    function updateDots() {
+        if (!dotsContainer) return;
+        const maxIndex = getMaxIndex();
+        const neededDots = maxIndex > 0 ? maxIndex + 1 : 0;
         
-        // Update dots
-        if (dotsContainer) {
+        if (dotsContainer.children.length !== neededDots) {
+            dotsContainer.innerHTML = '';
+            if (neededDots <= 1) {
+                dotsContainer.style.display = 'none';
+                return;
+            } else {
+                dotsContainer.style.display = 'flex';
+            }
+            
+            for (let i = 0; i < neededDots; i++) {
+                const dot = document.createElement('span');
+                dot.className = 'carousel-dot';
+                if (i === currentIndex) dot.classList.add('active');
+                dot.addEventListener('click', () => {
+                    currentIndex = i;
+                    updateCarousel();
+                });
+                dotsContainer.appendChild(dot);
+            }
+        } else {
             const dots = dotsContainer.querySelectorAll('.carousel-dot');
             dots.forEach((dot, index) => {
-                dot.classList.toggle('active', index === Math.floor(currentIndex / Math.ceil(cards.length / dots.length)));
+                dot.classList.toggle('active', index === currentIndex);
             });
         }
+    }
+    
+    function updateCarousel() {
+        const maxIndex = getMaxIndex();
+        if (currentIndex > maxIndex) currentIndex = maxIndex;
+        if (currentIndex < 0) currentIndex = 0;
+        
+        const offset = currentIndex * getCardWidth();
+        carousel.style.transform = `translateX(-${offset}px)`;
+        
+        updateDots();
     }
     
     function goToNext() {
@@ -992,25 +1030,16 @@ function initDoctorsCarousel() {
     if (nextBtn) nextBtn.addEventListener('click', goToNext);
     if (prevBtn) prevBtn.addEventListener('click', goToPrev);
     
-    // Dot navigation
-    if (dotsContainer) {
-        const dots = dotsContainer.querySelectorAll('.carousel-dot');
-        dots.forEach((dot, index) => {
-            dot.addEventListener('click', () => {
-                const maxIndex = getMaxIndex();
-                const step = Math.ceil(cards.length / dots.length);
-                currentIndex = Math.min(index * step, maxIndex);
-                updateCarousel();
-            });
-        });
-    }
+    // Initial display
+    updateCarousel();
+    window.addEventListener('resize', updateCarousel);
     
     // Drag functionality
     carousel.addEventListener('mousedown', (e) => {
         isDragging = true;
         carousel.style.cursor = 'grabbing';
         startX = e.pageX;
-        scrollLeft = currentIndex * cardWidth;
+        scrollLeft = currentIndex * getCardWidth();
     });
     
     carousel.addEventListener('mousemove', (e) => {
@@ -1053,7 +1082,7 @@ function initDoctorsCarousel() {
     carousel.addEventListener('touchstart', (e) => {
         isDragging = true;
         startX = e.touches[0].pageX;
-        scrollLeft = currentIndex * cardWidth;
+        scrollLeft = currentIndex * getCardWidth();
     }, { passive: true });
     
     carousel.addEventListener('touchmove', (e) => {

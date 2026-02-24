@@ -19,10 +19,15 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        // Force HTTPS in production (shared hosting behind reverse proxy)
+        if ($this->app->environment('production')) {
+            \URL::forceScheme('https');
+        }
+
         // Register cache observers for homepage content models
         // This ensures the homepage cache is cleared when content is updated via CMS
         $observer = \App\Observers\HomepageCacheObserver::class;
-        
+
         \App\Models\Event::observe($observer);
         \App\Models\Service::observe($observer);
         \App\Models\Testimonial::observe($observer);

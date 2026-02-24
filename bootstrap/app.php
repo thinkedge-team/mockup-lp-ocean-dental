@@ -13,6 +13,9 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware): void {
         // Add CORS middleware globally as first middleware to handle cross-origin requests
         $middleware->prepend(\App\Http\Middleware\HandleCors::class);
+
+        // Trust proxies for shared hosting (handles HTTPS detection behind reverse proxies)
+        $middleware->trustProxies(at: '*');
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //

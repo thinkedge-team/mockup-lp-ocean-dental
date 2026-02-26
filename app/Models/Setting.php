@@ -16,6 +16,23 @@ class Setting extends Model
         'group',
     ];
 
+    /**
+     * Boot the model and register event listeners.
+     */
+    protected static function boot()
+    {
+        parent::boot();
+
+        // Clear cache whenever a setting is created, updated, or deleted
+        static::saved(function () {
+            \Cache::forget('all_settings');
+        });
+
+        static::deleted(function () {
+            \Cache::forget('all_settings');
+        });
+    }
+
     public static function get($key, $default = null)
     {
         // Cache all settings at once to prevent N+1 queries

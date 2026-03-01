@@ -76,6 +76,126 @@
         </div>
     </div>
 </section>
+<!-- Promo Section -->
+<section class="promo-section" id="promo">
+    <div class="container">
+
+        <div class="promo-heading">
+            <div class="promo-heading-left">
+                <span class="section-tag"><i class="fas fa-tag"></i> Penawaran Terbaru</span>
+                <h2>Promo <span>Spesial</span> Untuk Anda</h2>
+            </div>
+            <div class="promo-heading-nav">
+                <button class="promo-heading-btn" id="promo-prev" aria-label="Sebelumnya">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <button class="promo-heading-btn" id="promo-next" aria-label="Selanjutnya">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="promo-slider-outer">
+            <div class="promo-slider-track" id="promo-track">
+
+                @forelse($promos as $index => $promo)
+                <a href="{{ whatsapp_url($promo->whatsapp_message ?: $promo->cta_text . ' - ' . $promo->title) }}"
+                   class="promo-card" data-index="{{ $index }}">
+
+                    {{-- Gambar --}}
+                    @if($promo->image)
+                    <img class="promo-card-img"
+                         src="{{ asset('storage/' . $promo->image) }}"
+                         alt="{{ $promo->title }}"
+                         onerror="this.style.display='none'">
+                    @endif
+                    <div class="promo-card-placeholder" @if($promo->image) style="display:none" @endif>
+                        <i class="fas fa-image"></i>
+                        <span>Upload foto promo di sini<br><small>(1280×720px, landscape)</small></span>
+                    </div>
+                    <div class="promo-card-scrim"></div>
+
+                    {{-- TOP ROW: badge kiri + diskon kanan --}}
+                    <div class="promo-card-top-row">
+                        @if($promo->badge_text)
+                        <div class="promo-card-badge" @if($promo->badge_color) style="background:{{ $promo->badge_color }}" @endif>
+                            @if($promo->badge_icon)<i class="{{ $promo->badge_icon }}"></i> @endif{{ $promo->badge_text }}
+                        </div>
+                        @endif
+
+                        @if($promo->discount_value)
+                        <div class="promo-card-discount" style="{{ $promo->discount_gradient_style }}">
+                            <span class="pct">{{ $promo->discount_value }}</span>
+                            @if($promo->discount_label)<span class="off">{{ $promo->discount_label }}</span>@endif
+                        </div>
+                        @endif
+                    </div>
+
+                    {{-- BOTTOM CONTENT --}}
+                    <div class="promo-card-content">
+                        @if($promo->category_tag)
+                        <span class="promo-card-tag">
+                            @if($promo->category_icon)<i class="{{ $promo->category_icon }}"></i> @endif{{ $promo->category_tag }}
+                        </span>
+                        @endif
+
+                        <h3 class="promo-card-title">
+                            {{ $promo->title }}
+                            @if($promo->price_highlight)<br><span class="price-highlight">{{ $promo->price_highlight }}</span>@endif
+                        </h3>
+
+                        @if($promo->description)
+                        <p class="promo-card-sub">{{ $promo->description }}</p>
+                        @endif
+
+                        <div class="promo-card-footer">
+                            <div class="promo-card-left">
+                                @if($promo->price_from)
+                                <span class="promo-card-price-from">Mulai dari</span>
+                                <span class="promo-card-price-value">
+                                    {{ $promo->formatted_price_from }}
+                                    @if($promo->price_suffix)<small style="font-size:.75rem;font-weight:500;opacity:.75">{{ $promo->price_suffix }}</small>@endif
+                                    @if($promo->price_original)<span class="promo-card-price-original">{{ $promo->formatted_price_original }}</span>@endif
+                                </span>
+                                @endif
+                                @if($promo->expires_at)
+                                <span class="promo-card-expiry">
+                                    <i class="fas fa-clock"></i> {{ $promo->formatted_expiry }}
+                                </span>
+                                @endif
+                            </div>
+                            <span class="promo-card-cta">
+                                {{ $promo->cta_text }} <i class="fab fa-whatsapp"></i>
+                            </span>
+                        </div>
+                    </div>
+                </a>
+                @empty
+                <div class="promo-empty">
+                    <i class="fas fa-tag"></i>
+                    <p>Belum ada promo aktif saat ini.</p>
+                </div>
+                @endforelse
+
+            </div><!-- /promo-slider-track -->
+        </div><!-- /promo-slider-outer -->
+
+        <div class="promo-footer">
+            <div class="promo-progress-wrap">
+                <div class="promo-progress-fill" id="promo-progress-bar"></div>
+            </div>
+            <div class="promo-page-dots" id="promo-dots">
+                @foreach($promos as $index => $promo)
+                <button class="promo-page-dot {{ $loop->first ? 'active' : '' }}" data-index="{{ $index }}"></button>
+                @endforeach
+            </div>
+            <div class="promo-slide-counter">
+                <strong id="promo-current">1</strong>–<span id="promo-visible">2</span>
+                / <span id="promo-total">{{ $promos->count() }}</span>
+            </div>
+        </div>
+    </div>
+</section>
 <!-- About Section -->
 <section class="about" id="about">
     <div class="container">
@@ -303,137 +423,262 @@
 <!-- Doctors/Team Section -->
 <section class="doctors" id="doctors">
     <div class="container">
-        <div class="section-header" data-aos="fade-up">
-            <span class="section-tag"><i class="fas fa-user-md"></i> Tim Dokter</span>
-            <h2 class="section-title">
-                Dokter <span class="gradient-text-dark">Profesional</span> Kami
-            </h2>
-            <p class="section-description">
-                Tim dokter gigi berpengalaman dan tersertifikasi siap memberikan perawatan terbaik untuk Anda
-            </p>
+
+        {{-- ── Heading row: title kiri, nav kanan ── --}}
+        <div class="doctors-heading" data-aos="fade-up">
+            <div class="doctors-heading-left">
+                <span class="section-tag"><i class="fas fa-user-md"></i> Tim Dokter</span>
+                <h2 class="section-title">
+                    Dokter <span class="gradient-text-dark">Profesional</span> Kami
+                </h2>
+                <p class="section-description">
+                    Tim dokter gigi berpengalaman dan tersertifikasi siap memberikan perawatan terbaik untuk Anda
+                </p>
+            </div>
+            <div class="doctors-heading-nav">
+                <button class="doctors-heading-btn" id="doctors-prev" aria-label="Sebelumnya">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <button class="doctors-heading-btn" id="doctors-next" aria-label="Selanjutnya">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
         </div>
 
-        <div class="doctors-carousel-container">
+        {{-- ── Carousel — tanpa mask kiri/kanan ── --}}
+        <div class="doctors-carousel-container" id="doctors-carousel-container">
             <div class="doctors-carousel" id="doctors-carousel">
+
                 @foreach($teamMembers as $index => $doctor)
-                <!-- {{ $doctor->name }} -->
-                <div class="doctor-card" data-aos="fade-up" data-aos-delay="{{ $index * 100 }}">
-                    <div class="doctor-card-inner">
-                        <div class="doctor-header">
-                            <div class="doctor-image-wrapper">
-                                <div class="doctor-image">
-                                    <img src="@if($doctor->photo){{ (filter_var($doctor->photo, FILTER_VALIDATE_URL)) ? $doctor->photo : asset('storage/' . $doctor->photo) }}@else{{ asset('images/no-image.jpg') }}@endif" alt="{{ $doctor->name }}" loading="lazy">
-                                </div>
-                                @if($doctor->badge)
-                                <span class="doctor-badge {{ $doctor->badge }}">
-                                    <i class="fas fa-{{ $doctor->badge === 'founder' ? 'crown' : 'award' }}"></i>
-                                </span>
-                                @endif
-                                <span class="doctor-status {{ $doctor->status }}"></span>
+                {{-- {{ $doctor->name }} --}}
+                <div class="doctor-card" data-aos="fade-up" data-aos-delay="{{ ($index % 4) * 100 }}">
+
+                    {{-- ── Card Header: foto + info ── --}}
+                    <div class="doc-top">
+
+                        {{-- Foto (persegi, rounded) --}}
+                        <div class="doc-photo-wrap">
+                            <div class="doc-photo">
+                                <img
+                                    src="@if($doctor->photo){{ filter_var($doctor->photo, FILTER_VALIDATE_URL) ? $doctor->photo : asset('storage/' . $doctor->photo) }}@else{{ asset('images/no-image.jpg') }}@endif"
+                                    alt="{{ $doctor->name }}"
+                                    loading="lazy">
                             </div>
-                            <div class="doctor-rating">
-                                <div class="stars">
+
+                            @if($doctor->badge)
+                            <span class="doc-badge {{ $doctor->badge }}">
+                                <i class="fas fa-{{ $doctor->badge === 'founder' ? 'crown' : 'award' }}"></i>
+                            </span>
+                            @endif
+
+                            <span class="doc-status-dot {{ $doctor->status ?? 'online' }}"></span>
+                        </div>
+
+                        {{-- Info kanan --}}
+                        <div class="doc-header-info">
+                            <div class="doc-name">{{ $doctor->name }}</div>
+                            <span class="doc-specialty-pill">
+                                <i class="fas fa-tooth"></i> {{ $doctor->position }}
+                            </span>
+                            <div class="doc-rating-row">
+                                <div class="doc-stars">
                                     @for($i = 1; $i <= 5; $i++)
-                                        @if($i <=floor($doctor->rating))
-                                        <i class="fas fa-star"></i>
+                                        @if($i <= floor($doctor->rating))
+                                            <i class="fas fa-star"></i>
                                         @elseif($i - 0.5 <= $doctor->rating)
                                             <i class="fas fa-star-half-alt"></i>
-                                            @else
+                                        @else
                                             <i class="far fa-star"></i>
-                                            @endif
-                                            @endfor
+                                        @endif
+                                    @endfor
                                 </div>
-                                <span class="rating-score">{{ number_format($doctor->rating, 1) }}</span>
-                                <span class="rating-count">({{ $doctor->review_count }} ulasan)</span>
+                                <span class="doc-rating-num">{{ number_format($doctor->rating, 1) }}</span>
+                                <span class="doc-rating-cnt">({{ $doctor->review_count }} ulasan)</span>
                             </div>
                         </div>
 
-                        <div class="doctor-body">
-                            <h3>{{ $doctor->name }}</h3>
-                            <p class="doctor-specialty"><i class="fas fa-tooth"></i> {{ $doctor->position }}</p>
+                    </div>{{-- /doc-top --}}
 
-                            <div class="doctor-stats">
-                                <div class="stat-item">
-                                    <span class="stat-value">{{ $doctor->years_of_experience }}+</span>
-                                    <span class="stat-label">Tahun</span>
-                                </div>
-                                <div class="stat-divider"></div>
-                                <div class="stat-item">
-                                    <span class="stat-value">{{ $doctor->patient_count }}</span>
-                                    <span class="stat-label">Pasien</span>
-                                </div>
-                                <div class="stat-divider"></div>
-                                <div class="stat-item">
-                                    <span class="stat-value">{{ $doctor->badge === 'founder' ? '29' : '100%' }}</span>
-                                    <span class="stat-label">{{ $doctor->badge === 'founder' ? 'Cabang' : 'Happy' }}</span>
-                                </div>
-                            </div>
+                    {{-- ── Divider ── --}}
+                    <div class="doc-sep"></div>
 
-                            @if($doctor->expertise_tags && is_array($doctor->expertise_tags))
-                            <div class="doctor-expertise">
-                                @foreach(array_slice($doctor->expertise_tags, 0, 3) as $tag)
-                                <span class="expertise-tag">{{ $tag }}</span>
-                                @endforeach
-                            </div>
-                            @endif
-
-                            @if($doctor->university)
-                            <div class="doctor-education">
-                                <i class="fas fa-graduation-cap"></i>
-                                <span>{{ $doctor->university }}</span>
-                            </div>
-                            @endif
+                    {{-- ── Stats ── --}}
+                    <div class="doc-stats">
+                        <div class="doc-stat">
+                            <span class="doc-stat-val">{{ $doctor->years_of_experience }}+</span>
+                            <span class="doc-stat-lbl">Tahun</span>
                         </div>
-
-                        <div class="doctor-footer">
-                            <a href="{{ whatsapp_url('Halo, saya ingin reservasi dengan ' . $doctor->name) }}" class="btn btn-primary btn-doctor">
-                                <i class="fab fa-whatsapp"></i> Reservasi
-                            </a>
-                            <a href="#" class="btn btn-outline btn-doctor"
-                                onclick="openDoctorModal(event, this)"
-                                data-doctor-id="{{ $doctor->id }}"
-                                data-doctor-name="{{ $doctor->name }}"
-                                data-doctor-position="{{ $doctor->position }}"
-                                data-doctor-photo="@if($doctor->photo){{ (filter_var($doctor->photo, FILTER_VALIDATE_URL)) ? $doctor->photo : asset('storage/' . $doctor->photo) }}@else{{ asset('images/no-image.jpg') }}@endif"
-                                data-doctor-university="{{ $doctor->university ?? '' }}"
-                                data-doctor-badge="{{ $doctor->badge ?? '' }}"
-                                data-doctor-status="{{ $doctor->status }}"
-                                data-doctor-rating="{{ $doctor->rating }}"
-                                data-doctor-review-count="{{ $doctor->review_count }}"
-                                data-doctor-experience="{{ $doctor->years_of_experience }}"
-                                data-doctor-patients="{{ $doctor->patient_count }}"
-                                data-doctor-specialization="{{ $doctor->specialization ?? '' }}"
-                                data-doctor-bio-html="{{ e($doctor->bio ?? '') }}"
-                                data-doctor-qualifications="{{ e(json_encode($doctor->qualifications ?? [])) }}"
-                                data-doctor-expertise="{{ e(json_encode($doctor->expertise_tags ?? [])) }}"
-                                data-doctor-social="{{ e(json_encode($doctor->social_links ?? [])) }}">
-                                <i class="fas fa-user"></i> Profil
-                            </a>
+                        <div class="doc-stat">
+                            <span class="doc-stat-val">{{ $doctor->patient_count }}</span>
+                            <span class="doc-stat-lbl">Pasien</span>
+                        </div>
+                        <div class="doc-stat">
+                            <span class="doc-stat-val">{{ $doctor->badge === 'founder' ? '29' : '100%' }}</span>
+                            <span class="doc-stat-lbl">{{ $doctor->badge === 'founder' ? 'Cabang' : 'Happy' }}</span>
                         </div>
                     </div>
-                </div>
+
+                    {{-- ── Expertise tags ── --}}
+                    @if($doctor->expertise_tags && is_array($doctor->expertise_tags))
+                    <div class="doc-tags">
+                        @foreach(array_slice($doctor->expertise_tags, 0, 3) as $tag)
+                        <span class="doc-tag">{{ $tag }}</span>
+                        @endforeach
+                    </div>
+                    @endif
+
+                    {{-- ── University ── --}}
+                    @if($doctor->university)
+                    <div class="doc-univ">
+                        <i class="fas fa-graduation-cap"></i>
+                        <span>{{ $doctor->university }}</span>
+                    </div>
+                    @endif
+
+                    {{-- ── Footer Buttons ── --}}
+                    <div class="doc-footer">
+                        <a href="{{ whatsapp_url('Halo, saya ingin reservasi dengan ' . $doctor->name) }}"
+                           class="doc-btn doc-btn-primary">
+                            <i class="fab fa-whatsapp"></i> Reservasi
+                        </a>
+                        <a href="#"
+                           class="doc-btn doc-btn-secondary"
+                           onclick="openDoctorModal(event, this)"
+                           data-doctor-id="{{ $doctor->id }}"
+                           data-doctor-name="{{ $doctor->name }}"
+                           data-doctor-position="{{ $doctor->position }}"
+                           data-doctor-photo="@if($doctor->photo){{ filter_var($doctor->photo, FILTER_VALIDATE_URL) ? $doctor->photo : asset('storage/' . $doctor->photo) }}@else{{ asset('images/no-image.jpg') }}@endif"
+                           data-doctor-university="{{ $doctor->university ?? '' }}"
+                           data-doctor-badge="{{ $doctor->badge ?? '' }}"
+                           data-doctor-status="{{ $doctor->status ?? 'online' }}"
+                           data-doctor-rating="{{ $doctor->rating }}"
+                           data-doctor-review-count="{{ $doctor->review_count }}"
+                           data-doctor-experience="{{ $doctor->years_of_experience }}"
+                           data-doctor-patients="{{ $doctor->patient_count }}"
+                           data-doctor-specialization="{{ $doctor->specialization ?? '' }}"
+                           data-doctor-bio-html="{{ e($doctor->bio ?? '') }}"
+                           data-doctor-qualifications="{{ e(json_encode($doctor->qualifications ?? [])) }}"
+                           data-doctor-expertise="{{ e(json_encode($doctor->expertise_tags ?? [])) }}"
+                           data-doctor-social="{{ e(json_encode($doctor->social_links ?? [])) }}">
+                            <i class="fas fa-user"></i> Profil
+                        </a>
+                    </div>
+
+                </div>{{-- /doctor-card --}}
                 @endforeach
+
+            </div>{{-- /doctors-carousel --}}
+        </div>{{-- /doctors-carousel-container --}}
+
+        {{-- ── Footer: progress bar + dots + counter ── --}}
+        <div class="doctors-footer">
+            <div class="doctors-progress-wrap">
+                <div class="doctors-progress-fill" id="doctors-progress-bar"></div>
+            </div>
+            <div class="carousel-dots" id="doctors-dots"></div>
+            <div class="doctors-slide-counter">
+                <strong id="doctors-current">1</strong> / <span id="doctors-total">1</span>
             </div>
         </div>
 
-        <!-- Carousel Navigation -->
-        <div class="carousel-nav">
-            <button class="carousel-btn prev" id="doctors-prev" aria-label="Previous">
-                <i class="fas fa-chevron-left"></i>
-            </button>
-            <div class="carousel-dots" id="doctors-dots">
-                <!-- Dots are correctly calculated and dynamically injected by script.js -->
-            </div>
-            <button class="carousel-btn next" id="doctors-next" aria-label="Next">
-                <i class="fas fa-chevron-right"></i>
-            </button>
-        </div>
     </div>
 </section>
 
-<!-- Doctor Profile Modal -->
 @include('components.doctor-profile-modal')
 
+<!-- Technology Section -->
+<section class="technology" id="technology">
+    <div class="tech-blob tech-blob-1"></div>
+    <div class="tech-blob tech-blob-2"></div>
+    <div class="container" style="position:relative;z-index:1;">
+        <div class="section-header">
+            <span class="section-tag"><i class="fas fa-microscope"></i> {{ setting('technology_section_tag', 'Keunggulan Kami') }}</span>
+            <h2 class="section-title" style="color:#fff;">{{ setting('technology_section_title', 'Didukung') }} <span class="highlight">{{ setting('technology_section_title_highlight', 'Teknologi Terkini') }}</span></h2>
+            <p class="section-description">{{ setting('technology_section_description', 'Kami berinvestasi pada peralatan medis terdepan untuk memastikan perawatan yang presisi, nyaman, dan hasil optimal bagi setiap pasien') }}</p>
+        </div>
+
+        {{-- ── Highlight Utama (tech-hero) ─────────────────────────────── --}}
+        @if($techHighlight)
+        <div class="tech-hero">
+            <div class="tech-hero-visual" style="position:relative;">
+                <div class="tech-hero-image">
+                    @if($techHighlight->image_url)
+                    <img src="{{ $techHighlight->image_url }}"
+                         alt="{{ $techHighlight->name }}"
+                         onerror="this.parentNode.innerHTML='<div class=\'tech-hero-image-placeholder\'><i class=\'fas fa-microscope\'></i><span>Foto belum tersedia</span></div>'">
+                    @else
+                    <div class="tech-hero-image-placeholder">
+                        <i class="fas fa-microscope"></i>
+                        <span>Upload foto di menu Teknologi</span>
+                    </div>
+                    @endif
+                </div>
+                <div class="tech-hero-badge">✦ Teknologi Unggulan</div>
+            </div>
+            <div class="tech-hero-content">
+                @if($techHighlight->eyebrow_text)
+                <span class="eyebrow"><i class="fas fa-bolt"></i> {{ $techHighlight->eyebrow_text }}</span>
+                @endif
+                <h3>{{ $techHighlight->name }}</h3>
+                @if($techHighlight->description)
+                <p>{{ $techHighlight->description }}</p>
+                @endif
+                @if($techHighlight->feature_list && count($techHighlight->feature_list))
+                <ul class="tech-feature-list">
+                    @foreach($techHighlight->feature_list as $feature)
+                    <li><i class="fas fa-check"></i> {{ $feature['item'] ?? $feature }}</li>
+                    @endforeach
+                </ul>
+                @endif
+            </div>
+        </div>
+        @endif
+
+        {{-- ── Grid Card Teknologi ─────────────────────────────────────── --}}
+        @if($techCards->isNotEmpty())
+        <div class="tech-grid">
+            @foreach($techCards as $tech)
+            <div class="tech-card">
+                <div class="tech-card-image">
+                    @if($tech->tag)
+                    <span class="tech-card-tag">{{ $tech->tag }}</span>
+                    @endif
+                    @if($tech->image_url)
+                    <img src="{{ $tech->image_url }}"
+                         alt="{{ $tech->name }}"
+                         onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+                    <div class="tech-card-image-placeholder" style="display:none">
+                        <i class="fas fa-image"></i>
+                        <span>Foto belum tersedia</span>
+                    </div>
+                    @else
+                    <div class="tech-card-image-placeholder">
+                        <i class="fas fa-image"></i>
+                        <span>Upload foto di menu Teknologi</span>
+                    </div>
+                    @endif
+                </div>
+                <div class="tech-card-body">
+                    <h4>{{ $tech->name }}</h4>
+                    @if($tech->description)
+                    <p>{{ $tech->description }}</p>
+                    @endif
+                </div>
+            </div>
+            @endforeach
+        </div>
+        @endif
+
+        {{-- Fallback: belum ada data sama sekali --}}
+        @if(!$techHighlight && $techCards->isEmpty())
+        <div style="text-align:center; padding: 60px 20px; color: rgba(255,255,255,0.6);">
+            <i class="fas fa-cpu-chip" style="font-size:48px; margin-bottom:16px; display:block; opacity:.4;"></i>
+            <p>Belum ada data teknologi. Tambahkan melalui menu <strong>Teknologi</strong> di panel admin.</p>
+        </div>
+        @endif
+
+    </div>
+</section>
 <!-- Branches/Locations Section -->
 <section class="branches" id="branches">
     <!-- DEBUG_MARK: If you see this, you are looking at the right file! -->
@@ -607,53 +852,63 @@
 
 <!-- Testimonials Section -->
 <section class="testimonials" id="testimonials">
-    <div class="container">
-        <div class="section-header" data-aos="fade-up">
-            <span class="section-tag"><i class="fas fa-quote-left"></i> Testimoni Pasien</span>
-            <h2 class="section-title">
-                Apa Kata <span class="gradient-text-dark">Pasien Kami</span>?
-            </h2>
-            <p class="section-description">
-                Kepuasan dan kepercayaan Anda adalah prioritas kami
-            </p>
+    <div class="testi-blob testi-blob-1"></div>
+    <div class="testi-blob testi-blob-2"></div>
+    <div class="container" style="position:relative;z-index:1;">
+
+        {{-- ── Heading row: title kiri, stats kanan ── --}}
+        <div class="testi-heading" data-aos="fade-up">
+            <div class="testi-heading-left">
+                <span class="section-tag"><i class="fas fa-quote-left"></i> Testimoni Pasien</span>
+                <h2 class="section-title" style="color:#fff;">
+                    Apa Kata <span class="highlight">Pasien Kami</span>?
+                </h2>
+                <p class="section-description">
+                    Kepuasan dan kepercayaan Anda adalah prioritas kami
+                </p>
+            </div>
+            {{-- Stats inline di heading kanan --}}
+            <div class="testi-heading-stats">
+                <div class="testi-stat">
+                    <div class="testi-stat-icon"><i class="fas fa-users"></i></div>
+                    <div class="testi-stat-info">
+                        <span class="testi-stat-value" data-count="{{ setting('stat_patients', '50000') }}">{{ number_format(setting('stat_patients', '50000')) }}+</span>
+                        <span class="testi-stat-label">Pasien Puas</span>
+                    </div>
+                </div>
+                <div class="testi-stat">
+                    <div class="testi-stat-icon"><i class="fas fa-star"></i></div>
+                    <div class="testi-stat-info">
+                        <span class="testi-stat-value">{{ setting('stat_rating', '4.9') }}</span>
+                        <span class="testi-stat-label">Rating Google</span>
+                    </div>
+                </div>
+                <div class="testi-stat">
+                    <div class="testi-stat-icon"><i class="fas fa-comments"></i></div>
+                    <div class="testi-stat-info">
+                        <span class="testi-stat-value" data-count="{{ setting('stat_reviews', '12500') }}">{{ number_format(setting('stat_reviews', '12500')) }}+</span>
+                        <span class="testi-stat-label">Ulasan Positif</span>
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <!-- Testimonial Stats -->
-        <div class="testimonial-stats" data-aos="fade-up">
-            <div class="testi-stat">
-                <div class="testi-stat-icon"><i class="fas fa-users"></i></div>
-                <div class="testi-stat-info">
-                    <span class="testi-stat-value" data-count="{{ setting('stat_patients', '50000') }}">{{ number_format(setting('stat_patients', '50000')) }}+</span>
-                    <span class="testi-stat-label">Pasien Puas</span>
-                </div>
-            </div>
-            <div class="testi-stat">
-                <div class="testi-stat-icon"><i class="fas fa-star"></i></div>
-                <div class="testi-stat-info">
-                    <span class="testi-stat-value">{{ setting('stat_rating', '4.9') }}</span>
-                    <span class="testi-stat-label">Rating Google</span>
-                </div>
-            </div>
-            <div class="testi-stat">
-                <div class="testi-stat-icon"><i class="fas fa-comments"></i></div>
-                <div class="testi-stat-info">
-                    <span class="testi-stat-value" data-count="{{ setting('stat_reviews', '12500') }}">{{ number_format(setting('stat_reviews', '12500')) }}+</span>
-                    <span class="testi-stat-label">Ulasan Positif</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- Testimonial Slider -->
-        <div class="testimonial-slider-wrapper" data-aos="fade-up">
+        {{-- ── Slider wrapper (no overflow clip — clipped by outer section) ── --}}
+        <div class="testi-carousel-container" id="testi-carousel-container" data-aos="fade-up">
             <div class="testimonial-slider" id="testimonial-slider">
 
                 @foreach($testimonials as $testimonial)
-                <!-- Testimonial {{ $loop->iteration }} -->
                 <div class="testi-slide">
                     <div class="testi-card">
+
+                        {{-- Quote decoration --}}
+                        <div class="testi-quote-icon"><i class="fas fa-quote-right"></i></div>
+
+                        {{-- Card Header --}}
                         <div class="testi-card-header">
                             <div class="testi-avatar">
-                                <img src="@if($testimonial->avatar){{ (filter_var($testimonial->avatar, FILTER_VALIDATE_URL)) ? $testimonial->avatar : asset('storage/' . $testimonial->avatar) }}@else{{ asset('images/no-image.jpg') }}@endif" alt="{{ $testimonial->name }}" loading="lazy">
+                                <img src="@if($testimonial->avatar){{ (filter_var($testimonial->avatar, FILTER_VALIDATE_URL)) ? $testimonial->avatar : asset('storage/' . $testimonial->avatar) }}@else{{ asset('images/no-image.jpg') }}@endif"
+                                     alt="{{ $testimonial->name }}" loading="lazy">
                                 @if($testimonial->verified)
                                 <span class="verified-badge"><i class="fas fa-check"></i></span>
                                 @endif
@@ -666,19 +921,13 @@
                                 <p class="testi-location"><i class="fas fa-map-marker-alt"></i> {{ $testimonial->location }}</p>
                                 <div class="testi-rating">
                                     @php
-                                    $fullStars = floor($testimonial->rating);
-                                    $hasHalfStar = ($testimonial->rating - $fullStars) >= 0.5;
-                                    $emptyStars = 5 - $fullStars - ($hasHalfStar ? 1 : 0);
+                                    $fullStars  = floor($testimonial->rating);
+                                    $hasHalf    = ($testimonial->rating - $fullStars) >= 0.5;
+                                    $emptyStars = 5 - $fullStars - ($hasHalf ? 1 : 0);
                                     @endphp
-                                    @for($i = 0; $i < $fullStars; $i++)
-                                        <i class="fas fa-star"></i>
-                                        @endfor
-                                        @if($hasHalfStar)
-                                        <i class="fas fa-star-half-alt"></i>
-                                        @endif
-                                        @for($i = 0; $i < $emptyStars; $i++)
-                                            <i class="far fa-star"></i>
-                                            @endfor
+                                    @for($i = 0; $i < $fullStars; $i++)<i class="fas fa-star"></i>@endfor
+                                    @if($hasHalf)<i class="fas fa-star-half-alt"></i>@endif
+                                    @for($i = 0; $i < $emptyStars; $i++)<i class="far fa-star"></i>@endfor
                                 </div>
                             </div>
                             <div class="testi-platform">
@@ -693,20 +942,27 @@
                                 @endif
                             </div>
                         </div>
+
+                        {{-- Card Body --}}
                         <div class="testi-card-body">
                             <p class="testi-text">"{{ $testimonial->content }}"</p>
                         </div>
+
+                        {{-- Card Footer --}}
                         <div class="testi-card-footer">
                             <span class="testi-service">
-                                @if(str_contains(strtolower($testimonial->service_type), 'scaling') || str_contains(strtolower($testimonial->service_type), 'cabut'))
+                                @php
+                                $st = strtolower($testimonial->service_type ?? '');
+                                @endphp
+                                @if(str_contains($st, 'scaling') || str_contains($st, 'cabut'))
                                 <i class="fas fa-tooth"></i>
-                                @elseif(str_contains(strtolower($testimonial->service_type), 'veneer'))
+                                @elseif(str_contains($st, 'veneer'))
                                 <i class="fas fa-gem"></i>
-                                @elseif(str_contains(strtolower($testimonial->service_type), 'keluarga'))
+                                @elseif(str_contains($st, 'keluarga'))
                                 <i class="fas fa-users"></i>
-                                @elseif(str_contains(strtolower($testimonial->service_type), 'ortodonti') || str_contains(strtolower($testimonial->service_type), 'behel'))
+                                @elseif(str_contains($st, 'ortodonti') || str_contains($st, 'behel'))
                                 <i class="fas fa-teeth"></i>
-                                @elseif(str_contains(strtolower($testimonial->service_type), 'implant'))
+                                @elseif(str_contains($st, 'implant'))
                                 <i class="fas fa-syringe"></i>
                                 @else
                                 <i class="fas fa-tooth"></i>
@@ -715,31 +971,41 @@
                             </span>
                             <span class="testi-date">{{ $testimonial->review_date->diffForHumans() }}</span>
                         </div>
+
                     </div>
                 </div>
                 @endforeach
 
             </div>
-
-            <!-- Slider Navigation -->
-            <button class="testi-nav testi-prev" id="testi-prev" aria-label="Previous">
-                <i class="fas fa-chevron-left"></i>
-            </button>
-            <button class="testi-nav testi-next" id="testi-next" aria-label="Next">
-                <i class="fas fa-chevron-right"></i>
-            </button>
-
-            <!-- Slider Dots -->
-            <div class="testi-dots" id="testi-dots"></div>
         </div>
 
-        <!-- CTA -->
+        {{-- ── Footer: nav buttons + progress bar + dots + counter ── --}}
+        <div class="testi-footer" data-aos="fade-up">
+            <div class="testi-footer-nav">
+                <button class="testi-heading-btn" id="testi-prev" aria-label="Sebelumnya">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <button class="testi-heading-btn" id="testi-next" aria-label="Selanjutnya">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+            <div class="testi-progress-wrap">
+                <div class="testi-progress-fill" id="testi-progress-bar"></div>
+            </div>
+            <div class="testi-dots-wrap" id="testi-dots"></div>
+            <div class="testi-slide-counter">
+                <strong id="testi-current">1</strong> / <span id="testi-total">1</span>
+            </div>
+        </div>
+
+        {{-- ── CTA ── --}}
         <div class="testimonial-cta" data-aos="fade-up">
             <p>Bergabunglah dengan <strong>{{ number_format(setting('stat_patients', '50000')) }}+ pasien</strong> yang sudah merasakan pelayanan terbaik kami</p>
             <a href="{{ whatsapp_url('Saya ingin reservasi') }}" class="btn btn-primary btn-lg">
                 <i class="fab fa-whatsapp"></i> Reservasi Sekarang
             </a>
         </div>
+
     </div>
 </section>
 
@@ -847,7 +1113,7 @@
                         @endif
                     </div>
                     <h3>{{ $event->title }}</h3>
-                    <p>{{ Str::limit(strip_tags($event->description), 120) }}</p>
+                    <p>{{ Str::limit(strip_tags($event->description ?? ''), 120) }}</p>
                     <a href="{{ route('events.show', $event->slug) }}" class="event-btn">
                         Selengkapnya <i class="fas fa-arrow-right"></i>
                     </a>

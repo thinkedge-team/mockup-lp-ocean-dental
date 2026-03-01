@@ -30,6 +30,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initGallery();
     initAboutTabs();
     initAboutCounters();
+    initPromoSlider();
     
     // Handle hash in URL on page load (smooth scroll to section)
     if (window.location.hash) {
@@ -943,210 +944,196 @@ function initBeforeAfterSliders() {
 // ===================================
 
 function initDoctorsCarousel() {
-    const carousel = document.getElementById('doctors-carousel');
-    const prevBtn = document.getElementById('doctors-prev');
-    const nextBtn = document.getElementById('doctors-next');
-    const dotsContainer = document.getElementById('doctors-dots');
-    
-    if (!carousel) return;
-    
-    const cards = carousel.querySelectorAll('.doctor-card');
-    
-    function getCardWidth() {
-        if (!cards.length) return 352;
-        const style = window.getComputedStyle(carousel);
-        const gap = parseInt(style.gap) || 32;
-        return cards[0].offsetWidth + gap;
+    const container    = document.getElementById('doctors-carousel-container') ||
+                         document.querySelector('.doctors-carousel-container');
+    const track        = document.getElementById('doctors-carousel');
+    const prevBtn      = document.getElementById('doctors-prev');
+    const nextBtn      = document.getElementById('doctors-next');
+    const dotsWrap     = document.getElementById('doctors-dots');
+    const progressFill = document.getElementById('doctors-progress-bar');
+    const currentEl    = document.getElementById('doctors-current');
+    const totalEl      = document.getElementById('doctors-total');
+
+    if (!track) return;
+
+    const cards = track.querySelectorAll('.doctor-card');
+    const GAP   = 24;
+    const AUTOPLAY_DURATION = 5000;
+
+    let currentIndex  = 0;
+    let isDragging    = false;
+    let dragStartX    = 0;
+    let dragCurrentX  = 0;
+    let baseOffset    = 0;
+    let rafId         = null;
+    let autoTimer     = null;
+    let paused        = false;
+    let elapsed       = 0;
+    let rafStart      = null;
+
+    /* ── Helpers ── */
+    function getCardWidth()    { return cards[0] ? cards[0].offsetWidth + GAP : 312; }
+    function getVisibleCount() { return container ? Math.max(1, Math.floor(container.offsetWidth / getCardWidth())) : 1; }
+    function getMaxIndex()     { return Math.max(0, cards.length - getVisibleCount()); }
+
+    /* ── Dots ── */
+    function buildDots() {
+        if (!dotsWrap) return;
+        dotsWrap.innerHTML = '';
+        const max = getMaxIndex();
+        for (let i = 0; i <= max; i++) {
+            const d = document.createElement('button');
+            d.className   = 'carousel-dot' + (i === 0 ? ' active' : '');
+            d.setAttribute('aria-label', `Slide ${i + 1}`);
+            d.addEventListener('click', () => { goTo(i); resetProgress(); });
+            dotsWrap.appendChild(d);
+        }
+        updateCounter();
     }
-    
-    let currentIndex = 0;
-    let isDragging = false;
-    let startX = 0;
-    let scrollLeft = 0;
-    
-    // Calculate max index based on visible cards
-    function getMaxIndex() {
-        if (!carousel.parentElement) return 0;
-        const containerWidth = carousel.parentElement.offsetWidth;
-        const visibleCards = Math.floor(containerWidth / getCardWidth()) || 1;
-        return Math.max(0, cards.length - visibleCards);
-    }
-    
+
     function updateDots() {
-        if (!dotsContainer) return;
-        const maxIndex = getMaxIndex();
-        const neededDots = maxIndex > 0 ? maxIndex + 1 : 0;
-        
-        if (dotsContainer.children.length !== neededDots) {
-            dotsContainer.innerHTML = '';
-            if (neededDots <= 1) {
-                dotsContainer.style.display = 'none';
-                return;
-            } else {
-                dotsContainer.style.display = 'flex';
-            }
-            
-            for (let i = 0; i < neededDots; i++) {
-                const dot = document.createElement('span');
-                dot.className = 'carousel-dot';
-                if (i === currentIndex) dot.classList.add('active');
-                dot.addEventListener('click', () => {
-                    currentIndex = i;
-                    updateCarousel();
-                });
-                dotsContainer.appendChild(dot);
-            }
-        } else {
-            const dots = dotsContainer.querySelectorAll('.carousel-dot');
-            dots.forEach((dot, index) => {
-                dot.classList.toggle('active', index === currentIndex);
-            });
-        }
+        if (!dotsWrap) return;
+        dotsWrap.querySelectorAll('.carousel-dot').forEach((d, i) =>
+            d.classList.toggle('active', i === currentIndex)
+        );
     }
-    
-    function updateCarousel() {
-        const maxIndex = getMaxIndex();
-        if (currentIndex > maxIndex) currentIndex = maxIndex;
-        if (currentIndex < 0) currentIndex = 0;
-        
-        const offset = currentIndex * getCardWidth();
-        carousel.style.transform = `translateX(-${offset}px)`;
-        
+
+    function updateCounter() {
+        if (totalEl)   totalEl.textContent   = getMaxIndex() + 1;
+        if (currentEl) currentEl.textContent = currentIndex + 1;
+    }
+
+    function updateButtons() {
+        // Tetap enable semua karena looping — hanya visually update
+        if (prevBtn) prevBtn.disabled = false;
+        if (nextBtn) nextBtn.disabled = false;
+    }
+
+    /* ── Transform ── */
+    function applyTransform(offset, animate = true) {
+        track.style.transition = animate ? 'transform .55s cubic-bezier(.4,0,.15,1)' : 'none';
+        track.style.transform  = `translateX(${-offset}px)`;
+    }
+
+    /* ── Navigate ── */
+    function goTo(index) {
+        // Looping: wrap around
+        const max = getMaxIndex();
+        if (index > max)  index = 0;
+        if (index < 0)    index = max;
+
+        currentIndex = index;
+        baseOffset   = currentIndex * getCardWidth();
+        applyTransform(baseOffset, true);
         updateDots();
+        updateButtons();
+        updateCounter();
     }
-    
-    function goToNext() {
-        const maxIndex = getMaxIndex();
-        currentIndex = Math.min(currentIndex + 1, maxIndex);
-        updateCarousel();
+
+    if (prevBtn) prevBtn.addEventListener('click', () => { goTo(currentIndex - 1); resetProgress(); });
+    if (nextBtn) nextBtn.addEventListener('click', () => { goTo(currentIndex + 1); resetProgress(); });
+
+    /* ── Auto-play + progress bar (mirip promo) ── */
+    function startProgress() {
+        if (progressFill) progressFill.style.width = '0%';
+        rafStart = performance.now() - elapsed;
+
+        function tick(now) {
+            if (!paused) {
+                elapsed = now - rafStart;
+                const pct = Math.min((elapsed / AUTOPLAY_DURATION) * 100, 100);
+                if (progressFill) progressFill.style.width = pct + '%';
+                if (pct >= 100) return; // stop; autoTimer will fire
+            } else {
+                rafStart = now - elapsed; // freeze progress
+            }
+            rafId = requestAnimationFrame(tick);
+        }
+        rafId = requestAnimationFrame(tick);
     }
-    
-    function goToPrev() {
-        currentIndex = Math.max(currentIndex - 1, 0);
-        updateCarousel();
+
+    function resetProgress() {
+        cancelAnimationFrame(rafId);
+        clearTimeout(autoTimer);
+        elapsed = 0;
+        startProgress();
+        autoTimer = setTimeout(() => {
+            goTo(currentIndex + 1); // loops via goTo()
+            resetProgress();
+        }, AUTOPLAY_DURATION);
     }
-    
-    // Button events
-    if (nextBtn) nextBtn.addEventListener('click', goToNext);
-    if (prevBtn) prevBtn.addEventListener('click', goToPrev);
-    
-    // Initial display
-    updateCarousel();
-    window.addEventListener('resize', updateCarousel);
-    
-    // Drag functionality
-    carousel.addEventListener('mousedown', (e) => {
-        isDragging = true;
-        carousel.style.cursor = 'grabbing';
-        startX = e.pageX;
-        scrollLeft = currentIndex * getCardWidth();
-    });
-    
-    carousel.addEventListener('mousemove', (e) => {
+
+    /* Pause on hover */
+    if (container) {
+        container.addEventListener('mouseenter', () => {
+            paused = true;
+            clearTimeout(autoTimer);
+        });
+        container.addEventListener('mouseleave', () => {
+            paused = false;
+            resetProgress();
+        });
+    }
+
+    /* ── Drag / Touch ── */
+    function onDragStart(x) {
+        isDragging   = true;
+        dragStartX   = x;
+        dragCurrentX = x;
+        track.style.transition = 'none';
+        if (container) container.style.cursor = 'grabbing';
+    }
+
+    function onDragMove(x) {
         if (!isDragging) return;
-        e.preventDefault();
-        const x = e.pageX;
-        const walk = (startX - x);
-        const newOffset = scrollLeft + walk;
-        carousel.style.transform = `translateX(-${newOffset}px)`;
-    });
-    
-    carousel.addEventListener('mouseup', (e) => {
+        dragCurrentX = x;
+        applyTransform(baseOffset + (dragStartX - x), false);
+    }
+
+    function onDragEnd() {
         if (!isDragging) return;
         isDragging = false;
-        carousel.style.cursor = 'grab';
-        
-        const x = e.pageX;
-        const walk = startX - x;
-        
-        if (Math.abs(walk) > 50) {
-            if (walk > 0) {
-                goToNext();
-            } else {
-                goToPrev();
-            }
-        } else {
-            updateCarousel();
-        }
-    });
-    
-    carousel.addEventListener('mouseleave', () => {
-        if (isDragging) {
-            isDragging = false;
-            carousel.style.cursor = 'grab';
-            updateCarousel();
-        }
-    });
-    
-    // Touch events
-    carousel.addEventListener('touchstart', (e) => {
-        isDragging = true;
-        startX = e.touches[0].pageX;
-        scrollLeft = currentIndex * getCardWidth();
-    }, { passive: true });
-    
-    carousel.addEventListener('touchmove', (e) => {
-        if (!isDragging) return;
-        const x = e.touches[0].pageX;
-        const walk = (startX - x);
-        const newOffset = scrollLeft + walk;
-        carousel.style.transform = `translateX(-${newOffset}px)`;
-    }, { passive: true });
-    
-    carousel.addEventListener('touchend', (e) => {
-        if (!isDragging) return;
-        isDragging = false;
-        
-        const x = e.changedTouches[0].pageX;
-        const walk = startX - x;
-        
-        if (Math.abs(walk) > 50) {
-            if (walk > 0) {
-                goToNext();
-            } else {
-                goToPrev();
-            }
-        } else {
-            updateCarousel();
-        }
-    });
-    
-    // Auto-play (optional)
-    let autoplayInterval;
-    
-    function startAutoplay() {
-        autoplayInterval = setInterval(() => {
-            const maxIndex = getMaxIndex();
-            if (currentIndex >= maxIndex) {
-                currentIndex = 0;
-            } else {
-                currentIndex++;
-            }
-            updateCarousel();
-        }, 5000);
+        if (container) container.style.cursor = 'grab';
+        const delta     = dragStartX - dragCurrentX;
+        const threshold = getCardWidth() * 0.22;
+        if      (delta >  threshold) goTo(currentIndex + 1);
+        else if (delta < -threshold) goTo(currentIndex - 1);
+        else                         goTo(currentIndex);
+        resetProgress();
     }
-    
-    function stopAutoplay() {
-        clearInterval(autoplayInterval);
+
+    if (container) {
+        container.addEventListener('mousedown',  e => { onDragStart(e.clientX); e.preventDefault(); });
+        container.addEventListener('touchstart', e => { onDragStart(e.touches[0].clientX); }, { passive: true });
+        container.addEventListener('touchmove',  e => { onDragMove(e.touches[0].clientX); },  { passive: true });
+        container.addEventListener('touchend',   () => onDragEnd());
+        container.addEventListener('click', e => {
+            if (Math.abs(dragStartX - dragCurrentX) > 8) e.preventDefault();
+        }, true);
     }
-    
-    // Pause autoplay on hover
-    carousel.addEventListener('mouseenter', stopAutoplay);
-    carousel.addEventListener('mouseleave', startAutoplay);
-    
-    // Start autoplay
-    startAutoplay();
-    
-    // Handle window resize
+
+    window.addEventListener('mousemove', e => onDragMove(e.clientX));
+    window.addEventListener('mouseup',   () => onDragEnd());
+
+    /* ── Resize ── */
     let resizeTimeout;
     window.addEventListener('resize', () => {
         clearTimeout(resizeTimeout);
         resizeTimeout = setTimeout(() => {
-            const maxIndex = getMaxIndex();
-            currentIndex = Math.min(currentIndex, maxIndex);
-            updateCarousel();
+            currentIndex = Math.min(currentIndex, getMaxIndex());
+            baseOffset   = currentIndex * getCardWidth();
+            applyTransform(baseOffset, false);
+            buildDots();
+            updateDots();
+            updateButtons();
         }, 200);
     });
+
+    /* ── Init ── */
+    buildDots();
+    updateButtons();
+    applyTransform(0, false);
+    resetProgress(); // mulai auto-loop
 }
 
 // ===================================
@@ -1665,165 +1652,162 @@ function initRegionAccordion() {
 // ===================================
 
 function initTestimonialSlider() {
-    const slider = document.getElementById('testimonial-slider');
-    const prevBtn = document.getElementById('testi-prev');
-    const nextBtn = document.getElementById('testi-next');
-    const dotsContainer = document.getElementById('testi-dots');
-    
-    if (!slider) return;
-    
-    const slides = slider.querySelectorAll('.testi-slide');
+    const container    = document.getElementById('testi-carousel-container');
+    const track        = document.getElementById('testimonial-slider');
+    const prevBtn      = document.getElementById('testi-prev');
+    const nextBtn      = document.getElementById('testi-next');
+    const dotsWrap     = document.getElementById('testi-dots');
+    const progressFill = document.getElementById('testi-progress-bar');
+    const currentEl    = document.getElementById('testi-current');
+    const totalEl      = document.getElementById('testi-total');
+
+    if (!track) return;
+
+    const slides = track.querySelectorAll('.testi-slide');
+    const GAP    = 0; // flex gap handled by padding on .testi-slide
+    const AUTOPLAY_DURATION = 5000;
+
     let currentIndex = 0;
-    let slidesPerView = getSlidesPerView();
-    let maxIndex = Math.max(0, slides.length - slidesPerView);
-    let autoSlideInterval;
-    
-    function getSlidesPerView() {
-        if (window.innerWidth >= 1024) return 3;
-        if (window.innerWidth >= 768) return 2;
+    let isDragging   = false;
+    let dragStartX   = 0;
+    let baseOffset   = 0;
+    let rafId        = null;
+    let autoTimer    = null;
+    let paused       = false;
+    let elapsed      = 0;
+    let rafStart     = null;
+
+    /* ── Helpers ── */
+    function getSlideWidth() {
+        return slides[0] ? slides[0].offsetWidth : 400;
+    }
+    function getVisibleCount() {
+        if (!container) return 1;
+        const w = container.offsetWidth;
+        if (w >= 1024) return 3;
+        if (w >= 768)  return 2;
         return 1;
     }
-    
-    // Create dots
-    function createDots() {
-        if (!dotsContainer) return;
-        dotsContainer.innerHTML = '';
-        const dotsCount = Math.ceil(slides.length / slidesPerView);
-        for (let i = 0; i < dotsCount; i++) {
-            const dot = document.createElement('span');
-            dot.classList.add('testi-dot');
-            if (i === 0) dot.classList.add('active');
-            dot.addEventListener('click', () => goToSlide(i * slidesPerView));
-            dotsContainer.appendChild(dot);
+    function getMaxIndex() {
+        return Math.max(0, slides.length - getVisibleCount());
+    }
+
+    /* ── Dots ── */
+    function buildDots() {
+        if (!dotsWrap) return;
+        dotsWrap.innerHTML = '';
+        const max = getMaxIndex();
+        for (let i = 0; i <= max; i++) {
+            const d = document.createElement('button');
+            d.className = 'testi-dot' + (i === 0 ? ' active' : '');
+            d.setAttribute('aria-label', 'Slide ' + (i + 1));
+            d.addEventListener('click', () => { goTo(i); resetProgress(); });
+            dotsWrap.appendChild(d);
         }
+        updateCounter();
     }
-    
-    function updateSlider() {
-        const slideWidth = 100 / slidesPerView;
-        const offset = currentIndex * slideWidth;
-        slider.style.transform = `translateX(-${offset}%)`;
-        
-        // Update dots
-        if (dotsContainer) {
-            const activeDotIndex = Math.floor(currentIndex / slidesPerView);
-            document.querySelectorAll('.testi-dot').forEach((dot, i) => {
-                dot.classList.toggle('active', i === activeDotIndex);
-            });
-        }
-        
-        // Update nav buttons visibility
-        if (prevBtn) {
-            prevBtn.style.opacity = currentIndex <= 0 ? '0.5' : '1';
-        }
-        if (nextBtn) {
-            nextBtn.style.opacity = currentIndex >= maxIndex ? '0.5' : '1';
-        }
+
+    function updateDots() {
+        if (!dotsWrap) return;
+        dotsWrap.querySelectorAll('.testi-dot').forEach((d, i) =>
+            d.classList.toggle('active', i === currentIndex)
+        );
     }
-    
-    function goToSlide(index) {
-        currentIndex = Math.max(0, Math.min(index, maxIndex));
-        updateSlider();
+
+    function updateCounter() {
+        if (totalEl)   totalEl.textContent   = getMaxIndex() + 1;
+        if (currentEl) currentEl.textContent = currentIndex + 1;
     }
-    
-    function nextSlide() {
-        if (currentIndex >= maxIndex) {
-            currentIndex = 0;
-        } else {
-            currentIndex++;
-        }
-        updateSlider();
+
+    /* ── Transform ── */
+    function applyTransform(offset, animate) {
+        track.style.transition = animate !== false
+            ? 'transform .55s cubic-bezier(.4,0,.15,1)' : 'none';
+        track.style.transform = 'translateX(' + (-offset) + 'px)';
     }
-    
-    function prevSlide() {
-        if (currentIndex <= 0) {
-            currentIndex = maxIndex;
-        } else {
-            currentIndex--;
-        }
-        updateSlider();
+
+    /* ── Navigate ── */
+    function goTo(index) {
+        const max = getMaxIndex();
+        if (index > max) index = 0;
+        if (index < 0)   index = max;
+        currentIndex = index;
+        baseOffset   = currentIndex * getSlideWidth();
+        applyTransform(baseOffset, true);
+        updateDots();
+        updateCounter();
     }
-    
-    // Event listeners
-    if (prevBtn) {
-        prevBtn.addEventListener('click', () => {
-            prevSlide();
-            resetAutoSlide();
-        });
-    }
-    
-    if (nextBtn) {
-        nextBtn.addEventListener('click', () => {
-            nextSlide();
-            resetAutoSlide();
-        });
-    }
-    
-    // Auto slide
-    function startAutoSlide() {
-        autoSlideInterval = setInterval(nextSlide, 5000);
-    }
-    
-    function stopAutoSlide() {
-        clearInterval(autoSlideInterval);
-    }
-    
-    function resetAutoSlide() {
-        stopAutoSlide();
-        startAutoSlide();
-    }
-    
-    // Pause auto-slide on hover
-    slider.addEventListener('mouseenter', stopAutoSlide);
-    slider.addEventListener('mouseleave', startAutoSlide);
-    
-    // Touch/Swipe support
-    let touchStartX = 0;
-    let touchEndX = 0;
-    
-    slider.addEventListener('touchstart', (e) => {
-        touchStartX = e.changedTouches[0].screenX;
-        stopAutoSlide();
-    }, { passive: true });
-    
-    slider.addEventListener('touchend', (e) => {
-        touchEndX = e.changedTouches[0].screenX;
-        handleSwipe();
-        startAutoSlide();
-    }, { passive: true });
-    
-    function handleSwipe() {
-        const swipeThreshold = 50;
-        const diff = touchStartX - touchEndX;
-        
-        if (Math.abs(diff) > swipeThreshold) {
-            if (diff > 0) {
-                nextSlide();
+
+    if (prevBtn) prevBtn.addEventListener('click', () => { goTo(currentIndex - 1); resetProgress(); });
+    if (nextBtn) nextBtn.addEventListener('click', () => { goTo(currentIndex + 1); resetProgress(); });
+
+    /* ── Auto-play + progress bar ── */
+    function startProgress() {
+        if (progressFill) progressFill.style.width = '0%';
+        rafStart = performance.now() - elapsed;
+
+        function tick(now) {
+            if (!paused) {
+                elapsed = now - rafStart;
+                const pct = Math.min((elapsed / AUTOPLAY_DURATION) * 100, 100);
+                if (progressFill) progressFill.style.width = pct + '%';
+                if (pct >= 100) return;
             } else {
-                prevSlide();
+                rafStart = now - elapsed;
             }
+            rafId = requestAnimationFrame(tick);
         }
+        rafId = requestAnimationFrame(tick);
     }
-    
-    // Handle resize
-    let resizeTimeout;
+
+    function resetProgress() {
+        cancelAnimationFrame(rafId);
+        clearTimeout(autoTimer);
+        elapsed = 0;
+        startProgress();
+        autoTimer = setTimeout(() => {
+            goTo(currentIndex + 1);
+            resetProgress();
+        }, AUTOPLAY_DURATION);
+    }
+
+    /* ── Pause on hover ── */
+    if (container) {
+        container.addEventListener('mouseenter', () => { paused = true; });
+        container.addEventListener('mouseleave', () => { paused = false; });
+    }
+
+    /* ── Touch / drag ── */
+    let touchStartX = 0;
+    track.addEventListener('touchstart', (e) => {
+        touchStartX = e.changedTouches[0].screenX;
+        paused = true;
+    }, { passive: true });
+    track.addEventListener('touchend', (e) => {
+        const diff = touchStartX - e.changedTouches[0].screenX;
+        if (Math.abs(diff) > 50) {
+            goTo(diff > 0 ? currentIndex + 1 : currentIndex - 1);
+            resetProgress();
+        }
+        paused = false;
+    }, { passive: true });
+
+    /* ── Resize ── */
+    let resizeTimer;
     window.addEventListener('resize', () => {
-        clearTimeout(resizeTimeout);
-        resizeTimeout = setTimeout(() => {
-            const newSlidesPerView = getSlidesPerView();
-            if (newSlidesPerView !== slidesPerView) {
-                slidesPerView = newSlidesPerView;
-                maxIndex = Math.max(0, slides.length - slidesPerView);
-                currentIndex = Math.min(currentIndex, maxIndex);
-                createDots();
-                updateSlider();
-            }
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(() => {
+            currentIndex = Math.min(currentIndex, getMaxIndex());
+            baseOffset   = currentIndex * getSlideWidth();
+            applyTransform(baseOffset, false);
+            buildDots();
         }, 250);
     });
-    
-    // Initialize
-    createDots();
-    updateSlider();
-    startAutoSlide();
+
+    /* ── Init ── */
+    buildDots();
+    applyTransform(0, false);
+    resetProgress();
 }
 
 // ===================================
@@ -2351,3 +2335,187 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 });
+
+// ===================================
+// PROMO SLIDER — Ocean Dental
+// ===================================
+
+function initPromoSlider() {
+    const track       = document.getElementById('promo-track');
+    const outer       = document.querySelector('.promo-slider-outer');
+    const prevBtn     = document.getElementById('promo-prev');
+    const nextBtn     = document.getElementById('promo-next');
+    const progressFill = document.getElementById('promo-progress-bar');
+    const currentEl   = document.getElementById('promo-current');
+    const visibleEl   = document.getElementById('promo-visible');
+    const totalEl     = document.getElementById('promo-total');
+    const dotsWrap    = document.getElementById('promo-dots');
+
+    if (!track) return;
+
+    const cards = Array.from(track.querySelectorAll('.promo-card'));
+    const GAP = 20;
+    const AUTOPLAY_DURATION = 5000;
+
+    let currentIdx = 0;
+    let isDragging = false;
+    let dragStartX = 0;
+    let dragCurrentX = 0;
+    let baseOffset = 0;
+    let rafId = null;
+    let autoTimer = null;
+    let paused = false;
+    let elapsed = 0;
+    let rafStart = null;
+
+    function getCardWidth() {
+        return cards[0] ? cards[0].offsetWidth + GAP : 0;
+    }
+
+    function getVisible() {
+        if (!cards[0]) return 2;
+        return Math.max(1, Math.round((outer.offsetWidth + GAP) / (cards[0].offsetWidth + GAP)));
+    }
+
+    function getMaxIdx() {
+        return Math.max(0, cards.length - getVisible());
+    }
+
+    function updateDots() {
+        if (!dotsWrap) return;
+        dotsWrap.querySelectorAll('.promo-page-dot').forEach((d, i) =>
+            d.classList.toggle('active', i === currentIdx)
+        );
+    }
+
+    function applyTransform(offset, animate = true) {
+        track.style.transition = animate ? 'transform .6s cubic-bezier(.4,0,.15,1)' : 'none';
+        track.style.transform = `translateX(${-offset}px)`;
+    }
+
+    function goTo(idx) {
+        currentIdx = Math.max(0, Math.min(idx, getMaxIdx()));
+        baseOffset = currentIdx * getCardWidth();
+        applyTransform(baseOffset, true);
+        updateDots();
+        updateButtons();
+        updateCounter();
+    }
+
+    function updateButtons() {
+        if (prevBtn) prevBtn.disabled = currentIdx <= 0;
+        if (nextBtn) nextBtn.disabled = currentIdx >= getMaxIdx();
+    }
+
+    function updateCounter() {
+        const vis = getVisible();
+        if (currentEl) currentEl.textContent = currentIdx + 1;
+        if (visibleEl) visibleEl.textContent = Math.min(currentIdx + vis, cards.length);
+        if (totalEl)   totalEl.textContent   = cards.length;
+    }
+
+    // Dot clicks
+    if (dotsWrap) {
+        dotsWrap.querySelectorAll('.promo-page-dot').forEach((d, i) => {
+            d.addEventListener('click', () => { goTo(i); resetProgress(); });
+        });
+    }
+
+    if (prevBtn) prevBtn.addEventListener('click', () => { goTo(currentIdx - 1); resetProgress(); });
+    if (nextBtn) nextBtn.addEventListener('click', () => { goTo(currentIdx + 1); resetProgress(); });
+
+    // Auto-play with animated progress bar
+    function startProgress() {
+        if (progressFill) progressFill.style.width = '0%';
+        rafStart = performance.now() - elapsed;
+
+        function tick(now) {
+            if (!paused) {
+                elapsed = now - rafStart;
+                const pct = Math.min((elapsed / AUTOPLAY_DURATION) * 100, 100);
+                if (progressFill) progressFill.style.width = pct + '%';
+                if (pct >= 100) return;
+            } else {
+                rafStart = now - elapsed;
+            }
+            rafId = requestAnimationFrame(tick);
+        }
+        rafId = requestAnimationFrame(tick);
+    }
+
+    function resetProgress() {
+        cancelAnimationFrame(rafId);
+        clearTimeout(autoTimer);
+        elapsed = 0;
+        startProgress();
+        autoTimer = setTimeout(() => {
+            const next = currentIdx >= getMaxIdx() ? 0 : currentIdx + 1;
+            goTo(next);
+            resetProgress();
+        }, AUTOPLAY_DURATION);
+    }
+
+    if (outer) {
+        outer.addEventListener('mouseenter', () => { paused = true; clearTimeout(autoTimer); });
+        outer.addEventListener('mouseleave', () => { paused = false; resetProgress(); });
+    }
+
+    // Drag / swipe
+    function onDragStart(x) {
+        isDragging = true; dragStartX = x; dragCurrentX = x;
+        track.style.transition = 'none';
+        if (outer) outer.style.cursor = 'grabbing';
+    }
+
+    function onDragMove(x) {
+        if (!isDragging) return;
+        dragCurrentX = x;
+        applyTransform(baseOffset + (dragStartX - x), false);
+    }
+
+    function onDragEnd() {
+        if (!isDragging) return;
+        isDragging = false;
+        if (outer) outer.style.cursor = '';
+        const delta = dragStartX - dragCurrentX;
+        const threshold = getCardWidth() * 0.2;
+        if (delta > threshold) goTo(currentIdx + 1);
+        else if (delta < -threshold) goTo(currentIdx - 1);
+        else goTo(currentIdx);
+        resetProgress();
+    }
+
+    if (outer) {
+        outer.addEventListener('mousedown',  e => { onDragStart(e.clientX); e.preventDefault(); });
+        outer.addEventListener('touchstart', e => { onDragStart(e.touches[0].clientX); }, { passive: true });
+        outer.addEventListener('touchmove',  e => { onDragMove(e.touches[0].clientX); }, { passive: true });
+        outer.addEventListener('touchend',   () => { onDragEnd(); });
+        // Prevent click-through while dragging
+        outer.addEventListener('click', e => {
+            if (Math.abs(dragStartX - dragCurrentX) > 8) e.preventDefault();
+        }, true);
+    }
+
+    window.addEventListener('mousemove', e => onDragMove(e.clientX));
+    window.addEventListener('mouseup',   () => onDragEnd());
+
+    // Resize
+    let resizeT;
+    window.addEventListener('resize', () => {
+        clearTimeout(resizeT);
+        resizeT = setTimeout(() => {
+            currentIdx = Math.min(currentIdx, getMaxIdx());
+            baseOffset = currentIdx * getCardWidth();
+            applyTransform(baseOffset, false);
+            updateButtons();
+            updateCounter();
+        }, 200);
+    });
+
+    // Init
+    applyTransform(0, false);
+    updateButtons();
+    updateCounter();
+    updateDots();
+    resetProgress();
+}

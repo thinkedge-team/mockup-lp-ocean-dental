@@ -43,6 +43,7 @@ class SettingResource extends Resource
                                 'contact' => 'Contact Info',
                                 'social' => 'Social Media',
                                 'seo' => 'SEO',
+                                'technology' => 'Technology Section',
                             ])
                             ->disabled(),
 
@@ -157,6 +158,7 @@ class SettingResource extends Resource
                         'contact' => 'Contact Info',
                         'social' => 'Social Media',
                         'seo' => 'SEO',
+                        'technology' => 'Technology Section',
                     ])
                     ->multiple(),
 

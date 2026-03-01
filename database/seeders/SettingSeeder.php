@@ -95,6 +95,12 @@ class SettingSeeder extends Seeder
             // SocMed/Social Media Section
             ['key' => 'socmed_section_title', 'value' => 'Ikuti Kami di Media Sosial', 'type' => 'text', 'group' => 'socmed'],
             ['key' => 'socmed_section_description', 'value' => 'Dapatkan update terbaru, tips kesehatan gigi, dan promo menarik dari kami.', 'type' => 'textarea', 'group' => 'socmed'],
+
+            // Technology Section
+            ['key' => 'technology_section_tag', 'value' => 'Keunggulan Kami', 'type' => 'text', 'group' => 'technology'],
+            ['key' => 'technology_section_title', 'value' => 'Didukung', 'type' => 'text', 'group' => 'technology'],
+            ['key' => 'technology_section_title_highlight', 'value' => 'Teknologi Terkini', 'type' => 'text', 'group' => 'technology'],
+            ['key' => 'technology_section_description', 'value' => 'Kami berinvestasi pada peralatan medis terdepan untuk memastikan perawatan yang presisi, nyaman, dan hasil optimal bagi setiap pasien', 'type' => 'textarea', 'group' => 'technology'],
         ];
 
         foreach ($settings as $setting) {

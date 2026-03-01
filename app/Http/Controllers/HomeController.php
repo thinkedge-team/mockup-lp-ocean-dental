@@ -6,7 +6,9 @@ use App\Models\Event;
 use App\Models\Faq;
 use App\Models\Gallery;
 use App\Models\Location;
+use App\Models\Promo;
 use App\Models\Result;
+use App\Models\Technology;
 use App\Models\Service;
 use App\Models\SocMedPlatform;
 use App\Models\TeamMember;
@@ -21,7 +23,7 @@ class HomeController extends Controller
 
         // Get featured/active content for homepage with caching and optimized queries
         $events = \Cache::remember('homepage.events', $cacheDuration, function () {
-            return Event::select('id', 'title', 'slug', 'start_date', 'end_date', 'image', 'short_description', 'is_active', 'is_featured')
+            return Event::select('id', 'title', 'slug', 'start_date', 'end_date', 'image', 'short_description', 'description', 'location', 'category', 'is_active', 'is_featured')
                 ->where('is_active', true)
                 ->where('is_featured', true)
                 ->orderBy('start_date', 'desc')
@@ -92,6 +94,45 @@ class HomeController extends Controller
                 ->get();
         });
 
+        $promos = \Cache::remember('homepage.promos', $cacheDuration, function () {
+            return Promo::select(
+                    'id', 'title', 'price_highlight', 'description', 'image',
+                    'badge_text', 'badge_icon', 'badge_color',
+                    'category_tag', 'category_icon',
+                    'discount_value', 'discount_label', 'discount_color_from', 'discount_color_to',
+                    'price_from', 'price_original', 'price_suffix',
+                    'cta_text', 'whatsapp_message',
+                    'expires_at', 'order', 'is_active'
+                )
+                ->where('is_active', true)
+                ->orderBy('order')
+                ->get();
+        });
+
+        // Highlight utama (tech-hero): 1 item dengan is_highlight = true
+        $techHighlight = \Cache::remember('homepage.tech_highlight', $cacheDuration, function () {
+            return Technology::select(
+                    'id', 'name', 'tag', 'description', 'image',
+                    'is_highlight', 'eyebrow_text', 'feature_list',
+                    'is_active', 'order'
+                )
+                ->active()
+                ->highlight()
+                ->first();
+        });
+
+        // Card-card teknologi biasa (bukan highlight)
+        $techCards = \Cache::remember('homepage.tech_cards', $cacheDuration, function () {
+            return Technology::select(
+                    'id', 'name', 'tag', 'description', 'image',
+                    'is_highlight', 'is_active', 'order'
+                )
+                ->active()
+                ->cards()
+                ->orderBy('order')
+                ->get();
+        });
+
         return view('home', compact(
             'events',
             'services',
@@ -101,7 +142,10 @@ class HomeController extends Controller
             'gallery',
             'faqs',
             'results',
-            'socmedPlatforms'
+            'socmedPlatforms',
+            'promos',
+            'techHighlight',
+            'techCards'
         ));
     }
 }

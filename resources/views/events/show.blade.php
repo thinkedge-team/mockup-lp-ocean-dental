@@ -27,7 +27,7 @@
 @push('styles')
 <style>
     .event-detail-header {
-        background-color: var(--slate-100);
+        background-color: var(--off-white);
         padding: 60px 0 40px;
         border-bottom: 1px solid var(--border-light);
     }
@@ -63,7 +63,7 @@
     }
 
     .event-hero-meta-item i {
-        color: var(--teal);
+        color: var(--ocean-blue);
     }
 
     .article-featured-image {
@@ -79,7 +79,7 @@
         display: inline-flex;
         align-items: center;
         gap: 8px;
-        color: var(--primary-color);
+        color: var(--navy);
         font-weight: 600;
         text-decoration: none;
         margin-bottom: 24px;
@@ -118,14 +118,14 @@
         color: var(--navy);
         margin-bottom: 20px;
         padding-bottom: 12px;
-        border-bottom: 3px solid var(--teal);
+        border-bottom: 3px solid var(--ocean-blue);
         display: flex;
         align-items: center;
         gap: 10px;
     }
 
     .event-detail-section h2 i {
-        color: var(--teal);
+        color: var(--ocean-blue);
     }
 
     .event-detail-section p {
@@ -153,7 +153,7 @@
         font-weight: 900;
         position: absolute;
         left: 0;
-        color: var(--teal);
+        color: var(--ocean-blue);
     }
 
     /* Sidebar */
@@ -199,8 +199,8 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        background: linear-gradient(135deg, var(--teal), #2563EB);
-        color: var(--navy);
+        background: linear-gradient(135deg, var(--ocean-blue) 0%, var(--ocean-blue-dark) 100%);
+        color: white;
         border-radius: 10px;
         font-size: 16px;
     }
@@ -250,8 +250,234 @@
 
     /* Related Events */
     .related-events-grid {
-        margin-top: 40px;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 28px;
+        margin-top: 0;
     }
+
+    .related-events-cta {
+        text-align: center;
+        margin-top: 48px;
+    }
+
+    /* ===================================================
+       Event Index Card (ei-*) — shared with index page
+       =================================================== */
+    .ei-card {
+        background: white;
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: 0 4px 24px rgba(1, 33, 94, 0.08);
+        transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+                    box-shadow 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        display: flex;
+        flex-direction: column;
+        position: relative;
+    }
+
+    .ei-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 16px 48px rgba(1, 33, 94, 0.15);
+    }
+
+    .ei-image {
+        position: relative;
+        width: 100%;
+        height: 200px;
+        overflow: hidden;
+        background: var(--off-white);
+        flex-shrink: 0;
+    }
+
+    .ei-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.55s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .ei-card:hover .ei-image img { transform: scale(1.07); }
+
+    .ei-date-block {
+        position: absolute;
+        top: 14px;
+        left: 14px;
+        z-index: 4;
+        background: var(--navy);
+        color: white;
+        border-radius: 10px;
+        width: 50px;
+        text-align: center;
+        padding: 7px 4px 5px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1px;
+        box-shadow: 0 4px 14px rgba(1, 33, 94, 0.4);
+        line-height: 1;
+    }
+
+    .ei-day {
+        font-family: 'Outfit', sans-serif;
+        font-size: 20px;
+        font-weight: 800;
+        letter-spacing: -0.5px;
+    }
+
+    .ei-month {
+        font-size: 10px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.8px;
+        color: var(--ocean-blue-light);
+    }
+
+    .ei-year {
+        font-size: 9px;
+        font-weight: 500;
+        color: rgba(255,255,255,0.5);
+        letter-spacing: 0.4px;
+    }
+
+    .ei-featured {
+        position: absolute;
+        top: 14px;
+        right: 14px;
+        padding: 5px 11px;
+        border-radius: 20px;
+        font-size: 11.5px;
+        font-weight: 700;
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        z-index: 4;
+        background: linear-gradient(135deg, #FF6B6B, #FF5252);
+        color: white;
+        box-shadow: 0 4px 12px rgba(255, 82, 82, 0.4);
+        animation: eiPulse 2.2s ease-in-out infinite;
+    }
+
+    @keyframes eiPulse {
+        0%, 100% { transform: scale(1); }
+        50%       { transform: scale(1.06); }
+    }
+
+    .ei-category-pill {
+        position: absolute;
+        bottom: 12px;
+        left: 12px;
+        padding: 4px 12px;
+        border-radius: 20px;
+        font-size: 11.5px;
+        font-weight: 600;
+        z-index: 4;
+        backdrop-filter: blur(8px);
+        color: white;
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+    }
+
+    .ei-category-pill.community { background: rgba(34,197,94,0.88); }
+    .ei-category-pill.seminar   { background: rgba(59,130,246,0.90); }
+    .ei-category-pill.promo     { background: rgba(37,99,235,0.90); }
+    .ei-category-pill.workshop  { background: rgba(245,158,11,0.92); }
+    .ei-category-pill.webinar   { background: rgba(168,85,247,0.90); }
+
+    .ei-content {
+        padding: 20px 22px 18px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        flex: 1;
+    }
+
+    .ei-title {
+        font-family: 'Outfit', sans-serif;
+        font-size: 16px;
+        font-weight: 700;
+        color: var(--navy);
+        line-height: 1.4;
+        margin: 0;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    .ei-desc {
+        font-size: 13px;
+        line-height: 1.65;
+        color: var(--text-body);
+        margin: 0;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    .ei-meta {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        padding: 8px 0;
+        border-top: 1px solid var(--border-light);
+        border-bottom: 1px solid var(--border-light);
+    }
+
+    .ei-meta-item {
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        font-size: 12.5px;
+        color: var(--text-muted);
+        font-weight: 500;
+    }
+
+    .ei-meta-item i {
+        color: var(--ocean-blue);
+        font-size: 11px;
+        width: 14px;
+        flex-shrink: 0;
+    }
+
+    .ei-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        margin-top: auto;
+        padding: 10px 18px;
+        background: var(--navy);
+        color: white;
+        border-radius: var(--radius-sm);
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 13.5px;
+        transition: background var(--transition), transform var(--transition), box-shadow var(--transition);
+    }
+
+    .ei-btn:hover {
+        background: var(--ocean-blue-dark);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(37, 99, 235, 0.3);
+    }
+
+    .ei-btn-arrow {
+        margin-left: auto;
+        transition: transform 0.2s ease;
+    }
+
+    .ei-btn:hover .ei-btn-arrow { transform: translateX(4px); }
+
+    .ei-accent-bar { height: 4px; flex-shrink: 0; }
+    .ei-accent-bar.community { background: linear-gradient(90deg, #22C55E, #16A34A); }
+    .ei-accent-bar.seminar   { background: linear-gradient(90deg, #3B82F6, #2563EB); }
+    .ei-accent-bar.promo     { background: linear-gradient(90deg, #2563EB, #1D4ED8); }
+    .ei-accent-bar.workshop  { background: linear-gradient(90deg, #F59E0B, #D97706); }
+    .ei-accent-bar.webinar   { background: linear-gradient(90deg, #A855F7, #7C3AED); }
+    .ei-accent-bar.default   { background: linear-gradient(90deg, var(--ocean-blue), var(--ocean-blue-dark)); }
 
     @media (max-width: 1024px) {
         .event-detail-layout {
@@ -261,6 +487,11 @@
 
         .event-detail-sidebar {
             position: static;
+        }
+
+        .related-events-grid {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
         }
     }
 
@@ -276,6 +507,13 @@
         .event-detail-section h2 {
             font-size: 22px;
         }
+
+        .related-events-grid {
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+
+        .ei-image { height: 185px; }
     }
 </style>
 @endpush
@@ -443,53 +681,76 @@
             <p>Jangan lewatkan event menarik lainnya dari Ocean Dental</p>
         </div>
 
-        <div class="grid-3 related-events-grid">
+        <div class="related-events-grid">
             @foreach($relatedEvents as $relatedEvent)
-                <div class="card event-card">
-                    <div class="event-image" style="height: 200px; overflow: hidden; position: relative;">
+                <div class="ei-card">
+                    {{-- Image --}}
+                    <div class="ei-image">
                         @if($relatedEvent->image)
-                            <img src="{{ Storage::url($relatedEvent->image) }}" alt="{{ $relatedEvent->title }}" style="width:100%;height:100%;object-fit:cover;">
+                            <img src="{{ Storage::url($relatedEvent->image) }}" alt="{{ $relatedEvent->title }}" loading="lazy">
                         @else
-                            <img src="{{ asset('images/no-image.jpg') }}" alt="{{ $relatedEvent->title }}" style="width:100%;height:100%;object-fit:cover;">
+                            <img src="{{ asset('images/no-image.jpg') }}" alt="{{ $relatedEvent->title }}" loading="lazy">
                         @endif
-                        <div class="event-category">
-                            @switch(strtolower($relatedEvent->category))
-                                @case('community') <i class="fas fa-hands-helping"></i> Community @break
-                                @case('seminar') <i class="fas fa-graduation-cap"></i> Seminar @break
-                                @case('promo') <i class="fas fa-tags"></i> Promo @break
-                                @case('workshop') <i class="fas fa-tools"></i> Workshop @break
-                                @case('webinar') <i class="fas fa-laptop"></i> Webinar @break
-                                @default <i class="fas fa-calendar"></i> {{ ucfirst($relatedEvent->category) }}
-                            @endswitch
+
+                        {{-- Date Block --}}
+                        <div class="ei-date-block">
+                            <span class="ei-day">{{ $relatedEvent->start_date->format('d') }}</span>
+                            <span class="ei-month">{{ $relatedEvent->start_date->translatedFormat('M') }}</span>
+                            <span class="ei-year">{{ $relatedEvent->start_date->format('Y') }}</span>
                         </div>
+
+                        {{-- Featured Badge --}}
                         @if($relatedEvent->is_featured)
-                            <div class="event-badge hot"><i class="fas fa-fire"></i> HOT!</div>
+                            <span class="ei-featured"><i class="fas fa-fire"></i> Unggulan</span>
+                        @endif
+
+                        {{-- Category Pill --}}
+                        @if($relatedEvent->category)
+                            <span class="ei-category-pill {{ strtolower($relatedEvent->category) }}">
+                                @switch(strtolower($relatedEvent->category))
+                                    @case('community') <i class="fas fa-hands-helping"></i> @break
+                                    @case('seminar')   <i class="fas fa-graduation-cap"></i> @break
+                                    @case('promo')     <i class="fas fa-tags"></i> @break
+                                    @case('workshop')  <i class="fas fa-tools"></i> @break
+                                    @case('webinar')   <i class="fas fa-laptop"></i> @break
+                                    @default           <i class="fas fa-calendar"></i>
+                                @endswitch
+                                {{ ucfirst($relatedEvent->category) }}
+                            </span>
                         @endif
                     </div>
-                    <div class="card-body">
-                        <h3 class="card-title">{{ $relatedEvent->title }}</h3>
-                        <div class="card-meta">
-                            <div class="card-meta-item">
+
+                    {{-- Content --}}
+                    <div class="ei-content">
+                        <h3 class="ei-title">{{ $relatedEvent->title }}</h3>
+                        <p class="ei-desc">{{ Str::limit(strip_tags($relatedEvent->description), 100) }}</p>
+
+                        <div class="ei-meta">
+                            <span class="ei-meta-item">
                                 <i class="fas fa-calendar"></i>
-                                <span>{{ $relatedEvent->start_date->format('d F Y') }}</span>
-                            </div>
+                                {{ $relatedEvent->start_date->format('d F Y') }}
+                            </span>
                             @if($relatedEvent->location)
-                                <div class="card-meta-item">
-                                    <i class="fas fa-map-marker-alt"></i>
-                                    <span>{{ $relatedEvent->location }}</span>
-                                </div>
+                            <span class="ei-meta-item">
+                                <i class="fas fa-map-marker-alt"></i>
+                                {{ $relatedEvent->location }}
+                            </span>
                             @endif
                         </div>
-                        <p class="card-text">{{ Str::limit(strip_tags($relatedEvent->description), 100) }}</p>
-                        <a href="{{ route('events.show', $relatedEvent->slug) }}" class="btn-primary-page">
+
+                        <a href="{{ route('events.show', $relatedEvent->slug) }}" class="ei-btn">
                             <i class="fas fa-info-circle"></i> Lihat Detail
+                            <i class="fas fa-arrow-right ei-btn-arrow"></i>
                         </a>
                     </div>
+
+                    {{-- Accent Bar --}}
+                    <div class="ei-accent-bar {{ $relatedEvent->category ? strtolower($relatedEvent->category) : 'default' }}"></div>
                 </div>
             @endforeach
         </div>
 
-        <div style="text-align: center; margin-top: 48px;">
+        <div class="related-events-cta">
             <a href="{{ route('events.index') }}" class="btn-outline-page">
                 <i class="fas fa-calendar-week"></i> Lihat Semua Event
             </a>

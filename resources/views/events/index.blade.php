@@ -6,78 +6,87 @@
 
 @push('styles')
 <style>
+    /* ===================================================
+       Events Index Page — Controls Bar
+       =================================================== */
     .events-page-controls {
         background: white;
-        padding: 28px 0;
+        padding: 24px 0;
         position: sticky;
         top: var(--page-nav-height);
         z-index: 100;
         box-shadow: var(--shadow-sm);
+        border-bottom: 1px solid var(--border-light);
     }
 
     .events-controls-wrapper {
         display: flex;
-        gap: 24px;
+        gap: 20px;
         align-items: center;
         flex-wrap: wrap;
     }
 
+    /* Search */
     .events-search-box {
         flex: 1;
-        min-width: 300px;
+        min-width: 280px;
         position: relative;
     }
 
     .events-search-box input {
         width: 100%;
-        padding: 14px 48px;
+        padding: 13px 48px;
         border: 2px solid var(--border-light);
-        border-radius: var(--radius-md);
-        font-size: 15px;
+        border-radius: var(--radius-full);
+        font-size: 14px;
         transition: all var(--transition);
         font-family: inherit;
+        color: var(--text-dark);
+        background: var(--off-white);
     }
 
     .events-search-box input:focus {
         outline: none;
-        border-color: var(--teal);
-        box-shadow: 0 0 0 4px rgba(78, 205, 196, 0.15);
+        border-color: var(--ocean-blue);
+        background: white;
+        box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.12);
     }
 
     .events-search-box .search-icon {
         position: absolute;
-        left: 16px;
+        left: 18px;
         top: 50%;
         transform: translateY(-50%);
         color: var(--text-muted);
+        font-size: 13px;
     }
 
     .events-search-box .clear-search {
         position: absolute;
-        right: 16px;
+        right: 14px;
         top: 50%;
         transform: translateY(-50%);
         background: none;
         border: none;
         color: var(--text-muted);
         cursor: pointer;
-        padding: 4px 8px;
+        padding: 4px 6px;
         opacity: 0;
         transition: opacity var(--transition);
+        font-size: 13px;
     }
 
-    .events-search-box .clear-search.visible {
-        opacity: 1;
-    }
+    .events-search-box .clear-search.visible { opacity: 1; }
 
+    /* Filter Tabs */
     .events-filter-tabs {
         display: flex;
-        gap: 10px;
+        gap: 8px;
         flex-wrap: wrap;
     }
 
     .filter-tab {
-        padding: 10px 20px;
+        padding: 9px 18px;
         border: 2px solid var(--border-light);
         background: white;
         border-radius: var(--radius-full);
@@ -86,33 +95,35 @@
         color: var(--text-body);
         cursor: pointer;
         transition: all var(--transition);
-        display: flex;
+        display: inline-flex;
         align-items: center;
-        gap: 8px;
+        gap: 6px;
+        white-space: nowrap;
     }
 
     .filter-tab:hover {
-        border-color: var(--teal);
+        border-color: var(--ocean-blue);
         color: var(--navy);
     }
 
     .filter-tab.active {
-        background: var(--teal);
-        border-color: var(--teal);
-        color: var(--navy);
+        background: var(--navy);
+        border-color: var(--navy);
+        color: white;
     }
 
+    /* Results Info */
     .events-results-info {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        margin-bottom: 32px;
+        margin-bottom: 28px;
         flex-wrap: wrap;
-        gap: 16px;
+        gap: 12px;
     }
 
     .results-count {
-        font-size: 16px;
+        font-size: 15px;
         color: var(--text-body);
     }
 
@@ -124,100 +135,294 @@
     .events-sort {
         display: flex;
         align-items: center;
-        gap: 12px;
+        gap: 10px;
     }
 
     .events-sort label {
-        font-size: 14px;
+        font-size: 13px;
         color: var(--text-body);
         font-weight: 600;
+        white-space: nowrap;
     }
 
     .events-sort select {
-        padding: 8px 36px 8px 16px;
+        padding: 8px 34px 8px 14px;
         border: 2px solid var(--border-light);
         border-radius: var(--radius-sm);
-        font-size: 14px;
+        font-size: 13px;
         font-weight: 500;
         cursor: pointer;
         background: white;
+        color: var(--text-dark);
         appearance: none;
         background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2301215E' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
         background-repeat: no-repeat;
         background-position: right 12px center;
         font-family: inherit;
+        transition: border-color var(--transition);
     }
 
     .events-sort select:focus {
         outline: none;
-        border-color: var(--teal);
+        border-color: var(--ocean-blue);
     }
 
-    .events-list-container {
-        min-height: 400px;
+    .events-list-container { min-height: 400px; }
+
+    /* ===================================================
+       Events Index Grid
+       =================================================== */
+    .events-index-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 28px;
     }
 
-    /* Event card overrides for this page */
-    .event-card .event-image {
-        height: 200px;
+    /* ===================================================
+       Event Index Card (ei-*)
+       =================================================== */
+    .ei-card {
+        background: white;
+        border-radius: 20px;
         overflow: hidden;
+        box-shadow: 0 4px 24px rgba(1, 33, 94, 0.08);
+        transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+                    box-shadow 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        display: flex;
+        flex-direction: column;
         position: relative;
     }
 
-    .event-card .event-image img {
+    .ei-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 16px 48px rgba(1, 33, 94, 0.15);
+    }
+
+    /* Image */
+    .ei-image {
+        position: relative;
+        width: 100%;
+        height: 220px;
+        overflow: hidden;
+        background: var(--off-white);
+        flex-shrink: 0;
+    }
+
+    .ei-image img {
         width: 100%;
         height: 100%;
         object-fit: cover;
-        transition: transform var(--transition);
+        transition: transform 0.55s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
-    .event-card:hover .event-image img {
-        transform: scale(1.05);
-    }
+    .ei-card:hover .ei-image img { transform: scale(1.07); }
 
-    .event-category {
+    /* Date Block */
+    .ei-date-block {
         position: absolute;
-        top: 12px;
-        left: 12px;
-        padding: 6px 14px;
-        border-radius: var(--radius-full);
-        font-size: 12px;
-        font-weight: 700;
-        background: rgba(59,130,246,0.9);
+        top: 14px;
+        left: 14px;
+        z-index: 4;
+        background: var(--navy);
         color: white;
+        border-radius: 10px;
+        width: 52px;
+        text-align: center;
+        padding: 8px 4px 6px;
         display: flex;
+        flex-direction: column;
         align-items: center;
-        gap: 6px;
-        backdrop-filter: blur(8px);
+        gap: 1px;
+        box-shadow: 0 4px 14px rgba(1, 33, 94, 0.4);
+        line-height: 1;
     }
 
-    .event-badge {
-        position: absolute;
-        top: 12px;
-        right: 12px;
+    .ei-day {
+        font-family: 'Outfit', sans-serif;
+        font-size: 22px;
+        font-weight: 800;
+        letter-spacing: -0.5px;
     }
 
-    .event-badge.hot {
-        background: #FF6B6B;
-        color: white;
-        padding: 6px 12px;
-        border-radius: var(--radius-full);
-        font-size: 12px;
+    .ei-month {
+        font-size: 10px;
         font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.8px;
+        color: var(--ocean-blue-light);
+    }
+
+    .ei-year {
+        font-size: 9px;
+        font-weight: 500;
+        color: rgba(255,255,255,0.5);
+        letter-spacing: 0.4px;
+    }
+
+    /* Featured Badge */
+    .ei-featured {
+        position: absolute;
+        top: 14px;
+        right: 14px;
+        padding: 5px 11px;
+        border-radius: 20px;
+        font-size: 11.5px;
+        font-weight: 700;
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        z-index: 4;
+        background: linear-gradient(135deg, #FF6B6B, #FF5252);
+        color: white;
+        box-shadow: 0 4px 12px rgba(255, 82, 82, 0.4);
+        animation: eiPulse 2.2s ease-in-out infinite;
+    }
+
+    @keyframes eiPulse {
+        0%, 100% { transform: scale(1); }
+        50%       { transform: scale(1.06); }
+    }
+
+    /* Category Pill */
+    .ei-category-pill {
+        position: absolute;
+        bottom: 12px;
+        left: 12px;
+        padding: 4px 12px;
+        border-radius: 20px;
+        font-size: 11.5px;
+        font-weight: 600;
+        z-index: 4;
+        backdrop-filter: blur(8px);
+        color: white;
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+    }
+
+    .ei-category-pill.community { background: rgba(34,197,94,0.88); }
+    .ei-category-pill.seminar   { background: rgba(59,130,246,0.90); }
+    .ei-category-pill.promo     { background: rgba(37,99,235,0.90); }
+    .ei-category-pill.workshop  { background: rgba(245,158,11,0.92); }
+    .ei-category-pill.webinar   { background: rgba(168,85,247,0.90); }
+
+    /* Content */
+    .ei-content {
+        padding: 22px 24px 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        flex: 1;
+    }
+
+    .ei-title {
+        font-family: 'Outfit', sans-serif;
+        font-size: 18px;
+        font-weight: 700;
+        color: var(--navy);
+        line-height: 1.4;
+        margin: 0;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    .ei-desc {
+        font-size: 13.5px;
+        line-height: 1.7;
+        color: var(--text-body);
+        margin: 0;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    .ei-meta {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        padding: 10px 0;
+        border-top: 1px solid var(--border-light);
+        border-bottom: 1px solid var(--border-light);
+    }
+
+    .ei-meta-item {
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        font-size: 13px;
+        color: var(--text-muted);
+        font-weight: 500;
+    }
+
+    .ei-meta-item i {
+        color: var(--ocean-blue);
+        font-size: 12px;
+        width: 14px;
+        flex-shrink: 0;
+    }
+
+    /* CTA Button */
+    .ei-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        margin-top: auto;
+        padding: 11px 20px;
+        background: var(--navy);
+        color: white;
+        border-radius: var(--radius-sm);
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 14px;
+        transition: background var(--transition), transform var(--transition), box-shadow var(--transition);
+    }
+
+    .ei-btn:hover {
+        background: var(--ocean-blue-dark);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(37, 99, 235, 0.35);
+    }
+
+    .ei-btn-arrow {
+        margin-left: auto;
+        transition: transform 0.2s ease;
+    }
+
+    .ei-btn:hover .ei-btn-arrow { transform: translateX(4px); }
+
+    /* Accent Bar */
+    .ei-accent-bar {
+        height: 4px;
+        flex-shrink: 0;
+    }
+
+    .ei-accent-bar.community { background: linear-gradient(90deg, #22C55E, #16A34A); }
+    .ei-accent-bar.seminar   { background: linear-gradient(90deg, #3B82F6, #2563EB); }
+    .ei-accent-bar.promo     { background: linear-gradient(90deg, #2563EB, #1D4ED8); }
+    .ei-accent-bar.workshop  { background: linear-gradient(90deg, #F59E0B, #D97706); }
+    .ei-accent-bar.webinar   { background: linear-gradient(90deg, #A855F7, #7C3AED); }
+    .ei-accent-bar.default   { background: linear-gradient(90deg, var(--ocean-blue), var(--ocean-blue-dark)); }
+
+    /* ===================================================
+       Responsive
+       =================================================== */
+    @media (max-width: 1024px) {
+        .events-index-grid {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 22px;
+        }
     }
 
     @media (max-width: 768px) {
-        .events-page-controls {
-            position: static;
-        }
+        .events-page-controls { position: static; }
 
-        .events-controls-wrapper {
-            flex-direction: column;
-        }
+        .events-controls-wrapper { flex-direction: column; }
 
-        .events-search-box {
-            min-width: 100%;
-        }
+        .events-search-box { min-width: 100%; }
 
         .events-filter-tabs {
             width: 100%;
@@ -228,6 +433,17 @@
             flex-direction: column;
             text-align: center;
         }
+
+        .events-index-grid {
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+
+        .ei-image { height: 200px; }
+
+        .ei-content { padding: 18px 20px 16px; }
+
+        .ei-title { font-size: 16px; }
     }
 </style>
 @endpush
@@ -311,60 +527,82 @@
         <!-- Events Grid -->
         <div class="events-list-container">
             @if($events->count() > 0)
-                <div class="grid-auto" id="events-grid">
+                <div class="events-index-grid" id="events-grid">
                     @foreach($events as $event)
-                        <div class="card event-card"
+                        <div class="ei-card"
                              data-event-id="{{ $event->id }}"
                              data-category="{{ strtolower($event->category) }}"
                              data-date="{{ $event->start_date->format('Y-m-d') }}"
                              data-title="{{ $event->title }}">
-                            <div class="event-image">
+
+                            {{-- Image --}}
+                            <div class="ei-image">
                                 @if($event->image)
-                                    <img src="{{ Storage::url($event->image) }}" alt="{{ $event->title }}">
+                                    <img src="{{ Storage::url($event->image) }}" alt="{{ $event->title }}" loading="lazy">
                                 @else
-                                    <img src="{{ asset('images/no-image.jpg') }}" alt="{{ $event->title }}">
+                                    <img src="{{ asset('images/no-image.jpg') }}" alt="{{ $event->title }}" loading="lazy">
                                 @endif
-                                <div class="event-category">
-                                    @switch(strtolower($event->category))
-                                        @case('community') <i class="fas fa-hands-helping"></i> Community @break
-                                        @case('seminar') <i class="fas fa-graduation-cap"></i> Seminar @break
-                                        @case('promo') <i class="fas fa-tags"></i> Promo @break
-                                        @case('workshop') <i class="fas fa-tools"></i> Workshop @break
-                                        @case('webinar') <i class="fas fa-laptop"></i> Webinar @break
-                                        @default <i class="fas fa-calendar"></i> {{ ucfirst($event->category) }}
-                                    @endswitch
+
+                                {{-- Date Block --}}
+                                <div class="ei-date-block">
+                                    <span class="ei-day">{{ $event->start_date->format('d') }}</span>
+                                    <span class="ei-month">{{ $event->start_date->translatedFormat('M') }}</span>
+                                    <span class="ei-year">{{ $event->start_date->format('Y') }}</span>
                                 </div>
+
+                                {{-- Featured Badge --}}
                                 @if($event->is_featured)
-                                    <div class="event-badge hot"><i class="fas fa-fire"></i> HOT!</div>
+                                    <span class="ei-featured"><i class="fas fa-fire"></i> Unggulan</span>
+                                @endif
+
+                                {{-- Category Pill --}}
+                                @if($event->category)
+                                    <span class="ei-category-pill {{ strtolower($event->category) }}">
+                                        @switch(strtolower($event->category))
+                                            @case('community') <i class="fas fa-hands-helping"></i> @break
+                                            @case('seminar')   <i class="fas fa-graduation-cap"></i> @break
+                                            @case('promo')     <i class="fas fa-tags"></i> @break
+                                            @case('workshop')  <i class="fas fa-tools"></i> @break
+                                            @case('webinar')   <i class="fas fa-laptop"></i> @break
+                                            @default           <i class="fas fa-calendar"></i>
+                                        @endswitch
+                                        {{ ucfirst($event->category) }}
+                                    </span>
                                 @endif
                             </div>
-                            <div class="card-body">
-                                <h3 class="card-title">{{ $event->title }}</h3>
-                                <div class="card-meta">
-                                    <div class="card-meta-item">
+
+                            {{-- Content --}}
+                            <div class="ei-content">
+                                <h3 class="ei-title">{{ $event->title }}</h3>
+                                <p class="ei-desc event-description">{{ Str::limit(strip_tags($event->description), 150) }}</p>
+
+                                <div class="ei-meta">
+                                    <span class="ei-meta-item">
                                         <i class="fas fa-calendar"></i>
-                                        <span>{{ $event->start_date->format('d F Y') }}</span>
-                                    </div>
+                                        {{ $event->start_date->format('d F Y') }}
+                                    </span>
                                     @if($event->start_date)
-                                        <div class="card-meta-item">
-                                            <i class="fas fa-clock"></i>
-                                            <span>{{ $event->start_date->format('H:i') }}@if($event->end_date) - {{ $event->end_date->format('H:i') }}@endif WIB</span>
-                                        </div>
+                                    <span class="ei-meta-item">
+                                        <i class="fas fa-clock"></i>
+                                        {{ $event->start_date->format('H:i') }}@if($event->end_date) &ndash; {{ $event->end_date->format('H:i') }}@endif WIB
+                                    </span>
                                     @endif
                                     @if($event->location)
-                                        <div class="card-meta-item">
-                                            <i class="fas fa-map-marker-alt"></i>
-                                            <span>{{ $event->location }}</span>
-                                        </div>
+                                    <span class="ei-meta-item">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                        {{ $event->location }}
+                                    </span>
                                     @endif
                                 </div>
-                                <p class="card-text event-description">
-                                    {{ Str::limit(strip_tags($event->description), 150) }}
-                                </p>
-                                <a href="{{ route('events.show', $event->slug) }}" class="btn-primary-page">
+
+                                <a href="{{ route('events.show', $event->slug) }}" class="ei-btn">
                                     <i class="fas fa-info-circle"></i> Lihat Detail
+                                    <i class="fas fa-arrow-right ei-btn-arrow"></i>
                                 </a>
                             </div>
+
+                            {{-- Accent Bar --}}
+                            <div class="ei-accent-bar {{ $event->category ? strtolower($event->category) : 'default' }}"></div>
                         </div>
                     @endforeach
                 </div>
@@ -393,7 +631,7 @@
         const searchInput = document.getElementById('events-search');
         const clearSearchBtn = document.getElementById('clear-search');
         const filterTabs = document.querySelectorAll('.filter-tab');
-        const eventCards = document.querySelectorAll('.event-card');
+        const eventCards = document.querySelectorAll('.ei-card');
         const eventsGrid = document.getElementById('events-grid');
         const resultsCount = document.getElementById('results-count');
         const sortSelect = document.getElementById('events-sort-select');

@@ -1316,58 +1316,119 @@ function initBranchesMap() {
         maxZoom: 19
     }).addTo(map);
     
-    // Custom marker icon with teal color
+    // Custom marker icon — navy
     const tealIcon = L.divIcon({
         className: 'custom-marker',
-        html: `<div style="
-            width: 30px;
-            height: 30px;
-            background: linear-gradient(135deg, #4ECDC4 0%, #3DBDB5 100%);
-            border: 3px solid #01215E;
-            border-radius: 50%;
-            box-shadow: 0 4px 10px rgba(78, 205, 196, 0.5);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        "><i class="fas fa-tooth" style="color: #01215E; font-size: 12px;"></i></div>`,
-        iconSize: [30, 30],
-        iconAnchor: [15, 15],
-        popupAnchor: [0, -15]
+        html: `<div class="map-pin-normal"><i class="fas fa-tooth"></i></div>`,
+        iconSize: [32, 32],
+        iconAnchor: [16, 16],
+        popupAnchor: [0, -18]
     });
     
-    // Active marker icon (larger, highlighted)
+    // Active marker icon (larger, animated)
     const activeIcon = L.divIcon({
         className: 'custom-marker active',
-        html: `<div style="
-            width: 40px;
-            height: 40px;
-            background: linear-gradient(135deg, #7EDDD7 0%, #4ECDC4 100%);
-            border: 4px solid #01215E;
-            border-radius: 50%;
-            box-shadow: 0 6px 20px rgba(78, 205, 196, 0.7), 0 0 0 8px rgba(78, 205, 196, 0.2);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            animation: markerPulse 1.5s ease-in-out infinite;
-        "><i class="fas fa-tooth" style="color: #01215E; font-size: 16px;"></i></div>`,
-        iconSize: [40, 40],
-        iconAnchor: [20, 20],
-        popupAnchor: [0, -20]
+        html: `<div class="map-pin-active"><i class="fas fa-tooth"></i></div>`,
+        iconSize: [44, 44],
+        iconAnchor: [22, 22],
+        popupAnchor: [0, -24]
     });
     
-    // Add marker pulse animation
-    if (!document.querySelector('#marker-pulse-style')) {
+    // Inject marker & popup styles once
+    if (!document.querySelector('#map-marker-style')) {
         const style = document.createElement('style');
-        style.id = 'marker-pulse-style';
+        style.id = 'map-marker-style';
         style.textContent = `
-            @keyframes markerPulse {
-                0%, 100% { transform: scale(1); }
-                50% { transform: scale(1.1); }
+            .custom-marker { background: transparent !important; border: none !important; }
+            .map-pin-normal {
+                width: 32px; height: 32px;
+                background: linear-gradient(135deg, #01215E 0%, #2a4a8f 100%);
+                border: 3px solid #fff;
+                border-radius: 50%;
+                box-shadow: 0 3px 10px rgba(1,33,94,0.45);
+                display: flex; align-items: center; justify-content: center;
+                transition: transform .2s;
             }
-            .custom-marker {
-                background: transparent !important;
-                border: none !important;
+            .map-pin-normal i { color: #fff; font-size: 13px; }
+            .map-pin-active {
+                width: 44px; height: 44px;
+                background: linear-gradient(135deg, #2a4a8f 0%, #01215E 100%);
+                border: 4px solid #fff;
+                border-radius: 50%;
+                box-shadow: 0 6px 20px rgba(1,33,94,0.55), 0 0 0 8px rgba(1,33,94,0.15);
+                display: flex; align-items: center; justify-content: center;
+                animation: mapPinPulse 1.5s ease-in-out infinite;
             }
+            .map-pin-active i { color: #fff; font-size: 18px; }
+            @keyframes mapPinPulse {
+                0%, 100% { transform: scale(1); box-shadow: 0 6px 20px rgba(1,33,94,0.55), 0 0 0 8px rgba(1,33,94,0.15); }
+                50%       { transform: scale(1.08); box-shadow: 0 8px 28px rgba(1,33,94,0.65), 0 0 0 14px rgba(1,33,94,0.08); }
+            }
+
+            /* ── Popup wrapper ── */
+            .branch-popup-container .leaflet-popup-content-wrapper {
+                padding: 0;
+                border-radius: 14px;
+                overflow: hidden;
+                box-shadow: 0 8px 32px rgba(1,33,94,0.22), 0 2px 8px rgba(1,33,94,0.12);
+                border: none;
+                min-width: 240px;
+            }
+            .branch-popup-container .leaflet-popup-tip-container { margin-top: -1px; }
+            .branch-popup-container .leaflet-popup-tip { background: #fff; box-shadow: none; }
+            .branch-popup-container .leaflet-popup-content { margin: 0; width: auto !important; }
+
+            /* ── Popup inner card ── */
+            .bp-card { font-family: 'Outfit', sans-serif; }
+            .bp-header {
+                background: linear-gradient(135deg, #01215E 0%, #2a4a8f 100%);
+                padding: 14px 16px 12px;
+                display: flex; align-items: flex-start; gap: 10px;
+            }
+            .bp-header-icon {
+                width: 36px; height: 36px; flex-shrink: 0;
+                background: rgba(255,255,255,0.15);
+                border-radius: 8px;
+                display: flex; align-items: center; justify-content: center;
+            }
+            .bp-header-icon i { color: #fff; font-size: 15px; }
+            .bp-header-text { flex: 1; min-width: 0; }
+            .bp-name {
+                color: #fff; font-size: 13.5px; font-weight: 700;
+                line-height: 1.3; margin: 0 0 3px;
+                white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+            }
+            .bp-region {
+                color: rgba(255,255,255,0.7); font-size: 11px; font-weight: 500;
+                text-transform: uppercase; letter-spacing: .5px;
+            }
+            .bp-body { padding: 12px 16px; background: #fff; }
+            .bp-row {
+                display: flex; align-items: flex-start; gap: 8px;
+                margin-bottom: 7px; font-size: 12px; color: #475569; line-height: 1.4;
+            }
+            .bp-row:last-of-type { margin-bottom: 10px; }
+            .bp-row i {
+                color: #01215E; font-size: 11px; margin-top: 2px;
+                width: 14px; text-align: center; flex-shrink: 0;
+            }
+            .bp-status-open  { color: #16a34a; font-weight: 600; }
+            .bp-status-closed { color: #dc2626; font-weight: 600; }
+            .bp-footer {
+                padding: 0 12px 12px;
+                display: flex; gap: 8px;
+            }
+            .bp-btn {
+                flex: 1; padding: 7px 10px;
+                border: none; border-radius: 8px;
+                font-family: 'Outfit', sans-serif; font-size: 12px; font-weight: 600;
+                cursor: pointer; text-decoration: none; text-align: center;
+                display: flex; align-items: center; justify-content: center; gap: 5px;
+                transition: opacity .15s, transform .15s;
+            }
+            .bp-btn:hover { opacity: .88; transform: translateY(-1px); }
+            .bp-btn-wa   { background: #25D366; color: #fff; }
+            .bp-btn-maps { background: #f1f5f9; color: #01215E; border: 1px solid #e2e8f0; }
         `;
         document.head.appendChild(style);
     }
@@ -1383,29 +1444,43 @@ function initBranchesMap() {
         const lat = parseFloat(card.dataset.lat);
         const lng = parseFloat(card.dataset.lng);
         const branchId = card.dataset.branch;
-        const name = card.querySelector('h4')?.textContent || 'Ocean Dental';
-        const address = card.querySelector('.branch-address')?.textContent || '';
-        const hours = card.querySelector('.branch-info span:first-child')?.textContent || '';
-        const phone = card.querySelector('.branch-info span:last-child')?.textContent || '';
+        const name     = card.querySelector('h4')?.textContent?.trim() || 'Ocean Dental';
+        const address  = card.querySelector('.branch-address')?.textContent?.trim() || '';
+
+        // WhatsApp URL dari tombol reservasi
+        const waBtn       = card.querySelector('.branch-btn-wa');
+        const waHref      = waBtn ? waBtn.getAttribute('href') : '#';
+
+        // Maps URL dari tombol maps
+        const mapsBtn     = card.querySelector('.branch-btn-maps');
+        const mapsHref    = mapsBtn ? mapsBtn.getAttribute('href') : null;
+
+        // Region name (ambil dari parent region-group header)
+        const regionGroup  = card.closest('.region-group');
+        const regionName   = regionGroup?.querySelector('.region-name')?.textContent?.trim() || '';
         
         if (lat && lng) {
-            // Create popup content
             const popupContent = `
-                <div class="branch-popup">
-                    <h4 style="margin: 0 0 8px; color: #01215E; font-family: 'Outfit', sans-serif; font-size: 14px;">${name}</h4>
-                    <p style="margin: 0 0 4px; color: #666; font-size: 12px;"><i class="fas fa-map-marker-alt" style="color: #4ECDC4; margin-right: 6px;"></i>${address}</p>
-                    <p style="margin: 0 0 4px; color: #666; font-size: 12px;"><i class="fas fa-clock" style="color: #4ECDC4; margin-right: 6px;"></i>${hours}</p>
-                    <p style="margin: 0 0 8px; color: #666; font-size: 12px;"><i class="fas fa-phone" style="color: #4ECDC4; margin-right: 6px;"></i>${phone}</p>
-                    <a href="https://wa.me/6281234567890" target="_blank" style="
-                        display: inline-block;
-                        padding: 6px 12px;
-                        background: #4ECDC4;
-                        color: #01215E;
-                        text-decoration: none;
-                        border-radius: 20px;
-                        font-size: 11px;
-                        font-weight: 600;
-                    "><i class="fab fa-whatsapp" style="margin-right: 4px;"></i>Reservasi</a>
+                <div class="bp-card">
+                    <div class="bp-header">
+                        <div class="bp-header-icon"><i class="fas fa-tooth"></i></div>
+                        <div class="bp-header-text">
+                            <div class="bp-name">${name}</div>
+                            ${regionName ? `<div class="bp-region">${regionName}</div>` : ''}
+                        </div>
+                    </div>
+                    <div class="bp-body">
+                        <div class="bp-row">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>${address}</span>
+                        </div>
+                    </div>
+                    <div class="bp-footer">
+                        <a href="${waHref}" target="_blank" class="bp-btn bp-btn-wa">
+                            <i class="fab fa-whatsapp"></i> Reservasi
+                        </a>
+                        ${mapsHref ? `<a href="${mapsHref}" target="_blank" class="bp-btn bp-btn-maps"><i class="fas fa-directions"></i> Maps</a>` : ''}
+                    </div>
                 </div>
             `;
             
@@ -1830,7 +1905,7 @@ function initServiceFilters() {
             
             // Filter cards with animation
             serviceCards.forEach((card, index) => {
-                const category = card.dataset.category;
+                const category = (card.dataset.category || '').toLowerCase();
                 
                 if (filter === 'all' || category === filter) {
                     card.classList.remove('hidden');
@@ -1848,29 +1923,31 @@ function initServiceFilters() {
 // ===================================
 
 function initGallery() {
-    const galleryGrid = document.querySelector('.gallery-grid');
     const galleryItems = document.querySelectorAll('.gallery-item');
     const filterBtns = document.querySelectorAll('.gallery-filter-btn');
     
     if (!galleryItems.length) return;
     
-    // Filter functionality
+    // Filter functionality — case-insensitive comparison
     if (filterBtns.length) {
         filterBtns.forEach(btn => {
             btn.addEventListener('click', () => {
                 filterBtns.forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
                 
-                const filter = btn.dataset.filter;
+                const filter = btn.dataset.filter.toLowerCase();
+                let visibleIndex = 0;
                 
-                galleryItems.forEach((item, index) => {
-                    const category = item.dataset.category;
+                galleryItems.forEach(item => {
+                    const category = (item.dataset.category || '').toLowerCase();
                     
                     if (filter === 'all' || category === filter) {
                         item.classList.remove('hidden');
-                        item.style.animation = `fadeInUp 0.4s ease ${index * 0.05}s forwards`;
+                        item.style.animation = `fadeInUp 0.4s ease ${visibleIndex * 0.05}s both`;
+                        visibleIndex++;
                     } else {
                         item.classList.add('hidden');
+                        item.style.animation = '';
                     }
                 });
             });
@@ -1878,13 +1955,15 @@ function initGallery() {
     }
     
     // Lightbox functionality
-    const lightbox = document.getElementById('gallery-lightbox');
-    const lightboxImg = document.getElementById('lightbox-image');
+    const lightbox     = document.getElementById('gallery-lightbox');
+    const lightboxImg  = document.getElementById('lightbox-image');
     const lightboxCaption = document.getElementById('lightbox-caption');
-    const lightboxClose = document.getElementById('lightbox-close');
-    const lightboxPrev = document.getElementById('lightbox-prev');
-    const lightboxNext = document.getElementById('lightbox-next');
+    const lightboxClose   = document.getElementById('lightbox-close');
+    const lightboxPrev    = document.getElementById('lightbox-prev');
+    const lightboxNext    = document.getElementById('lightbox-next');
     const lightboxCounter = document.getElementById('lightbox-counter');
+    const lightboxImgWrap = document.getElementById('lightbox-img-wrap');
+    const lightboxDots    = document.getElementById('lightbox-dots');
     
     if (!lightbox) return;
     
@@ -1895,9 +1974,77 @@ function initGallery() {
         visibleItems = Array.from(galleryItems).filter(item => !item.classList.contains('hidden'));
     }
     
+    // ---- Dots ----
+    function renderDots() {
+        if (!lightboxDots) return;
+        // Cap dots at 12 to avoid visual overflow
+        const max = Math.min(visibleItems.length, 12);
+        lightboxDots.innerHTML = '';
+        for (let i = 0; i < max; i++) {
+            const dot = document.createElement('span');
+            dot.className = 'lightbox-dot' + (i === currentIndex ? ' active' : '');
+            dot.addEventListener('click', () => { currentIndex = i; updateLightboxContent(); });
+            lightboxDots.appendChild(dot);
+        }
+    }
+    
+    function updateDots() {
+        if (!lightboxDots) return;
+        const dots = lightboxDots.querySelectorAll('.lightbox-dot');
+        dots.forEach((d, i) => d.classList.toggle('active', i === currentIndex));
+    }
+    
+    // ---- Content update with loading state ----
+    function updateLightboxContent() {
+        const item    = visibleItems[currentIndex];
+        const img     = item.querySelector('img');
+        const overlay = item.querySelector('.gallery-overlay');
+        
+        // Show loading shimmer
+        if (lightboxImgWrap) lightboxImgWrap.classList.add('loading');
+        lightboxImg.classList.add('entering');
+        
+        const newSrc = img.src;
+        const newAlt = img.alt;
+        
+        // Preload image, then swap
+        const preload = new Image();
+        preload.onload = () => {
+            lightboxImg.src = newSrc;
+            lightboxImg.alt = newAlt;
+            if (lightboxImgWrap) lightboxImgWrap.classList.remove('loading');
+            // Trigger fade-in
+            requestAnimationFrame(() => {
+                lightboxImg.classList.remove('entering');
+            });
+        };
+        preload.onerror = () => {
+            lightboxImg.src = newSrc;
+            lightboxImg.alt = newAlt;
+            if (lightboxImgWrap) lightboxImgWrap.classList.remove('loading');
+            lightboxImg.classList.remove('entering');
+        };
+        preload.src = newSrc;
+        
+        if (overlay) {
+            const title = overlay.querySelector('h3')?.textContent || '';
+            const desc  = overlay.querySelector('p')?.textContent  || '';
+            lightboxCaption.innerHTML = title
+                ? `<h3>${title}</h3>${desc ? `<p>${desc}</p>` : ''}`
+                : '';
+        }
+        
+        if (lightboxCounter) {
+            lightboxCounter.textContent = `${currentIndex + 1} / ${visibleItems.length}`;
+        }
+        
+        updateDots();
+    }
+    
     function openLightbox(index) {
         updateVisibleItems();
         currentIndex = index;
+        renderDots();
         updateLightboxContent();
         lightbox.classList.add('active');
         document.body.style.overflow = 'hidden';
@@ -1906,23 +2053,6 @@ function initGallery() {
     function closeLightbox() {
         lightbox.classList.remove('active');
         document.body.style.overflow = '';
-    }
-    
-    function updateLightboxContent() {
-        const item = visibleItems[currentIndex];
-        const img = item.querySelector('img');
-        const overlay = item.querySelector('.gallery-overlay');
-        
-        lightboxImg.src = img.src;
-        lightboxImg.alt = img.alt;
-        
-        if (overlay) {
-            const title = overlay.querySelector('h3')?.textContent || '';
-            const desc = overlay.querySelector('p')?.textContent || '';
-            lightboxCaption.innerHTML = `<h3>${title}</h3><p>${desc}</p>`;
-        }
-        
-        lightboxCounter.textContent = `${currentIndex + 1} / ${visibleItems.length}`;
     }
     
     function nextImage() {
@@ -1935,20 +2065,18 @@ function initGallery() {
         updateLightboxContent();
     }
     
-    // Event listeners
-    galleryItems.forEach((item, index) => {
+    // Click to open
+    galleryItems.forEach((item) => {
         item.addEventListener('click', () => {
             updateVisibleItems();
             const visibleIndex = visibleItems.indexOf(item);
-            if (visibleIndex !== -1) {
-                openLightbox(visibleIndex);
-            }
+            if (visibleIndex !== -1) openLightbox(visibleIndex);
         });
     });
     
     if (lightboxClose) lightboxClose.addEventListener('click', closeLightbox);
-    if (lightboxPrev) lightboxPrev.addEventListener('click', prevImage);
-    if (lightboxNext) lightboxNext.addEventListener('click', nextImage);
+    if (lightboxPrev)  lightboxPrev.addEventListener('click', prevImage);
+    if (lightboxNext)  lightboxNext.addEventListener('click', nextImage);
     
     // Close on background click
     lightbox.addEventListener('click', (e) => {
@@ -1958,11 +2086,27 @@ function initGallery() {
     // Keyboard navigation
     document.addEventListener('keydown', (e) => {
         if (!lightbox.classList.contains('active')) return;
-        
-        if (e.key === 'Escape') closeLightbox();
+        if (e.key === 'Escape')     closeLightbox();
         if (e.key === 'ArrowRight') nextImage();
-        if (e.key === 'ArrowLeft') prevImage();
+        if (e.key === 'ArrowLeft')  prevImage();
     });
+    
+    // Touch / swipe support
+    let touchStartX = 0;
+    let touchStartY = 0;
+    lightbox.addEventListener('touchstart', (e) => {
+        touchStartX = e.changedTouches[0].clientX;
+        touchStartY = e.changedTouches[0].clientY;
+    }, { passive: true });
+    lightbox.addEventListener('touchend', (e) => {
+        const dx = e.changedTouches[0].clientX - touchStartX;
+        const dy = e.changedTouches[0].clientY - touchStartY;
+        // Only act on predominantly horizontal swipes of >= 50px
+        if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) >= 50) {
+            if (dx < 0) nextImage();
+            else prevImage();
+        }
+    }, { passive: true });
 }
 
 // ===================================

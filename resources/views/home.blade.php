@@ -349,10 +349,16 @@
                         <span class="service-duration"><i class="fas fa-clock"></i> {{ $service->formatted_duration }}</span>
                         @endif
                     </div>
-                    <a href="{{ whatsapp_url('Saya ingin konsultasi tentang ' . $service->name) }}" class="service-cta">
-                        <span>Konsultasi Gratis</span>
-                        <i class="fas fa-arrow-right"></i>
-                    </a>
+                    <div class="service-cta-group">
+                        <a href="{{ route('services.show', $service->slug) }}" class="service-cta service-cta-detail">
+                            <span>Lihat Detail</span>
+                            <i class="fas fa-eye"></i>
+                        </a>
+                        <a href="{{ whatsapp_url('Saya ingin konsultasi tentang ' . $service->name) }}" class="service-cta service-cta-wa">
+                            <span>Konsultasi</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
                 </div>
             </div>
             @endforeach
@@ -681,8 +687,13 @@
 </section>
 <!-- Branches/Locations Section -->
 <section class="branches" id="branches">
-    <!-- DEBUG_MARK: If you see this, you are looking at the right file! -->
+    <div class="branches-bg-decoration" aria-hidden="true">
+        <div class="branches-deco-circle branches-deco-1"></div>
+        <div class="branches-deco-circle branches-deco-2"></div>
+    </div>
     <div class="container">
+
+        {{-- Section Header --}}
         <div class="section-header" data-aos="fade-up">
             <span class="section-tag"><i class="fas fa-map-marker-alt"></i> Lokasi Cabang</span>
             <h2 class="section-title">
@@ -693,7 +704,7 @@
             </p>
         </div>
 
-        <!-- Search Box -->
+        {{-- Search Box --}}
         <div class="branches-search" data-aos="fade-up">
             <div class="search-input-wrapper">
                 <i class="fas fa-search"></i>
@@ -710,7 +721,8 @@
         </div>
 
         <div class="branches-wrapper">
-            <!-- Branches List with Accordion -->
+
+            {{-- Branches List with Accordion --}}
             <div class="branches-list-container" data-aos="fade-right">
                 <div class="branches-accordion" id="branches-accordion">
 
@@ -726,88 +738,96 @@
 
                     @foreach($regions as $region)
                     @if($region->locations->count() > 0)
-                    <!-- {{ $region->name }} -->
                     <div class="region-group" data-region="{{ Str::slug($region->name) }}">
-                        <button class="region-header{{ $loop->first ? ' active' : '' }}">
+
+                        {{-- Region Accordion Header --}}
+                        <button class="region-header{{ $loop->first ? ' active' : '' }}" aria-expanded="{{ $loop->first ? 'true' : 'false' }}">
                             <div class="region-info">
-                                <i class="fas fa-building"></i>
+                                <span class="region-icon-wrap"><i class="fas fa-map-marker-alt"></i></span>
                                 <span class="region-name">{{ $region->name }}</span>
                                 <span class="region-count">{{ $region->locations->count() }} Cabang</span>
                             </div>
-                            <i class="fas fa-chevron-down region-toggle"></i>
+                            <span class="region-toggle-wrap">
+                                <i class="fas fa-chevron-down region-toggle"></i>
+                            </span>
                         </button>
+
+                        {{-- Branch Cards --}}
                         <div class="region-branches{{ $loop->first ? ' active' : '' }}">
                             @foreach($region->locations as $location)
+                            @php
+                            $days = [
+                                'monday'    => 'Senin',
+                                'tuesday'   => 'Selasa',
+                                'wednesday' => 'Rabu',
+                                'thursday'  => 'Kamis',
+                                'friday'    => 'Jumat',
+                                'saturday'  => 'Sabtu',
+                                'sunday'    => 'Minggu',
+                            ];
+                            $dayKey     = strtolower(now()->englishDayOfWeek);
+                            $today      = $location->schedule[$dayKey] ?? null;
+                            $todayLabel = $days[$dayKey] ?? ucfirst($dayKey);
+                            $todayHours = (!empty($today['open']) && !empty($today['close']))
+                                        ? ($today['open'] . ' - ' . $today['close'])
+                                        : 'Tutup';
+                            $isOpen     = $todayHours !== 'Tutup';
+                            @endphp
                             <div class="branch-card" data-branch="{{ $location->slug }}" data-lat="{{ $location->latitude ?? '' }}" data-lng="{{ $location->longitude ?? '' }}">
+
+                                {{-- Card Header --}}
                                 <div class="branch-card-header">
                                     <div class="branch-icon"><i class="fas fa-map-marker-alt"></i></div>
-                                    <div>
+                                    <div class="branch-card-title-wrap">
                                         <h4>{{ $location->name }}</h4>
                                         <p class="branch-address">{{ $location->address }}</p>
                                     </div>
                                 </div>
-                                <div class="branch-info">
-                                    @php
-                                    $days = [
-                                    'monday' => 'Senin',
-                                    'tuesday' => 'Selasa',
-                                    'wednesday' => 'Rabu',
-                                    'thursday' => 'Kamis',
-                                    'friday' => 'Jumat',
-                                    'saturday' => 'Sabtu',
-                                    'sunday' => 'Minggu',
-                                    ];
-                                    $dayKey = strtolower(now()->englishDayOfWeek); // "monday", ...
-                                    $today = $location->schedule[$dayKey] ?? null;
-                                    $todayLabel = $days[$dayKey] ?? ucfirst($dayKey);
-                                    $todayHours = (!empty($today['open']) && !empty($today['close']))
-                                    ? ($today['open'] . ' - ' . $today['close'])
-                                    : 'Tutup';
-                                    @endphp
-                                    <span class="branch-schedule-summary">
-                                        <i class="fas fa-clock" aria-hidden="true"></i>
-                                        <strong>Hari Ini ({{ $todayLabel }}):</strong> {{ $todayHours }}
-                                    </span>
-                                    @if(!empty($location->whatsapp))
-                                    <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', $location->whatsapp) }}" target="_blank" rel="noopener" class="branch-whatsapp">
-                                        <i class="fab fa-whatsapp" aria-hidden="true"></i> WhatsApp: {{ $location->whatsapp }}
-                                    </a>
-                                    @endif
-                                </div>
 
-
+                                {{-- Actions --}}
                                 <div class="branch-actions">
                                     @if($location->latitude && $location->longitude)
-                                    <a href="https://maps.google.com/?q={{ $location->latitude }},{{ $location->longitude }}" target="_blank" class="btn btn-sm"><i class="fas fa-directions"></i> Maps</a>
+                                    <a href="https://maps.google.com/?q={{ $location->latitude }},{{ $location->longitude }}" target="_blank" rel="noopener" class="branch-btn branch-btn-maps">
+                                        <i class="fas fa-directions"></i> <span>Maps</span>
+                                    </a>
                                     @elseif($location->map_url)
-                                    <a href="{{ $location->map_url }}" target="_blank" class="btn btn-sm"><i class="fas fa-directions"></i> Maps</a>
+                                    <a href="{{ $location->map_url }}" target="_blank" rel="noopener" class="branch-btn branch-btn-maps">
+                                        <i class="fas fa-directions"></i> <span>Maps</span>
+                                    </a>
                                     @endif
-                                    <a href="{{ whatsapp_url('Halo, saya ingin reservasi di ' . $location->name) }}" class="btn btn-sm btn-primary"><i class="fab fa-whatsapp"></i> Reservasi</a>
+
+                                    <a href="{{ whatsapp_url('Halo, saya ingin reservasi di ' . $location->name) }}" class="branch-btn branch-btn-wa">
+                                        <i class="fab fa-whatsapp"></i> <span>Reservasi</span>
+                                    </a>
+
                                     @php
                                     $modalData = [
-                                    'region' => $region->name ?? null,
-                                    'name' => $location->name,
-                                    'address' => $location->address,
-                                    'whatsapp' => $location->whatsapp,
-                                    'email' => $location->email,
-                                    'image' => ($location->image ? (filter_var($location->image, FILTER_VALIDATE_URL) ? $location->image : asset('storage/' . $location->image)) : asset('images/no-image.jpg')),
-                                    'hours' => [
-                                    ['day' => 'Senin', 'open' => $location->schedule['monday']['open'] ?? null, 'close' => $location->schedule['monday']['close'] ?? null],
-                                    ['day' => 'Selasa', 'open' => $location->schedule['tuesday']['open'] ?? null, 'close' => $location->schedule['tuesday']['close'] ?? null],
-                                    ['day' => 'Rabu', 'open' => $location->schedule['wednesday']['open']?? null, 'close' => $location->schedule['wednesday']['close']?? null],
-                                    ['day' => 'Kamis', 'open' => $location->schedule['thursday']['open'] ?? null, 'close' => $location->schedule['thursday']['close'] ?? null],
-                                    ['day' => 'Jumat', 'open' => $location->schedule['friday']['open'] ?? null, 'close' => $location->schedule['friday']['close'] ?? null],
-                                    ['day' => 'Sabtu', 'open' => $location->schedule['saturday']['open'] ?? null, 'close' => $location->schedule['saturday']['close'] ?? null],
-                                    ['day' => 'Minggu', 'open' => $location->schedule['sunday']['open'] ?? null, 'close' => $location->schedule['sunday']['close'] ?? null],
-                                    ],
-                                    'whatsapp_url' => whatsapp_url('Halo, saya ingin reservasi di ' . $location->name),
-                                    'maps_url' => ($location->latitude && $location->longitude)
-                                    ? ('https://maps.google.com/?q=' . $location->latitude . ',' . $location->longitude)
-                                    : null
+                                        'region'       => $region->name ?? null,
+                                        'name'         => $location->name,
+                                        'address'      => $location->address,
+                                        'whatsapp'     => $location->whatsapp,
+                                        'email'        => $location->email,
+                                        'image'        => ($location->image ? (filter_var($location->image, FILTER_VALIDATE_URL) ? $location->image : asset('storage/' . $location->image)) : asset('images/no-image.jpg')),
+                                        'hours'        => [
+                                            ['day' => 'Senin',  'open' => $location->schedule['monday']['open']    ?? null, 'close' => $location->schedule['monday']['close']    ?? null],
+                                            ['day' => 'Selasa', 'open' => $location->schedule['tuesday']['open']   ?? null, 'close' => $location->schedule['tuesday']['close']   ?? null],
+                                            ['day' => 'Rabu',   'open' => $location->schedule['wednesday']['open'] ?? null, 'close' => $location->schedule['wednesday']['close'] ?? null],
+                                            ['day' => 'Kamis',  'open' => $location->schedule['thursday']['open']  ?? null, 'close' => $location->schedule['thursday']['close']  ?? null],
+                                            ['day' => 'Jumat',  'open' => $location->schedule['friday']['open']    ?? null, 'close' => $location->schedule['friday']['close']    ?? null],
+                                            ['day' => 'Sabtu',  'open' => $location->schedule['saturday']['open']  ?? null, 'close' => $location->schedule['saturday']['close']  ?? null],
+                                            ['day' => 'Minggu', 'open' => $location->schedule['sunday']['open']    ?? null, 'close' => $location->schedule['sunday']['close']    ?? null],
+                                        ],
+                                        'whatsapp_url' => whatsapp_url('Halo, saya ingin reservasi di ' . $location->name),
+                                        'maps_url'     => ($location->latitude && $location->longitude)
+                                                        ? ('https://maps.google.com/?q=' . $location->latitude . ',' . $location->longitude)
+                                                        : ($location->map_url ?? null),
                                     ];
                                     @endphp
-                                    <button type="button" class="btn btn-sm btn-secondary btn-location-detail" data-location='@json($modalData)'><i class="fas fa-info-circle"></i> Detail</button>
+                                    <button type="button" class="branch-btn branch-btn-detail btn-location-detail" data-location='@json($modalData)'>
+                                        <i class="fas fa-info-circle"></i> <span>Detail</span>
+                                    </button>
                                 </div>
+
                             </div>
                             @endforeach
                         </div>
@@ -818,7 +838,7 @@
                 </div>
             </div>
 
-            <!-- Interactive Map Container -->
+            {{-- Interactive Map --}}
             <div class="map-container" data-aos="fade-left">
                 <div id="branches-map"></div>
                 <div class="map-legend">
@@ -829,24 +849,32 @@
                     <p class="legend-hint">Klik cabang untuk melihat lokasi di peta</p>
                 </div>
             </div>
+
+        </div>{{-- /branches-wrapper --}}
+
+        {{-- Branches CTA --}}
+        <div class="branches-cta" data-aos="fade-up">
+            <div class="branches-cta-inner">
+                <div class="branches-cta-icon" aria-hidden="true">
+                    <i class="fas fa-headset"></i>
+                </div>
+                <div class="branches-cta-content">
+                    <h3>Butuh Bantuan Menemukan Cabang?</h3>
+                    <p>Tim customer service kami siap membantu Anda 24/7</p>
+                    <div class="cta-features">
+                        <div class="cta-feature"><i class="fas fa-check-circle"></i><span>Respon Cepat</span></div>
+                        <div class="cta-feature"><i class="fas fa-check-circle"></i><span>Gratis Konsultasi</span></div>
+                        <div class="cta-feature"><i class="fas fa-check-circle"></i><span>Booking Online</span></div>
+                    </div>
+                </div>
+                <div class="branches-cta-action">
+                    <a href="{{ whatsapp_url('Halo, saya butuh bantuan menemukan cabang terdekat') }}" class="btn btn-primary btn-lg">
+                        <i class="fab fa-whatsapp"></i> Hubungi Kami
+                    </a>
+                </div>
+            </div>
         </div>
 
-        <!-- Branches CTA -->
-        <div class="branches-cta" data-aos="fade-up">
-            <div class="cta-icon">
-                <i class="fas fa-headset"></i>
-            </div>
-            <h3>Butuh Bantuan Menemukan Cabang?</h3>
-            <p>Tim customer service kami siap membantu Anda 24/7</p>
-            <div class="cta-features">
-                <div class="cta-feature"><i class="fas fa-check-circle"></i><span>Respon Cepat</span></div>
-                <div class="cta-feature"><i class="fas fa-check-circle"></i><span>Gratis Konsultasi</span></div>
-                <div class="cta-feature"><i class="fas fa-check-circle"></i><span>Booking Online</span></div>
-            </div>
-            <a href="{{ whatsapp_url('Halo, saya butuh bantuan menemukan cabang terdekat') }}" class="btn btn-primary btn-lg">
-                <i class="fab fa-whatsapp"></i> Hubungi Kami
-            </a>
-        </div>
     </div>
 </section>
 
@@ -1044,6 +1072,7 @@
                 <img src="@if($item->image){{ (filter_var($item->image, FILTER_VALIDATE_URL)) ? $item->image : asset('storage/' . $item->image) }}@else{{ asset('images/no-image.jpg') }}@endif" alt="{{ $item->title }}" loading="lazy">
                 <div class="gallery-overlay">
                     <div class="gallery-icon"><i class="fas fa-search-plus"></i></div>
+                    <span class="gallery-cat-chip">{{ $item->category }}</span>
                     <h3>{{ $item->title }}</h3>
                     <p>{{ $item->description }}</p>
                 </div>
@@ -1054,20 +1083,25 @@
 
     <!-- Lightbox -->
     <div class="gallery-lightbox" id="gallery-lightbox">
-        <button class="lightbox-close" id="lightbox-close">
-            <i class="fas fa-times"></i>
-        </button>
-        <button class="lightbox-nav lightbox-prev" id="lightbox-prev">
+        <div class="lightbox-topbar">
+            <div class="lightbox-counter" id="lightbox-counter"></div>
+            <button class="lightbox-close" id="lightbox-close" aria-label="Tutup lightbox">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <button class="lightbox-nav lightbox-prev" id="lightbox-prev" aria-label="Gambar sebelumnya">
             <i class="fas fa-chevron-left"></i>
         </button>
-        <button class="lightbox-nav lightbox-next" id="lightbox-next">
+        <button class="lightbox-nav lightbox-next" id="lightbox-next" aria-label="Gambar berikutnya">
             <i class="fas fa-chevron-right"></i>
         </button>
         <div class="lightbox-content">
-            <img src="" alt="" id="lightbox-image">
+            <div class="lightbox-img-wrap" id="lightbox-img-wrap">
+                <img src="" alt="" id="lightbox-image">
+            </div>
             <div class="lightbox-caption" id="lightbox-caption"></div>
-            <div class="lightbox-counter" id="lightbox-counter"></div>
         </div>
+        <div class="lightbox-dots" id="lightbox-dots"></div>
     </div>
 </section>
 <!-- Events Section -->
@@ -1080,53 +1114,80 @@
                 Ikuti event dan dapatkan promo menarik untuk perawatan gigi Anda
             </p>
         </div>
+
+        @forelse($events as $event)
+        @if($loop->first)
         <div class="events-grid">
-            @forelse($events as $event)
-            <div class="event-card" data-aos="fade-up" data-aos-delay="{{ $loop->index * 100 }}">
+        @endif
+
+            <div class="event-card" data-aos="fade-up" data-aos-delay="{{ $loop->index * 80 }}">
+                {{-- Image wrapper (date block lives inside here) --}}
                 <div class="event-image">
                     @if($event->image)
-                    <img src="{{ asset('storage/' . $event->image) }}" alt="{{ $event->title }}" />
+                    <img src="{{ asset('storage/' . $event->image) }}" alt="{{ $event->title }}" loading="lazy" />
                     @else
-                    <img src="{{ asset('images/no-image.jpg') }}" alt="{{ $event->title }}" />
+                    <img src="{{ asset('images/no-image.jpg') }}" alt="{{ $event->title }}" loading="lazy" />
                     @endif
+
+                    {{-- Date Block (inside image so position:absolute works correctly) --}}
+                    <div class="event-date-block">
+                        <span class="event-day">{{ $event->start_date->format('d') }}</span>
+                        <span class="event-month">{{ $event->start_date->translatedFormat('M') }}</span>
+                        <span class="event-year">{{ $event->start_date->format('Y') }}</span>
+                    </div>
+
+                    @if($event->is_featured)
+                    <span class="event-featured-badge"><i class="fas fa-fire"></i> Unggulan</span>
+                    @endif
+
                     @if($event->category)
-                    <span class="event-category {{ strtolower($event->category) }}">{{ $event->category }}</span>
+                    <span class="event-category-pill {{ strtolower($event->category) }}">{{ $event->category }}</span>
                     @endif
                 </div>
+
+                {{-- Content --}}
                 <div class="event-content">
-                    <div class="event-meta">
-                        <span class="event-date">
-                            <i class="fas fa-calendar"></i>
-                            {{ $event->start_date->format('d M Y') }}
-                        </span>
+                    <h3 class="event-title">{{ $event->title }}</h3>
+                    <p class="event-desc">{{ Str::limit(strip_tags($event->description ?? ''), 100) }}</p>
+
+                    <div class="event-meta-row">
                         @if($event->start_date)
-                        <span class="event-time">
+                        <span class="event-meta-item">
                             <i class="fas fa-clock"></i>
-                            {{ $event->start_date->format('H:i') }}@if($event->end_date) - {{ $event->end_date->format('H:i') }}@endif WIB
+                            {{ $event->start_date->format('H:i') }}@if($event->end_date) &ndash; {{ $event->end_date->format('H:i') }}@endif WIB
                         </span>
                         @endif
                         @if($event->location)
-                        <span class="event-location">
+                        <span class="event-meta-item">
                             <i class="fas fa-map-marker-alt"></i>
                             {{ $event->location }}
                         </span>
                         @endif
                     </div>
-                    <h3>{{ $event->title }}</h3>
-                    <p>{{ Str::limit(strip_tags($event->description ?? ''), 120) }}</p>
-                    <a href="{{ route('events.show', $event->slug) }}" class="event-btn">
+
+                    <a href="{{ route('events.show', $event->slug) }}" class="event-btn-link">
                         Selengkapnya <i class="fas fa-arrow-right"></i>
                     </a>
                 </div>
+
+                {{-- Bottom accent bar by category --}}
+                <div class="event-accent-bar {{ $event->category ? strtolower($event->category) : 'default' }}"></div>
             </div>
-            @empty
-            <p>Tidak ada event saat ini. Tunggu update dari kami!</p>
-            @endforelse
+
+        @if($loop->last)
         </div>
+        @endif
+
+        @empty
+        <div class="events-empty" data-aos="fade-up">
+            <div class="events-empty-icon"><i class="fas fa-calendar-times"></i></div>
+            <p>Belum ada event saat ini. Nantikan update dari kami!</p>
+        </div>
+        @endforelse
+
         @if($events->count() > 0)
-        <div class="events-cta" data-aos="fade-up">
-            <p>Lihat semua event menarik lainnya</p>
-            <a href="{{ route('events.index') }}" class="btn btn-outline btn-lg">
+        <div class="events-footer-cta" data-aos="fade-up">
+            <a href="{{ route('events.index') }}" class="events-view-all">
                 <i class="fas fa-calendar-week"></i> Lihat Semua Event
             </a>
         </div>

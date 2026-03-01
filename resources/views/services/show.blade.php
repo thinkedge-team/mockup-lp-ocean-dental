@@ -6,26 +6,50 @@
 
 @push('styles')
 <style>
+    /* ================================================================
+       SERVICE SHOW PAGE — complete style
+       Color palette (from pages.css):
+         --navy       : #01215E   (dark blue, readable on white/off-white)
+         --navy-dark  : #012056
+         --teal       : #3B82F6   (actually blue-500 in this project)
+         --gold       : #FFD700
+         --off-white  : #f8f9fa
+         --text-body  : #4b5563
+         --text-muted : #9ca3af
+       On dark (navy) backgrounds → use white / rgba(255,255,255,x)
+    ================================================================ */
+
     /* ---- Service Hero ---- */
     .service-hero {
         margin-top: var(--page-nav-height);
-        padding: 80px 0;
+        padding: 80px 0 96px;
         background: linear-gradient(135deg, var(--navy) 0%, var(--navy-dark) 100%);
-        color: white;
+        color: #ffffff;
         position: relative;
         overflow: hidden;
     }
 
-    .service-hero::before {
+    /* Decorative blobs */
+    .service-hero::before,
+    .service-hero::after {
         content: '';
         position: absolute;
-        top: -60%;
-        right: -5%;
-        width: 600px;
-        height: 600px;
-        background: radial-gradient(circle, rgba(78, 205, 196, 0.1), transparent);
         border-radius: 50%;
         pointer-events: none;
+    }
+    .service-hero::before {
+        top: -40%;
+        right: -8%;
+        width: 560px;
+        height: 560px;
+        background: radial-gradient(circle, rgba(59, 130, 246, 0.18), transparent 70%);
+    }
+    .service-hero::after {
+        bottom: -30%;
+        left: -5%;
+        width: 400px;
+        height: 400px;
+        background: radial-gradient(circle, rgba(255,255,255,0.05), transparent 70%);
     }
 
     .service-hero-layout {
@@ -37,62 +61,101 @@
         z-index: 1;
     }
 
-    .service-hero-info { }
+    /* Breadcrumb on dark bg */
+    .service-hero .page-breadcrumb a,
+    .service-hero .page-breadcrumb span {
+        color: rgba(255, 255, 255, 0.65);
+    }
+    .service-hero .page-breadcrumb a:hover {
+        color: #ffffff;
+    }
+    .service-hero .page-breadcrumb .breadcrumb-current {
+        color: rgba(255, 255, 255, 0.9);
+    }
+    .service-hero .page-breadcrumb span:not(.breadcrumb-current) {
+        color: rgba(255, 255, 255, 0.4);
+    }
 
+    /* Badge */
     .service-hero-badge {
         display: inline-flex;
         align-items: center;
         gap: 8px;
-        background: rgba(78, 205, 196, 0.15);
-        border: 1px solid rgba(78, 205, 196, 0.3);
-        color: var(--teal);
-        padding: 8px 18px;
+        background: rgba(255, 255, 255, 0.12);
+        border: 1px solid rgba(255, 255, 255, 0.25);
+        color: #ffffff;
+        padding: 7px 18px;
         border-radius: var(--radius-full);
-        font-size: 13px;
+        font-size: 12px;
         font-weight: 700;
         margin-bottom: 20px;
-        letter-spacing: 0.5px;
+        letter-spacing: 0.8px;
+        text-transform: uppercase;
     }
 
+    /* Title — pure white, high contrast */
     .service-hero-title {
         font-size: 48px;
         font-family: 'Outfit', sans-serif;
         font-weight: 800;
         margin-bottom: 20px;
         line-height: 1.15;
-        color: var(--ocean-blue-pale);
+        color: #ffffff;
     }
 
+    /* Description — slightly dimmed white, still very readable */
     .service-hero-desc {
-        font-size: 18px;
-        opacity: 0.9;
-        line-height: 1.7;
+        font-size: 17px;
+        color: rgba(255, 255, 255, 0.85);
+        line-height: 1.75;
         margin-bottom: 36px;
     }
 
+    /* Stats row */
     .service-hero-stats {
         display: flex;
-        gap: 32px;
+        gap: 0;
         margin-bottom: 36px;
         flex-wrap: wrap;
+        background: rgba(255,255,255,0.07);
+        border: 1px solid rgba(255,255,255,0.12);
+        border-radius: var(--radius-md);
+        padding: 4px 0;
+        width: fit-content;
     }
 
     .service-hero-stat {
         display: flex;
         flex-direction: column;
-        gap: 4px;
+        gap: 2px;
+        padding: 14px 28px;
+        position: relative;
     }
 
+    .service-hero-stat:not(:last-child)::after {
+        content: '';
+        position: absolute;
+        right: 0;
+        top: 20%;
+        height: 60%;
+        width: 1px;
+        background: rgba(255,255,255,0.2);
+    }
+
+    /* Stat value — bright white (was --teal on dark, unreadable) */
     .service-hero-stat-value {
         font-size: 22px;
         font-weight: 800;
-        color: var(--teal);
+        color: #ffffff;
         font-family: 'Outfit', sans-serif;
     }
 
+    /* Stat label — was opacity:0.7 without explicit color → now explicit */
     .service-hero-stat-label {
-        font-size: 13px;
-        opacity: 0.7;
+        font-size: 12px;
+        color: rgba(255, 255, 255, 0.65);
+        font-weight: 500;
+        letter-spacing: 0.3px;
     }
 
     .service-hero-cta {
@@ -101,6 +164,7 @@
         flex-wrap: wrap;
     }
 
+    /* Image side */
     .service-hero-image-wrapper {
         position: relative;
     }
@@ -110,7 +174,8 @@
         height: 420px;
         object-fit: cover;
         border-radius: var(--radius-xl);
-        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        box-shadow: 0 24px 64px rgba(0, 0, 0, 0.35);
+        display: block;
     }
 
     .service-hero-image-placeholder {
@@ -121,23 +186,60 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        border: 2px dashed rgba(255, 255, 255, 0.15);
+        border: 2px dashed rgba(255, 255, 255, 0.18);
     }
 
     .service-hero-image-placeholder i {
-        font-size: 120px;
-        color: rgba(255, 255, 255, 0.12);
+        font-size: 110px;
+        color: rgba(255, 255, 255, 0.15);
     }
 
-    /* ---- Detail Layout ---- */
+    /* Floating price chip on image */
+    .service-hero-price-chip {
+        position: absolute;
+        bottom: 20px;
+        left: 20px;
+        background: #ffffff;
+        color: var(--navy);
+        border-radius: var(--radius-md);
+        padding: 12px 20px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        box-shadow: 0 8px 24px rgba(0,0,0,0.18);
+    }
+    .service-hero-price-chip i {
+        color: var(--teal);
+        font-size: 18px;
+    }
+    .service-hero-price-chip-label {
+        font-size: 11px;
+        color: var(--text-muted);
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        line-height: 1;
+        margin-bottom: 2px;
+    }
+    .service-hero-price-chip-value {
+        font-size: 17px;
+        font-weight: 800;
+        color: var(--navy);
+        font-family: 'Outfit', sans-serif;
+        line-height: 1;
+    }
+
+    /* ================================================================
+       Detail Layout
+    ================================================================ */
     .service-detail-layout {
         display: grid;
-        grid-template-columns: 1fr 380px;
-        gap: 48px;
+        grid-template-columns: 1fr 360px;
+        gap: 40px;
     }
 
     .service-detail-main {
-        background: white;
+        background: #ffffff;
         border-radius: var(--radius-lg);
         padding: 40px;
         box-shadow: var(--shadow-md);
@@ -152,75 +254,111 @@
     }
 
     .service-detail-section h2 {
-        font-size: 26px;
+        font-size: 22px;
         font-family: 'Outfit', sans-serif;
         color: var(--navy);
-        margin-bottom: 20px;
-        padding-bottom: 12px;
-        border-bottom: 3px solid var(--teal);
+        margin-bottom: 24px;
+        padding-bottom: 14px;
+        border-bottom: 2px solid #e5e7eb;
         display: flex;
         align-items: center;
         gap: 10px;
     }
 
     .service-detail-section h2 i {
-        color: var(--teal);
+        width: 36px;
+        height: 36px;
+        background: var(--navy);
+        color: #ffffff;
+        border-radius: 8px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 15px;
+        flex-shrink: 0;
     }
 
-    /* ---- Benefits Grid ---- */
+    /* Content HTML (rich text) */
+    .content-html {
+        font-size: 15px;
+        color: var(--text-body);
+        line-height: 1.8;
+    }
+    .content-html h3 {
+        font-size: 18px;
+        color: var(--navy);
+        font-weight: 700;
+        margin: 24px 0 10px;
+    }
+    .content-html ul, .content-html ol {
+        padding-left: 20px;
+        margin: 12px 0;
+    }
+    .content-html li {
+        margin-bottom: 6px;
+    }
+    .content-html strong {
+        color: var(--navy);
+    }
+
+    /* ================================================================
+       Benefits Grid
+    ================================================================ */
     .benefits-grid {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
-        gap: 20px;
+        gap: 16px;
     }
 
     .benefit-item {
         display: flex;
-        gap: 16px;
+        gap: 14px;
         padding: 20px;
         background: var(--off-white);
         border-radius: var(--radius-md);
-        border-left: 4px solid var(--teal);
-        transition: all var(--transition);
+        border-left: 3px solid var(--navy);
+        transition: transform 0.2s, box-shadow 0.2s;
     }
 
     .benefit-item:hover {
-        background: rgba(78, 205, 196, 0.06);
-        transform: translateX(4px);
+        transform: translateY(-3px);
+        box-shadow: 0 6px 20px rgba(1,33,94,0.1);
     }
 
     .benefit-item-icon {
         flex-shrink: 0;
         width: 44px;
         height: 44px;
-        background: linear-gradient(135deg, var(--navy), var(--navy-dark));
+        background: var(--navy);
         border-radius: 10px;
         display: flex;
         align-items: center;
         justify-content: center;
-        color: white;
-        font-size: 18px;
+        color: #ffffff;         /* white on navy — high contrast */
+        font-size: 17px;
     }
 
     .benefit-item-text h4 {
-        font-size: 16px;
+        font-size: 15px;
         font-weight: 700;
         color: var(--navy);
         margin-bottom: 4px;
+        line-height: 1.3;
     }
 
     .benefit-item-text p {
-        font-size: 14px;
+        font-size: 13px;
         color: var(--text-body);
         line-height: 1.5;
         margin: 0;
     }
 
-    /* ---- Procedure Steps ---- */
+    /* ================================================================
+       Procedure Steps
+    ================================================================ */
     .procedure-steps {
         display: flex;
         flex-direction: column;
-        gap: 0;
     }
 
     .procedure-step {
@@ -236,23 +374,25 @@
         top: 44px;
         bottom: 0;
         width: 2px;
-        background: var(--border-light);
+        background: #e5e7eb;
     }
 
+    /* Step number — navy bg, white text → clear contrast */
     .procedure-step-num {
         flex-shrink: 0;
         width: 40px;
         height: 40px;
-        background: linear-gradient(135deg, var(--teal), #2563EB);
-        color: var(--navy);
+        background: var(--navy);
+        color: #ffffff;
         border-radius: 50%;
         display: flex;
         align-items: center;
         justify-content: center;
         font-weight: 800;
-        font-size: 16px;
+        font-size: 15px;
         position: relative;
         z-index: 1;
+        box-shadow: 0 4px 12px rgba(1,33,94,0.25);
     }
 
     .procedure-step-content {
@@ -261,47 +401,69 @@
     }
 
     .procedure-step-content h4 {
-        font-size: 17px;
+        font-size: 16px;
         font-weight: 700;
         color: var(--navy);
         margin-bottom: 6px;
     }
 
     .procedure-step-content p {
-        font-size: 15px;
+        font-size: 14px;
         color: var(--text-body);
-        line-height: 1.6;
+        line-height: 1.65;
         margin: 0;
     }
 
-    /* ---- Sidebar ---- */
+    /* ================================================================
+       Sidebar
+    ================================================================ */
     .service-detail-sidebar {
         position: sticky;
-        top: calc(var(--page-nav-height) + 16px);
+        top: calc(var(--page-nav-height) + 20px);
         height: fit-content;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
     }
 
     .service-info-card {
-        background: white;
+        background: #ffffff;
         border-radius: var(--radius-lg);
-        padding: 32px;
+        overflow: hidden;
         box-shadow: var(--shadow-md);
-        margin-bottom: 24px;
     }
 
-    .service-info-card h3 {
-        font-size: 20px;
+    /* Card header strip */
+    .service-info-card-header {
+        background: var(--navy);
+        padding: 20px 24px;
+    }
+
+    .service-info-card-header h3 {
+        font-size: 17px;
         font-family: 'Outfit', sans-serif;
-        color: var(--navy);
-        margin-bottom: 24px;
+        color: #ffffff;           /* white on navy */
+        font-weight: 700;
+        margin: 0;
+    }
+
+    .service-info-card-header p {
+        font-size: 12px;
+        color: rgba(255,255,255,0.65);
+        margin: 4px 0 0;
+    }
+
+    .service-info-card-body {
+        padding: 24px;
     }
 
     .service-info-item {
         display: flex;
-        gap: 16px;
-        margin-bottom: 20px;
-        padding-bottom: 20px;
-        border-bottom: 1px solid var(--border-light);
+        gap: 14px;
+        align-items: flex-start;
+        margin-bottom: 18px;
+        padding-bottom: 18px;
+        border-bottom: 1px solid #f3f4f6;
     }
 
     .service-info-item:last-of-type {
@@ -310,41 +472,42 @@
         border-bottom: none;
     }
 
+    /* Icon on white bg — navy bg, white icon */
     .service-info-icon {
         flex-shrink: 0;
-        width: 42px;
-        height: 42px;
+        width: 40px;
+        height: 40px;
         display: flex;
         align-items: center;
         justify-content: center;
-        background: linear-gradient(135deg, var(--teal), #2563EB);
-        color: var(--navy);
-        border-radius: 10px;
-        font-size: 16px;
+        background: var(--navy);
+        color: #ffffff;           /* white on navy — high contrast */
+        border-radius: 8px;
+        font-size: 15px;
     }
 
     .service-info-text { flex: 1; }
 
     .service-info-label {
-        font-size: 12px;
+        font-size: 11px;
         color: var(--text-muted);
         font-weight: 600;
         text-transform: uppercase;
-        letter-spacing: 0.5px;
-        margin-bottom: 4px;
+        letter-spacing: 0.6px;
+        margin-bottom: 3px;
     }
 
     .service-info-value {
         font-size: 15px;
         color: var(--navy);
-        font-weight: 600;
+        font-weight: 700;
     }
 
     .service-cta-buttons {
         display: flex;
         flex-direction: column;
-        gap: 12px;
-        margin-top: 24px;
+        gap: 10px;
+        margin-top: 20px;
     }
 
     .service-cta-buttons .btn-whatsapp,
@@ -353,7 +516,9 @@
         justify-content: center;
     }
 
-    /* ---- Testimonials ---- */
+    /* ================================================================
+       Testimonials
+    ================================================================ */
     .testimonials-grid {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
@@ -361,11 +526,14 @@
     }
 
     .testimonial-card {
-        background: white;
+        background: #ffffff;
         border-radius: var(--radius-lg);
         padding: 28px;
         box-shadow: var(--shadow-md);
-        transition: all var(--transition);
+        border-top: 3px solid var(--navy);
+        transition: transform 0.2s, box-shadow 0.2s;
+        display: flex;
+        flex-direction: column;
     }
 
     .testimonial-card:hover {
@@ -375,27 +543,30 @@
 
     .testimonial-stars {
         display: flex;
-        gap: 4px;
-        margin-bottom: 16px;
+        gap: 3px;
+        margin-bottom: 14px;
     }
 
     .testimonial-stars i {
         color: var(--gold);
-        font-size: 16px;
+        font-size: 14px;
     }
 
     .testimonial-text {
-        font-size: 15px;
+        font-size: 14px;
         color: var(--text-body);
-        line-height: 1.7;
+        line-height: 1.75;
         margin-bottom: 20px;
         font-style: italic;
+        flex: 1;
     }
 
     .testimonial-author {
         display: flex;
         align-items: center;
         gap: 12px;
+        padding-top: 16px;
+        border-top: 1px solid #f3f4f6;
     }
 
     .testimonial-avatar {
@@ -403,40 +574,45 @@
         height: 44px;
         border-radius: 50%;
         object-fit: cover;
-        background: var(--off-white);
+        flex-shrink: 0;
     }
 
     .testimonial-avatar-placeholder {
         width: 44px;
         height: 44px;
         border-radius: 50%;
-        background: linear-gradient(135deg, var(--navy), var(--navy-dark));
+        background: var(--navy);
         display: flex;
         align-items: center;
         justify-content: center;
-        color: white;
+        color: #ffffff;           /* white on navy */
         font-weight: 700;
         font-size: 16px;
+        flex-shrink: 0;
     }
 
     .testimonial-name {
-        font-size: 15px;
+        font-size: 14px;
         font-weight: 700;
         color: var(--navy);
+        line-height: 1.3;
     }
 
     .testimonial-role {
-        font-size: 13px;
+        font-size: 12px;
         color: var(--text-muted);
+        margin-top: 2px;
     }
 
-    /* ---- Related Services ---- */
+    /* ================================================================
+       Related Services
+    ================================================================ */
     .related-service-card {
-        background: white;
+        background: #ffffff;
         border-radius: var(--radius-lg);
         overflow: hidden;
         box-shadow: var(--shadow-md);
-        transition: all var(--transition);
+        transition: transform 0.2s, box-shadow 0.2s;
         display: flex;
         flex-direction: column;
     }
@@ -447,19 +623,21 @@
     }
 
     .related-service-card:hover .related-service-image img {
-        transform: scale(1.05);
+        transform: scale(1.06);
     }
 
     .related-service-image {
         height: 180px;
         overflow: hidden;
+        position: relative;
     }
 
     .related-service-image img {
         width: 100%;
         height: 100%;
         object-fit: cover;
-        transition: transform var(--transition);
+        transition: transform 0.35s ease;
+        display: block;
     }
 
     .related-service-placeholder {
@@ -467,12 +645,12 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        background: linear-gradient(135deg, var(--navy), var(--navy-dark));
+        background: linear-gradient(135deg, var(--navy) 0%, var(--navy-dark) 100%);
     }
 
     .related-service-placeholder i {
-        font-size: 60px;
-        color: rgba(255,255,255,0.12);
+        font-size: 64px;
+        color: rgba(255,255,255,0.14);
     }
 
     .related-service-body {
@@ -483,22 +661,25 @@
     }
 
     .related-service-body h3 {
-        font-size: 18px;
+        font-size: 17px;
         font-family: 'Outfit', sans-serif;
         font-weight: 700;
         color: var(--navy);
         margin-bottom: 8px;
+        line-height: 1.3;
     }
 
     .related-service-body p {
-        font-size: 14px;
+        font-size: 13px;
         color: var(--text-body);
-        line-height: 1.6;
-        margin-bottom: 16px;
+        line-height: 1.65;
+        margin-bottom: 18px;
         flex: 1;
     }
 
-    /* Responsive */
+    /* ================================================================
+       Responsive
+    ================================================================ */
     @media (max-width: 1024px) {
         .service-detail-layout {
             grid-template-columns: 1fr;
@@ -514,22 +695,39 @@
     }
 
     @media (max-width: 768px) {
+        .service-hero {
+            padding: 60px 0 72px;
+        }
+
         .service-hero-layout {
             grid-template-columns: 1fr;
-            gap: 40px;
+            gap: 36px;
         }
 
         .service-hero-title {
-            font-size: 32px;
+            font-size: 30px;
+        }
+
+        .service-hero-desc {
+            font-size: 15px;
         }
 
         .service-hero-image,
         .service-hero-image-placeholder {
-            height: 280px;
+            height: 260px;
+        }
+
+        .service-hero-stats {
+            width: 100%;
+        }
+
+        .service-hero-stat {
+            padding: 12px 20px;
+            flex: 1;
         }
 
         .service-detail-main {
-            padding: 24px;
+            padding: 24px 20px;
         }
 
         .benefits-grid {
@@ -592,7 +790,7 @@
                     @if($service->duration)
                     <div class="service-hero-stat">
                         <span class="service-hero-stat-value">{{ $service->formatted_duration }}</span>
-                        <span class="service-hero-stat-label">Durasi</span>
+                        <span class="service-hero-stat-label">Durasi perawatan</span>
                     </div>
                     @endif
                 </div>
@@ -616,6 +814,15 @@
                     <div class="service-hero-image-placeholder">
                         <i class="{{ $service->icon ?? 'fas fa-tooth' }}"></i>
                     </div>
+                @endif
+                @if($service->price_start)
+                <div class="service-hero-price-chip">
+                    <i class="fas fa-tag"></i>
+                    <div>
+                        <div class="service-hero-price-chip-label">Mulai dari</div>
+                        <div class="service-hero-price-chip-value">{{ $service->formatted_price }}</div>
+                    </div>
+                </div>
                 @endif
             </div>
         </div>
@@ -712,51 +919,56 @@
             <!-- Sidebar -->
             <aside class="service-detail-sidebar">
                 <div class="service-info-card">
-                    <h3>Informasi Layanan</h3>
-
-                    @if($service->price_start)
-                    <div class="service-info-item">
-                        <div class="service-info-icon"><i class="fas fa-tag"></i></div>
-                        <div class="service-info-text">
-                            <div class="service-info-label">Harga Mulai</div>
-                            <div class="service-info-value">{{ $service->formatted_price }}</div>
-                        </div>
+                    <div class="service-info-card-header">
+                        <h3><i class="fas fa-info-circle" style="margin-right:8px;opacity:.8;"></i>Informasi Layanan</h3>
+                        <p>Detail &amp; info reservasi</p>
                     </div>
-                    @endif
+                    <div class="service-info-card-body">
 
-                    @if($service->duration)
-                    <div class="service-info-item">
-                        <div class="service-info-icon"><i class="fas fa-clock"></i></div>
-                        <div class="service-info-text">
-                            <div class="service-info-label">Durasi</div>
-                            <div class="service-info-value">{{ $service->formatted_duration }}</div>
+                        @if($service->price_start)
+                        <div class="service-info-item">
+                            <div class="service-info-icon"><i class="fas fa-tag"></i></div>
+                            <div class="service-info-text">
+                                <div class="service-info-label">Harga Mulai</div>
+                                <div class="service-info-value">{{ $service->formatted_price }}</div>
+                            </div>
                         </div>
-                    </div>
-                    @endif
+                        @endif
 
-                    <div class="service-info-item">
-                        <div class="service-info-icon"><i class="fas fa-calendar-check"></i></div>
-                        <div class="service-info-text">
-                            <div class="service-info-label">Jadwal</div>
-                            <div class="service-info-value">Senin – Sabtu, 09.00–20.00</div>
+                        @if($service->duration)
+                        <div class="service-info-item">
+                            <div class="service-info-icon"><i class="fas fa-clock"></i></div>
+                            <div class="service-info-text">
+                                <div class="service-info-label">Durasi</div>
+                                <div class="service-info-value">{{ $service->formatted_duration }}</div>
+                            </div>
                         </div>
-                    </div>
+                        @endif
 
-                    <div class="service-info-item">
-                        <div class="service-info-icon"><i class="fas fa-map-marker-alt"></i></div>
-                        <div class="service-info-text">
-                            <div class="service-info-label">Lokasi</div>
-                            <div class="service-info-value">25+ Cabang Jabodetabek</div>
+                        <div class="service-info-item">
+                            <div class="service-info-icon"><i class="fas fa-calendar-check"></i></div>
+                            <div class="service-info-text">
+                                <div class="service-info-label">Jadwal</div>
+                                <div class="service-info-value">Senin – Sabtu, 09.00–20.00</div>
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="service-cta-buttons">
-                        <a href="{{ whatsapp_url('Halo, saya ingin konsultasi mengenai layanan ' . $service->name) }}" target="_blank" class="btn-whatsapp">
-                            <i class="fab fa-whatsapp"></i> Konsultasi Gratis
-                        </a>
-                        <a href="tel:+6221123456778" class="btn-outline-page">
-                            <i class="fas fa-phone"></i> Hubungi Kami
-                        </a>
+                        <div class="service-info-item">
+                            <div class="service-info-icon"><i class="fas fa-map-marker-alt"></i></div>
+                            <div class="service-info-text">
+                                <div class="service-info-label">Lokasi</div>
+                                <div class="service-info-value">25+ Cabang Jabodetabek</div>
+                            </div>
+                        </div>
+
+                        <div class="service-cta-buttons">
+                            <a href="{{ whatsapp_url('Halo, saya ingin konsultasi mengenai layanan ' . $service->name) }}" target="_blank" class="btn-whatsapp">
+                                <i class="fab fa-whatsapp"></i> Konsultasi Gratis
+                            </a>
+                            <a href="tel:+6221123456778" class="btn-outline-page">
+                                <i class="fas fa-phone"></i> Hubungi Kami
+                            </a>
+                        </div>
                     </div>
                 </div>
             </aside>

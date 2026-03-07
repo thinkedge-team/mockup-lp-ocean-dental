@@ -32,6 +32,10 @@ class SettingSeeder extends Seeder
             ['key' => 'hero_badge_3', 'value' => 'Alat Modern & Steril', 'type' => 'text', 'group' => 'hero'],
             ['key' => 'hero_floating_rating', 'value' => '4.8', 'type' => 'text', 'group' => 'hero'],
             ['key' => 'hero_floating_rating_label', 'value' => 'Rating Pasien', 'type' => 'text', 'group' => 'hero'],
+            ['key' => 'hero_image_1', 'value' => null, 'type' => 'image', 'group' => 'hero'],
+            ['key' => 'hero_image_2', 'value' => null, 'type' => 'image', 'group' => 'hero'],
+            ['key' => 'hero_image_3', 'value' => null, 'type' => 'image', 'group' => 'hero'],
+            ['key' => 'hero_image_4', 'value' => null, 'type' => 'image', 'group' => 'hero'],
 
             // About Section
             ['key' => 'about_section_title', 'value' => 'Mengapa Memilih Ocean Dental?', 'type' => 'text', 'group' => 'about'],

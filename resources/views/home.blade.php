@@ -62,16 +62,46 @@
                 </div>
             </div>
             <div class="hero-image" data-aos="fade-left">
-                <div class="hero-image-wrapper">
-                    <img src="{{ asset('images/hero-dentist-patient.png') }}" alt="Ocean Dental - Dokter Gigi Profesional" />
-                    <div class="floating-card">
-                        <i class="fas fa-star"></i>
-                        <div>
-                            <strong>{{ setting('hero_floating_rating', '4.8') }}/5.0</strong>
-                            <p>{{ setting('hero_floating_rating_label', 'Rating Pasien') }}</p>
-                        </div>
+                <div class="hero-image-grid">
+                    {{-- Gambar 1 --}}
+                    <div class="hero-img-item" onclick="openHeroLightbox(0)">
+                        <img src="{{ setting('hero_image_1') ? asset('storage/' . setting('hero_image_1')) : asset('images/hero-dentist-patient.png') }}" alt="Ocean Dental - Perawatan Gigi" loading="lazy" />
+                        <div class="hero-img-overlay"><i class="fas fa-expand-alt"></i></div>
+                    </div>
+                    {{-- Gambar 2 --}}
+                    <div class="hero-img-item" onclick="openHeroLightbox(1)">
+                        <img src="{{ setting('hero_image_2') ? asset('storage/' . setting('hero_image_2')) : asset('images/hero-dentist-patient.png') }}" alt="Ocean Dental - Klinik Modern" loading="lazy" />
+                        <div class="hero-img-overlay"><i class="fas fa-expand-alt"></i></div>
+                    </div>
+                    {{-- Gambar 3 --}}
+                    <div class="hero-img-item" onclick="openHeroLightbox(2)">
+                        <img src="{{ setting('hero_image_3') ? asset('storage/' . setting('hero_image_3')) : asset('images/hero-dentist-patient.png') }}" alt="Ocean Dental - Tim Dokter" loading="lazy" />
+                        <div class="hero-img-overlay"><i class="fas fa-expand-alt"></i></div>
+                    </div>
+                    {{-- Gambar 4 --}}
+                    <div class="hero-img-item" onclick="openHeroLightbox(3)">
+                        <img src="{{ setting('hero_image_4') ? asset('storage/' . setting('hero_image_4')) : asset('images/hero-dentist-patient.png') }}" alt="Ocean Dental - Teknologi Modern" loading="lazy" />
+                        <div class="hero-img-overlay"><i class="fas fa-expand-alt"></i></div>
                     </div>
                 </div>
+                <div class="floating-card">
+                    <i class="fas fa-star"></i>
+                    <div>
+                        <strong>{{ setting('hero_floating_rating', '4.8') }}/5.0</strong>
+                        <p>{{ setting('hero_floating_rating_label', 'Rating Pasien') }}</p>
+                    </div>
+                </div>
+            </div>
+
+            {{-- Hero Lightbox Modal --}}
+            <div class="hero-lightbox" id="heroLightbox" onclick="closeHeroLightbox(event)">
+                <button class="hero-lightbox-close" onclick="closeHeroLightbox()">&times;</button>
+                <button class="hero-lightbox-nav hero-lightbox-prev" onclick="navigateHeroLightbox(event, -1)"><i class="fas fa-chevron-left"></i></button>
+                <div class="hero-lightbox-inner">
+                    <img src="" alt="Ocean Dental" id="heroLightboxImg" />
+                </div>
+                <button class="hero-lightbox-nav hero-lightbox-next" onclick="navigateHeroLightbox(event, 1)"><i class="fas fa-chevron-right"></i></button>
+                <div class="hero-lightbox-dots" id="heroLightboxDots"></div>
             </div>
         </div>
     </div>
@@ -1309,11 +1339,79 @@
                 setTimeout(updateCount, 10);
             } else {
                 counter.innerText = isDecimal ? target.toFixed(1) : target;
-            }
+        }
         };
 
         updateCount();
     };
+
+    // ─── Hero Lightbox ──────────────────────────────────────────
+    (function() {
+        const lightbox    = document.getElementById('heroLightbox');
+        const lightboxImg = document.getElementById('heroLightboxImg');
+        const dotsWrap    = document.getElementById('heroLightboxDots');
+        if (!lightbox) return;
+
+        // Collect all images from hero grid
+        const heroItems = Array.from(document.querySelectorAll('.hero-img-item img'));
+        let currentIndex = 0;
+
+        // Build dots
+        heroItems.forEach(function(_, i) {
+            const dot = document.createElement('button');
+            dot.className = 'hero-lightbox-dot' + (i === 0 ? ' active' : '');
+            dot.setAttribute('aria-label', 'Gambar ' + (i + 1));
+            dot.addEventListener('click', function(e) {
+                e.stopPropagation();
+                setLightboxImage(i);
+            });
+            dotsWrap.appendChild(dot);
+        });
+
+        function setLightboxImage(index) {
+            currentIndex = (index + heroItems.length) % heroItems.length;
+            lightboxImg.src = heroItems[currentIndex].src;
+            lightboxImg.alt = heroItems[currentIndex].alt;
+            // Update dots
+            dotsWrap.querySelectorAll('.hero-lightbox-dot').forEach(function(d, i) {
+                d.classList.toggle('active', i === currentIndex);
+            });
+        }
+
+        // Expose to global scope
+        window.openHeroLightbox = function(index) {
+            setLightboxImage(index);
+            lightbox.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        };
+
+        window.closeHeroLightbox = function(e) {
+            if (e && e.target !== lightbox) return;
+            lightbox.classList.remove('active');
+            document.body.style.overflow = '';
+        };
+
+        window.navigateHeroLightbox = function(e, dir) {
+            e.stopPropagation();
+            setLightboxImage(currentIndex + dir);
+        };
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            if (!lightbox.classList.contains('active')) return;
+            if (e.key === 'Escape')      { lightbox.classList.remove('active'); document.body.style.overflow = ''; }
+            if (e.key === 'ArrowRight')  { setLightboxImage(currentIndex + 1); }
+            if (e.key === 'ArrowLeft')   { setLightboxImage(currentIndex - 1); }
+        });
+
+        // Touch/swipe support
+        let touchStartX = 0;
+        lightbox.addEventListener('touchstart', function(e) { touchStartX = e.touches[0].clientX; }, { passive: true });
+        lightbox.addEventListener('touchend', function(e) {
+            const diff = touchStartX - e.changedTouches[0].clientX;
+            if (Math.abs(diff) > 50) setLightboxImage(currentIndex + (diff > 0 ? 1 : -1));
+        });
+    })();
 
 </script>
 @endpush

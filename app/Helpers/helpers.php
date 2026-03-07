@@ -89,14 +89,25 @@ if (!function_exists('get_contact_info')) {
 if (!function_exists('whatsapp_url')) {
     /**
      * Generate WhatsApp URL with pre-filled message
-     * 
+     *
      * @param string $message
      * @return string
      */
     function whatsapp_url($message = '')
     {
         $whatsapp = setting('contact_whatsapp', '6281234567890');
-        $encodedMessage = urlencode($message);
+
+        // Sanitize: strip +, spaces, dashes, parentheses — wa.me needs digits only
+        $whatsapp = preg_replace('/[^0-9]/', '', $whatsapp);
+
+        // Ensure country code: convert leading 0 → 62
+        if (str_starts_with($whatsapp, '0')) {
+            $whatsapp = '62' . substr($whatsapp, 1);
+        }
+
+        // rawurlencode encodes spaces as %20 (required by wa.me), unlike urlencode which uses +
+        $encodedMessage = rawurlencode($message);
+
         return "https://wa.me/{$whatsapp}" . ($message ? "?text={$encodedMessage}" : '');
     }
 }

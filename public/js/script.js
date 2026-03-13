@@ -2301,7 +2301,8 @@ function openDoctorModal(event, button) {
         bio: decodeHTMLEntities(button.dataset.doctorBioHtml || ''),
         qualifications: safeJSONParse(button.dataset.doctorQualifications, []),
         expertise: safeJSONParse(button.dataset.doctorExpertise, []),
-        social: safeJSONParse(button.dataset.doctorSocial, {})
+        social: safeJSONParse(button.dataset.doctorSocial, {}),
+        practiceLocations: safeJSONParse(button.dataset.doctorPracticeLocations, [])
     };
     
     // Populate modal with data
@@ -2332,7 +2333,18 @@ function populateDoctorModal(data) {
     } else {
         document.getElementById('modal-doctor-university').style.display = 'none';
     }
-    
+
+    // Experience row in header
+    const expRow = document.getElementById('modal-doctor-experience-row');
+    if (expRow) {
+        if (data.experience) {
+            expRow.style.display = 'flex';
+            document.getElementById('modal-experience-text').textContent = `${data.experience} Tahun Pengalaman`;
+        } else {
+            expRow.style.display = 'none';
+        }
+    }
+
     // Badge
     const badgeContainer = document.getElementById('modal-doctor-badge-container');
     if (data.badge) {
@@ -2341,50 +2353,7 @@ function populateDoctorModal(data) {
     } else {
         badgeContainer.innerHTML = '';
     }
-    
-    // Status
-    const statusIndicator = document.getElementById('modal-doctor-status');
-    statusIndicator.className = `modal-status-indicator ${data.status}`;
-    
-    // Rating
-    const starsContainer = document.getElementById('modal-doctor-stars');
-    let starsHTML = '';
-    for (let i = 1; i <= 5; i++) {
-        if (i <= Math.floor(data.rating)) {
-            starsHTML += '<i class="fas fa-star"></i>';
-        } else if (i - 0.5 <= data.rating) {
-            starsHTML += '<i class="fas fa-star-half-alt"></i>';
-        } else {
-            starsHTML += '<i class="far fa-star"></i>';
-        }
-    }
-    starsContainer.innerHTML = starsHTML;
-    document.getElementById('modal-doctor-rating').textContent = data.rating.toFixed(1);
-    document.getElementById('modal-doctor-reviews').textContent = `(${data.reviewCount} ulasan)`;
-    
-    // Experience and patients
-    document.getElementById('modal-doctor-experience').textContent = `${data.experience}+`;
-    document.getElementById('modal-doctor-patients').textContent = data.patients;
-    
-    // Specialization (only show if different from position)
-    if (data.specialization && data.specialization !== data.position) {
-        document.getElementById('modal-specialization-section').style.display = 'block';
-        document.getElementById('modal-doctor-specialization').textContent = data.specialization;
-    } else {
-        document.getElementById('modal-specialization-section').style.display = 'none';
-    }
-    
-    // Expertise tags
-    if (data.expertise && data.expertise.length > 0) {
-        document.getElementById('modal-expertise-section').style.display = 'block';
-        const expertiseContainer = document.getElementById('modal-doctor-expertise');
-        expertiseContainer.innerHTML = data.expertise.map(tag => 
-            `<span class="expertise-tag">${tag}</span>`
-        ).join('');
-    } else {
-        document.getElementById('modal-expertise-section').style.display = 'none';
-    }
-    
+
     // Bio
     if (data.bio) {
         document.getElementById('modal-bio-section').style.display = 'block';
@@ -2392,50 +2361,21 @@ function populateDoctorModal(data) {
     } else {
         document.getElementById('modal-bio-section').style.display = 'none';
     }
-    
-    // Qualifications
-    if (data.qualifications && data.qualifications.length > 0) {
-        document.getElementById('modal-qualifications-section').style.display = 'block';
-        const qualificationsContainer = document.getElementById('modal-doctor-qualifications');
-        qualificationsContainer.innerHTML = data.qualifications.map(qual => 
-            `<li>${qual}</li>`
-        ).join('');
-    } else {
-        document.getElementById('modal-qualifications-section').style.display = 'none';
+
+    // Practice locations
+    const practiceSection = document.getElementById('modal-practice-section');
+    if (practiceSection) {
+        if (data.practiceLocations && data.practiceLocations.length > 0) {
+            practiceSection.style.display = 'block';
+            const practiceContainer = document.getElementById('modal-doctor-practice');
+            practiceContainer.innerHTML = data.practiceLocations.map(loc =>
+                `<div class="modal-practice-card"><i class="fas fa-map-marker-alt"></i> ${loc}</div>`
+            ).join('');
+        } else {
+            practiceSection.style.display = 'none';
+        }
     }
-    
-    // Social links
-    if (data.social && Object.keys(data.social).length > 0) {
-        document.getElementById('modal-social-section').style.display = 'block';
-        const socialContainer = document.getElementById('modal-doctor-social');
-        let socialHTML = '';
-        
-        if (data.social.instagram) {
-            socialHTML += `<a href="${data.social.instagram}" target="_blank" class="social-link instagram" rel="noopener noreferrer">
-                <i class="fab fa-instagram"></i>
-            </a>`;
-        }
-        if (data.social.linkedin) {
-            socialHTML += `<a href="${data.social.linkedin}" target="_blank" class="social-link linkedin" rel="noopener noreferrer">
-                <i class="fab fa-linkedin"></i>
-            </a>`;
-        }
-        if (data.social.facebook) {
-            socialHTML += `<a href="${data.social.facebook}" target="_blank" class="social-link facebook" rel="noopener noreferrer">
-                <i class="fab fa-facebook"></i>
-            </a>`;
-        }
-        if (data.social.twitter) {
-            socialHTML += `<a href="${data.social.twitter}" target="_blank" class="social-link twitter" rel="noopener noreferrer">
-                <i class="fab fa-twitter"></i>
-            </a>`;
-        }
-        
-        socialContainer.innerHTML = socialHTML;
-    } else {
-        document.getElementById('modal-social-section').style.display = 'none';
-    }
-    
+
     // WhatsApp button
     const whatsappBtn = document.getElementById('modal-whatsapp-btn');
     const message = encodeURIComponent(`Halo, saya ingin reservasi dengan ${data.name}`);

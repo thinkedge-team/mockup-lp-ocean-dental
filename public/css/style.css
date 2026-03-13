@@ -2798,19 +2798,18 @@ section {
   padding: 4px 4px 8px;
 }
 
-/* ══════════════════════════════════════
-   DOCTOR CARD — Layout Baru
-   Foto persegi di kiri, info di kanan
-══════════════════════════════════════ */
+/* ══════════════════════════════════════════════════════
+   DOCTOR CARD — Full-width photo top, info list below
+══════════════════════════════════════════════════════ */
 .doctor-card {
-  flex: 0 0 276px;
+  flex: 0 0 272px;
   background: var(--pure-white);
   border-radius: 20px;
   overflow: hidden;
   border: 1px solid #E8EEF8;
   box-shadow:
     0 2px 8px rgba(1,33,94,.05),
-    0 8px 24px rgba(1,33,94,.06);
+    0 8px 24px rgba(1,33,94,.07);
   transition:
     transform .4s cubic-bezier(.34,1.56,.64,1),
     box-shadow .3s ease,
@@ -2820,222 +2819,201 @@ section {
   position: relative;
 }
 .doctor-card:hover {
-  transform: translateY(-10px);
-  border-color: rgba(59,130,246,.28);
+  transform: translateY(-8px);
+  border-color: rgba(59,130,246,.22);
   box-shadow:
-    0 4px 12px rgba(1,33,94,.06),
-    0 20px 48px rgba(1,33,94,.13),
+    0 4px 14px rgba(1,33,94,.07),
+    0 20px 48px rgba(1,33,94,.12),
     0 0 0 3px rgba(59,130,246,.07);
 }
-
-/* Accent line top — apparu saat hover */
+/* Accent line atas — muncul saat hover */
 .doctor-card::before {
   content: '';
   position: absolute; top: 0; left: 0; right: 0;
   height: 3px;
-  background: linear-gradient(90deg, var(--primary-color) 0%, var(--ocean-blue) 50%, var(--ocean-blue-light) 100%);
+  background: linear-gradient(90deg, var(--primary-color), var(--ocean-blue), var(--ocean-blue-light));
   border-radius: 20px 20px 0 0;
   opacity: 0;
   transition: opacity .3s ease;
+  z-index: 4;
 }
 .doctor-card:hover::before { opacity: 1; }
 
-/* ── Top area: foto kiri + info kanan ── */
-.doc-top {
-  padding: 20px 20px 0;
-  display: flex;
-  align-items: flex-start;
-  gap: 14px;
-}
-
-/* Photo */
-.doc-photo-wrap { position: relative; flex-shrink: 0; }
-.doc-photo {
-  width: 76px; height: 76px;
-  border-radius: 16px;
+/* ── Foto full-width ── */
+.doc-photo-area {
+  position: relative;
+  width: 100%;
+  height: 165px;
   overflow: hidden;
-  background: var(--ocean-blue-pale);
-  border: 2px solid #E8EEF8;
-  box-shadow: 0 4px 14px rgba(59,130,246,.18);
-  transition: transform .35s cubic-bezier(.34,1.56,.64,1), box-shadow .3s ease;
+  background: #dce8f5;
+  flex-shrink: 0;
 }
-.doctor-card:hover .doc-photo {
-  transform: scale(1.05);
-  box-shadow: 0 6px 20px rgba(59,130,246,.3);
+.doc-photo-area img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+  transition: transform .5s cubic-bezier(.25,.46,.45,.94);
 }
-.doc-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.doctor-card:hover .doc-photo-area img { transform: scale(1.04); }
 
-/* Status dot */
-.doc-status-dot {
-  position: absolute; bottom: -1px; right: -1px;
-  width: 13px; height: 13px;
-  border-radius: 50%;
-  border: 2.5px solid var(--pure-white);
-}
-.doc-status-dot.online {
-  background: #10B981;
-  animation: docStatusPulse 2.2s ease-in-out infinite;
-}
-.doc-status-dot.busy { background: #F97316; }
-
-@keyframes docStatusPulse {
-  0%,100% { box-shadow: 0 0 0 0 rgba(16,185,129,.4); }
-  50%      { box-shadow: 0 0 0 5px rgba(16,185,129,0); }
-}
-
-/* Badge (founder/specialist) */
+/* Badge pojok kiri atas foto */
 .doc-badge {
-  position: absolute; top: -3px; right: -3px;
-  width: 22px; height: 22px;
-  border-radius: 8px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: .575rem;
-  border: 2px solid var(--pure-white);
+  position: absolute; top: 10px; left: 10px;
+  display: inline-flex; align-items: center; gap: 4px;
+  padding: 4px 10px;
+  border-radius: 99px;
+  font-size: .6rem; font-weight: 700;
+  letter-spacing: .02em;
+  border: 1.5px solid rgba(255,255,255,.55);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
   z-index: 2;
-  box-shadow: 0 2px 6px rgba(0,0,0,.15);
+  box-shadow: 0 2px 8px rgba(0,0,0,.18);
 }
-.doc-badge.founder    { background: linear-gradient(135deg,#FFD700,#F59E0B); color: #78350F; }
-.doc-badge.specialist { background: linear-gradient(135deg,var(--ocean-blue),var(--ocean-blue-dark)); color: #fff; }
+.doc-badge.founder    { background: rgba(245,158,11,.92); color: #fff; }
+.doc-badge.specialist { background: rgba(1,33,94,.88);    color: #fff; }
+.doc-badge i { font-size: .55rem; }
 
-/* Header info (kanan foto) */
-.doc-header-info {
-  flex: 1; min-width: 0;
-  padding-top: 2px;
-  display: flex; flex-direction: column; gap: 5px;
+/* ── Body ── */
+.doc-body {
+  padding: 16px 16px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  flex: 1;
+}
+
+/* Nama & jabatan */
+.doc-identity {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
 }
 .doc-name {
   font-family: var(--font-display);
   font-size: .9375rem; font-weight: 700;
-  color: var(--gray-900); line-height: 1.25;
-  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+  color: var(--gray-900); line-height: 1.3;
+  display: -webkit-box; -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical; overflow: hidden;
 }
 .doc-specialty-pill {
-  display: inline-flex; align-items: center; gap: 4px;
+  display: inline-flex; align-items: center; gap: 5px;
   background: var(--ocean-blue-pale);
   color: var(--ocean-blue-dark);
-  font-size: .6875rem; font-weight: 700;
-  padding: 3px 9px;
-  border-radius: var(--radius-full);
+  font-size: .6625rem; font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 99px;
   width: fit-content;
   border: 1px solid rgba(59,130,246,.18);
+  line-height: 1;
 }
-.doc-specialty-pill i { font-size: .5625rem; }
+.doc-specialty-pill i { font-size: .575rem; flex-shrink: 0; }
 
-.doc-rating-row { display: flex; align-items: center; gap: 5px; }
-.doc-stars { display: flex; gap: 1.5px; }
-.doc-stars i { color: #F59E0B; font-size: .625rem; }
-.doc-rating-num {
-  font-family: var(--font-display);
-  font-size: .75rem; font-weight: 700;
-  color: var(--gray-900);
-}
-.doc-rating-cnt { font-size: .6875rem; color: var(--gray-400); }
-
-/* ── Divider ── */
-.doc-sep {
-  height: 1px; margin: 16px 20px;
-  background: linear-gradient(90deg, transparent, #E8EEF8 25%, #E8EEF8 75%, transparent);
-}
-
-/* ── Stats ── */
-.doc-stats {
+/* ── Info list: universitas, pengalaman, lokasi ── */
+.doc-info-list {
   display: flex;
-  margin: 0 20px 14px;
-  background: #F7F9FF;
+  flex-direction: column;
+  gap: 0;
+  border: 1px solid #EEF2FB;
   border-radius: 12px;
-  border: 1px solid #E8EEF8;
   overflow: hidden;
 }
-.doc-stat {
-  flex: 1; padding: 9px 6px; text-align: center;
-  position: relative;
-  transition: background .25s ease;
+.doc-info-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+  padding: 8px 11px;
+  background: #FAFBFF;
+  transition: background .2s ease;
 }
-.doctor-card:hover .doc-stat { background: var(--ocean-blue-pale); }
-.doc-stat + .doc-stat::before {
-  content: ''; position: absolute; left: 0; top: 18%; bottom: 18%;
-  width: 1px; background: #E8EEF8;
+.doc-info-row + .doc-info-row {
+  border-top: 1px solid #EEF2FB;
 }
-.doc-stat-val {
-  display: block;
-  font-family: var(--font-display);
-  font-size: 1.0625rem; font-weight: 800;
-  color: var(--primary-color); line-height: 1;
-  margin-bottom: 3px;
-}
-.doc-stat-lbl {
-  font-size: .5625rem; font-weight: 600;
-  color: var(--gray-400); text-transform: uppercase; letter-spacing: .6px;
-}
-
-/* ── Expertise tags ── */
-.doc-tags {
-  display: flex; flex-wrap: wrap; gap: 5px;
-  padding: 0 20px 10px;
-}
-.doc-tag {
-  padding: 3px 10px;
-  background: #F1F5FF;
-  border: 1px solid #D6E0FF;
-  border-radius: var(--radius-full);
-  font-size: .625rem; font-weight: 600;
-  color: var(--gray-500);
-  transition: all .2s ease;
-}
-.doctor-card:hover .doc-tag {
+.doctor-card:hover .doc-info-row { background: #F3F7FF; }
+.doc-info-icon {
+  display: flex; align-items: center; justify-content: center;
+  width: 22px; height: 22px;
+  border-radius: 7px;
   background: var(--ocean-blue-pale);
-  border-color: rgba(59,130,246,.35);
-  color: var(--ocean-blue-dark);
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+.doc-info-icon i {
+  font-size: .6rem;
+  color: var(--ocean-blue);
+}
+.doc-info-text {
+  font-size: .6875rem;
+  color: var(--gray-600);
+  font-weight: 500;
+  line-height: 1.4;
+  padding-top: 3px;
 }
 
-/* ── University ── */
-.doc-univ {
-  display: flex; align-items: center; gap: 5px;
-  padding: 0 20px 16px;
-  font-size: .6875rem; color: var(--gray-400); font-weight: 500;
+/* Lokasi praktik — tags dalam row */
+.doc-info-row--locations { align-items: flex-start; }
+.doc-location-tags {
+  display: flex; flex-wrap: wrap; gap: 4px;
+  padding-top: 2px;
 }
-.doc-univ i { color: var(--ocean-blue); font-size: .625rem; flex-shrink: 0; }
+.doc-location-tag {
+  display: inline-block;
+  padding: 2px 8px;
+  background: var(--pure-white);
+  border: 1px solid #D6E0FF;
+  border-radius: 99px;
+  font-size: .6rem; font-weight: 600;
+  color: var(--ocean-blue-dark);
+  white-space: nowrap;
+}
+.doctor-card:hover .doc-location-tag {
+  background: var(--ocean-blue-pale);
+  border-color: rgba(59,130,246,.3);
+}
 
 /* ── Footer buttons ── */
 .doc-footer {
   margin-top: auto;
-  padding: 12px 16px 16px;
+  padding: 10px 14px 14px;
   display: grid; grid-template-columns: 1fr 1fr; gap: 8px;
   background: #F7F9FF;
-  border-top: 1px solid #E8EEF8;
+  border-top: 1px solid #EEF2FB;
 }
 .doc-btn {
   display: flex; align-items: center; justify-content: center; gap: 6px;
-  padding: 9px 8px;
   font-family: var(--font-primary);
   font-size: .75rem; font-weight: 700;
   border-radius: 10px;
   cursor: pointer; border: none; text-decoration: none;
-  transition: all .25s ease;
+  transition: all .22s ease;
+  white-space: nowrap;
 }
 .doc-btn-primary {
-  background: linear-gradient(135deg, var(--ocean-blue) 0%, var(--ocean-blue-dark) 100%);
+  padding: 9px 14px;
+  background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
   color: #fff;
-  box-shadow: 0 3px 10px rgba(59,130,246,.35);
+  box-shadow: 0 3px 10px rgba(37,211,102,.3);
 }
 .doc-btn-primary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 18px rgba(59,130,246,.5);
-  filter: brightness(1.05);
+  box-shadow: 0 6px 18px rgba(37,211,102,.45);
+  filter: brightness(1.06);
 }
+/* Profil — icon-only */
 .doc-btn-secondary {
+  padding: 9px 12px;
   background: var(--pure-white);
-  color: var(--gray-700);
-  border: 1.5px solid #E2E8F0;
+  color: var(--ocean-blue-dark);
+  border: 1.5px solid #D6E0FF;
 }
 .doc-btn-secondary:hover {
   border-color: var(--ocean-blue);
-  color: var(--ocean-blue-dark);
   background: var(--ocean-blue-pale);
   transform: translateY(-2px);
 }
 
-/* ── Footer nav: progress + dots + counter ── */
+/* ── Carousel footer ── */
 .doctors-footer {
   display: flex; align-items: center; justify-content: space-between;
   margin-top: 8px; padding: 0 4px;
@@ -3049,10 +3027,7 @@ section {
   background: linear-gradient(90deg, var(--primary-color), var(--ocean-blue), var(--ocean-blue-light));
   width: 0%; border-radius: var(--radius-full);
   box-shadow: 0 0 8px rgba(59,130,246,.5);
-  /* transition diatur via JS requestAnimationFrame */
 }
-
-/* Dots */
 .carousel-dots { display: flex; gap: 7px; align-items: center; }
 .carousel-dot {
   width: 7px; height: 7px; border-radius: var(--radius-full);
@@ -3061,7 +3036,6 @@ section {
 }
 .carousel-dot.active { width: 26px; background: var(--ocean-blue); }
 .carousel-dot:hover:not(.active) { background: #94A3B8; }
-
 .doctors-slide-counter {
   font-family: var(--font-display);
   font-size: .8125rem; color: var(--gray-400); font-weight: 500; white-space: nowrap;
@@ -3070,16 +3044,23 @@ section {
 
 /* ── Responsive ── */
 @media (max-width: 1024px) {
-  .doctor-card { flex: 0 0 268px; }
+  .doctor-card { flex: 0 0 260px; }
 }
 @media (max-width: 768px) {
   .doctors-heading { flex-direction: column; align-items: flex-start; gap: 14px; }
   .doctors-heading-nav { align-self: flex-end; }
-  .doctor-card { flex: 0 0 260px; }
-  .doc-photo { width: 68px; height: 68px; }
+  .doctor-card { flex: 0 0 252px; }
+  .doc-photo-area { height: 155px; }
 }
 @media (max-width: 480px) {
   .doctor-card { flex: 0 0 84vw; }
+  .doc-photo-area { height: 175px; }
+  .doctors-heading-left .section-description { display: none; }
+}
+@media (max-width: 480px) {
+  .doctor-card { flex: 0 0 86vw; }
+}
+
   .doctors-heading-left .section-description { display: none; }
 }
 
@@ -6184,13 +6165,8 @@ section {
     }
 }
 
-/* ============================================
-   Doctor Profile Modal Styles
-   ============================================ */
-
-/* Modal Overlay */
 /* ============================================================
-   DOCTOR PROFILE MODAL — PREMIUM REDESIGN
+   DOCTOR PROFILE MODAL
    ============================================================ */
 
 /* ── Overlay ─────────────────────────────────────────────── */
@@ -6231,6 +6207,10 @@ section {
         0 0 0 1px rgba(255,255,255,0.08);
     animation: modalSlideIn 0.38s cubic-bezier(0.34, 1.56, 0.64, 1);
     overflow: hidden;
+    max-height: 92vh;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(59,130,246,0.35) transparent;
 }
 
 @keyframes modalSlideIn {
@@ -6244,13 +6224,6 @@ section {
     }
 }
 
-/* ── Scrollbar ───────────────────────────────────────────── */
-.doctor-modal-container {
-    max-height: 92vh;
-    overflow-y: auto;
-    scrollbar-width: thin;
-    scrollbar-color: rgba(59,130,246,0.35) transparent;
-}
 .doctor-modal-container::-webkit-scrollbar { width: 5px; }
 .doctor-modal-container::-webkit-scrollbar-track { background: transparent; }
 .doctor-modal-container::-webkit-scrollbar-thumb {
@@ -6399,19 +6372,6 @@ section {
     border: 2px solid #fff;
 }
 
-.modal-status-indicator {
-    position: absolute;
-    bottom: 6px; right: 6px;
-    width: 18px; height: 18px;
-    border-radius: 50%;
-    border: 2.5px solid #fff;
-    z-index: 3;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.25);
-}
-.modal-status-indicator.online  { background: #10b981; }
-.modal-status-indicator.busy    { background: #f59e0b; }
-.modal-status-indicator.offline { background: #6b7280; }
-
 /* Header text */
 .doctor-modal-header-info {
     flex: 1;
@@ -6433,81 +6393,30 @@ section {
     font-weight: 500;
     letter-spacing: 0.01em;
 }
-.modal-doctor-university {
+
+/* ── Meta Chips (university, experience) ─────────────────── */
+.modal-meta-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 4px;
+}
+.modal-meta-chip {
     display: inline-flex;
     align-items: center;
     gap: 7px;
     font-size: 12.5px;
-    color: rgba(255,255,255,0.7);
+    color: rgba(255,255,255,0.75);
     background: rgba(255,255,255,0.1);
     border: 1px solid rgba(255,255,255,0.15);
     border-radius: 99px;
-    padding: 4px 12px;
+    padding: 5px 13px;
     backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
 }
-.modal-university-icon {
-    display: flex;
-    align-items: center;
-}
-.modal-doctor-university i { font-size: 13px; }
-
-/* ── Header Stats Pills ──────────────────────────────────── */
-.modal-header-stats {
-    position: relative;
-    z-index: 2;
-    display: flex;
-    align-items: center;
-    gap: 0;
-    background: rgba(255,255,255,0.08);
-    border: 1px solid rgba(255,255,255,0.14);
-    border-radius: 16px;
-    padding: 14px 20px;
-    backdrop-filter: blur(10px);
-}
-
-.modal-header-stat-pill {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 6px;
-    flex-wrap: wrap;
-}
-.modal-header-stat-pill > i {
-    font-size: 14px;
-    color: rgba(59,130,246,0.9);
-}
-.modal-header-stat-value {
-    font-family: var(--font-display, 'Outfit', sans-serif);
-    font-size: 18px;
-    font-weight: 800;
-    color: #fff;
-    line-height: 1;
-}
-.modal-header-stat-sub {
-    font-size: 11px;
-    color: rgba(255,255,255,0.6);
-    font-weight: 500;
-    width: 100%;
-    text-align: center;
-    margin-top: 2px;
-}
-
-/* Stars inside stats */
-.modal-header-stats .modal-stars {
-    display: flex;
-    gap: 2px;
-}
-.modal-header-stats .modal-stars i {
-    color: #fbbf24;
-    font-size: 13px;
-}
-
-.modal-header-stat-divider {
-    width: 1px;
-    height: 40px;
-    background: rgba(255,255,255,0.18);
-    margin: 0 4px;
+.modal-meta-chip i {
+    font-size: 12px;
+    color: rgba(59,130,246,0.85);
     flex-shrink: 0;
 }
 
@@ -6555,41 +6464,6 @@ section {
     letter-spacing: -0.01em;
 }
 
-.modal-text {
-    color: #475569;
-    line-height: 1.75;
-    font-size: 14.5px;
-    margin: 0;
-}
-
-/* ── Expertise Tags ──────────────────────────────────────── */
-.modal-expertise-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-}
-.modal-expertise-tags .expertise-tag {
-    display: inline-flex;
-    align-items: center;
-    gap: 5px;
-    padding: 6px 14px;
-    border-radius: 99px;
-    font-size: 12.5px;
-    font-weight: 600;
-    background: linear-gradient(135deg, #EEF2FF 0%, #DBEAFE 100%);
-    color: var(--primary-color, #01215E);
-    border: 1px solid rgba(59,130,246,0.2);
-    transition: all 0.25s ease;
-    cursor: default;
-}
-.modal-expertise-tags .expertise-tag:hover {
-    background: linear-gradient(135deg, #01215E 0%, #0b4d8c 100%);
-    color: #fff;
-    border-color: transparent;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(1,33,94,0.2);
-}
-
 /* ── Bio ─────────────────────────────────────────────────── */
 .modal-bio-content {
     color: #475569;
@@ -6605,71 +6479,35 @@ section {
 .modal-bio-content li { margin-bottom: 6px; }
 .modal-bio-content strong { color: #01215E; font-weight: 600; }
 
-/* ── Qualifications ──────────────────────────────────────── */
-.modal-qualifications-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
+/* ── Practice Locations Grid ─────────────────────────────── */
+.modal-practice-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
 }
-.modal-qualifications-list li {
-    display: flex;
-    align-items: flex-start;
-    gap: 12px;
-    padding: 12px 14px;
-    background: linear-gradient(135deg, #f8fafc 0%, #f0f9ff 100%);
-    border-radius: 10px;
-    border: 1px solid rgba(59,130,246,0.12);
-    color: #475569;
-    font-size: 13.5px;
-    line-height: 1.6;
-    transition: border-color 0.2s ease;
-}
-.modal-qualifications-list li::before {
-    content: '';
-    display: block;
-    width: 4px;
-    min-width: 4px;
-    height: 100%;
-    min-height: 36px;
-    background: linear-gradient(180deg, var(--ocean-blue, #3B82F6) 0%, #0b4d8c 100%);
-    border-radius: 99px;
-    margin-top: 1px;
-}
-.modal-qualifications-list li:hover {
-    border-color: rgba(59,130,246,0.3);
-}
-
-/* ── Social Links ────────────────────────────────────────── */
-.modal-social-links {
-    display: flex;
-    gap: 12px;
-    flex-wrap: wrap;
-}
-.social-link {
-    width: 46px; height: 46px;
-    border-radius: 14px;
+.modal-practice-card {
     display: flex;
     align-items: center;
-    justify-content: center;
-    font-size: 20px;
-    color: #fff;
-    transition: all 0.25s ease;
-    text-decoration: none;
-    box-shadow: 0 3px 10px rgba(0,0,0,0.12);
+    gap: 10px;
+    padding: 12px 14px;
+    background: linear-gradient(135deg, #f8fafc 0%, #f0f9ff 100%);
+    border: 1px solid rgba(59,130,246,0.15);
+    border-radius: 12px;
+    font-size: 13px;
+    color: #334155;
+    font-weight: 500;
+    line-height: 1.4;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
-.social-link:hover {
-    transform: translateY(-4px) scale(1.05);
-    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+.modal-practice-card:hover {
+    border-color: rgba(59,130,246,0.35);
+    box-shadow: 0 3px 10px rgba(1,33,94,0.08);
 }
-.social-link.instagram {
-    background: linear-gradient(135deg, #833ab4 0%, #fd1d1d 50%, #fcb045 100%);
+.modal-practice-card i {
+    font-size: 14px;
+    color: var(--ocean-blue, #3B82F6);
+    flex-shrink: 0;
 }
-.social-link.linkedin  { background: #0077b5; }
-.social-link.facebook  { background: #1877f2; }
-.social-link.twitter   { background: #1da1f2; }
 
 /* ── WhatsApp Action Button ──────────────────────────────── */
 .modal-action-buttons {
@@ -6760,17 +6598,12 @@ section {
         padding: 40px 20px 22px;
         border-radius: 22px 22px 0 0;
     }
-    .modal-hero-content {
-        gap: 16px;
-    }
+    .modal-hero-content { gap: 16px; }
     .doctor-modal-photo { width: 90px; height: 90px; }
     .modal-doctor-name  { font-size: 20px; }
     .modal-doctor-position { font-size: 13px; }
-    .modal-header-stats { padding: 12px 14px; }
-    .modal-header-stat-value { font-size: 15px; }
-    .modal-header-stat-sub   { font-size: 10px; }
+    .modal-practice-grid { grid-template-columns: 1fr; }
     .doctor-modal-body  { padding: 20px 18px 24px; }
-    .modal-social-links { justify-content: flex-start; }
     .modal-action-buttons { margin-top: 16px; }
 }
 
@@ -6778,10 +6611,7 @@ section {
     .doctor-modal-overlay { padding: 12px 8px; }
     .doctor-modal-header  { padding: 36px 16px 18px; }
     .modal-hero-content   { flex-direction: column; text-align: center; }
-    .modal-doctor-university { justify-content: center; }
-    .modal-header-stats   { flex-wrap: wrap; justify-content: center; gap: 10px; }
-    .modal-header-stat-divider { display: none; }
-    .modal-header-stat-pill { flex: none; min-width: 80px; }
+    .modal-meta-chips     { justify-content: center; }
     .doctor-modal-photo   { width: 84px; height: 84px; }
     .modal-doctor-name    { font-size: 18px; }
     .doctor-modal-body    { padding: 16px 14px 20px; }

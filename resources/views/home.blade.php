@@ -486,90 +486,58 @@
             <div class="doctors-carousel" id="doctors-carousel">
 
                 @foreach($teamMembers as $index => $doctor)
-                {{-- {{ $doctor->name }} --}}
+                @php $photoUrl = $doctor->photo ? (filter_var($doctor->photo, FILTER_VALIDATE_URL) ? $doctor->photo : asset('storage/' . $doctor->photo)) : asset('images/no-image.jpg'); @endphp
                 <div class="doctor-card" data-aos="fade-up" data-aos-delay="{{ ($index % 4) * 100 }}">
 
-                    {{-- ── Card Header: foto + info ── --}}
-                    <div class="doc-top">
+                    {{-- ── Foto full-width ── --}}
+                    <div class="doc-photo-area">
+                        <img src="{{ $photoUrl }}" alt="{{ $doctor->name }}" loading="lazy">
+                        @if($doctor->badge)
+                        <span class="doc-badge {{ $doctor->badge }}">
+                            <i class="fas fa-{{ $doctor->badge === 'founder' ? 'crown' : 'award' }}"></i>
+                            {{ $doctor->badge === 'founder' ? 'Founder' : 'Specialist' }}
+                        </span>
+                        @endif
+                    </div>
 
-                        {{-- Foto (persegi, rounded) --}}
-                        <div class="doc-photo-wrap">
-                            <div class="doc-photo">
-                                <img
-                                    src="@if($doctor->photo){{ filter_var($doctor->photo, FILTER_VALIDATE_URL) ? $doctor->photo : asset('storage/' . $doctor->photo) }}@else{{ asset('images/no-image.jpg') }}@endif"
-                                    alt="{{ $doctor->name }}"
-                                    loading="lazy">
-                            </div>
+                    {{-- ── Body ── --}}
+                    <div class="doc-body">
 
-                            @if($doctor->badge)
-                            <span class="doc-badge {{ $doctor->badge }}">
-                                <i class="fas fa-{{ $doctor->badge === 'founder' ? 'crown' : 'award' }}"></i>
-                            </span>
-                            @endif
-
-                            <span class="doc-status-dot {{ $doctor->status ?? 'online' }}"></span>
-                        </div>
-
-                        {{-- Info kanan --}}
-                        <div class="doc-header-info">
+                        {{-- Nama & Jabatan --}}
+                        <div class="doc-identity">
                             <div class="doc-name">{{ $doctor->name }}</div>
                             <span class="doc-specialty-pill">
                                 <i class="fas fa-tooth"></i> {{ $doctor->position }}
                             </span>
-                            <div class="doc-rating-row">
-                                <div class="doc-stars">
-                                    @for($i = 1; $i <= 5; $i++)
-                                        @if($i <= floor($doctor->rating))
-                                            <i class="fas fa-star"></i>
-                                        @elseif($i - 0.5 <= $doctor->rating)
-                                            <i class="fas fa-star-half-alt"></i>
-                                        @else
-                                            <i class="far fa-star"></i>
-                                        @endif
-                                    @endfor
-                                </div>
-                                <span class="doc-rating-num">{{ number_format($doctor->rating, 1) }}</span>
-                                <span class="doc-rating-cnt">({{ $doctor->review_count }} ulasan)</span>
+                        </div>
+
+                        {{-- Info rows: universitas, pengalaman, lokasi --}}
+                        <div class="doc-info-list">
+                            @if($doctor->university)
+                            <div class="doc-info-row">
+                                <span class="doc-info-icon"><i class="fas fa-graduation-cap"></i></span>
+                                <span class="doc-info-text">{{ $doctor->university }}</span>
                             </div>
+                            @endif
+                            @if($doctor->years_of_experience)
+                            <div class="doc-info-row">
+                                <span class="doc-info-icon"><i class="fas fa-clock"></i></span>
+                                <span class="doc-info-text">{{ $doctor->years_of_experience }}+ tahun pengalaman</span>
+                            </div>
+                            @endif
+                            @if($doctor->practice_locations && is_array($doctor->practice_locations) && count($doctor->practice_locations))
+                            <div class="doc-info-row doc-info-row--locations">
+                                <span class="doc-info-icon"><i class="fas fa-map-marker-alt"></i></span>
+                                <div class="doc-location-tags">
+                                    @foreach($doctor->practice_locations as $loc)
+                                    <span class="doc-location-tag">{{ $loc }}</span>
+                                    @endforeach
+                                </div>
+                            </div>
+                            @endif
                         </div>
 
-                    </div>{{-- /doc-top --}}
-
-                    {{-- ── Divider ── --}}
-                    <div class="doc-sep"></div>
-
-                    {{-- ── Stats ── --}}
-                    <div class="doc-stats">
-                        <div class="doc-stat">
-                            <span class="doc-stat-val">{{ $doctor->years_of_experience }}+</span>
-                            <span class="doc-stat-lbl">Tahun</span>
-                        </div>
-                        <div class="doc-stat">
-                            <span class="doc-stat-val">{{ $doctor->patient_count }}</span>
-                            <span class="doc-stat-lbl">Pasien</span>
-                        </div>
-                        <div class="doc-stat">
-                            <span class="doc-stat-val">{{ $doctor->badge === 'founder' ? '29' : '100%' }}</span>
-                            <span class="doc-stat-lbl">{{ $doctor->badge === 'founder' ? 'Cabang' : 'Happy' }}</span>
-                        </div>
-                    </div>
-
-                    {{-- ── Expertise tags ── --}}
-                    @if($doctor->expertise_tags && is_array($doctor->expertise_tags))
-                    <div class="doc-tags">
-                        @foreach(array_slice($doctor->expertise_tags, 0, 3) as $tag)
-                        <span class="doc-tag">{{ $tag }}</span>
-                        @endforeach
-                    </div>
-                    @endif
-
-                    {{-- ── University ── --}}
-                    @if($doctor->university)
-                    <div class="doc-univ">
-                        <i class="fas fa-graduation-cap"></i>
-                        <span>{{ $doctor->university }}</span>
-                    </div>
-                    @endif
+                    </div>{{-- /doc-body --}}
 
                     {{-- ── Footer Buttons ── --}}
                     <div class="doc-footer">
@@ -580,23 +548,15 @@
                         <a href="#"
                            class="doc-btn doc-btn-secondary"
                            onclick="openDoctorModal(event, this)"
-                           data-doctor-id="{{ $doctor->id }}"
                            data-doctor-name="{{ $doctor->name }}"
                            data-doctor-position="{{ $doctor->position }}"
-                           data-doctor-photo="@if($doctor->photo){{ filter_var($doctor->photo, FILTER_VALIDATE_URL) ? $doctor->photo : asset('storage/' . $doctor->photo) }}@else{{ asset('images/no-image.jpg') }}@endif"
+                           data-doctor-photo="{{ $photoUrl }}"
                            data-doctor-university="{{ $doctor->university ?? '' }}"
                            data-doctor-badge="{{ $doctor->badge ?? '' }}"
-                           data-doctor-status="{{ $doctor->status ?? 'online' }}"
-                           data-doctor-rating="{{ $doctor->rating }}"
-                           data-doctor-review-count="{{ $doctor->review_count }}"
-                           data-doctor-experience="{{ $doctor->years_of_experience }}"
-                           data-doctor-patients="{{ $doctor->patient_count }}"
-                           data-doctor-specialization="{{ $doctor->specialization ?? '' }}"
+                           data-doctor-experience="{{ $doctor->years_of_experience ?? '' }}"
                            data-doctor-bio-html="{{ e($doctor->bio ?? '') }}"
-                           data-doctor-qualifications="{{ e(json_encode($doctor->qualifications ?? [])) }}"
-                           data-doctor-expertise="{{ e(json_encode($doctor->expertise_tags ?? [])) }}"
-                           data-doctor-social="{{ e(json_encode($doctor->social_links ?? [])) }}">
-                            <i class="fas fa-user"></i> Profil
+                           data-doctor-practice-locations="{{ e(json_encode($doctor->practice_locations ?? [])) }}">
+                            <i class="fas fa-id-card"></i> Profil
                         </a>
                     </div>
 

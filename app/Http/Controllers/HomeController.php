@@ -50,7 +50,7 @@ class HomeController extends Controller
         });
 
         $teamMembers = \Cache::remember('homepage.team_members', $cacheDuration, function () {
-            return TeamMember::select('id', 'name', 'position', 'photo', 'badge', 'status', 'rating', 'review_count', 'years_of_experience', 'patient_count', 'university', 'specialization', 'bio', 'expertise_tags', 'qualifications', 'social_links', 'is_active', 'order')
+            return TeamMember::select('id', 'name', 'position', 'photo', 'badge', 'status', 'rating', 'review_count', 'years_of_experience', 'patient_count', 'university', 'specialization', 'bio', 'expertise_tags', 'qualifications', 'social_links', 'practice_locations', 'is_active', 'order')
                 ->where('is_active', true)
                 ->orderBy('order')
                 ->take(6)

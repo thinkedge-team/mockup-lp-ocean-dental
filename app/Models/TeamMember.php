@@ -25,6 +25,7 @@ class TeamMember extends Model
         'patient_count',
         'expertise_tags',
         'university',
+        'practice_locations',
         'order',
         'is_active',
     ];
@@ -33,6 +34,7 @@ class TeamMember extends Model
         'qualifications' => 'array',
         'social_links' => 'array',
         'expertise_tags' => 'array',
+        'practice_locations' => 'array',
         'is_active' => 'boolean',
         'rating' => 'decimal:1',
         'review_count' => 'integer',

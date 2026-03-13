@@ -27,132 +27,136 @@ class TeamMemberResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\Section::make('Basic Information')
+                // ── Section 1: Identitas Dokter ──
+                Forms\Components\Section::make('Identitas Dokter')
+                    ->description('Nama lengkap, jabatan, dan badge yang ditampilkan di kartu dokter.')
+                    ->icon('heroicon-o-identification')
                     ->schema([
                         Forms\Components\TextInput::make('name')
+                            ->label('Nama Lengkap')
                             ->required()
-                            ->maxLength(255),
-                        Forms\Components\TextInput::make('position')
-                            ->required()
-                            ->maxLength(255),
-                        Forms\Components\TextInput::make('university')
-                            ->maxLength(255),
-                        Forms\Components\RichEditor::make('bio')
+                            ->maxLength(255)
                             ->columnSpanFull(),
+                        Forms\Components\TextInput::make('position')
+                            ->label('Jabatan / Spesialisasi')
+                            ->required()
+                            ->maxLength(255)
+                            ->placeholder('Contoh: Dokter Gigi Umum, Orthodontist'),
+                        Forms\Components\Select::make('badge')
+                            ->label('Badge')
+                            ->options([
+                                'founder'    => 'Founder',
+                                'specialist' => 'Specialist',
+                            ])
+                            ->placeholder('— Tanpa Badge —')
+                            ->nullable(),
                     ])
                     ->columns(2),
-                    
-                Forms\Components\Section::make('Photo & Badge')
+
+                // ── Section 2: Foto Profil ──
+                Forms\Components\Section::make('Foto Profil')
+                    ->description('Upload foto dokter yang akan ditampilkan di website.')
+                    ->icon('heroicon-o-photo')
                     ->schema([
                         Forms\Components\FileUpload::make('photo')
-                            ->label('Photo')
+                            ->label('Foto Dokter')
                             ->image()
                             ->imageEditor()
-                            ->imageEditorAspectRatios([
-                                '16:9',
-                                '4:3',
-                                '1:1',
-                                '3:2',
-                                '21:9',
-                            ])
+                            ->imageEditorAspectRatios(['1:1', '3:2', '4:3', '16:9'])
                             ->directory('team-members')
                             ->maxSize(3072)
                             ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/jpg', 'image/webp'])
-                            ->helperText('Upload doctor photo. Recommended: 400x400px or higher. Max 3MB.')
+                            ->helperText('Rekomendasi: foto persegi (1:1) minimal 400×400px. Format: JPG, PNG, WebP. Maks 3MB.')
                             ->columnSpanFull(),
-                        Forms\Components\Select::make('badge')
-                            ->options([
-                                'founder' => 'Founder',
-                                'specialist' => 'Specialist',
-                            ])
-                            ->nullable(),
-                        Forms\Components\Select::make('status')
-                            ->options([
-                                'online' => 'Online',
-                                'busy' => 'Busy',
-                                'offline' => 'Offline',
-                            ])
-                            ->default('offline')
-                            ->required(),
-                    ])
-                    ->columns(2),
-                    
-                Forms\Components\Section::make('Professional Details')
+                    ]),
+
+                // ── Section 3: Latar Belakang ──
+                Forms\Components\Section::make('Latar Belakang')
+                    ->description('Informasi pendidikan, pengalaman, dan deskripsi singkat dokter.')
+                    ->icon('heroicon-o-academic-cap')
                     ->schema([
-                        Forms\Components\TextInput::make('specialization')
-                            ->maxLength(255),
+                        Forms\Components\TextInput::make('university')
+                            ->label('Universitas / Institusi')
+                            ->maxLength(255)
+                            ->placeholder('Contoh: Universitas Indonesia'),
                         Forms\Components\TextInput::make('years_of_experience')
+                            ->label('Lama Pengalaman')
                             ->numeric()
-                            ->suffix('years'),
-                        Forms\Components\KeyValue::make('qualifications')
-                            ->label('Qualifications')
-                            ->columnSpanFull(),
-                        Forms\Components\TagsInput::make('expertise_tags')
-                            ->label('Expertise Tags')
-                            ->placeholder('Enter expertise areas')
-                            ->columnSpanFull(),
-                    ])
-                    ->columns(2),
-                    
-                Forms\Components\Section::make('Statistics')
-                    ->schema([
-                        Forms\Components\TextInput::make('rating')
-                            ->numeric()
-                            ->default(5.0)
-                            ->step(0.1)
+                            ->suffix('tahun')
                             ->minValue(0)
-                            ->maxValue(5),
-                        Forms\Components\TextInput::make('review_count')
-                            ->numeric()
-                            ->default(0),
-                        Forms\Components\TextInput::make('patient_count')
-                            ->numeric()
-                            ->default(0),
-                    ])
-                    ->columns(3),
-                    
-                Forms\Components\Section::make('Social Links')
-                    ->description('Enter social media profile URLs (leave empty to hide)')
-                    ->schema([
-                        Forms\Components\TextInput::make('social_links.instagram')
-                            ->label('Instagram URL')
-                            ->url()
-                            ->prefix('https://')
-                            ->placeholder('instagram.com/username')
-                            ->helperText('Example: https://instagram.com/drg.aersy'),
-                        Forms\Components\TextInput::make('social_links.linkedin')
-                            ->label('LinkedIn URL')
-                            ->url()
-                            ->prefix('https://')
-                            ->placeholder('linkedin.com/in/username')
-                            ->helperText('Example: https://linkedin.com/in/drg-aersy'),
-                        Forms\Components\TextInput::make('social_links.facebook')
-                            ->label('Facebook URL')
-                            ->url()
-                            ->prefix('https://')
-                            ->placeholder('facebook.com/username')
-                            ->helperText('Example: https://facebook.com/drg.aersy'),
-                        Forms\Components\TextInput::make('social_links.twitter')
-                            ->label('Twitter URL')
-                            ->url()
-                            ->prefix('https://')
-                            ->placeholder('twitter.com/username')
-                            ->helperText('Example: https://twitter.com/drg_aersy'),
+                            ->placeholder('0'),
+                        Forms\Components\RichEditor::make('bio')
+                            ->label('Bio / Deskripsi Dokter')
+                            ->helperText('Tuliskan deskripsi singkat tentang dokter. Ditampilkan di modal profil.')
+                            ->columnSpanFull(),
                     ])
                     ->columns(2),
-                    
-                Forms\Components\Section::make('Settings')
+
+                // ── Section 4: Tempat Praktik ──
+                Forms\Components\Section::make('Tempat Praktik')
+                    ->description('Daftar cabang / klinik tempat dokter ini berpraktik.')
+                    ->icon('heroicon-o-map-pin')
+                    ->schema([
+                        Forms\Components\TagsInput::make('practice_locations')
+                            ->label('Cabang / Lokasi Praktik')
+                            ->placeholder('Ketik nama cabang lalu tekan Enter')
+                            ->helperText('Contoh: Ocean Dental Jatiwaringin · Ocean Dental Kartini. Tekan Enter setelah setiap nama cabang.')
+                            ->columnSpanFull(),
+                    ]),
+
+                // ── Section 5: Pengaturan Tampil ──
+                Forms\Components\Section::make('Pengaturan Tampil')
+                    ->description('Atur urutan kartu dokter dan visibilitasnya di halaman utama.')
+                    ->icon('heroicon-o-adjustments-horizontal')
                     ->schema([
                         Forms\Components\TextInput::make('order')
+                            ->label('Urutan Tampil')
                             ->required()
                             ->numeric()
-                            ->default(0),
+                            ->default(0)
+                            ->helperText('Angka kecil tampil lebih dulu. Contoh: 1, 2, 3...'),
                         Forms\Components\Toggle::make('is_active')
-                            ->label('Active')
+                            ->label('Tampilkan di Website')
+                            ->helperText('Nonaktifkan untuk menyembunyikan dokter ini dari halaman utama.')
                             ->default(true)
                             ->required(),
                     ])
                     ->columns(2),
+
+                // ── Section 6: Data Lanjutan (collapsed, tidak digunakan di frontend) ──
+                Forms\Components\Section::make('Data Lanjutan')
+                    ->description('Field tambahan yang belum digunakan di halaman utama. Data tetap tersimpan.')
+                    ->icon('heroicon-o-archive-box')
+                    ->schema([
+                        Forms\Components\TextInput::make('specialization')
+                            ->label('Spesialisasi (lama)')
+                            ->maxLength(255),
+                        Forms\Components\Select::make('status')
+                            ->label('Status Ketersediaan')
+                            ->options(['online' => 'Online', 'busy' => 'Busy', 'offline' => 'Offline'])
+                            ->default('offline'),
+                        Forms\Components\KeyValue::make('qualifications')
+                            ->label('Kualifikasi'),
+                        Forms\Components\TagsInput::make('expertise_tags')
+                            ->label('Expertise Tags'),
+                        Forms\Components\TextInput::make('rating')
+                            ->label('Rating')
+                            ->numeric()
+                            ->step(0.1),
+                        Forms\Components\TextInput::make('review_count')
+                            ->label('Jumlah Review')
+                            ->numeric(),
+                        Forms\Components\TextInput::make('patient_count')
+                            ->label('Jumlah Pasien')
+                            ->numeric(),
+                        Forms\Components\TextInput::make('social_links.instagram')->label('Instagram'),
+                        Forms\Components\TextInput::make('social_links.linkedin')->label('LinkedIn'),
+                        Forms\Components\TextInput::make('social_links.facebook')->label('Facebook'),
+                        Forms\Components\TextInput::make('social_links.twitter')->label('Twitter'),
+                    ])
+                    ->columns(2)
+                    ->collapsed()
+                    ->collapsible(),
             ]);
     }
 
@@ -161,59 +165,55 @@ class TeamMemberResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('order')
+                    ->label('#')
                     ->sortable()
-                    ->width(80),
+                    ->width(60),
                 Tables\Columns\ImageColumn::make('photo')
-                    ->size(80)
+                    ->size(60)
                     ->defaultImageUrl(url('/images/no-image.jpg'))
-                    ->label('Photo'),
+                    ->label('Foto')
+                    ->circular(),
                 Tables\Columns\TextColumn::make('name')
+                    ->label('Nama')
                     ->searchable()
-                    ->limit(25),
+                    ->limit(30),
                 Tables\Columns\TextColumn::make('position')
+                    ->label('Jabatan')
                     ->searchable()
-                    ->limit(25),
+                    ->limit(30),
+                Tables\Columns\TextColumn::make('university')
+                    ->label('Universitas')
+                    ->limit(25)
+                    ->toggleable(isToggledHiddenByDefault: false),
+                Tables\Columns\TextColumn::make('years_of_experience')
+                    ->label('Pengalaman')
+                    ->suffix(' thn')
+                    ->sortable(),
                 Tables\Columns\BadgeColumn::make('badge')
+                    ->label('Badge')
                     ->colors([
                         'warning' => 'founder',
-                        'success' => 'specialist',
+                        'primary' => 'specialist',
                     ])
                     ->default('—'),
-                Tables\Columns\BadgeColumn::make('status')
-                    ->colors([
-                        'success' => 'online',
-                        'warning' => 'busy',
-                        'danger' => 'offline',
-                    ])
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('rating')
-                    ->sortable()
-                    ->formatStateUsing(fn ($state) => number_format($state, 1)),
-                Tables\Columns\TextColumn::make('patient_count')
-                    ->sortable()
-                    ->formatStateUsing(fn ($state) => number_format($state)),
                 Tables\Columns\IconColumn::make('is_active')
+                    ->label('Aktif')
                     ->boolean()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime()
+                    ->label('Dibuat')
+                    ->dateTime('d M Y')
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
                 Tables\Filters\SelectFilter::make('badge')
                     ->options([
-                        'founder' => 'Founder',
+                        'founder'    => 'Founder',
                         'specialist' => 'Specialist',
                     ]),
-                Tables\Filters\SelectFilter::make('status')
-                    ->options([
-                        'online' => 'Online',
-                        'busy' => 'Busy',
-                        'offline' => 'Offline',
-                    ]),
                 Tables\Filters\TernaryFilter::make('is_active')
-                    ->label('Active'),
+                    ->label('Aktif'),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),

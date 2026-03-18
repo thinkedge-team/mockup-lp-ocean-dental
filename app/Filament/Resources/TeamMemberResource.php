@@ -122,41 +122,6 @@ class TeamMemberResource extends Resource
                             ->required(),
                     ])
                     ->columns(2),
-
-                // ── Section 6: Data Lanjutan (collapsed, tidak digunakan di frontend) ──
-                Forms\Components\Section::make('Data Lanjutan')
-                    ->description('Field tambahan yang belum digunakan di halaman utama. Data tetap tersimpan.')
-                    ->icon('heroicon-o-archive-box')
-                    ->schema([
-                        Forms\Components\TextInput::make('specialization')
-                            ->label('Spesialisasi (lama)')
-                            ->maxLength(255),
-                        Forms\Components\Select::make('status')
-                            ->label('Status Ketersediaan')
-                            ->options(['online' => 'Online', 'busy' => 'Busy', 'offline' => 'Offline'])
-                            ->default('offline'),
-                        Forms\Components\KeyValue::make('qualifications')
-                            ->label('Kualifikasi'),
-                        Forms\Components\TagsInput::make('expertise_tags')
-                            ->label('Expertise Tags'),
-                        Forms\Components\TextInput::make('rating')
-                            ->label('Rating')
-                            ->numeric()
-                            ->step(0.1),
-                        Forms\Components\TextInput::make('review_count')
-                            ->label('Jumlah Review')
-                            ->numeric(),
-                        Forms\Components\TextInput::make('patient_count')
-                            ->label('Jumlah Pasien')
-                            ->numeric(),
-                        Forms\Components\TextInput::make('social_links.instagram')->label('Instagram'),
-                        Forms\Components\TextInput::make('social_links.linkedin')->label('LinkedIn'),
-                        Forms\Components\TextInput::make('social_links.facebook')->label('Facebook'),
-                        Forms\Components\TextInput::make('social_links.twitter')->label('Twitter'),
-                    ])
-                    ->columns(2)
-                    ->collapsed()
-                    ->collapsible(),
             ]);
     }
 

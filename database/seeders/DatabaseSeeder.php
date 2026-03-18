@@ -19,16 +19,16 @@ class DatabaseSeeder extends Seeder
         // User first (admin access)
         // Settings next (no dependencies)
         $this->call([
-            UserSeeder::class,
-            SettingSeeder::class,
-            ServiceSeeder::class,
-            EventSeeder::class,
-            TestimonialSeeder::class,
+            // UserSeeder::class,
+            // SettingSeeder::class,
+            // ServiceSeeder::class,
+            // EventSeeder::class,
+            // TestimonialSeeder::class,
             TeamMemberSeeder::class,
-            LocationSeeder::class,
-            GallerySeeder::class,
-            FaqSeeder::class,
-            SocMedPlatformSeeder::class,
+            // LocationSeeder::class,
+            // GallerySeeder::class,
+            // FaqSeeder::class,
+            // SocMedPlatformSeeder::class,
         ]);
 
         $this->command->info('All seeders completed successfully!');

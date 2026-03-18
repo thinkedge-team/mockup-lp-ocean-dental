@@ -577,6 +577,13 @@
             </div>
         </div>
 
+        {{-- ── View All Doctors Button ── --}}
+        <div class="text-center mt-4" data-aos="fade-up">
+            <a href="{{ route('doctors.index') }}" class="btn btn-primary btn-lg">
+                <i class="fas fa-users"></i> Lihat Semua Dokter
+            </a>
+        </div>
+
     </div>
 </section>
 

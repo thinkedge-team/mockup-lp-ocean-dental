@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DoctorController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ServiceController;
@@ -16,3 +17,6 @@ Route::get('/events/{slug}', [EventController::class, 'show'])->name('events.sho
 // Services
 Route::get('/services', [ServiceController::class, 'index'])->name('services.index');
 Route::get('/services/{slug}', [ServiceController::class, 'show'])->name('services.show');
+
+// Doctors
+Route::get('/doctors', [DoctorController::class, 'index'])->name('doctors.index');

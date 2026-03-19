@@ -442,226 +442,190 @@
     }
 
     /* ===================================================
-       Modern Clean Pagination Design - Full Reset
+       Custom Clean Pagination Design
        =================================================== */
     .pagination-wrapper {
         display: flex;
         justify-content: center;
-        align-items: center;
         margin-top: 50px;
+        padding: 0;
+    }
+
+    .custom-pagination {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+        width: 100%;
+        max-width: 800px;
         padding: 30px 20px;
         background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
         border-radius: 16px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
     }
 
-    /* Full reset for pagination nav */
-    .pagination-wrapper * {
-        box-sizing: border-box;
+    .pagination-info {
+        font-size: 14px;
+        color: #64748b;
+        font-weight: 500;
+        text-align: center;
     }
 
-    /* Main nav wrapper */
-    .pagination-wrapper nav {
-        display: block !important;
-        width: 100% !important;
-        max-width: 100% !important;
+    .pagination-info strong {
+        color: #01215E;
+        font-weight: 700;
     }
 
-    /* Top text showing results */
-    .pagination-wrapper nav > div > p:first-child,
-    .pagination-wrapper nav p.text-sm {
-        display: block !important;
-        text-align: center !important;
-        margin: 0 0 20px 0 !important;
-        padding: 0 !important;
-        font-size: 14px !important;
-        color: #64748b !important;
-        font-weight: 500 !important;
-        line-height: 1.5 !important;
+    .pagination-buttons {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        gap: 8px;
     }
 
-    .pagination-wrapper nav p .font-medium {
-        color: #01215E !important;
-        font-weight: 700 !important;
+    .pagination-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        min-width: 42px;
+        height: 42px;
+        padding: 0 14px;
+        font-size: 14px;
+        font-weight: 600;
+        font-family: 'Outfit', sans-serif;
+        text-decoration: none;
+        color: #475569;
+        background: white;
+        border: 2px solid #e2e8f0;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
     }
 
-    /* Hide mobile-only elements */
-    .pagination-wrapper nav > div.sm\:hidden {
-        display: none !important;
+    .pagination-btn:hover:not(.disabled):not(.active) {
+        background: #3B82F6;
+        border-color: #3B82F6;
+        color: white;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
     }
 
-    /* Show and fix desktop layout */
-    .pagination-wrapper nav > div.hidden {
-        display: block !important;
+    .pagination-btn.active {
+        background: linear-gradient(135deg, #01215E 0%, #1e40af 100%);
+        border-color: #01215E;
+        color: white;
+        font-weight: 700;
+        box-shadow: 0 4px 14px rgba(1, 33, 94, 0.4);
+        transform: scale(1.05);
+        cursor: default;
     }
 
-    /* Buttons container - force horizontal layout */
-    .pagination-wrapper nav span.relative.z-0.inline-flex,
-    .pagination-wrapper nav div.relative.z-0.inline-flex {
-        display: flex !important;
-        flex-direction: row !important;
-        flex-wrap: wrap !important;
-        justify-content: center !important;
-        align-items: center !important;
-        gap: 8px !important;
-        margin: 0 auto !important;
-        padding: 0 !important;
-        background: transparent !important;
-        border: none !important;
-        box-shadow: none !important;
-        border-radius: 0 !important;
-        width: auto !important;
-        max-width: 100% !important;
+    .pagination-btn.disabled {
+        background: #f1f5f9;
+        border-color: #e2e8f0;
+        color: #cbd5e1;
+        cursor: not-allowed;
+        opacity: 0.6;
     }
 
-    /* Reset ALL link/span elements in pagination */
-    .pagination-wrapper nav a,
-    .pagination-wrapper nav span {
-        position: relative !important;
-        display: inline-flex !important;
-        align-items: center !important;
-        justify-content: center !important;
-        min-width: 42px !important;
-        height: 42px !important;
-        padding: 0 14px !important;
-        margin: 0 !important;
-        font-size: 14px !important;
-        font-weight: 600 !important;
-        font-family: 'Outfit', sans-serif !important;
-        line-height: 1 !important;
-        text-align: center !important;
-        text-decoration: none !important;
-        color: #475569 !important;
-        background: white !important;
-        border: 2px solid #e2e8f0 !important;
-        border-radius: 10px !important;
-        cursor: pointer !important;
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
-        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05) !important;
-        overflow: visible !important;
-        z-index: 1 !important;
+    .pagination-btn.prev,
+    .pagination-btn.next {
+        background: linear-gradient(135deg, #3B82F6 0%, #2563eb 100%);
+        border-color: #3B82F6;
+        color: white;
+        font-weight: 700;
+        padding: 0 18px;
     }
 
-    /* Hover state for clickable links */
-    .pagination-wrapper nav a:hover {
-        background: #3B82F6 !important;
-        border-color: #3B82F6 !important;
-        color: white !important;
-        transform: translateY(-2px) !important;
-        box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3) !important;
-        z-index: 2 !important;
+    .pagination-btn.prev:hover,
+    .pagination-btn.next:hover {
+        background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+        border-color: #2563eb;
+        box-shadow: 0 6px 16px rgba(37, 99, 235, 0.4);
     }
 
-    /* Active/current page */
-    .pagination-wrapper nav span[aria-current="page"] {
-        background: linear-gradient(135deg, #01215E 0%, #1e40af 100%) !important;
-        border-color: #01215E !important;
-        color: white !important;
-        font-weight: 700 !important;
-        box-shadow: 0 4px 14px rgba(1, 33, 94, 0.4) !important;
-        transform: scale(1.05) !important;
-        z-index: 3 !important;
+    .pagination-btn svg {
+        width: 16px;
+        height: 16px;
+        stroke-width: 2.5;
     }
 
-    /* Disabled state (prev/next when not available) */
-    .pagination-wrapper nav span[aria-disabled="true"] {
-        background: #f1f5f9 !important;
-        border-color: #e2e8f0 !important;
-        color: #cbd5e1 !important;
-        cursor: not-allowed !important;
-        opacity: 0.6 !important;
-        box-shadow: none !important;
+    .pagination-dots {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 42px;
+        height: 42px;
+        padding: 0 8px;
+        font-size: 14px;
+        font-weight: 600;
+        color: #94a3b8;
+        user-select: none;
     }
 
-    .pagination-wrapper nav span[aria-disabled="true"]:hover {
-        transform: none !important;
-        background: #f1f5f9 !important;
-        border-color: #e2e8f0 !important;
-    }
-
-    /* Previous and Next buttons - special styling */
-    .pagination-wrapper nav a[rel="prev"],
-    .pagination-wrapper nav a[rel="next"] {
-        background: linear-gradient(135deg, #3B82F6 0%, #2563eb 100%) !important;
-        border-color: #3B82F6 !important;
-        color: white !important;
-        font-weight: 700 !important;
-    }
-
-    .pagination-wrapper nav a[rel="prev"]:hover,
-    .pagination-wrapper nav a[rel="next"]:hover {
-        background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%) !important;
-        border-color: #2563eb !important;
-        box-shadow: 0 6px 16px rgba(37, 99, 235, 0.4) !important;
-    }
-
-    /* SVG icons in prev/next */
-    .pagination-wrapper nav svg {
-        width: 16px !important;
-        height: 16px !important;
-        stroke-width: 2.5 !important;
-        display: inline-block !important;
-        vertical-align: middle !important;
-    }
-
-    /* Remove any rounded corners from default */
-    .pagination-wrapper nav a:first-child,
-    .pagination-wrapper nav a:last-child,
-    .pagination-wrapper nav span:first-child,
-    .pagination-wrapper nav span:last-child {
-        border-radius: 10px !important;
-    }
-
-    /* Ensure no border-right issues */
-    .pagination-wrapper nav a,
-    .pagination-wrapper nav span {
-        border-right: 2px solid #e2e8f0 !important;
-    }
-
-    .pagination-wrapper nav a:hover,
-    .pagination-wrapper nav span[aria-current="page"] {
-        border-right-color: inherit !important;
-    }
-
-    /* Responsive Design */
+    /* Responsive */
     @media (max-width: 768px) {
         .pagination-wrapper {
             margin-top: 40px;
+        }
+
+        .custom-pagination {
             padding: 24px 16px;
+            gap: 16px;
         }
 
-        .pagination-wrapper nav a,
-        .pagination-wrapper nav span {
-            min-width: 38px !important;
-            height: 38px !important;
-            padding: 0 10px !important;
-            font-size: 13px !important;
-            border-radius: 8px !important;
+        .pagination-buttons {
+            gap: 6px;
         }
 
-        .pagination-wrapper nav span.relative.z-0.inline-flex,
-        .pagination-wrapper nav div.relative.z-0.inline-flex {
-            gap: 6px !important;
+        .pagination-btn {
+            min-width: 38px;
+            height: 38px;
+            padding: 0 10px;
+            font-size: 13px;
+            border-radius: 8px;
         }
 
-        .pagination-wrapper nav > div > p:first-child,
-        .pagination-wrapper nav p.text-sm {
-            font-size: 13px !important;
-            margin-bottom: 16px !important;
+        .pagination-btn.prev,
+        .pagination-btn.next {
+            padding: 0 14px;
+        }
+
+        .pagination-info {
+            font-size: 13px;
+        }
+
+        .pagination-dots {
+            min-width: 38px;
+            height: 38px;
         }
     }
 
     @media (max-width: 480px) {
-        .pagination-wrapper nav span.relative.z-0.inline-flex,
-        .pagination-wrapper nav div.relative.z-0.inline-flex {
-            gap: 4px !important;
+        .pagination-buttons {
+            gap: 4px;
         }
 
-        .pagination-wrapper nav a,
-        .pagination-wrapper nav span {
-            min-width: 34px !important;
-            height: 34px !important;
-            padding: 0 8px !important;
-            font-size: 12px !important;
+        .pagination-btn {
+            min-width: 34px;
+            height: 34px;
+            padding: 0 8px;
+            font-size: 12px;
+        }
+
+        .pagination-btn.prev,
+        .pagination-btn.next {
+            padding: 0 12px;
+            font-size: 12px;
+        }
+
+        .pagination-btn.prev svg,
+        .pagination-btn.next svg {
+            width: 14px;
+            height: 14px;
         }
     }
 
@@ -907,7 +871,7 @@
         <!-- Pagination -->
         @if($doctors->hasPages())
             <div class="pagination-wrapper">
-                {{ $doctors->links() }}
+                {{ $doctors->links('vendor.pagination.custom') }}
             </div>
         @endif
     </div>

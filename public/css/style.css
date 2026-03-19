@@ -2843,7 +2843,7 @@ section {
 .doc-photo-area {
   position: relative;
   width: 100%;
-  height: 165px;
+  height: 250px;
   overflow: hidden;
   background: #dce8f5;
   flex-shrink: 0;

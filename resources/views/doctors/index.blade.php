@@ -235,7 +235,7 @@
     .doc-photo-area {
         position: relative;
         width: 100%;
-        height: 280px;
+        height: 250px;
         overflow: hidden;
         background: var(--off-white);
         flex-shrink: 0;
@@ -373,7 +373,7 @@
 
     /* Footer Buttons */
     .doc-footer {
-        padding: 0 20px 20px;
+        padding: 10px 14px 14px;
         display: flex;
         gap: 10px;
     }

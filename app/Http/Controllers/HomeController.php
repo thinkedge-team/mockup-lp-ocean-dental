@@ -53,7 +53,7 @@ class HomeController extends Controller
             return TeamMember::select('id', 'name', 'position', 'photo', 'badge', 'status', 'rating', 'review_count', 'years_of_experience', 'patient_count', 'university', 'specialization', 'bio', 'expertise_tags', 'qualifications', 'social_links', 'practice_locations', 'is_active', 'order')
                 ->where('is_active', true)
                 ->orderBy('order')
-                ->take(24)
+                ->take(8)
                 ->get();
         });
 

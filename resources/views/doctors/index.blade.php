@@ -330,7 +330,7 @@
     .doc-info-list {
         display: flex;
         flex-direction: column;
-        gap: 8px;
+        gap: 0px;
     }
 
     .doc-info-row {

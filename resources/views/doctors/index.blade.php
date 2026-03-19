@@ -431,26 +431,32 @@
     }
 
     /* ===================================================
-       Pagination Styling
+       Enhanced Pagination Styling
        =================================================== */
     .pagination-wrapper {
         display: flex;
         justify-content: center;
-        margin-top: 48px;
-        padding-top: 32px;
-        border-top: 1px solid var(--border-light);
+        margin-top: 50px;
+        padding-top: 30px;
+        border-top: 1px dashed var(--border-light);
     }
 
-    /* Main pagination container */
+    /* Container for pagination navigation */
     nav[aria-label="Pagination Navigation"] {
-        font-family: inherit;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 16px;
+        width: 100%;
+        font-family: 'Outfit', sans-serif;
     }
 
-    /* Results text styling */
+    /* Text info (Showing X to Y of Z results) */
     nav[aria-label="Pagination Navigation"] p {
-        color: var(--text-body) !important;
-        font-size: 14px;
-        font-weight: 500;
+        color: var(--text-muted) !important;
+        font-size: 14.5px;
+        text-align: center;
+        margin-bottom: 8px;
     }
 
     nav[aria-label="Pagination Navigation"] p .font-medium {
@@ -458,119 +464,125 @@
         font-weight: 700;
     }
 
-    /* Pagination buttons container */
+    /* Hide the default generic mobile Next/Prev button wrapper, we'll force desktop view nicely on mobile */
+    nav[aria-label="Pagination Navigation"] > div.flex.justify-between.flex-1.sm\:hidden {
+        display: none !important;
+    }
+
+    nav[aria-label="Pagination Navigation"] > div.hidden.sm\:flex-1.sm\:flex.sm\:items-center.sm\:justify-between {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        gap: 16px;
+        width: 100%;
+    }
+
+    /* Container for the numbers */
     nav[aria-label="Pagination Navigation"] .relative.z-0.inline-flex {
-        border-radius: var(--radius-lg);
-        overflow: hidden;
-        box-shadow: 0 2px 8px rgba(1, 33, 94, 0.08);
-        border: 2px solid var(--border-light);
-    }
-
-    /* All pagination buttons base styling */
-    nav[aria-label="Pagination Navigation"] span[class*="relative inline-flex"],
-    nav[aria-label="Pagination Navigation"] a[class*="relative inline-flex"] {
-        padding: 12px 16px !important;
-        font-size: 14px !important;
-        font-weight: 600 !important;
-        font-family: inherit !important;
-        transition: all var(--transition) !important;
+        display: inline-flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+        background: transparent !important;
         border: none !important;
-        margin-left: 0 !important;
-        position: relative;
-    }
-
-    /* Default state for clickable pages */
-    nav[aria-label="Pagination Navigation"] a[class*="relative inline-flex"] {
-        background: white !important;
-        color: var(--text-body) !important;
-        border-right: 1px solid var(--border-light) !important;
-    }
-
-    nav[aria-label="Pagination Navigation"] a[class*="relative inline-flex"]:hover {
-        background: var(--off-white) !important;
-        color: var(--navy) !important;
-        transform: translateY(-1px);
-    }
-
-    nav[aria-label="Pagination Navigation"] a[class*="relative inline-flex"]:active {
-        background: var(--ocean-blue) !important;
-        color: white !important;
-    }
-
-    /* Current page styling */
-    nav[aria-label="Pagination Navigation"] span[aria-current="page"] span {
-        background: var(--navy) !important;
-        color: white !important;
-        border-right: 1px solid var(--navy) !important;
-        font-weight: 700 !important;
-    }
-
-    /* Disabled state (when on first/last page) */
-    nav[aria-label="Pagination Navigation"] span[aria-disabled="true"] span {
-        background: var(--off-white) !important;
-        color: var(--text-muted) !important;
-        cursor: not-allowed !important;
-        border-right: 1px solid var(--border-light) !important;
-    }
-
-    /* Previous/Next arrows styling */
-    nav[aria-label="Pagination Navigation"] svg {
-        width: 16px !important;
-        height: 16px !important;
-    }
-
-    /* Remove rounded corners on middle elements */
-    nav[aria-label="Pagination Navigation"] .relative.inline-flex:not(:first-child):not(:last-child) {
+        box-shadow: none !important;
         border-radius: 0 !important;
     }
 
-    /* First element (Previous) */
-    nav[aria-label="Pagination Navigation"] .relative.inline-flex:first-child {
-        border-top-left-radius: var(--radius-lg) !important;
-        border-bottom-left-radius: var(--radius-lg) !important;
-        border-top-right-radius: 0 !important;
-        border-bottom-right-radius: 0 !important;
+    /* General pill-button style */
+    nav[aria-label="Pagination Navigation"] span[class*="relative inline-flex"],
+    nav[aria-label="Pagination Navigation"] a[class*="relative inline-flex"] {
+        padding: 0 !important;
+        width: 44px !important;
+        height: 44px !important;
+        display: inline-flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        font-size: 15px !important;
+        font-weight: 600 !important;
+        border-radius: 12px !important; /* Squircle design */
+        border: 2px solid transparent !important;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+        color: var(--text-body) !important;
+        background: white !important;
+        box-shadow: 0 4px 12px rgba(1, 33, 94, 0.06) !important;
+        text-decoration: none !important;
+        margin: 0 !important;
     }
 
-    /* Last element (Next) */
-    nav[aria-label="Pagination Navigation"] .relative.inline-flex:last-child {
-        border-top-right-radius: var(--radius-lg) !important;
-        border-bottom-right-radius: var(--radius-lg) !important;
-        border-top-left-radius: 0 !important;
-        border-bottom-left-radius: 0 !important;
+    /* Hover State (for active links) */
+    nav[aria-label="Pagination Navigation"] a[class*="relative inline-flex"]:hover {
+        border-color: var(--ocean-blue) !important;
+        color: var(--ocean-blue) !important;
+        transform: translateY(-3px);
+        box-shadow: 0 8px 20px rgba(37, 99, 235, 0.15) !important;
+        z-index: 2;
+    }
+
+    /* Active Page styling */
+    nav[aria-label="Pagination Navigation"] span[aria-current="page"] > span {
+        background: var(--navy) !important;
+        color: white !important;
+        box-shadow: 0 6px 16px rgba(1, 33, 94, 0.25) !important;
+        width: 100% !important;
+        height: 100% !important;
+        border-radius: 12px !important;
+        display: inline-flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        border: none !important;
+    }
+
+    /* Disabled Arrows (First/Last page) */
+    nav[aria-label="Pagination Navigation"] span[aria-disabled="true"] > span {
+        background: var(--off-white) !important;
+        color: var(--border-light) !important;
+        box-shadow: none !important;
+        cursor: not-allowed !important;
+        width: 100% !important;
+        height: 100% !important;
+        border-radius: 12px !important;
+        display: inline-flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        border: none !important;
+    }
+
+    /* Reset border and radius overrides from default Tailwind */
+    nav[aria-label="Pagination Navigation"] a[class*="relative inline-flex"],
+    nav[aria-label="Pagination Navigation"] span[aria-current="page"] span,
+    nav[aria-label="Pagination Navigation"] span[aria-disabled="true"] span {
         border-right: none !important;
     }
 
-    /* Mobile pagination styling */
-    nav[aria-label="Pagination Navigation"] .sm\:hidden {
-        gap: 12px;
+    nav[aria-label="Pagination Navigation"] .relative.inline-flex:first-child,
+    nav[aria-label="Pagination Navigation"] .relative.inline-flex:last-child,
+    nav[aria-label="Pagination Navigation"] .relative.inline-flex:not(:first-child):not(:last-child) {
+        border-radius: 12px !important;
     }
 
-    nav[aria-label="Pagination Navigation"] .sm\:hidden span,
-    nav[aria-label="Pagination Navigation"] .sm\:hidden a {
-        border-radius: var(--radius-lg) !important;
-        padding: 12px 20px !important;
-        font-weight: 600 !important;
-        box-shadow: 0 2px 8px rgba(1, 33, 94, 0.08) !important;
-        border: 2px solid var(--border-light) !important;
+    /* Icons */
+    nav[aria-label="Pagination Navigation"] svg {
+        width: 18px !important;
+        height: 18px !important;
+        display: block !important;
+        stroke-width: 2 !important;
     }
 
-    nav[aria-label="Pagination Navigation"] .sm\:hidden a {
-        background: var(--navy) !important;
-        color: white !important;
-        border-color: var(--navy) !important;
-    }
+    /* Responsive */
+    @media (max-width: 768px) {
+        .pagination-wrapper {
+            margin-top: 36px;
+            padding-top: 24px;
+        }
 
-    nav[aria-label="Pagination Navigation"] .sm\:hidden a:hover {
-        background: var(--ocean-blue) !important;
-        transform: translateY(-2px);
-        box-shadow: 0 4px 16px rgba(1, 33, 94, 0.15) !important;
-    }
-
-    nav[aria-label="Pagination Navigation"] .sm\:hidden span {
-        background: var(--off-white) !important;
-        color: var(--text-muted) !important;
-        cursor: not-allowed !important;
+        nav[aria-label="Pagination Navigation"] span[class*="relative inline-flex"],
+        nav[aria-label="Pagination Navigation"] a[class*="relative inline-flex"] {
+            width: 38px !important;
+            height: 38px !important;
+            font-size: 14px !important;
+            border-radius: 10px !important;
+        }
     }
 
     /* ===================================================
@@ -626,21 +638,7 @@
 
         .doc-name { font-size: 17px; }
 
-        /* Pagination mobile adjustments */
-        .pagination-wrapper {
-            margin-top: 36px;
-            padding-top: 24px;
-        }
-
-        nav[aria-label="Pagination Navigation"] .hidden.sm\:flex-1 {
-            padding: 0 8px;
-        }
-
-        nav[aria-label="Pagination Navigation"] span[class*="relative inline-flex"],
-        nav[aria-label="Pagination Navigation"] a[class*="relative inline-flex"] {
-            padding: 10px 12px !important;
-            font-size: 13px !important;
-        }
+        /* Mobile Adjustments for other parts */
     }
 </style>
 @endpush

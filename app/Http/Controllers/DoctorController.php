@@ -59,8 +59,8 @@ class DoctorController extends Controller
                 ->orderBy('position')
                 ->pluck('position');
 
-            // Paginate (24 per page)
-            $doctors = $query->paginate(24)->withQueryString();
+            // Paginate (8 per page)
+            $doctors = $query->paginate(8)->withQueryString();
 
             return compact('doctors', 'positions');
         });

@@ -5,7 +5,7 @@
 @section('title', 'Semua Dokter - Ocean Dental')
 
 @push('styles')
-<style>
+<style data-version="v2-{{ time() }}">
     /* ===================================================
        Doctors Index Page — Controls Bar
        =================================================== */
@@ -442,243 +442,127 @@
     }
 
     /* ===================================================
-       Enhanced Modern Pagination Styling
+       Clean & Modern Pagination Styling
        =================================================== */
     .pagination-wrapper {
         display: flex;
         justify-content: center;
-        align-items: center;
-        margin-top: 60px;
-        padding: 40px 20px;
-        background: linear-gradient(135deg, rgba(1, 33, 94, 0.02), rgba(59, 130, 246, 0.03));
-        border-radius: 20px;
-        position: relative;
+        margin-top: 50px;
+        padding-top: 40px;
+        border-top: 2px solid var(--off-white);
     }
 
-    .pagination-wrapper::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 80px;
-        height: 3px;
-        background: linear-gradient(90deg, transparent, var(--ocean-blue), transparent);
-        border-radius: 0 0 3px 3px;
-    }
-
-    /* Container for pagination navigation */
-    nav[aria-label="Pagination Navigation"] {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 20px;
-        width: 100%;
+    /* Override default Tailwind classes */
+    .pagination-wrapper nav {
         font-family: 'Outfit', sans-serif;
     }
 
-    /* Text info (Showing X to Y of Z results) */
-    nav[aria-label="Pagination Navigation"] p {
-        color: var(--text-muted) !important;
-        font-size: 14px;
-        text-align: center;
-        margin: 0;
-        padding: 8px 20px;
-        background: white;
-        border-radius: 20px;
-        box-shadow: 0 2px 8px rgba(1, 33, 94, 0.06);
+    /* Info text */
+    .pagination-wrapper nav p.text-sm {
+        color: var(--text-body) !important;
+        font-size: 14px !important;
+        margin-bottom: 16px !important;
     }
 
-    nav[aria-label="Pagination Navigation"] p .font-medium {
+    .pagination-wrapper nav p.text-sm .font-medium {
         color: var(--navy) !important;
-        font-weight: 700;
+        font-weight: 700 !important;
     }
 
-    /* Hide mobile view */
-    nav[aria-label="Pagination Navigation"] > div.flex.justify-between.flex-1.sm\:hidden {
-        display: none !important;
-    }
-
-    nav[aria-label="Pagination Navigation"] > div.hidden.sm\:flex-1.sm\:flex.sm\:items-center.sm\:justify-between {
+    /* Main pagination container */
+    .pagination-wrapper nav > div:last-child {
         display: flex !important;
         flex-direction: column !important;
         align-items: center !important;
-        gap: 20px;
-        width: 100%;
+        gap: 16px !important;
     }
 
-    /* Container for page numbers */
-    nav[aria-label="Pagination Navigation"] .relative.z-0.inline-flex {
-        display: inline-flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        align-items: center;
-        gap: 8px;
-        background: white !important;
+    /* Buttons wrapper */
+    .pagination-wrapper nav span.relative.z-0.inline-flex,
+    .pagination-wrapper nav div.relative.z-0.inline-flex {
+        display: flex !important;
+        flex-direction: row !important;
+        gap: 6px !important;
+        background: transparent !important;
+        box-shadow: none !important;
         border: none !important;
-        box-shadow: 0 4px 20px rgba(1, 33, 94, 0.08) !important;
-        border-radius: 16px !important;
-        padding: 12px !important;
     }
 
-    /* General button style */
-    nav[aria-label="Pagination Navigation"] span[class*="relative inline-flex"],
-    nav[aria-label="Pagination Navigation"] a[class*="relative inline-flex"] {
-        padding: 0 !important;
-        width: 42px !important;
-        height: 42px !important;
+    /* Individual page buttons */
+    .pagination-wrapper nav a,
+    .pagination-wrapper nav span {
+        min-width: 40px !important;
+        height: 40px !important;
         display: inline-flex !important;
         align-items: center !important;
         justify-content: center !important;
+        padding: 0 12px !important;
         font-size: 14px !important;
         font-weight: 600 !important;
         border-radius: 10px !important;
-        border: 2px solid transparent !important;
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
-        color: var(--text-body) !important;
-        background: var(--off-white) !important;
-        box-shadow: none !important;
+        transition: all 0.3s ease !important;
         text-decoration: none !important;
-        margin: 0 !important;
-        position: relative;
-        overflow: hidden;
-    }
-
-    /* Ripple effect on hover */
-    nav[aria-label="Pagination Navigation"] a[class*="relative inline-flex"]::before {
-        content: '';
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        width: 0;
-        height: 0;
-        border-radius: 50%;
-        background: rgba(59, 130, 246, 0.2);
-        transform: translate(-50%, -50%);
-        transition: width 0.4s, height 0.4s;
-    }
-
-    /* Hover State */
-    nav[aria-label="Pagination Navigation"] a[class*="relative inline-flex"]:hover {
-        border-color: var(--ocean-blue) !important;
+        border: 2px solid var(--border-light) !important;
         background: white !important;
-        color: var(--ocean-blue) !important;
-        transform: translateY(-2px) scale(1.05);
-        box-shadow: 0 6px 16px rgba(37, 99, 235, 0.2) !important;
-        z-index: 2;
+        color: var(--text-body) !important;
+        margin: 0 !important;
     }
 
-    nav[aria-label="Pagination Navigation"] a[class*="relative inline-flex"]:hover::before {
-        width: 100%;
-        height: 100%;
-    }
-
-    /* Active Page styling */
-    nav[aria-label="Pagination Navigation"] span[aria-current="page"] > span {
-        background: linear-gradient(135deg, var(--navy), var(--ocean-blue)) !important;
+    /* Hover state */
+    .pagination-wrapper nav a:hover {
+        border-color: var(--ocean-blue) !important;
+        background: var(--ocean-blue) !important;
         color: white !important;
-        box-shadow: 0 4px 12px rgba(1, 33, 94, 0.3), inset 0 -2px 4px rgba(0,0,0,0.2) !important;
-        width: 100% !important;
-        height: 100% !important;
-        border-radius: 10px !important;
-        display: inline-flex !important;
-        align-items: center !important;
-        justify-content: center !important;
-        border: none !important;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3) !important;
+    }
+
+    /* Active page */
+    .pagination-wrapper nav span[aria-current="page"] {
+        background: var(--navy) !important;
+        border-color: var(--navy) !important;
+        color: white !important;
         font-weight: 700 !important;
-        transform: scale(1.1);
-        position: relative;
     }
 
-    nav[aria-label="Pagination Navigation"] span[aria-current="page"] > span::after {
-        content: '';
-        position: absolute;
-        bottom: -6px;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 4px;
-        height: 4px;
-        background: var(--ocean-blue);
-        border-radius: 50%;
-        box-shadow: 0 0 8px var(--ocean-blue);
-    }
-
-    /* Disabled Arrows */
-    nav[aria-label="Pagination Navigation"] span[aria-disabled="true"] > span {
-        background: transparent !important;
-        color: var(--border-light) !important;
-        box-shadow: none !important;
+    /* Disabled state */
+    .pagination-wrapper nav span[aria-disabled="true"] {
+        background: var(--off-white) !important;
+        border-color: var(--border-light) !important;
+        color: var(--text-muted) !important;
         cursor: not-allowed !important;
-        width: 100% !important;
-        height: 100% !important;
-        border-radius: 10px !important;
-        display: inline-flex !important;
-        align-items: center !important;
-        justify-content: center !important;
-        border: none !important;
-        opacity: 0.4;
+        opacity: 0.5;
     }
 
-    /* Special styling for Previous/Next arrows */
-    nav[aria-label="Pagination Navigation"] .relative.inline-flex:first-child,
-    nav[aria-label="Pagination Navigation"] .relative.inline-flex:last-child {
-        border-radius: 10px !important;
+    .pagination-wrapper nav span[aria-disabled="true"]:hover {
+        transform: none !important;
+        box-shadow: none !important;
     }
 
-    nav[aria-label="Pagination Navigation"] .relative.inline-flex:first-child a,
-    nav[aria-label="Pagination Navigation"] .relative.inline-flex:last-child a {
-        background: linear-gradient(135deg, var(--ocean-blue), var(--navy)) !important;
-        color: white !important;
-    }
-
-    nav[aria-label="Pagination Navigation"] .relative.inline-flex:first-child a:hover,
-    nav[aria-label="Pagination Navigation"] .relative.inline-flex:last-child a:hover {
-        background: linear-gradient(135deg, var(--navy), var(--ocean-blue-dark)) !important;
-        box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4) !important;
-    }
-
-    /* Reset all borders */
-    nav[aria-label="Pagination Navigation"] a[class*="relative inline-flex"],
-    nav[aria-label="Pagination Navigation"] span[aria-current="page"] span,
-    nav[aria-label="Pagination Navigation"] span[aria-disabled="true"] span {
-        border-right: none !important;
-    }
-
-    nav[aria-label="Pagination Navigation"] .relative.inline-flex:not(:first-child):not(:last-child) {
-        border-radius: 10px !important;
-    }
-
-    /* Icons */
-    nav[aria-label="Pagination Navigation"] svg {
+    /* SVG icons */
+    .pagination-wrapper nav svg {
         width: 16px !important;
         height: 16px !important;
-        display: block !important;
-        stroke-width: 2.5 !important;
     }
 
-    /* Responsive */
+    /* Mobile responsiveness */
     @media (max-width: 768px) {
         .pagination-wrapper {
-            margin-top: 40px;
-            padding: 30px 15px;
+            margin-top: 36px;
+            padding-top: 30px;
         }
 
-        nav[aria-label="Pagination Navigation"] .relative.z-0.inline-flex {
-            padding: 10px !important;
-            gap: 6px;
-        }
-
-        nav[aria-label="Pagination Navigation"] span[class*="relative inline-flex"],
-        nav[aria-label="Pagination Navigation"] a[class*="relative inline-flex"] {
-            width: 36px !important;
+        .pagination-wrapper nav a,
+        .pagination-wrapper nav span {
+            min-width: 36px !important;
             height: 36px !important;
             font-size: 13px !important;
-            border-radius: 8px !important;
+            padding: 0 10px !important;
         }
 
-        nav[aria-label="Pagination Navigation"] p {
-            font-size: 13px;
-            padding: 6px 16px;
+        .pagination-wrapper nav span.relative.z-0.inline-flex,
+        .pagination-wrapper nav div.relative.z-0.inline-flex {
+            gap: 4px !important;
         }
     }
 

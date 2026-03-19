@@ -254,15 +254,15 @@
     /* Badge */
     .doc-badge {
         position: absolute;
-        top: 14px;
-        right: 14px;
-        padding: 6px 12px;
+        top: 10px;
+        right: 10px;
+        padding: 4px 10px;
         border-radius: 20px;
-        font-size: 11.5px;
+        font-size: 10px;
         font-weight: 700;
         display: inline-flex;
         align-items: center;
-        gap: 5px;
+        gap: 4px;
         z-index: 4;
         color: white;
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);

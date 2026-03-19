@@ -254,26 +254,37 @@
     /* Badge */
     .doc-badge {
         position: absolute;
-        top: 10px;
-        right: 10px;
-        padding: 4px 10px;
-        border-radius: 20px;
-        font-size: 10px;
-        font-weight: 700;
+        top: 12px;
+        left: 12px;
+        padding: 5px 8px;
+        border-radius: 8px;
+        font-size: 9px;
+        font-weight: 800;
+        letter-spacing: 0.3px;
+        text-transform: uppercase;
         display: inline-flex;
         align-items: center;
+        justify-content: center;
         gap: 4px;
         z-index: 4;
         color: white;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        backdrop-filter: blur(8px);
+        min-width: fit-content;
+        white-space: nowrap;
+    }
+
+    .doc-badge i {
+        font-size: 9px;
+        flex-shrink: 0;
     }
 
     .doc-badge.founder {
-        background: linear-gradient(135deg, #FFD700, #FFA500);
+        background: linear-gradient(135deg, rgba(255, 215, 0, 0.95), rgba(255, 165, 0, 0.95));
     }
 
     .doc-badge.specialist {
-        background: linear-gradient(135deg, #3B82F6, #2563EB);
+        background: linear-gradient(135deg, rgba(59, 130, 246, 0.95), rgba(37, 99, 235, 0.95));
     }
 
     /* Body */
@@ -431,14 +442,29 @@
     }
 
     /* ===================================================
-       Enhanced Pagination Styling
+       Enhanced Modern Pagination Styling
        =================================================== */
     .pagination-wrapper {
         display: flex;
         justify-content: center;
-        margin-top: 50px;
-        padding-top: 30px;
-        border-top: 1px dashed var(--border-light);
+        align-items: center;
+        margin-top: 60px;
+        padding: 40px 20px;
+        background: linear-gradient(135deg, rgba(1, 33, 94, 0.02), rgba(59, 130, 246, 0.03));
+        border-radius: 20px;
+        position: relative;
+    }
+
+    .pagination-wrapper::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80px;
+        height: 3px;
+        background: linear-gradient(90deg, transparent, var(--ocean-blue), transparent);
+        border-radius: 0 0 3px 3px;
     }
 
     /* Container for pagination navigation */
@@ -446,7 +472,7 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        gap: 16px;
+        gap: 20px;
         width: 100%;
         font-family: 'Outfit', sans-serif;
     }
@@ -454,9 +480,13 @@
     /* Text info (Showing X to Y of Z results) */
     nav[aria-label="Pagination Navigation"] p {
         color: var(--text-muted) !important;
-        font-size: 14.5px;
+        font-size: 14px;
         text-align: center;
-        margin-bottom: 8px;
+        margin: 0;
+        padding: 8px 20px;
+        background: white;
+        border-radius: 20px;
+        box-shadow: 0 2px 8px rgba(1, 33, 94, 0.06);
     }
 
     nav[aria-label="Pagination Navigation"] p .font-medium {
@@ -464,7 +494,7 @@
         font-weight: 700;
     }
 
-    /* Hide the default generic mobile Next/Prev button wrapper, we'll force desktop view nicely on mobile */
+    /* Hide mobile view */
     nav[aria-label="Pagination Navigation"] > div.flex.justify-between.flex-1.sm\:hidden {
         display: none !important;
     }
@@ -473,115 +503,182 @@
         display: flex !important;
         flex-direction: column !important;
         align-items: center !important;
-        gap: 16px;
+        gap: 20px;
         width: 100%;
     }
 
-    /* Container for the numbers */
+    /* Container for page numbers */
     nav[aria-label="Pagination Navigation"] .relative.z-0.inline-flex {
         display: inline-flex;
         flex-wrap: wrap;
         justify-content: center;
-        gap: 10px;
-        background: transparent !important;
+        align-items: center;
+        gap: 8px;
+        background: white !important;
         border: none !important;
-        box-shadow: none !important;
-        border-radius: 0 !important;
+        box-shadow: 0 4px 20px rgba(1, 33, 94, 0.08) !important;
+        border-radius: 16px !important;
+        padding: 12px !important;
     }
 
-    /* General pill-button style */
+    /* General button style */
     nav[aria-label="Pagination Navigation"] span[class*="relative inline-flex"],
     nav[aria-label="Pagination Navigation"] a[class*="relative inline-flex"] {
         padding: 0 !important;
-        width: 44px !important;
-        height: 44px !important;
+        width: 42px !important;
+        height: 42px !important;
         display: inline-flex !important;
         align-items: center !important;
         justify-content: center !important;
-        font-size: 15px !important;
+        font-size: 14px !important;
         font-weight: 600 !important;
-        border-radius: 12px !important; /* Squircle design */
+        border-radius: 10px !important;
         border: 2px solid transparent !important;
         transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
         color: var(--text-body) !important;
-        background: white !important;
-        box-shadow: 0 4px 12px rgba(1, 33, 94, 0.06) !important;
+        background: var(--off-white) !important;
+        box-shadow: none !important;
         text-decoration: none !important;
         margin: 0 !important;
+        position: relative;
+        overflow: hidden;
     }
 
-    /* Hover State (for active links) */
+    /* Ripple effect on hover */
+    nav[aria-label="Pagination Navigation"] a[class*="relative inline-flex"]::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 0;
+        height: 0;
+        border-radius: 50%;
+        background: rgba(59, 130, 246, 0.2);
+        transform: translate(-50%, -50%);
+        transition: width 0.4s, height 0.4s;
+    }
+
+    /* Hover State */
     nav[aria-label="Pagination Navigation"] a[class*="relative inline-flex"]:hover {
         border-color: var(--ocean-blue) !important;
+        background: white !important;
         color: var(--ocean-blue) !important;
-        transform: translateY(-3px);
-        box-shadow: 0 8px 20px rgba(37, 99, 235, 0.15) !important;
+        transform: translateY(-2px) scale(1.05);
+        box-shadow: 0 6px 16px rgba(37, 99, 235, 0.2) !important;
         z-index: 2;
+    }
+
+    nav[aria-label="Pagination Navigation"] a[class*="relative inline-flex"]:hover::before {
+        width: 100%;
+        height: 100%;
     }
 
     /* Active Page styling */
     nav[aria-label="Pagination Navigation"] span[aria-current="page"] > span {
-        background: var(--navy) !important;
+        background: linear-gradient(135deg, var(--navy), var(--ocean-blue)) !important;
         color: white !important;
-        box-shadow: 0 6px 16px rgba(1, 33, 94, 0.25) !important;
+        box-shadow: 0 4px 12px rgba(1, 33, 94, 0.3), inset 0 -2px 4px rgba(0,0,0,0.2) !important;
         width: 100% !important;
         height: 100% !important;
-        border-radius: 12px !important;
+        border-radius: 10px !important;
         display: inline-flex !important;
         align-items: center !important;
         justify-content: center !important;
         border: none !important;
+        font-weight: 700 !important;
+        transform: scale(1.1);
+        position: relative;
     }
 
-    /* Disabled Arrows (First/Last page) */
+    nav[aria-label="Pagination Navigation"] span[aria-current="page"] > span::after {
+        content: '';
+        position: absolute;
+        bottom: -6px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 4px;
+        height: 4px;
+        background: var(--ocean-blue);
+        border-radius: 50%;
+        box-shadow: 0 0 8px var(--ocean-blue);
+    }
+
+    /* Disabled Arrows */
     nav[aria-label="Pagination Navigation"] span[aria-disabled="true"] > span {
-        background: var(--off-white) !important;
+        background: transparent !important;
         color: var(--border-light) !important;
         box-shadow: none !important;
         cursor: not-allowed !important;
         width: 100% !important;
         height: 100% !important;
-        border-radius: 12px !important;
+        border-radius: 10px !important;
         display: inline-flex !important;
         align-items: center !important;
         justify-content: center !important;
         border: none !important;
+        opacity: 0.4;
     }
 
-    /* Reset border and radius overrides from default Tailwind */
+    /* Special styling for Previous/Next arrows */
+    nav[aria-label="Pagination Navigation"] .relative.inline-flex:first-child,
+    nav[aria-label="Pagination Navigation"] .relative.inline-flex:last-child {
+        border-radius: 10px !important;
+    }
+
+    nav[aria-label="Pagination Navigation"] .relative.inline-flex:first-child a,
+    nav[aria-label="Pagination Navigation"] .relative.inline-flex:last-child a {
+        background: linear-gradient(135deg, var(--ocean-blue), var(--navy)) !important;
+        color: white !important;
+    }
+
+    nav[aria-label="Pagination Navigation"] .relative.inline-flex:first-child a:hover,
+    nav[aria-label="Pagination Navigation"] .relative.inline-flex:last-child a:hover {
+        background: linear-gradient(135deg, var(--navy), var(--ocean-blue-dark)) !important;
+        box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4) !important;
+    }
+
+    /* Reset all borders */
     nav[aria-label="Pagination Navigation"] a[class*="relative inline-flex"],
     nav[aria-label="Pagination Navigation"] span[aria-current="page"] span,
     nav[aria-label="Pagination Navigation"] span[aria-disabled="true"] span {
         border-right: none !important;
     }
 
-    nav[aria-label="Pagination Navigation"] .relative.inline-flex:first-child,
-    nav[aria-label="Pagination Navigation"] .relative.inline-flex:last-child,
     nav[aria-label="Pagination Navigation"] .relative.inline-flex:not(:first-child):not(:last-child) {
-        border-radius: 12px !important;
+        border-radius: 10px !important;
     }
 
     /* Icons */
     nav[aria-label="Pagination Navigation"] svg {
-        width: 18px !important;
-        height: 18px !important;
+        width: 16px !important;
+        height: 16px !important;
         display: block !important;
-        stroke-width: 2 !important;
+        stroke-width: 2.5 !important;
     }
 
     /* Responsive */
     @media (max-width: 768px) {
         .pagination-wrapper {
-            margin-top: 36px;
-            padding-top: 24px;
+            margin-top: 40px;
+            padding: 30px 15px;
+        }
+
+        nav[aria-label="Pagination Navigation"] .relative.z-0.inline-flex {
+            padding: 10px !important;
+            gap: 6px;
         }
 
         nav[aria-label="Pagination Navigation"] span[class*="relative inline-flex"],
         nav[aria-label="Pagination Navigation"] a[class*="relative inline-flex"] {
-            width: 38px !important;
-            height: 38px !important;
-            font-size: 14px !important;
-            border-radius: 10px !important;
+            width: 36px !important;
+            height: 36px !important;
+            font-size: 13px !important;
+            border-radius: 8px !important;
+        }
+
+        nav[aria-label="Pagination Navigation"] p {
+            font-size: 13px;
+            padding: 6px 16px;
         }
     }
 

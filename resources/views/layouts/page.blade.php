@@ -128,6 +128,9 @@
         }
     </script>
 
+    {{-- Main JavaScript File --}}
+    <script defer src="{{ asset('js/script.js') }}"></script>
+
     @stack('scripts')
 </body>
 </html>

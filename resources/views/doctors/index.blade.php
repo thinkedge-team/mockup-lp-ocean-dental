@@ -197,6 +197,11 @@
 
     .doctors-list-container { min-height: 400px; }
 
+    /* Fix spacing between controls and section */
+    .doctors-page-controls + .section {
+        padding-top: 40px;
+    }
+
     /* ===================================================
        Doctors Index Grid
        =================================================== */
@@ -426,6 +431,149 @@
     }
 
     /* ===================================================
+       Pagination Styling
+       =================================================== */
+    .pagination-wrapper {
+        display: flex;
+        justify-content: center;
+        margin-top: 48px;
+        padding-top: 32px;
+        border-top: 1px solid var(--border-light);
+    }
+
+    /* Main pagination container */
+    nav[aria-label="Pagination Navigation"] {
+        font-family: inherit;
+    }
+
+    /* Results text styling */
+    nav[aria-label="Pagination Navigation"] p {
+        color: var(--text-body) !important;
+        font-size: 14px;
+        font-weight: 500;
+    }
+
+    nav[aria-label="Pagination Navigation"] p .font-medium {
+        color: var(--navy) !important;
+        font-weight: 700;
+    }
+
+    /* Pagination buttons container */
+    nav[aria-label="Pagination Navigation"] .relative.z-0.inline-flex {
+        border-radius: var(--radius-lg);
+        overflow: hidden;
+        box-shadow: 0 2px 8px rgba(1, 33, 94, 0.08);
+        border: 2px solid var(--border-light);
+    }
+
+    /* All pagination buttons base styling */
+    nav[aria-label="Pagination Navigation"] span[class*="relative inline-flex"],
+    nav[aria-label="Pagination Navigation"] a[class*="relative inline-flex"] {
+        padding: 12px 16px !important;
+        font-size: 14px !important;
+        font-weight: 600 !important;
+        font-family: inherit !important;
+        transition: all var(--transition) !important;
+        border: none !important;
+        margin-left: 0 !important;
+        position: relative;
+    }
+
+    /* Default state for clickable pages */
+    nav[aria-label="Pagination Navigation"] a[class*="relative inline-flex"] {
+        background: white !important;
+        color: var(--text-body) !important;
+        border-right: 1px solid var(--border-light) !important;
+    }
+
+    nav[aria-label="Pagination Navigation"] a[class*="relative inline-flex"]:hover {
+        background: var(--off-white) !important;
+        color: var(--navy) !important;
+        transform: translateY(-1px);
+    }
+
+    nav[aria-label="Pagination Navigation"] a[class*="relative inline-flex"]:active {
+        background: var(--ocean-blue) !important;
+        color: white !important;
+    }
+
+    /* Current page styling */
+    nav[aria-label="Pagination Navigation"] span[aria-current="page"] span {
+        background: var(--navy) !important;
+        color: white !important;
+        border-right: 1px solid var(--navy) !important;
+        font-weight: 700 !important;
+    }
+
+    /* Disabled state (when on first/last page) */
+    nav[aria-label="Pagination Navigation"] span[aria-disabled="true"] span {
+        background: var(--off-white) !important;
+        color: var(--text-muted) !important;
+        cursor: not-allowed !important;
+        border-right: 1px solid var(--border-light) !important;
+    }
+
+    /* Previous/Next arrows styling */
+    nav[aria-label="Pagination Navigation"] svg {
+        width: 16px !important;
+        height: 16px !important;
+    }
+
+    /* Remove rounded corners on middle elements */
+    nav[aria-label="Pagination Navigation"] .relative.inline-flex:not(:first-child):not(:last-child) {
+        border-radius: 0 !important;
+    }
+
+    /* First element (Previous) */
+    nav[aria-label="Pagination Navigation"] .relative.inline-flex:first-child {
+        border-top-left-radius: var(--radius-lg) !important;
+        border-bottom-left-radius: var(--radius-lg) !important;
+        border-top-right-radius: 0 !important;
+        border-bottom-right-radius: 0 !important;
+    }
+
+    /* Last element (Next) */
+    nav[aria-label="Pagination Navigation"] .relative.inline-flex:last-child {
+        border-top-right-radius: var(--radius-lg) !important;
+        border-bottom-right-radius: var(--radius-lg) !important;
+        border-top-left-radius: 0 !important;
+        border-bottom-left-radius: 0 !important;
+        border-right: none !important;
+    }
+
+    /* Mobile pagination styling */
+    nav[aria-label="Pagination Navigation"] .sm\:hidden {
+        gap: 12px;
+    }
+
+    nav[aria-label="Pagination Navigation"] .sm\:hidden span,
+    nav[aria-label="Pagination Navigation"] .sm\:hidden a {
+        border-radius: var(--radius-lg) !important;
+        padding: 12px 20px !important;
+        font-weight: 600 !important;
+        box-shadow: 0 2px 8px rgba(1, 33, 94, 0.08) !important;
+        border: 2px solid var(--border-light) !important;
+    }
+
+    nav[aria-label="Pagination Navigation"] .sm\:hidden a {
+        background: var(--navy) !important;
+        color: white !important;
+        border-color: var(--navy) !important;
+    }
+
+    nav[aria-label="Pagination Navigation"] .sm\:hidden a:hover {
+        background: var(--ocean-blue) !important;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 16px rgba(1, 33, 94, 0.15) !important;
+    }
+
+    nav[aria-label="Pagination Navigation"] .sm\:hidden span {
+        background: var(--off-white) !important;
+        color: var(--text-muted) !important;
+        cursor: not-allowed !important;
+    }
+
+    /* ===================================================
        Responsive
        =================================================== */
     @media (max-width: 1200px) {
@@ -477,6 +625,22 @@
         .doc-body { padding: 18px; }
 
         .doc-name { font-size: 17px; }
+
+        /* Pagination mobile adjustments */
+        .pagination-wrapper {
+            margin-top: 36px;
+            padding-top: 24px;
+        }
+
+        nav[aria-label="Pagination Navigation"] .hidden.sm\:flex-1 {
+            padding: 0 8px;
+        }
+
+        nav[aria-label="Pagination Navigation"] span[class*="relative inline-flex"],
+        nav[aria-label="Pagination Navigation"] a[class*="relative inline-flex"] {
+            padding: 10px 12px !important;
+            font-size: 13px !important;
+        }
     }
 </style>
 @endpush
@@ -573,12 +737,12 @@
             @if($doctors->count() > 0)
                 <div class="doctors-index-grid">
                     @foreach($doctors as $doctor)
-                        @php 
-                            $photoUrl = $doctor->photo 
-                                ? (filter_var($doctor->photo, FILTER_VALIDATE_URL) 
-                                    ? $doctor->photo 
-                                    : asset('storage/' . $doctor->photo)) 
-                                : asset('images/no-image.jpg'); 
+                        @php
+                            $photoUrl = $doctor->photo
+                                ? (filter_var($doctor->photo, FILTER_VALIDATE_URL)
+                                    ? $doctor->photo
+                                    : asset('storage/' . $doctor->photo))
+                                : asset('images/no-image.jpg');
                         @endphp
                         <div class="doctor-card" data-aos="fade-up">
                             {{-- Photo --}}
@@ -675,8 +839,17 @@
 @endsection
 
 @push('scripts')
+<!-- AOS (Animate on Scroll) Library -->
+<link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" />
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
+        // Initialize AOS
+        AOS.init({
+            duration: 800,
+            once: true,
+            offset: 100
+        });
         const searchInput = document.getElementById('doctors-search');
         const clearSearchBtn = document.getElementById('clear-search');
         const filterTabs = document.querySelectorAll('.filter-tab');

@@ -3121,24 +3121,28 @@ section {
   align-items: center;
   gap: 12px;
   padding: 14px 20px;
-  background: rgba(255,255,255,.06);
-  border: 1px solid rgba(255,255,255,.1);
+  background: rgba(255,255,255,.08);
+  border: 1px solid rgba(255,255,255,.15);
   border-radius: var(--radius-xl);
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(12px);
   transition: all var(--transition-base);
+  box-shadow: 0 4px 16px rgba(0,0,0,.1);
 }
 .testi-stat:hover {
-  background: rgba(59,130,246,.12);
-  border-color: rgba(59,130,246,.4);
+  background: rgba(59,130,246,.15);
+  border-color: rgba(59,130,246,.5);
   transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(59,130,246,.2);
 }
 .testi-stat-icon {
   width: 44px; height: 44px; flex-shrink: 0;
   display: flex; align-items: center; justify-content: center;
-  background: rgba(59,130,246,.25);
+  background: rgba(59,130,246,.3);
+  border: 1px solid rgba(59,130,246,.4);
   border-radius: var(--radius-md);
   color: var(--ocean-blue-light);
   font-size: 1.1rem;
+  box-shadow: 0 4px 12px rgba(59,130,246,.15);
 }
 .testi-stat-info { display: flex; flex-direction: column; }
 .testi-stat-value {
@@ -3172,8 +3176,8 @@ section {
 
 /* ── Card ── */
 .testi-card {
-  background: rgba(255,255,255,.04);
-  border: 1px solid rgba(255,255,255,.08);
+  background: rgba(255,255,255,.08);
+  border: 1px solid rgba(255,255,255,.15);
   border-radius: var(--radius-2xl);
   padding: 28px;
   height: 100%;
@@ -3182,26 +3186,32 @@ section {
   position: relative;
   overflow: hidden;
   transition: all .4s var(--transition-spring);
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 8px 32px rgba(0,0,0,.15);
 }
 .testi-card::after {
   content: ''; position: absolute;
-  bottom: 0; left: 0; right: 0; height: 2px;
-  background: linear-gradient(90deg, transparent, var(--ocean-blue), transparent);
+  bottom: 0; left: 0; right: 0; height: 3px;
+  background: linear-gradient(90deg, transparent, var(--ocean-blue-light), var(--ocean-blue), var(--ocean-blue-light), transparent);
   opacity: 0; transition: opacity .3s ease;
 }
 .testi-card:hover {
-  border-color: rgba(59,130,246,.4);
+  border-color: rgba(59,130,246,.5);
   transform: translateY(-10px);
-  box-shadow: 0 20px 48px rgba(0,0,0,.35), 0 0 0 1px rgba(59,130,246,.2), 0 0 32px rgba(59,130,246,.1);
+  box-shadow: 0 20px 48px rgba(0,0,0,.4), 
+              0 0 0 1px rgba(59,130,246,.3), 
+              0 0 32px rgba(59,130,246,.15);
+  background: rgba(255,255,255,.12);
 }
 .testi-card:hover::after { opacity: 1; }
 
 /* Quote icon */
 .testi-quote-icon {
   position: absolute; top: 20px; right: 22px;
-  font-size: 2.5rem; color: rgba(59,130,246,.2);
+  font-size: 2.5rem; 
+  color: rgba(59,130,246,.25);
   line-height: 1; pointer-events: none;
+  text-shadow: 0 2px 8px rgba(59,130,246,.15);
 }
 
 /* ── Card Header ── */
@@ -3251,15 +3261,17 @@ section {
 .testi-platform {
   width: 34px; height: 34px; flex-shrink: 0;
   display: flex; align-items: center; justify-content: center;
-  background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.1);
+  background: rgba(255,255,255,.08); 
+  border: 1px solid rgba(255,255,255,.15);
   border-radius: var(--radius-md);
-  color: rgba(255,255,255,.5); font-size: .9375rem;
+  color: rgba(255,255,255,.6); font-size: .9375rem;
   transition: all var(--transition-base);
 }
 .testi-card:hover .testi-platform {
-  background: rgba(59,130,246,.2);
-  border-color: rgba(59,130,246,.4);
+  background: rgba(59,130,246,.25);
+  border-color: rgba(59,130,246,.5);
   color: var(--ocean-blue-light);
+  box-shadow: 0 4px 12px rgba(59,130,246,.2);
 }
 
 /* ── Card Body ── */
@@ -3275,7 +3287,7 @@ section {
 .testi-card-footer {
   display: flex; justify-content: space-between; align-items: center;
   padding-top: 14px;
-  border-top: 1px solid rgba(255,255,255,.08);
+  border-top: 1px solid rgba(255,255,255,.12);
   position: relative; z-index: 1;
 }
 .testi-service {
@@ -3297,21 +3309,27 @@ section {
 .testi-heading-btn {
   width: 44px; height: 44px;
   display: flex; align-items: center; justify-content: center;
-  background: rgba(255,255,255,.07);
-  border: 1px solid rgba(255,255,255,.12);
-  border-radius: 50%; color: rgba(255,255,255,.7);
+  background: rgba(255,255,255,.08);
+  border: 1px solid rgba(255,255,255,.15);
+  border-radius: 50%; color: rgba(255,255,255,.8);
   font-size: .9375rem; cursor: pointer;
   transition: all var(--transition-base);
+  box-shadow: 0 4px 12px rgba(0,0,0,.1);
 }
 .testi-heading-btn:hover {
-  background: var(--ocean-blue); border-color: var(--ocean-blue);
-  color: #fff; transform: scale(1.08);
+  background: var(--ocean-blue); 
+  border-color: var(--ocean-blue-light);
+  color: #fff; 
+  transform: scale(1.08);
+  box-shadow: 0 6px 20px rgba(59,130,246,.3);
 }
 .testi-heading-btn:disabled { opacity: .35; cursor: default; transform: none; }
 
 .testi-progress-wrap {
   flex: 1; min-width: 80px; height: 4px;
-  background: rgba(255,255,255,.1); border-radius: 99px; overflow: hidden;
+  background: rgba(255,255,255,.12); 
+  border-radius: 99px; overflow: hidden;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,.1);
 }
 .testi-progress-fill {
   height: 100%; width: 0%;
@@ -3322,14 +3340,23 @@ section {
 .testi-dots-wrap { display: flex; gap: 6px; align-items: center; }
 .testi-dot {
   width: 8px; height: 8px; border-radius: 50%;
-  background: rgba(255,255,255,.25); cursor: pointer;
-  transition: all var(--transition-base); border: none; padding: 0;
+  background: rgba(255,255,255,.3); 
+  border: 1px solid rgba(255,255,255,.15);
+  cursor: pointer;
+  transition: all var(--transition-base); 
+  padding: 0;
 }
-.testi-dot:hover { background: rgba(255,255,255,.5); }
+.testi-dot:hover { 
+  background: rgba(255,255,255,.6); 
+  border-color: rgba(255,255,255,.3);
+  transform: scale(1.1);
+}
 .testi-dot.active {
   background: var(--ocean-blue-light);
+  border-color: var(--ocean-blue-light);
   transform: scale(1.4);
   width: 20px; border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(59,130,246,.4);
 }
 
 .testi-slide-counter {

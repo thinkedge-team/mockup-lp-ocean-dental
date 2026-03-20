@@ -3061,13 +3061,7 @@ section {
   .doctor-card { flex: 0 0 86vw; }
 }
 
-  .doctors-heading-left .section-description { display: none; }
-}
-
-/* ===================================
-   Testimonials Section - Slider
-   =================================== */
-
+.doctors-heading-left .section-description { display: none; }
 /* ============================================================
    TESTIMONIALS SECTION  — dark glassmorphism (matches Technology)
    ============================================================ */
@@ -3121,28 +3115,28 @@ section {
   align-items: center;
   gap: 12px;
   padding: 14px 20px;
-  background: rgba(255,255,255,.08);
-  border: 1px solid rgba(255,255,255,.15);
+  background: rgba(0, 20, 60, 0.35);
+  border: 1px solid rgba(59, 130, 246, 0.3);
   border-radius: var(--radius-xl);
   backdrop-filter: blur(12px);
   transition: all var(--transition-base);
-  box-shadow: 0 4px 16px rgba(0,0,0,.1);
+  box-shadow: 0 2px 12px rgba(0,0,0,.1);
 }
 .testi-stat:hover {
-  background: rgba(59,130,246,.15);
-  border-color: rgba(59,130,246,.5);
-  transform: translateY(-4px);
-  box-shadow: 0 8px 24px rgba(59,130,246,.2);
+  background: rgba(59,130,246,.25);
+  border-color: rgba(59,130,246,.7);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(59,130,246,.25);
 }
 .testi-stat-icon {
   width: 44px; height: 44px; flex-shrink: 0;
   display: flex; align-items: center; justify-content: center;
-  background: rgba(59,130,246,.3);
-  border: 1px solid rgba(59,130,246,.4);
+  background: rgba(59,130,246,.35);
+  border: 1px solid rgba(59,130,246,.5);
   border-radius: var(--radius-md);
-  color: var(--ocean-blue-light);
+  color: #fff;
   font-size: 1.1rem;
-  box-shadow: 0 4px 12px rgba(59,130,246,.15);
+  box-shadow: 0 2px 8px rgba(59,130,246,.2);
 }
 .testi-stat-info { display: flex; flex-direction: column; }
 .testi-stat-value {
@@ -3152,7 +3146,7 @@ section {
   -webkit-background-clip: text; -webkit-text-fill-color: transparent;
   background-clip: text; line-height: 1.2;
 }
-.testi-stat-label { font-size: 0.8rem; color: rgba(255,255,255,.6); }
+.testi-stat-label { font-size: 0.8rem; color: rgba(255,255,255,.8); }
 
 /* ── Carousel container ── */
 .testi-carousel-container {
@@ -3176,8 +3170,8 @@ section {
 
 /* ── Card ── */
 .testi-card {
-  background: rgba(255,255,255,.08);
-  border: 1px solid rgba(255,255,255,.15);
+  background: rgba(0, 20, 60, 0.4);
+  border: 1px solid rgba(59, 130, 246, 0.3);
   border-radius: var(--radius-2xl);
   padding: 28px;
   height: 100%;
@@ -3187,7 +3181,7 @@ section {
   overflow: hidden;
   transition: all .4s var(--transition-spring);
   backdrop-filter: blur(12px);
-  box-shadow: 0 8px 32px rgba(0,0,0,.15);
+  box-shadow: 0 4px 16px rgba(0,0,0,.15);
 }
 .testi-card::after {
   content: ''; position: absolute;
@@ -3196,12 +3190,11 @@ section {
   opacity: 0; transition: opacity .3s ease;
 }
 .testi-card:hover {
-  border-color: rgba(59,130,246,.5);
-  transform: translateY(-10px);
-  box-shadow: 0 20px 48px rgba(0,0,0,.4), 
-              0 0 0 1px rgba(59,130,246,.3), 
-              0 0 32px rgba(59,130,246,.15);
-  background: rgba(255,255,255,.12);
+  border-color: rgba(59,130,246,.7);
+  transform: translateY(-8px);
+  box-shadow: 0 12px 32px rgba(0,0,0,.25), 
+              0 0 0 1px rgba(59,130,246,.5);
+  background: rgba(0, 20, 60, 0.55);
 }
 .testi-card:hover::after { opacity: 1; }
 
@@ -3209,9 +3202,9 @@ section {
 .testi-quote-icon {
   position: absolute; top: 20px; right: 22px;
   font-size: 2.5rem; 
-  color: rgba(59,130,246,.25);
+  color: rgba(59,130,246,.4);
   line-height: 1; pointer-events: none;
-  text-shadow: 0 2px 8px rgba(59,130,246,.15);
+  text-shadow: 0 2px 6px rgba(59,130,246,.2);
 }
 
 /* ── Card Header ── */
@@ -3248,11 +3241,11 @@ section {
   margin-bottom: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
 }
 .testi-position {
-  font-size: .75rem; color: rgba(255,255,255,.55);
+  font-size: .75rem; color: rgba(255,255,255,.75);
   margin: 2px 0 4px; font-style: italic;
 }
 .testi-location {
-  font-size: .6875rem; color: rgba(255,255,255,.5); margin-bottom: 5px;
+  font-size: .6875rem; color: rgba(255,255,255,.7); margin-bottom: 5px;
 }
 .testi-location i { color: var(--ocean-blue-light); margin-right: 4px; }
 .testi-rating { display: flex; gap: 2px; }
@@ -3261,17 +3254,17 @@ section {
 .testi-platform {
   width: 34px; height: 34px; flex-shrink: 0;
   display: flex; align-items: center; justify-content: center;
-  background: rgba(255,255,255,.08); 
-  border: 1px solid rgba(255,255,255,.15);
+  background: rgba(59, 130, 246, 0.2); 
+  border: 1px solid rgba(59, 130, 246, 0.4);
   border-radius: var(--radius-md);
-  color: rgba(255,255,255,.6); font-size: .9375rem;
+  color: rgba(255,255,255,.8); font-size: .9375rem;
   transition: all var(--transition-base);
 }
 .testi-card:hover .testi-platform {
-  background: rgba(59,130,246,.25);
-  border-color: rgba(59,130,246,.5);
-  color: var(--ocean-blue-light);
-  box-shadow: 0 4px 12px rgba(59,130,246,.2);
+  background: rgba(59,130,246,.5);
+  border-color: rgba(59,130,246,.8);
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(59,130,246,.3);
 }
 
 /* ── Card Body ── */
@@ -3279,7 +3272,7 @@ section {
   flex: 1; margin-bottom: 16px; position: relative; z-index: 1;
 }
 .testi-text {
-  font-size: .9rem; color: rgba(255,255,255,.78);
+  font-size: .9rem; color: rgba(255,255,255,.9);
   line-height: 1.8; font-style: italic;
 }
 
@@ -3287,15 +3280,15 @@ section {
 .testi-card-footer {
   display: flex; justify-content: space-between; align-items: center;
   padding-top: 14px;
-  border-top: 1px solid rgba(255,255,255,.12);
+  border-top: 1px solid rgba(59, 130, 246, 0.25);
   position: relative; z-index: 1;
 }
 .testi-service {
-  font-size: .6875rem; color: var(--ocean-blue-light);
+  font-size: .6875rem; color: #93C5FD;
   font-weight: 600; display: flex; align-items: center; gap: 5px;
 }
-.testi-service i { color: var(--ocean-blue-light); }
-.testi-date { font-size: .6875rem; color: rgba(255,255,255,.4); }
+.testi-service i { color: #93C5FD; }
+.testi-date { font-size: .6875rem; color: rgba(255,255,255,.6); }
 
 /* ── Footer controls (nav + progress + dots + counter) ── */
 .testi-footer {
@@ -3309,27 +3302,27 @@ section {
 .testi-heading-btn {
   width: 44px; height: 44px;
   display: flex; align-items: center; justify-content: center;
-  background: rgba(255,255,255,.08);
-  border: 1px solid rgba(255,255,255,.15);
-  border-radius: 50%; color: rgba(255,255,255,.8);
+  background: rgba(0, 20, 60, 0.4);
+  border: 1px solid rgba(59, 130, 246, 0.4);
+  border-radius: 50%; color: rgba(255,255,255,.9);
   font-size: .9375rem; cursor: pointer;
   transition: all var(--transition-base);
-  box-shadow: 0 4px 12px rgba(0,0,0,.1);
+  box-shadow: 0 2px 8px rgba(0,0,0,.1);
 }
 .testi-heading-btn:hover {
   background: var(--ocean-blue); 
   border-color: var(--ocean-blue-light);
   color: #fff; 
   transform: scale(1.08);
-  box-shadow: 0 6px 20px rgba(59,130,246,.3);
+  box-shadow: 0 4px 16px rgba(59,130,246,.3);
 }
 .testi-heading-btn:disabled { opacity: .35; cursor: default; transform: none; }
 
 .testi-progress-wrap {
   flex: 1; min-width: 80px; height: 4px;
-  background: rgba(255,255,255,.12); 
+  background: rgba(0, 20, 60, 0.5); 
   border-radius: 99px; overflow: hidden;
-  box-shadow: inset 0 2px 4px rgba(0,0,0,.1);
+  box-shadow: inset 0 1px 3px rgba(0,0,0,.2);
 }
 .testi-progress-fill {
   height: 100%; width: 0%;
@@ -3340,16 +3333,16 @@ section {
 .testi-dots-wrap { display: flex; gap: 6px; align-items: center; }
 .testi-dot {
   width: 8px; height: 8px; border-radius: 50%;
-  background: rgba(255,255,255,.3); 
-  border: 1px solid rgba(255,255,255,.15);
+  background: rgba(59, 130, 246, 0.3); 
+  border: 1px solid rgba(59, 130, 246, 0.5);
   cursor: pointer;
   transition: all var(--transition-base); 
   padding: 0;
 }
 .testi-dot:hover { 
-  background: rgba(255,255,255,.6); 
-  border-color: rgba(255,255,255,.3);
-  transform: scale(1.1);
+  background: rgba(59, 130, 246, 0.6); 
+  border-color: rgba(59, 130, 246, 0.8);
+  transform: scale(1.15);
 }
 .testi-dot.active {
   background: var(--ocean-blue-light);
@@ -3360,7 +3353,7 @@ section {
 }
 
 .testi-slide-counter {
-  font-size: .8125rem; color: rgba(255,255,255,.5);
+  font-size: .8125rem; color: rgba(255,255,255,.75);
   white-space: nowrap; flex-shrink: 0;
 }
 .testi-slide-counter strong { color: #fff; font-weight: 700; }

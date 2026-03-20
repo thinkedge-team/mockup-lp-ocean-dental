@@ -4,7 +4,7 @@
             <div class="footer-col">
                 <div class="footer-brand">
                     @if(setting('logo'))
-                    <img src="{{ asset('storage/' . setting('logo')) }}" alt="{{ setting('site_name', 'Ocean Dental') }}" style="height: 40px; width: auto;">
+                    <img src="{{ asset('storage/' . setting('logo')) }}" alt="{{ setting('site_name', 'Ocean Dental') }}" style="height: 60px; width: auto;">
                     @else
                     <i class="fas fa-tooth"></i>
                     <span>{{ setting('site_name', 'Ocean Dental') }}</span>

@@ -88,7 +88,7 @@ class HomeController extends Controller
         });
 
         $socmedPlatforms = \Cache::remember('homepage.socmed_platforms', $cacheDuration, function () {
-            return SocMedPlatform::select('id', 'name', 'icon', 'url', 'follower_count', 'is_active', 'order')
+            return SocMedPlatform::select('id', 'platform', 'label', 'value', 'is_active', 'order')
                 ->where('is_active', true)
                 ->orderBy('order')
                 ->get();

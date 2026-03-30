@@ -42,6 +42,9 @@ class HomepageCacheObserver
             'homepage.results',
             'homepage.socmed_platforms',
             'homepage.regions_with_locations',
+            'homepage.promos',
+            'homepage.tech_highlight',
+            'homepage.tech_cards',
             // Also clear settings cache since many content changes might affect displayed settings
             'all_settings',
         ];

@@ -19,6 +19,7 @@ class HomeController extends Controller
     public function index()
     {
         // Cache duration: 1 hour (3600 seconds)
+        // Auto-cleared when content is updated via observer
         $cacheDuration = 3600;
 
         // Get featured/active content for homepage with caching and optimized queries

@@ -38,5 +38,7 @@ class AppServiceProvider extends ServiceProvider
         \App\Models\Faq::observe($observer);
         \App\Models\Result::observe($observer);
         \App\Models\SocMedPlatform::observe($observer);
+        \App\Models\Promo::observe($observer);
+        \App\Models\Technology::observe($observer);
     }
 }

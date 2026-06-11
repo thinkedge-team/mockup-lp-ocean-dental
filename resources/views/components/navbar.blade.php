@@ -29,6 +29,9 @@
                     <a href="{{ route('home') }}#doctors" class="nav-link">Dokter</a>
                 </li>
                 <li>
+                    <a href="https://oceandental.online/" class="nav-link">Artikel</a>
+                </li>
+                <li>
                     <a href="{{ route('home') }}#branches" class="nav-link">Cabang</a>
                 </li>
                 <li>

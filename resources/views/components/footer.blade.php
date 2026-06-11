@@ -51,6 +51,7 @@
                     <li><a href="{{ route('home') }}#branches">Lokasi Cabang</a></li>
                     <li><a href="{{ route('home') }}#testimonials">Testimoni</a></li>
                     <li><a href="{{ route('home') }}#gallery">Galeri</a></li>
+                    <li><a href="https://oceandental.online/">Artikel</a></li>
                     @if(setting('contact_whatsapp'))
                     <li><a href="{{ whatsapp_url() }}">Hubungi Kami</a></li>
                     @endif

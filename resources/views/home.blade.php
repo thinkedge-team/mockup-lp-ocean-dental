@@ -692,12 +692,12 @@
 
         {{-- Section Header --}}
         <div class="section-header" data-aos="fade-up">
-            <span class="section-tag"><i class="fas fa-map-marker-alt"></i> Lokasi Cabang</span>
+            <span class="section-tag"><i class="fas fa-map-marker-alt"></i> {{ setting('branches_section_tag', 'Lokasi Cabang') }}</span>
             <h2 class="section-title">
-                Temukan <span class="gradient-text-dark">Ocean Dental</span> Terdekat
+                {{ setting('branches_section_title', 'Temukan') }} <span class="gradient-text-dark">{{ setting('branches_section_title_highlight', 'Ocean Dental') }}</span> {{ setting('branches_section_title_suffix', 'Terdekat') }}
             </h2>
             <p class="section-description">
-                29 cabang tersebar di Jakarta & Bekasi, selalu dekat dengan Anda
+                {{ setting('branches_section_description', '29 cabang tersebar di Jakarta & Bekasi, selalu dekat dengan Anda') }}
             </p>
         </div>
 

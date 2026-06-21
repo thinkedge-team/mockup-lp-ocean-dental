@@ -105,6 +105,13 @@ class SettingSeeder extends Seeder
             ['key' => 'technology_section_title', 'value' => 'Didukung', 'type' => 'text', 'group' => 'technology'],
             ['key' => 'technology_section_title_highlight', 'value' => 'Teknologi Terkini', 'type' => 'text', 'group' => 'technology'],
             ['key' => 'technology_section_description', 'value' => 'Kami berinvestasi pada peralatan medis terdepan untuk memastikan perawatan yang presisi, nyaman, dan hasil optimal bagi setiap pasien', 'type' => 'textarea', 'group' => 'technology'],
+
+            // Branches Section
+            ['key' => 'branches_section_tag', 'value' => 'Lokasi Cabang', 'type' => 'text', 'group' => 'branches'],
+            ['key' => 'branches_section_title', 'value' => 'Temukan', 'type' => 'text', 'group' => 'branches'],
+            ['key' => 'branches_section_title_highlight', 'value' => 'Ocean Dental', 'type' => 'text', 'group' => 'branches'],
+            ['key' => 'branches_section_title_suffix', 'value' => 'Terdekat', 'type' => 'text', 'group' => 'branches'],
+            ['key' => 'branches_section_description', 'value' => '29 cabang tersebar di Jakarta & Bekasi, selalu dekat dengan Anda', 'type' => 'textarea', 'group' => 'branches'],
         ];
 
         foreach ($settings as $setting) {

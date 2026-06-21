@@ -44,6 +44,7 @@ class SettingResource extends Resource
                                 'social' => 'Social Media',
                                 'seo' => 'SEO',
                                 'technology' => 'Technology Section',
+                                'branches' => 'Branches Section',
                             ])
                             ->disabled(),
 
@@ -138,7 +139,7 @@ class SettingResource extends Resource
                         'success' => 'hero',
                         'warning' => 'about',
                         'danger' => 'stats',
-                        'info' => ['contact', 'social', 'seo'],
+                        'info' => ['contact', 'social', 'seo', 'technology', 'branches'],
                     ])
                     ->sortable(),
 
@@ -159,6 +160,7 @@ class SettingResource extends Resource
                         'social' => 'Social Media',
                         'seo' => 'SEO',
                         'technology' => 'Technology Section',
+                        'branches' => 'Branches Section',
                     ])
                     ->multiple(),
 
